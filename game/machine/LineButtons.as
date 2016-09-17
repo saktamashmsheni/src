@@ -1,0 +1,164 @@
+package game.machine {
+	import com.utils.StaticGUI;
+	import feathers.controls.ButtonState;
+	import feathers.controls.Radio;
+	import feathers.core.ToggleGroup;
+	import feathers.skins.ImageSkin;
+	import game.footer.FooterHolder;
+	import starling.core.Starling;
+	import starling.display.Image;
+	import starling.display.MovieClip;
+	import starling.display.Sprite;
+	import starling.events.Event;
+	import starling.text.TextField;
+	import starling.textures.TextureAtlas;
+	
+	/**
+	 * ...
+	 * @author ...
+	 */
+	public class LineButtons extends Sprite {
+		
+		private var $atlas:TextureAtlas;
+		private var $lineNumsVect:Vector.<LineNums>;
+		private var $groupl:ToggleGroup;
+		private var $groupr:ToggleGroup;
+		
+		public function LineButtons() {
+			this.addEventListener(Event.ADDED_TO_STAGE, added);
+		}
+		
+		private function added(e:Event):void {
+			removeEventListener(Event.ADDED_TO_STAGE, added);
+			initButtons();
+		}
+		
+		private function initButtons():void {
+			var img:Image;
+			var imgSp:Sprite;
+			var tt:TextField;
+			
+			var yCount:int = 0;
+			var xCount:int = 0;
+			
+			$atlas = Assets.getAtlas("lines", "linesXml");
+			$lineNumsVect = new Vector.<LineNums>;
+			
+			$groupl = new ToggleGroup();
+			$groupr = new ToggleGroup();
+			
+			var $skin:ImageSkin;
+			var $radio:Radio;
+			var $textArr:Vector.<String> = new Vector.<String>();
+			$textArr.push('1');
+			$textArr.push('5');
+			$textArr.push('10');
+			$textArr.push('20');
+			$textArr.push('10');
+			
+			GameSettings.LINES_FIXED = true;
+			
+			for (var $i:uint; $i < 5; $i++ ){
+				
+				$skin = new ImageSkin($atlas.getTexture('line_number_'+$textArr[$i]+'_off.png'));
+				$skin.setTextureForState(ButtonState.UP_AND_SELECTED, $atlas.getTexture('line_number_'+$textArr[$i]+'_on.png'));
+				$skin.setTextureForState(ButtonState.HOVER_AND_SELECTED, $atlas.getTexture('line_number_'+$textArr[$i]+'_on.png'));
+				$skin.setTextureForState(ButtonState.DOWN_AND_SELECTED, $atlas.getTexture('line_number_'+$textArr[$i]+'_on.png'));
+				
+				$radio = new LineNums($textArr[$i]);
+				$radio.name = 'radio_' + $i + '_l';
+				$radio.y = $i *-82;
+				$radio.toggleGroup = $groupl;
+				//$radio.defaultSkin = $skin;
+				$radio.useHandCursor = true;
+				this.addChild($radio);
+				$radio.validate();
+				$lineNumsVect.push($radio);
+				
+				$skin = new ImageSkin($atlas.getTexture('line_number_'+$textArr[$i]+'_off.png'));
+				$skin.setTextureForState(ButtonState.UP_AND_SELECTED, $atlas.getTexture('line_number_'+$textArr[$i]+'_on.png'));
+				$skin.setTextureForState(ButtonState.HOVER_AND_SELECTED, $atlas.getTexture('line_number_'+$textArr[$i]+'_on.png'));
+				$skin.setTextureForState(ButtonState.DOWN_AND_SELECTED, $atlas.getTexture('line_number_'+$textArr[$i]+'_on.png'));
+				
+				$radio = new LineNums($textArr[$i]);
+				$radio.name = 'radio_' + $i + '_r';
+				$radio.x = 812;
+				$radio.y = $i *-82;
+				$radio.useHandCursor = true;
+				$radio.toggleGroup = $groupr;
+				//$radio.defaultSkin = $skin;
+				
+				this.addChild($radio);
+				$radio.validate();
+				
+			}
+			
+			$groupl.addEventListener(Event.CHANGE, groupChangeHandler);
+			$groupr.addEventListener(Event.CHANGE, groupChangeHandler);
+			
+			/*for (var i:int = 0; i < Root.totalLines; i++) {
+				imgSp = new Sprite();
+				
+				img = new Image(Assets.getAtlas("lineButsBgs", "lineButsBgsXml").getTexture("lineButsBgs" + StaticGUI.intWithZeros(numAr[i] - 1, 4)));
+				imgSp.addChild(img);
+				addChild(imgSp);
+				tt = new TextField(40, 30, String(numAr[i]), Assets.getFont("IRON").name, 25, 0xFFFFFF, true);
+				tt.y = 0;
+				imgSp.addChild(tt);
+				imgSp.name = "b" + String(numAr[i]);
+				Tracer._log(imgSp.name)
+				tt.alignPivot(HAlign.CENTER, VAlign.CENTER);
+				img.alignPivot(HAlign.CENTER, VAlign.CENTER);
+				imgSp.alignPivot(HAlign.CENTER, VAlign.CENTER);
+				
+				imgSp.y = yCount * (imgSp.height);
+				yCount++;
+				if (xCount == 1)
+					imgSp.x = 679;
+				
+				if (yCount == 10) {
+					yCount = 0;
+					xCount = 1;
+				}
+				
+				img.dispose();
+			}*/
+			
+			img = null;
+			imgSp = null;
+			tt = null;
+			
+			
+			if (GameSettings.LINES_FIXED){
+				this.touchable = false;
+				_selectLine($textArr.length-1);
+			}
+		}
+		
+		public function _isEnabled(boo:Boolean = true):void{
+			this.touchable = boo;
+		}
+		
+		public function _selectLine(line:int = 0):void{
+			Radio($lineNumsVect[line]).isSelected  = true;
+		}
+		
+		private function group_R_ChangeHandler(e:Event):void {
+			var $group:ToggleGroup = ToggleGroup( e.currentTarget );
+			//FooterHolder.cont._lineStepper._stepperValue = $group.selectedIndex;
+			
+			/*var $group:ToggleGroup = ToggleGroup( e.currentTarget );
+			var $radio:Radio = Radio(this.getChildByName('radio_' + $group.selectedIndex +'_l'));
+			$radio.isSelected = true;*/
+		}
+		
+		private function groupChangeHandler(e:Event):void {
+			var $group:ToggleGroup = ToggleGroup( e.currentTarget );
+			var $radio:Radio = Radio(this.getChildByName('radio_' + $group.selectedIndex +'_r'));
+			$radio.isSelected = true;
+			
+			$radio = Radio(this.getChildByName('radio_' + $group.selectedIndex +'_l'));
+			$radio.isSelected = true;
+		}
+	}
+}
