@@ -343,7 +343,6 @@ package {
 				assLoadMan.unLoadAllLoaders();
 				return;
 			}
-			trace('init To GitHUB')
 			myStarling = new Starling(Main, stage);
 			//Starling.handleLostContext = true;  //shapebs ro vkargavdi
 			myStarling.antiAliasing = 1;
