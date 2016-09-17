@@ -54,39 +54,39 @@ package {
 		//----fonts
 		//avit next bold
 		//avir next bold
-		public static var avirBlackBitmap_bitmapFont:Class;
-		public static var avirBlackBitmap_bitmapFontXml:Class;
+		//public static var avirBlackBitmap_bitmapFont:Class;
+		//public static var avirBlackBitmap_bitmapFontXml:Class;
 		
 		//perpetua
-		public static var PerpetuaFont:Class;
-		public static var PerpetuaFontXml:Class;
+		//public static var PerpetuaFont:Class;
+		//public static var PerpetuaFontXml:Class;
 		//perpetua Bold
 		public static var PerpetuaBold:Class;
 		public static var PerpetuaBoldXml:Class;
 		//Playbill
-		public static var Playbill:Class;
-		public static var PlaybillXml:Class;
+		//public static var Playbill:Class;
+		//public static var PlaybillXml:Class;
 		//Playbill
 		public static var bebas:Class;
 		public static var bebasXml:Class;
 		//IRON
-		public static var IRON:Class;
-		public static var IRONXml:Class;
+		//public static var IRON:Class;
+		//public static var IRONXml:Class;
 		//bpg gel
-		public static var BpgGel:Class;
-		public static var BpgGelXml:Class;
+		//public static var BpgGel:Class;
+		//public static var BpgGelXml:Class;
 		//dejavu sans
 		public static var dejavuSans:Class;
 		public static var dejavuSansXml:Class;
 		//nuevaStd
-		public static var nuevaStd:Class;
-		public static var nuevaStdXml:Class;
+		//public static var nuevaStd:Class;
+		//public static var nuevaStdXml:Class;
 		//exrounded
 		public static var exRounded:Class;
 		public static var exRoundedXml:Class;
 		
-		public static var notifiLoseBonusGame:Class;
-		public static var notifiLoseBonusGameXml:Class;
+		//public static var notifiLoseBonusGame:Class;
+		//public static var notifiLoseBonusGameXml:Class;
 		
 		public static var bpgGELDejaVuSerifCaps_bitmapFont:Class;
 		public static var bpgGELDejaVuSerifCaps_bitmapFontXml:Class;
@@ -185,12 +185,12 @@ package {
 		
 		
 		//leaderboard fonts
-		static public var bpg_arial_v1:Class;
-		static public var bpg_arial_v1Xml:Class;
-		static public var myriad_pro_bold_v1:Class;
-		static public var myriad_pro_bold_v1Xml:Class;
-		static public var bpg_arial_caps_12:Class;
-		static public var bpg_arial_caps_12Xml:Class;
+		//static public var bpg_arial_v1:Class;
+		//static public var bpg_arial_v1Xml:Class;
+		//static public var myriad_pro_bold_v1:Class;
+		//static public var myriad_pro_bold_v1Xml:Class;
+		//static public var bpg_arial_caps_12:Class;
+		//static public var bpg_arial_caps_12Xml:Class;
 		static public var bpg_gel_dejavu_serif_22:Class;
 		static public var bpg_gel_dejavu_serif_22Xml:Class;
 		static public var roboto_slab_bold_23:Class;
@@ -223,14 +223,10 @@ package {
 		//machine fonts
 		public static var line_buttons_font:Class;
 		public static var line_buttons_fontXml:Class;
-		
 		public static var line_off_btn_bfont:Class;
 		public static var line_off_btn_bfontXml:Class;
-		
 		public static var line_on_btn_bfont:Class;
 		public static var line_on_btn_bfontXml:Class;
-		
-		
 		
 		//double fonts
 		//double fonts
@@ -239,6 +235,14 @@ package {
 		
 		public static var double_roboto_bold_nums:Class;
 		public static var double_roboto_bold_numsXml:Class;
+		
+		
+		
+		public static var mainSlot:Class;
+		public static var mainSlotXml:Class;
+		
+		
+		
 		
 		
 		

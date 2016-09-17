@@ -41,7 +41,7 @@ package game.machine
 		public var iconsHolder:IconsHolder;
 		public var startSpeed:Number = 30;
 		private var friction:Number = 1;
-		private var testLineMc:*;
+		private var TEST_LINE:*;
 		private var TestLineIconMc:*;
 		private var spinSoundCount:int = 1;
 		private var spinSoundInActionArr:Array = [7,8,7,8,7,6];
@@ -69,10 +69,11 @@ package game.machine
 		private var BlackWhiteFilter:ColorMatrixFilter;
 		private var REEL_X_COUNT:int;
 		private var REEL_Y_COUNT:int;
+		private var staticReels:Array = [];
 		public var canNowStopBol:Boolean = false;
 		public var iconsDictionary:Dictionary;
 		
-		public static var wildIconsAtlas:TextureAtlas;
+		//public static var wildIconsAtlas:TextureAtlas;
 		public static var allIconsAtlas:TextureAtlas;
 		
 		
@@ -80,7 +81,7 @@ package game.machine
 		{
 			this.addEventListener(Event.ADDED_TO_STAGE, addedToStage);
 			
-			wildIconsAtlas = Assets.getAtlas("allWildSheet", "allWildSheetXml");
+			//wildIconsAtlas = Assets.getAtlas("allWildSheet", "allWildSheetXml");
 			allIconsAtlas = Assets.getAtlas("allIconsImg", "allIconsXml");
 			
 		}
@@ -238,11 +239,21 @@ package game.machine
 			curSpeed = startSpeed;
 			
 			i = 1;
+			var count:int = 1;
 			while (i <= REEL_X_COUNT)
 			{
+				if (staticReels.indexOf(i) != -1)
+				{
+					this.iconsHolder["s" + i].isStop = false;
+					this.iconsHolder["s" + i].isStaticReel = true;
+					i = i + 1;
+					continue;
+				}
 				this.iconsHolder["s" + i].isStop = false;
-				TweenLite.delayedCall(0.06 * (i-1) + 0, startEnterScroll, [i]);
+				this.iconsHolder["s" + i].isStaticReel = false;
+				TweenLite.delayedCall(0.06 * (count-1) + 0, startEnterScroll, [i]);
 				i = (i + 1);
+				count = count + 1;
 			}
 		}
 		
@@ -305,7 +316,7 @@ package game.machine
 				curSpeed = maxSpeed;
 			
 			var ssp:IconsHolderLine = event.currentTarget as IconsHolderLine;
-			
+			var TEST_ICON:*;
 			
 			
 			ssp.y = ssp.y + curSpeed;
@@ -339,7 +350,7 @@ package game.machine
 		{
 			if (machineServerSpinStarted == false)
 			{
-				Tracer._log("cant");
+				//Tracer._log("cant");
 				setTimeout(makeFastStop, 20);
 				return;
 			}
@@ -362,7 +373,7 @@ package game.machine
 			{
 				if (canNowStopBol == false)
 				{
-					Tracer._log("cant");
+					//Tracer._log("cant");
 					setTimeout(StopScroll, 100, obj, fastStop);
 					return;
 				}
@@ -397,7 +408,7 @@ package game.machine
 			{
 				for (l = 1; l <= REEL_X_COUNT; l++)
 				{
-					TweenLite.delayedCall(0, removeScrollAndAnimate, [l, obj, fastStop]);
+					TweenLite.delayedCall(0, removeScrollAndAnimate, [l, obj, fastStop, false]);
 				}
 			}
 			
@@ -460,73 +471,80 @@ package game.machine
 		//removeScrollAnimation by lines
 		public function removeScrollAndAnimate(line:int, obj:Object, fastStop:Boolean = false, boostUp:Boolean = false):void
 		{
-			if (this.iconsHolder["s" + line].isStop == true)
+			TEST_LINE = this.iconsHolder["s" + line];
+			
+			if (TEST_LINE.isStop == true)
 				return
 			else
-				this.iconsHolder["s" + line].isStop = true;
+				TEST_LINE.isStop = true;
 			
-			this.iconsHolder["s" + line].removeEventListener(Event.ENTER_FRAME, this.Scroll);
-			//_loc_2 = this.xspin["slot" + _loc_1].split(",");
+			
+			if (TEST_LINE.isStaticReel == true)
+			{
+				for (var i:int = 0; i < REEL_Y_COUNT; i++) 
+				{
+					lastIconsArray.push(TEST_LINE.map["i" + (TEST_LINE.C - i)]);
+				}
+				return;
+				
+			}
+				
+			
+			
+				
+			TEST_LINE.removeEventListener(Event.ENTER_FRAME, this.Scroll);
 			var _loc_2:* = [5, 1, 6, 3, 34, 5, 2, 5, 1, 3, 5, 1, 53];
 			var num:int = 0;
-			//Tracer._log(obj.Reels[0]);
-			
-			this.iconsHolder["s" + line].map["i" + this.iconsHolder["s" + line].C].resetBlur();
+			TEST_LINE.map["i" + TEST_LINE.C].resetBlur();
 			
 			
 			while (num < REEL_Y_COUNT + 1)
 			{
-				testLineMc = this.iconsHolder["s" + line];
-				TestLineIconMc = this.iconsHolder["s" + line].C + 1;
-				testLineMc.C = TestLineIconMc;
-				this.iconsHolder["s" + line].map["i" + this.iconsHolder["s" + line].C] = iconPool.getSprite();
-				this.iconsHolder["s" + line].map["i" + this.iconsHolder["s" + line].C].identifier = String(line) + String(REEL_Y_COUNT - num);
-				this.iconsHolder["s" + line].map["i" + this.iconsHolder["s" + line].C].ID = obj.Reels[line-1][REEL_Y_COUNT - num - 1];
+				TestLineIconMc = TEST_LINE.C + 1;
+				TEST_LINE.C = TestLineIconMc;
+				TEST_LINE.map["i" + TEST_LINE.C] = iconPool.getSprite();
+				TEST_LINE.map["i" + TEST_LINE.C].identifier = String(line) + String(REEL_Y_COUNT - num);
+				TEST_LINE.map["i" + TEST_LINE.C].ID = obj.Reels[line-1][REEL_Y_COUNT - num - 1];
 				
 				/*if (obj.Reels[line-1][REEL_Y_COUNT - num - 1] == this.fistScatterIndex && fastStop == false)
 				{
 					TweenLite.delayedCall(line*0.045, Root.soundManager.schedule, ["firstScatter2",0.8]);
-				}
-				else if (obj.Reels[line-1][REEL_Y_COUNT - num - 1] == this.secondScatterIndex && fastStop == false)
-				{
-					TweenLite.delayedCall(line*0.045, Root.soundManager.schedule, ["secondScatter",0.55]);
 				}*/
 				
 				if (num != REEL_Y_COUNT)
 				{
-					this.iconsHolder["s" + line].map["i" + this.iconsHolder["s" + line].C].KJ = line + "@" + ((REEL_Y_COUNT-1)-num);
-					this.iconsHolder["s" + line].map["i" + this.iconsHolder["s" + line].C].positionInReel = ((REEL_Y_COUNT-1)-num);
-					this.iconsHolder["s" + line].map["i" + this.iconsHolder["s" + line].C].parentLine = line;
+					TEST_LINE.map["i" + TEST_LINE.C].KJ = line + "@" + ((REEL_Y_COUNT-1)-num);
+					TEST_LINE.map["i" + TEST_LINE.C].positionInReel = ((REEL_Y_COUNT-1)-num);
+					TEST_LINE.map["i" + TEST_LINE.C].parentLine = line;
 					//this.iconsHolder["s" + line].map["i" + this.iconsHolder["s" + line].C].setIcon(5);
-					this.iconsHolder["s" + line].map["i" + this.iconsHolder["s" + line].C].setIcon(obj.Reels[line-1][REEL_Y_COUNT - num - 1]);
-					lastIconsArray.push(this.iconsHolder["s" + line].map["i" + this.iconsHolder["s" + line].C]);
+					TEST_LINE.map["i" + TEST_LINE.C].setIcon(obj.Reels[line-1][REEL_Y_COUNT - num - 1]);
+					lastIconsArray.push(TEST_LINE.map["i" + TEST_LINE.C]);
 				}
 				else
 				{
-					temporaryTopIconsAr.push(this.iconsHolder["s" + line].map["i" + this.iconsHolder["s" + line].C]);
-					this.iconsHolder["s" + line].map["i" + this.iconsHolder["s" + line].C].setIcon(Math.floor(Math.random()*GameSettings.TOTAL_ICONS));
+					temporaryTopIconsAr.push(TEST_LINE.map["i" + TEST_LINE.C]);
+					TEST_LINE.map["i" + TEST_LINE.C].setIcon(Math.floor(Math.random() * GameSettings.TOTAL_ICONS));
 				}
 				
-				this.iconsHolder["s" + line].map["i" + this.iconsHolder["s" + line].C].y = (REEL_Y_COUNT - this.iconsHolder["s" + line].C) * Ydistance;
-				this.iconsHolder["s" + line].addChild(this.iconsHolder["s" + line].map["i" + this.iconsHolder["s" + line].C]);
+				TEST_LINE.map["i" + TEST_LINE.C].y = (REEL_Y_COUNT - TEST_LINE.C) * Ydistance;
+				TEST_LINE.addChild(TEST_LINE.map["i" + TEST_LINE.C]);
 				num = num + 1;
 				
 				
 			}
 			
-			if (this.iconsHolder["s" + line].map["i" + (this.iconsHolder["s" + line].C - REEL_Y_COUNT)] != null)
+			if (TEST_LINE.map["i" + (TEST_LINE.C - REEL_Y_COUNT)] != null)
 			{
-				this.iconsHolder["s" + line].map["i" + (this.iconsHolder["s" + line].C - REEL_Y_COUNT)].resetBlur();
+				TEST_LINE.map["i" + (TEST_LINE.C - REEL_Y_COUNT)].resetBlur();
 			}
 			
 			
 			//TweenMax.to(this.iconsHolder["s" + line], 0.5, {y: (this.iconsHolder["s" + line].C - 3) * Ydistance, ease: Back.easeOut, onComplete:spinComplete, onCompleteParams:[this.iconsHolder["s" + line], line, obj]});
-			
-			Starling.juggler.tween(this.iconsHolder["s" + line], 0.3, {
+			Starling.juggler.tween(TEST_LINE, 0.3, {
 				   transition: Transitions.EASE_OUT_BACK,
-				   y:  (this.iconsHolder["s" + line].C - (REEL_Y_COUNT + 1) ) * Ydistance,
+				   y:  (TEST_LINE.C - (REEL_Y_COUNT + 1) ) * Ydistance,
 				   onComplete:spinComplete,
-				   onCompleteArgs:[this.iconsHolder["s" + line], line, obj]
+				   onCompleteArgs:[TEST_LINE, line, obj]
 				});
 				
 				if (fastStop == false)
@@ -537,8 +555,9 @@ package game.machine
 				{
 					Root.soundManager.schedule('stopLine', 0.1);
 				}
-				
-			this.iconsHolder["s" + line].C = this.iconsHolder["s" + line].C -1;
+					
+				TEST_LINE.C = TEST_LINE.C -1;
+			
 		}
 		
 		
@@ -765,16 +784,19 @@ package game.machine
 		
 		
 		
-		public static function isBonusLikeIcon(ind:int):Boolean
+		public static function isBonusLikeIcon(ind:int, includeWilds:Boolean = false):Boolean
 		{
 			var i:int;
 			var ar:Array;
 			
-			ar = GameSettings.WILDS_AR
-			for (i = 0; i < ar.length; i++) 
+			if (includeWilds)
 			{
-				if (ar[i][0] == ind) return true;
-				
+				ar = GameSettings.WILDS_AR
+				for (i = 0; i < ar.length; i++) 
+				{
+					if (ar[i][0] == ind) return true;
+					
+				}
 			}
 			
 			ar = GameSettings.SCATTERS_AR
@@ -806,6 +828,46 @@ package game.machine
 			return false;
 		}
 		
+		public static function wildSpecification(id:int):int
+		{
+			var wildAr:Array = GameSettings.WILDS_AR;
+			
+			for (var i:int = 0; i < wildAr.length; i++) 
+			{
+				if (wildAr[i][0] == id)
+				{
+					return wildAr[i][1];
+				}
+			}
+			
+			return -1;
+		}
+		
+		
+		
+		
+		
+		
+		public function setWildStaticReels(wildsAr:Array):void
+		{
+			for (var i:int = 0; i < wildsAr.length; i++) 
+			{
+				if (staticReels.indexOf(wildsAr[i][0] + 1) == -1)
+				{
+					staticReels.push(wildsAr[i][0] + 1);
+				}
+			}
+		}
+		
+		public function clearStaticReels():void
+		{
+			staticReels = [];
+		}
+		
+		
+		
+		
+		
 		public static function isScatterIcon(ind:int):Boolean
 		{
 			var ar:Array;
@@ -828,6 +890,44 @@ package game.machine
 				if (ar[i][0] == ind) return true;
 			}
 			return false;
+		}
+		
+		
+		
+		
+		
+		public function modifyWildIcons(wildsAr:Array):void 
+		{
+			var ic:Icon;
+			
+			var newWildInd:int = getModifierWil();
+			if (newWildInd == -1)
+			{
+				return;
+			}
+			for (var i:int = 0; i < wildsAr.length; i++) 
+			{
+				ic = getIconByKJ(wildsAr[i][0] + 1, wildsAr[i][1]);
+				if (isWildIcon(ic.ID) == false)
+				{
+					ic.setIcon(newWildInd);
+				}
+			}
+		}
+		
+		
+		private function getModifierWil():int 
+		{
+			var arr:Array = GameSettings.WILDS_AR;
+			for (var i:int = 0; i < arr.length; i++) 
+			{
+				if (arr[i][1] > 0)
+				{
+					return arr[i][0];
+				}
+			}
+			
+			return -1;
 		}
 		
 		

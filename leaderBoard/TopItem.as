@@ -59,7 +59,7 @@ package leaderBoard
 			img_line.y = 58;
 			img_line = null;
 			
-			position_txt = StaticGUI._creatBitmapFontTextRenderer(this, "#" + String(position), 6, 0, 100, 30, Assets.getFont("roboto_slab_bold_top").name, TextFormatAlign.LEFT, false, -4, -1, 0x71ff1b);
+			position_txt = StaticGUI._creatBitmapFontTextRenderer(this, "#" + String(position), 6, 0, 100, 30, Assets.getFont("roboto_slab_bold_top").name, TextFormatAlign.LEFT, false, -4, -1, 0, 0x71ff1b);
 			if (userName.length > 10)
 			{
 				userName = userName.substr(0, 9);
@@ -67,11 +67,11 @@ package leaderBoard
 			}
 			username_txt = StaticGUI._creatBitmapFontTextRenderer(this, userName.toUpperCase(), 33, position_txt.y-1, 100, 30, Assets.getFont("roboto_slab_bold_top").name, TextFormatAlign.LEFT, false, -4);
 			
-			score_txt = StaticGUI._creatBitmapFontTextRenderer(this, GameSettings.GAME_XML.leaderBoard.qula + ":", 6, position_txt.y + 25, 100, 30, Assets.getFont("bpg_gel_dejavu_serif_white").name, TextFormatAlign.LEFT, false, -3, 12, 0xffaf00);
+			score_txt = StaticGUI._creatBitmapFontTextRenderer(this, GameSettings.GAME_XML.leaderBoard.qula + ":", 6, position_txt.y + 25, 100, 30, Assets.getFont("bpg_gel_dejavu_serif_white").name, TextFormatAlign.LEFT, false, -3, 12, 0, 0xffaf00);
 			scoreVal_txt = StaticGUI._creatBitmapFontTextRenderer(this, points.toString(), 0, position_txt.y + 23, 130, 30, Assets.getFont("roboto_slab_bold_prizes").name, TextFormatAlign.RIGHT, false, -3);
 			
-			prize_txt = StaticGUI._creatBitmapFontTextRenderer(this, GameSettings.GAME_XML.leaderBoard.prizi + ":", 6, position_txt.y + 40, 100, 30, Assets.getFont("bpg_gel_dejavu_serif_white").name, TextFormatAlign.LEFT, false, -3, 12, 0xffaf00);
-			prizeVal_txt = StaticGUI._creatBitmapFontTextRenderer(this, String((prizeAmount/100).toFixed(2)) + "e", 0, position_txt.y + 38, 130, 30, Assets.getFont("roboto_slab_bold_prizes").name, TextFormatAlign.RIGHT, false, -3, -1, 0x71ff1b);
+			prize_txt = StaticGUI._creatBitmapFontTextRenderer(this, GameSettings.GAME_XML.leaderBoard.prizi + ":", 6, position_txt.y + 40, 100, 30, Assets.getFont("bpg_gel_dejavu_serif_white").name, TextFormatAlign.LEFT, false, -3, 12, 0, 0xffaf00);
+			prizeVal_txt = StaticGUI._creatBitmapFontTextRenderer(this, String((prizeAmount/100).toFixed(2)) + "e", 0, position_txt.y + 38, 130, 30, Assets.getFont("roboto_slab_bold_prizes").name, TextFormatAlign.RIGHT, false, -3, -1, 0, 0x71ff1b);
 			
 			
 		}

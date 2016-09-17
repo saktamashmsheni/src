@@ -167,21 +167,21 @@ package {
 				$o = e.params.content.applicationDomain;
 				Assets.allIconsImg = $o.getDefinition("IconsLib_allIconsImg") as Class;
 				Assets.allIconsXml = $o.getDefinition("IconsLib_allIconsXml") as Class;
-				Assets.allWildSheet = $o.getDefinition("IconsLib_allWildSheet") as Class;
-				Assets.allWildSheetXml = $o.getDefinition("IconsLib_allWildSheetXml") as Class;
+				//Assets.allWildSheet = $o.getDefinition("IconsLib_allWildSheet") as Class;
+				//Assets.allWildSheetXml = $o.getDefinition("IconsLib_allWildSheetXml") as Class;
 				Assets.iconsAnimationImg = $o.getDefinition("IconsLib_iconsAnimationImg") as Class;
 				Assets.iconsAnimationXml = $o.getDefinition("IconsLib_iconsAnimationXml") as Class;
 				
-				Assets.icon9Img = $o.getDefinition("IconsLib_icon9Img") as Class;
-				Assets.icon9Xml = $o.getDefinition("IconsLib_icon9Xml") as Class;
+				//Assets.icon9Img = $o.getDefinition("IconsLib_icon9Img") as Class;
+				//Assets.icon9Xml = $o.getDefinition("IconsLib_icon9Xml") as Class;
 				
 			} else if (e.params.valTxt == "Fonts Library") {
 				$o = e.params.content.applicationDomain
 				
 				//Assets.PerpetuaFont = $o.getDefinition("FontsLib_PerpetuaFont") as Class;
 				//Assets.PerpetuaFontXml = $o.getDefinition("FontsLib_PerpetuaFontXml") as Class;
-				//Assets.PerpetuaBold = $o.getDefinition("FontsLib_PerpetuaBold") as Class;
-				//Assets.PerpetuaBoldXml = $o.getDefinition("FontsLib_PerpetuaBoldXml") as Class;
+				Assets.PerpetuaBold = $o.getDefinition("FontsLib_PerpetuaBold") as Class;
+				Assets.PerpetuaBoldXml = $o.getDefinition("FontsLib_PerpetuaBoldXml") as Class;
 				//Assets.Playbill = $o.getDefinition("FontsLib_Playbill") as Class;
 				//Assets.PlaybillXml = $o.getDefinition("FontsLib_PlaybillXml") as Class;
 				Assets.bebas = $o.getDefinition("FontsLib_bebas") as Class;
@@ -194,15 +194,15 @@ package {
 				//Assets.dejavuSansXml = $o.getDefinition("FontsLib_dejavuSansXml") as Class;
 				//Assets.nuevaStd = $o.getDefinition("FontsLib_nuevaStd") as Class;
 				//Assets.nuevaStdXml = $o.getDefinition("FontsLib_nuevaStdXml") as Class;
-				//Assets.exRounded = $o.getDefinition("FontsLib_exRounded") as Class;
-				//Assets.exRoundedXml = $o.getDefinition("FontsLib_exRoundedXml") as Class;
+				Assets.exRounded = $o.getDefinition("FontsLib_exRounded") as Class;
+				Assets.exRoundedXml = $o.getDefinition("FontsLib_exRoundedXml") as Class;
 				//Assets.notifiLoseBonusGame = $o.getDefinition("FontsLib_notifiLoseBonusGame") as Class;
 				//Assets.notifiLoseBonusGameXml = $o.getDefinition("FontsLib_notifiLoseBonusGameXml") as Class;
 				
 				Assets.bpgGELDejaVuSerifCaps_bitmapFont = $o.getDefinition("FontsLib_bpgGELDejaVuSerifCaps_bitmapFont") as Class;
 				Assets.bpgGELDejaVuSerifCaps_bitmapFontXml = $o.getDefinition("FontsLib_bpgGELDejaVuSerifCaps_bitmapFontXml") as Class;
-				Assets.avirBlackBitmap_bitmapFont = $o.getDefinition("FontsLib_avirBlackBitmap_bitmapFont") as Class;
-				Assets.avirBlackBitmap_bitmapFontXml = $o.getDefinition("FontsLib_avirBlackBitmap_bitmapFontXml") as Class;
+				//Assets.avirBlackBitmap_bitmapFont = $o.getDefinition("FontsLib_avirBlackBitmap_bitmapFont") as Class;
+				//Assets.avirBlackBitmap_bitmapFontXml = $o.getDefinition("FontsLib_avirBlackBitmap_bitmapFontXml") as Class;
 				
 				//Font.registerFont($o.getDefinition("FontsLib__robotoBlack"));
 				//Font.registerFont($o.getDefinition("FontsLib__bpgGELDejaVuSerifCaps"));
@@ -216,15 +216,16 @@ package {
 				Font.registerFont($o.getDefinition("FontsLib__BebasNeue"));
 				
 				
-				//leaderboardFonts
-				Assets.bpg_arial_v1 = $o.getDefinition("FontsLib_bpg_arial_v1") as Class;
-				Assets.bpg_arial_v1Xml = $o.getDefinition("FontsLib_bpg_arial_v1_Xml") as Class;
+				//-------------------leaderboardFonts
 				
-				Assets.myriad_pro_bold_v1 = $o.getDefinition("FontsLib_myriad_pro_bold_v1") as Class;
-				Assets.myriad_pro_bold_v1Xml = $o.getDefinition("FontsLib_myriad_pro_bold_v1Xml") as Class;
+				//Assets.bpg_arial_v1 = $o.getDefinition("FontsLib_bpg_arial_v1") as Class;
+				//Assets.bpg_arial_v1Xml = $o.getDefinition("FontsLib_bpg_arial_v1_Xml") as Class;
 				
-				Assets.bpg_arial_caps_12 = $o.getDefinition("FontsLib_bpg_arial_caps_12") as Class;
-				Assets.bpg_arial_caps_12Xml = $o.getDefinition("FontsLib_bpg_arial_caps_12Xml") as Class;
+				//Assets.myriad_pro_bold_v1 = $o.getDefinition("FontsLib_myriad_pro_bold_v1") as Class;
+				//Assets.myriad_pro_bold_v1Xml = $o.getDefinition("FontsLib_myriad_pro_bold_v1Xml") as Class;
+				
+				//Assets.bpg_arial_caps_12 = $o.getDefinition("FontsLib_bpg_arial_caps_12") as Class;
+				//Assets.bpg_arial_caps_12Xml = $o.getDefinition("FontsLib_bpg_arial_caps_12Xml") as Class;
 				
 				Assets.bpg_gel_dejavu_serif_22 = $o.getDefinition("FontsLib_bpg_gel_dejavu_serif_22") as Class;
 				Assets.bpg_gel_dejavu_serif_22Xml = $o.getDefinition("FontsLib_bpg_gel_dejavu_serif_22Xml") as Class;
@@ -254,6 +255,8 @@ package {
 				Assets.bpg_gel_dejavu_serif_22_yellowXml = $o.getDefinition("FontsLib_bpg_gel_dejavu_serif_22_yellowXml") as Class;
 				
 				
+				
+				
 				//footer fonts
 				Assets.SPIN_FONT = $o.getDefinition("FontsLib_SPIN_FONT") as Class;
 				Assets.SPIN_FONTXml = $o.getDefinition("FontsLib_SPIN_FONTXml") as Class;
@@ -267,14 +270,11 @@ package {
 				//machine fonts
 				Assets.line_buttons_font = $o.getDefinition("FontsLib_line_buttons_font") as Class;
 				Assets.line_buttons_fontXml = $o.getDefinition("FontsLib_line_buttons_fontXml") as Class;
-				
 				Assets.line_off_btn_bfont = $o.getDefinition("FontsLib_line_off_btn_bfont") as Class;
 				Assets.line_off_btn_bfontXml = $o.getDefinition("FontsLib_line_off_btn_bfontXml") as Class;
 				
 				Assets.line_on_btn_bfont = $o.getDefinition("FontsLib_line_on_btn_bfont") as Class;
 				Assets.line_on_btn_bfontXml = $o.getDefinition("FontsLib_line_on_btn_bfontXml") as Class;
-				
-				
 				
 				//double fonts
 				Assets.double_roboto_bold = $o.getDefinition("FontsLib_double_roboto_bold") as Class;
@@ -348,7 +348,7 @@ package {
 			//Starling.handleLostContext = true;  //shapebs ro vkargavdi
 			myStarling.antiAliasing = 1;
 			myStarling.start();
-			myStarling.skipUnchangedFrames = false;
+			myStarling.skipUnchangedFrames = true;
 			myStarling.showStats = Root.TESTING;
 			//Tracer._log(getQualifiedClassName(Assets.allIconsXml),'get name')
 			//var ClassReference:Class = getDefinitionByName('Assets.ItemsLib_allIconsXml') as Class;

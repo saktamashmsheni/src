@@ -68,7 +68,6 @@ package game.footer {
 		
 		
 		private const BALANCE_TEXT:String = 'BALANCE: ';
-		//private const TOTALBET_TEXT:String = '<font color="#ffffff">TOTAL BET: </font>';
 		private const TOTALBET_TEXT:String = '';
 		private const WIN_TEXT:String = 'WIN: ';
 		private var changeLariBtn:MyButton;
@@ -627,10 +626,12 @@ package game.footer {
 				//Tracer._log(" winAmount/totalBetAmount/5 + 0.3 : " + (winAmount / totalBetAmount / 5 + 0.3));
 				TweenMax.to(this, winAmount / totalBetAmount / 5 / GameSettings.CREDIT_VAL + 0.3, {_start: _win, onUpdate: updateBalanceAnimUpdate, ease: Circ.easeOut, onComplete: changeScoreTypes});
 			}
+			
 		}
 		
 		private function updateBalanceAnimUpdate():void {
 			balanceTXT.text = InLari == false ? BALANCE_TEXT + String(int(_start / GameSettings.CREDIT_VAL)) : BALANCE_TEXT + String((_start / 100).toFixed(2)) + " §";
+			setRequiresRedraw();
 		}
 		
 		public function updateWin(num:Number, freeSpinState:Boolean = false):void {
@@ -675,6 +676,7 @@ package game.footer {
 		
 		private function resetWinAnimUpdate():void {
 			winTXT.text = InLari == false ? WIN_TEXT+String(int(_startWin / GameSettings.CREDIT_VAL)) : WIN_TEXT+String((_startWin / 100).toFixed(2))
+			setRequiresRedraw();
 		}
 		
 		//on lines click

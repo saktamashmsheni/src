@@ -119,7 +119,7 @@ package game.doubleGame {
 			
 			
 			
-			start_txt = StaticGUI._creatBitmapFontTextRenderer(this, "0", -175, -115, 500, 40, Assets.getFont("double_roboto_bold_nums").name, TextFormatAlign.CENTER, false, -10,-1,0x78d341);
+			start_txt = StaticGUI._creatBitmapFontTextRenderer(this, "0", -175, -115, 500, 40, Assets.getFont("double_roboto_bold_nums").name, TextFormatAlign.CENTER, false, -10,-1, 0, 0x78d341);
 			start_txt.pivotX = int(start_txt.width / 2);
 			
 			
@@ -137,7 +137,7 @@ package game.doubleGame {
 			toWinDoubledTXT.pivotX = int(toWinDoubledTXT.width / 2);
 			
 			
-			nextWinDouble_txt = StaticGUI._creatBitmapFontTextRenderer(this, "0", 222, 100, 500, 40, Assets.getFont("double_roboto_bold_nums").name, TextFormatAlign.CENTER, false, -10,-1, 0xd30808);
+			nextWinDouble_txt = StaticGUI._creatBitmapFontTextRenderer(this, "0", 222, 100, 500, 40, Assets.getFont("double_roboto_bold_nums").name, TextFormatAlign.CENTER, false, -10,-1, 0, 0xd30808);
 			nextWinDouble_txt.pivotX = int(nextWinDouble_txt.width / 2);
 			
 			var $btnPropObj:Object = new Object;

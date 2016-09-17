@@ -311,12 +311,12 @@ package game
 						pagesCont.addChild(numsTxt);
 					}
 					
-					wildIcon = new Image(Machine.wildIconsAtlas.getTexture("w" + String(StaticGUI.intWithZeros(Root.ALL_WILD_INDEX, 3)) + ".png"));
+					/*wildIcon = new Image(Machine.wildIconsAtlas.getTexture("w" + String(StaticGUI.intWithZeros(Root.ALL_WILD_INDEX, 3)) + ".png"));
 					pagesCont.addChild(wildIcon);
 					StaticGUI.setAlignPivot(wildIcon);
 					wildIcon.scaleX = wildIcon.scaleY = 0.88;
 					wildIcon.x = - 61;
-					wildIcon.y = - 129;
+					wildIcon.y = - 129;*/
 					
 				}
 				else if (num == 2)

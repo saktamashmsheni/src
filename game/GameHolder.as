@@ -85,8 +85,9 @@ package game
 		public var histArray:Array = [];
 		
 		//static private const GAME_OFFSET_X:Number = 80;
-		static private const GAME_OFFSET_X:Number = 0;
 		private var wildSelector:WildSelector;
+		static private const GAME_OFFSET_X:Number = 0;
+		public static var WILD_FREE_SPIN:Boolean;
 		public var leaderboardInfo_mc:LeaderboardInfo;
 		public var scatterWinMc:ScatterWinWindow;
 		public var LEADER_BOARD_OBJECT:Object;
@@ -128,14 +129,17 @@ package game
 			fourWayJackpotHolder.y = -238;
 			addChild(fourWayJackpotHolder);
 			
-			
+			lineButsHolder = new LineButtons();
+			lineButsHolder.x = -428;
+			lineButsHolder.y = 120;
+			addChild(lineButsHolder);
 			
 			linesHolder = new Lines();
 			linesHolder.x = -369;
 			linesHolder.y = -157;
 			//linesHolder.scaleX = 1.03;
 			//linesHolder.scaleY = 0.94;
-			addChild(linesHolder);
+			
 			
 			headerHolder = new HeaderHolder();
 			headerHolder.y = -300;
@@ -147,7 +151,12 @@ package game
 			addChild(footerHolder);
 			footerHolder.addEventListener(GameEvents.SPIN_STARTED, spinStarted);
 			
+			
+			addChild(linesHolder);
 			linesHolder.addLineBtns(lineButsHolder);
+			
+			
+			
 			
 			for (i = 0; i < this.numChildren; i++)
 			{
@@ -160,12 +169,7 @@ package game
 			leaderBoardHolder.y = -300;
 			addChild(leaderBoardHolder);
 			
-			lineButsHolder = new LineButtons();
-			lineButsHolder.x = -428;
-			lineButsHolder.y = 120;
-			addChild(lineButsHolder);
-		
-			   //TweenLite.delayedCall(1, showFreeSpinStatus, ["blalballba"]);
+		    //TweenLite.delayedCall(1, showFreeSpinStatus, ["blalballba"]);
 		}
 		
 		
@@ -180,18 +184,52 @@ package game
 			machineHolder.initMachine();
 			linesHolder.initLines();
 			linesHolder.shown = false;
-			
+			lineButsHolder.initButtons();
 		}
 		
 		private function whenSpinComplete(e:GameEvents):void
 		{
 			
 			var sObj:Object = e.params.socketObject;
+			var wildSpecNum:int = -1;
 			
 			this.footerHolder.sendSpinSecureCount = 0;
 			//free spins
 			if (sObj.FreeSpins > 0)
 			{
+				
+				///wild
+				if (sObj.WildReels.length > 0)
+				{
+					//machineHolder.modifyWildIcons(sObj.WildReels)
+					
+					var q:int = 0;
+					while (wildSpecNum == -1)
+					{
+						wildSpecNum = Machine.wildSpecification(machineHolder.getIconByKJ(sObj.WildReels[q][0] + 1, sObj.WildReels[q][1]).ID);
+						q++;
+					}
+					
+				}
+				
+				if (wildSpecNum == 4)
+				{
+					//footerHolder.touchable = false;
+					//gameState = AUTOPLAY_STATE
+					//footerHolder.autoSpinAmount += sObj.WildReels.length / 3;
+					//this.footerHolder.updateWin(sObj.TotalWin, true);
+					
+					machineHolder.setWildStaticReels(sObj.WildReels);
+					WILD_FREE_SPIN = true;
+				}
+				else
+				{
+					WILD_FREE_SPIN = false;
+				}
+				
+				
+				
+				
 				if (freeSpinsState != true)
 				{
 					freeSpinsState = true;
@@ -205,7 +243,12 @@ package game
 				{
 					GameHolder.gameState = GameHolder.DOUBLE_STATE;
 				}
-				showFreeSpinStatus("თქცენ მოიპოვეთ " + sObj.FreeSpins + " FREE SPIN", true, 0, GameHolder.gameState);
+				
+				if (WILD_FREE_SPIN == false)
+				{
+					showFreeSpinStatus("თქცენ მოიპოვეთ " + sObj.FreeSpins + " FREE SPIN", true, 0, GameHolder.gameState);
+				}
+				
 				
 				//this.machineHolder.showScatterBg();
 				
@@ -232,7 +275,17 @@ package game
 				LEADER_BOARD_OBJECT = null;
 			}
 			
+			
+			
+			
+			
+			
+			
 			this.footerHolder.updateWin(sObj.TotalWin, (freeSpinsState && currentFreeSpinNum >= 0));
+			
+			
+			
+			
 			
 			//winner lines
 			this.linesHolder.showWinnerLinesArr(sObj, (gameState == AUTOPLAY_STATE || sObj.Bonus == true) ? false : true);
@@ -244,6 +297,7 @@ package game
 				for (var i:int = 0; i < sObj.ScatterWin.length; i++) 
 				{
 					this.machineHolder.setBonusLikeIconsAnimations(sObj, sObj.ScatterWin[i][1]);
+					this.linesHolder.frameHolder.setBonusLikeIcons(sObj, sObj.ScatterWin[i][1]);
 				}
 			}
 			
@@ -290,6 +344,8 @@ package game
 				endDelay = 8.2;
 			}
 			
+			
+			
 			/*if (sObj.FirstScatterWin > 0 || sObj.SecondScatterWin > 0)
 			   {
 			   endDelay = 3;
@@ -318,6 +374,17 @@ package game
 			   footerHolder.touchable = false;
 			   TweenLite.delayedCall(2, enableTouchOnWildStateEnd);
 			   }*/
+			   
+			   
+			   
+			   if (sObj.WildReels.length > 0)
+				{
+					machineHolder.modifyWildIcons(sObj.WildReels)
+					endDelay += 2;
+				}
+			   
+		   
+			
 			
 			TweenLite.delayedCall(endDelay, checkForEndmsg, [sObj]);
 			
@@ -374,17 +441,32 @@ package game
 			}
 			
 			this.footerHolder.spinEnabled = true;
+			this.footerHolder.touchable = true;
 			if (freeSpinsState && currentFreeSpinNum > 0 && (currentFreeSpinNum) != freeSpinsAmount)
 			{
 				footerHolder.autoSpinAmount = 999;
 				gameState = AUTOPLAY_STATE
 			}
+			
+			
 			//Tracer._log("################### " + freeSpinsState);
 			//Tracer._log("################### " + currentFreeSpinNum);
 			//Tracer._log("################### " + freeSpinsAmount);
+			
+			
 			if (gameState == AUTOPLAY_STATE)
 			{
 				TweenLite.delayedCall(obj.WinnerLines.length > 0 ? 1 : 0.4, this.footerHolder.autoSpinFunction);
+			}
+			
+			
+			if (WILD_FREE_SPIN == true && (currentFreeSpinNum) != freeSpinsAmount && gameState != AUTOPLAY_STATE)
+			{
+				//TweenLite.delayedCall(2, freeSpinsStartFunc, [null]);
+				
+				GameHolder.gameState = GameHolder.NORMAL_STATE;
+				footerHolder.updateState(GameHolder.gameState);
+				footerHolder.onSpinClick();
 			}
 		}
 		
@@ -441,6 +523,7 @@ package game
 		{
 			currentFreeSpinNum = 0;
 			freeSpinsState = false;
+			WILD_FREE_SPIN = false;
 			freeSpinsAmount = 0;
 			
 			if (footerHolder.freeSpinsWinAmount > 0)
@@ -468,16 +551,31 @@ package game
 					footerHolder.winAmount = footerHolder.freeSpinsWinAmount;
 					gameState = DOUBLE_STATE;
 					footerHolder.updateState(gameState);
-					var str:String = FooterHolder.InLari == false ? obj.Win / GameSettings.CREDIT_VAL + " ქულა" : String((Number(obj.Win) / 100).toFixed(2)) + " GEL";
-					freeSpinStatus = new FreeSpinStatus(this, "თქვენ ამოგეწურათ FREE SPIN. თქვენ მოიგეთ " + str, false, gameState);
-					addChild(freeSpinStatus);
+					if (WILD_FREE_SPIN != true)
+					{
+						var str:String = FooterHolder.InLari == false ? obj.Win / GameSettings.CREDIT_VAL + " ქულა" : String((Number(obj.Win) / 100).toFixed(2)) + " GEL";
+						freeSpinStatus = new FreeSpinStatus(this, "თქვენ ამოგეწურათ FREE SPIN. თქვენ მოიგეთ " + str, false, gameState);
+						addChild(freeSpinStatus);
+					}
 				}
 				else
 				{
 					gameState = NORMAL_STATE;
 					footerHolder.updateState(gameState);
-					freeSpinStatus = new FreeSpinStatus(this, "თქვენ ამოგეწურათ FREE SPIN", false, gameState);
-					addChild(freeSpinStatus);
+					if (WILD_FREE_SPIN != true)
+					{
+						freeSpinStatus = new FreeSpinStatus(this, "თქვენ ამოგეწურათ FREE SPIN", false, gameState);
+						addChild(freeSpinStatus);
+					}
+					
+				}
+				
+				
+				///////////////////////
+				if (WILD_FREE_SPIN == true)
+				{
+					freeSpinsEndFunc(null);
+					machineHolder.clearStaticReels();
 				}
 				
 					//this.machineHolder.hideScatterBg();
@@ -490,6 +588,7 @@ package game
 			if (freeSpinsState == true)
 			{
 				freeSpinsState = false;
+				WILD_FREE_SPIN = false;
 			}
 			
 			// delay of delFuncFromDoubleAllWin method must be less then delFuncFromDoubleEnd delay
@@ -560,8 +659,12 @@ package game
 			{
 				TweenLite.delayedCall(0.6, endDelayFunc, [obj]);
 			}
-			if (gameState == NORMAL_STATE)
+			if (gameState == NORMAL_STATE && !freeSpinsState)
 			{
+				footerHolder.spinEnabled = true;
+			}
+			
+			if (obj.FreeSpinsEnd == true){
 				footerHolder.spinEnabled = true;
 			}
 		}
@@ -583,6 +686,11 @@ package game
 		public function set freeSpinsState(value:Boolean):void
 		{
 			_freeSpinsState = value;
+			if (WILD_FREE_SPIN == true)
+			{
+				return;
+			}
+			
 			if (value == true)
 			{
 				
@@ -971,8 +1079,8 @@ package game
 		public function reconnectFunc(obj:Object):void
 		{
 			
-			footerHolder.updateBet(Root.betsArray.indexOf(obj.Scatter.Bet));
-			footerHolder.updateLines(obj.Scatter.Lines);
+			footerHolder.updateBet(Root.betsArray.indexOf(obj.HandInfo.Bet));
+			footerHolder.updateLines(obj.HandInfo.Line1);
 			
 			if (obj.Scatter.FreeSpins > 0)
 			{

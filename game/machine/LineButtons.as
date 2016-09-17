@@ -30,10 +30,10 @@ package game.machine {
 		
 		private function added(e:Event):void {
 			removeEventListener(Event.ADDED_TO_STAGE, added);
-			initButtons();
+			//initButtons();
 		}
 		
-		private function initButtons():void {
+		public function initButtons():void {
 			var img:Image;
 			var imgSp:Sprite;
 			var tt:TextField;
@@ -47,23 +47,16 @@ package game.machine {
 			$groupl = new ToggleGroup();
 			$groupr = new ToggleGroup();
 			
-			var $skin:ImageSkin;
 			var $radio:Radio;
 			var $textArr:Vector.<String> = new Vector.<String>();
-			$textArr.push('1');
-			$textArr.push('5');
-			$textArr.push('10');
-			$textArr.push('20');
-			$textArr.push('10');
 			
-			GameSettings.LINES_FIXED = true;
+			for (var i:int = 0; i < GameSettings.LINES_COUNT_CONFIG.length; i++) 
+			{
+				$textArr.push(String(GameSettings.LINES_COUNT_CONFIG[i]));
+			}
 			
 			for (var $i:uint; $i < 5; $i++ ){
 				
-				$skin = new ImageSkin($atlas.getTexture('line_number_'+$textArr[$i]+'_off.png'));
-				$skin.setTextureForState(ButtonState.UP_AND_SELECTED, $atlas.getTexture('line_number_'+$textArr[$i]+'_on.png'));
-				$skin.setTextureForState(ButtonState.HOVER_AND_SELECTED, $atlas.getTexture('line_number_'+$textArr[$i]+'_on.png'));
-				$skin.setTextureForState(ButtonState.DOWN_AND_SELECTED, $atlas.getTexture('line_number_'+$textArr[$i]+'_on.png'));
 				
 				$radio = new LineNums($textArr[$i]);
 				$radio.name = 'radio_' + $i + '_l';
@@ -75,10 +68,6 @@ package game.machine {
 				$radio.validate();
 				$lineNumsVect.push($radio);
 				
-				$skin = new ImageSkin($atlas.getTexture('line_number_'+$textArr[$i]+'_off.png'));
-				$skin.setTextureForState(ButtonState.UP_AND_SELECTED, $atlas.getTexture('line_number_'+$textArr[$i]+'_on.png'));
-				$skin.setTextureForState(ButtonState.HOVER_AND_SELECTED, $atlas.getTexture('line_number_'+$textArr[$i]+'_on.png'));
-				$skin.setTextureForState(ButtonState.DOWN_AND_SELECTED, $atlas.getTexture('line_number_'+$textArr[$i]+'_on.png'));
 				
 				$radio = new LineNums($textArr[$i]);
 				$radio.name = 'radio_' + $i + '_r';
@@ -135,6 +124,7 @@ package game.machine {
 			}
 		}
 		
+		
 		public function _isEnabled(boo:Boolean = true):void{
 			this.touchable = boo;
 		}
@@ -142,6 +132,8 @@ package game.machine {
 		public function _selectLine(line:int = 0):void{
 			Radio($lineNumsVect[line]).isSelected  = true;
 		}
+		
+		
 		
 		private function group_R_ChangeHandler(e:Event):void {
 			var $group:ToggleGroup = ToggleGroup( e.currentTarget );

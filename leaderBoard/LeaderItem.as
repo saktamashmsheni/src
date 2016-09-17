@@ -61,9 +61,9 @@ package leaderBoard
 			removeEventListener(Event.ADDED_TO_STAGE, added);
 			
 			
-			position_txt = StaticGUI._creatBitmapFontTextRenderer(this, "", 6, 13, 40, 30, Assets.getFont("roboto_slab_bold_23").name, TextFormatAlign.CENTER, false, -4, 20, 0x8ed400);
-			username_txt = StaticGUI._creatBitmapFontTextRenderer(this, "", 50, 6, 100, 30, Assets.getFont("roboto_slab_bold_top").name, TextFormatAlign.LEFT, false, -4, 16, 0x8ed400);
-			scoreVal_txt = StaticGUI._creatBitmapFontTextRenderer(this, "", 50, 25, 100, 30, Assets.getFont("bpg_gel_dejavu_serif_white").name, TextFormatAlign.LEFT, false, -3, 14, 0xc4d3a5);
+			position_txt = StaticGUI._creatBitmapFontTextRenderer(this, "", 6, 13, 40, 30, Assets.getFont("roboto_slab_bold_23").name, TextFormatAlign.CENTER, false, -4, 20, 0, 0x8ed400);
+			username_txt = StaticGUI._creatBitmapFontTextRenderer(this, "", 50, 6, 100, 30, Assets.getFont("roboto_slab_bold_top").name, TextFormatAlign.LEFT, false, -4, 16, 0, 0x8ed400);
+			scoreVal_txt = StaticGUI._creatBitmapFontTextRenderer(this, "", 50, 25, 100, 30, Assets.getFont("bpg_gel_dejavu_serif_white").name, TextFormatAlign.LEFT, false, -3, 14, 0, 0xc4d3a5);
 			
 			
 			changeStyle();

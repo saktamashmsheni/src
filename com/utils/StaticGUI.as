@@ -74,48 +74,6 @@
 		} // end function
 		
 		
-		public static function _creatBitmapFontTextRenderer(cont:DisplayObjectContainer,
-											   curText:String, 
-													_x:Number, 
-													_y:Number, 
-												 _width:Number, 
-												_height:Number,  
-											  fontName:Object, 
-												_align:String = TextFormatAlign.LEFT,
-											   _isHTML:Boolean = false,
-											   _letterSpacing:int = -3,
-											   _size:int = -1,
-											   _leading:int = 0,
-											   _color:uint = 0xffffff):BitmapFontTextRenderer {
-												   
-				var htmlTxt:BitmapFontTextRenderer = new BitmapFontTextRenderer();
-
-				var format:BitmapFontTextFormat = new BitmapFontTextFormat(fontName);
-				format.letterSpacing = _letterSpacing;
-				if (_size != -1)
-				{
-					format.size = _size;
-				}
-				
-				format.color = _color;
-				format.align = _align;
-				format.leading = _leading;
-				
-				htmlTxt.textFormat = format;
-				htmlTxt.text = curText;
-				htmlTxt.wordWrap = true;
-				htmlTxt.touchable = false;
-			    cont.addChild(htmlTxt);
-				if(_width!=-1)htmlTxt.width = _width;
-				htmlTxt.height = _height;
-				  
-			    htmlTxt.x = _x;
-			    htmlTxt.y = _y;
-				   
-			    htmlTxt.validate();
-			    return htmlTxt;   
-												   
-		   }
 		   
 		   
 		   public static function _setButtonBitmapLabel(target:Button,  lab:String, yoff:Number, fontName:String, ls:Number, fontSize:int = -1):Button{
@@ -171,9 +129,6 @@
 				htmlTxt.touchable = false;
 			    htmlTxt.validate();
 		   }
-		   
-		   
-		   
 		
 		
 		public static function _creatTextFieldTextRenderer(cont:DisplayObjectContainer,
@@ -327,6 +282,50 @@
 			
 			return $btn; 
 			
+		}
+		
+		
+		public static function _creatBitmapFontTextRenderer(cont:DisplayObjectContainer,
+					  curText:String, 
+					 _x:Number, 
+					 _y:Number, 
+					 _width:Number, 
+					_height:Number,  
+					 fontName:Object, 
+					_align:String = TextFormatAlign.LEFT,
+					  _isHTML:Boolean = false,
+					  _letterSpacing:int = -3,
+					  _size:int = -1,
+					  _leading:int = 0,
+					  _color:uint = 0xffffff):BitmapFontTextRenderer {
+					   
+			var htmlTxt:BitmapFontTextRenderer = new BitmapFontTextRenderer();
+
+			var format:BitmapFontTextFormat = new BitmapFontTextFormat(fontName);
+			format.letterSpacing = _letterSpacing;
+			if (_size != -1)
+			{
+			 format.size = _size;
+			}
+			
+			format.color = _color;
+			format.align = _align;
+			format.leading = _leading;
+			
+			htmlTxt.textFormat = format;
+			htmlTxt.text = curText;
+			htmlTxt.wordWrap = true;
+			htmlTxt.touchable = false;
+			   cont.addChild(htmlTxt);
+			if(_width!=-1)htmlTxt.width = _width;
+			htmlTxt.height = _height;
+			  
+			   htmlTxt.x = _x;
+			   htmlTxt.y = _y;
+			   
+			   htmlTxt.validate();
+			   return htmlTxt;   
+					   
 		}
 		
 		

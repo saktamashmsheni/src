@@ -37,7 +37,7 @@ package game.machine {
 		private var linesMask:Sprite;
 		private var testMaskIcon:Quad;
 		private var maskIconsAr:Array;
-		private var lineWinStatus:LineWinStatus;
+		public var lineWinStatus:LineWinStatus;
 		public var transformedAr:Array;
 		
 		public static var cont:Lines;
@@ -194,8 +194,13 @@ package game.machine {
 			addChild(frameHolder);
 			addChild(linesMask)
 			GameHolder.cont.footerHolder.addEventListener(GameEvents.LINE_CHANGED, whenLineisChanged);
+			
+			
+			
 		
 		}
+		
+		
 		
 		//------winning line---------------------------------
 		public function showWinnerLinesArr(obj:Object, animateLines:Boolean = true):void {
@@ -204,6 +209,7 @@ package game.machine {
 			if (obj.WinnerLines.length < 1) {
 				return;
 			}
+			
 			
 			
 			winAnimIndex = 0;

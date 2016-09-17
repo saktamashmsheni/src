@@ -137,13 +137,13 @@ package leaderBoard
 			var opt_con:Sprite = new Sprite();
 			
 			prizes_btn = StaticGUI._setButtonWithBitmapFont(opt_con, 
-																	   {x:0, y:0, label:GameSettings.GAME_XML.leaderBoard.prizebiBtn, 	labelOffsetX:12, labelOffsetY:9},
+																	   {x:0, y:0, label:GameSettings.GAME_XML.leaderBoard.prizebiBtn, 	labelOffsetX:12, labelOffsetY:1},
 																	   _atlas.getTexture("prizes_btn_1.png"),
 																	   _atlas.getTexture("prizes_btn_2.png"),
 																	   _atlas.getTexture("prizes_btn_1.png"),
 																	   _atlas.getTexture("prizes_btn_1.png"),
 																	   Assets.getFont("bpg_gel_dejavu_serif_white").name,
-																	   -3, 14);
+																	   -4, 15);
 			prizes_btn.name = "prizesBtn";
 			prizes_btn.addEventListener(Event.TRIGGERED, onOptBtnsClick);
 			

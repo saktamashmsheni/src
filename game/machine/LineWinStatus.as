@@ -28,8 +28,8 @@ package game.machine {
 		private var winStBg:Image;
 		private var contMc:Sprite;
 		private var clearAr:Array;
-		private var showYPos:Number = 433;
-		private var showXPos:Number = -165;
+		private var showXPos:Number = 408;
+		private var showYPos:Number = 380;
 		private var maska:Quad;
 		private var shadowImg:Image;
 		public function LineWinStatus() 
@@ -41,6 +41,8 @@ package game.machine {
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, added);
 			
+			//this.touchable = false;
+			
 			this.x = showXPos;
 			this.y = showYPos;
 			
@@ -49,7 +51,7 @@ package game.machine {
 			contMc = new Sprite();
 			addChild(contMc);
 			
-			winStBg = new Image(Assets.getAtlas("footerSheet", "footerSheetXml").getTexture("credit_btn_bg_1.png"));
+			/*winStBg = new Image(Assets.getAtlas("footerSheet", "footerSheetXml").getTexture("credit_btn_bg_1.png"));
 			winStBg.name = "bg";
 			winStBg.x = 545;
 			winStBg.x = 170;
@@ -64,7 +66,7 @@ package game.machine {
 			addChild(maska);
 			maska.x = winStBg.x - 10;
 			maska.y = winStBg.y + 6;
-			contMc.mask = maska;
+			contMc.mask = maska;*/
 			
 			/*shadowImg = new Image(Assets.getAtlas("footerSheet", "footerSheetXml").getTexture("credit_shadow.png"));
 			StaticGUI.setAlignPivot(shadowImg);
@@ -98,7 +100,7 @@ package game.machine {
 			
 			
 			
-			test_txt = StaticGUI._creatTextFieldTextRenderer(contMc, "Line " + (arr[0] + 1) + ": ", 177, 18, 100, 20, "_AvenirNextBoldItalic", 13, 0xffffff, null, TextFormatAlign.LEFT, true);
+			test_txt = StaticGUI._creatTextFieldTextRenderer(contMc, "Line " + (arr[0] + 1) + ": ", 177, 18, 100, 20, "_AvenirNextBold", 13, 0xd8d8d8, null, TextFormatAlign.LEFT, true);
 			test_txt.alignPivot(Align.LEFT, Align.CENTER);
 			
 			clearAr.push(test_txt);
@@ -106,9 +108,9 @@ package game.machine {
 			for (i = 0; i < arr[2]; i++) {
 				imgIC = new Image(Assets.getAtlas("allIconsImg", "allIconsXml").getTexture("icons" + StaticGUI.intWithZeros((arr[1])*2, 4)));
 				imgIC.scaleX = imgIC.scaleY = 0.1;
-				imgIC.x = test_txt.x + (imgIC.width + 1) * i + 55;
+				imgIC.x = test_txt.x + (imgIC.width + 1) * i + 65;
 				imgIC.textureSmoothing = TextureSmoothing.TRILINEAR;
-				imgIC.y = test_txt.y - 1;
+				imgIC.y = test_txt.y - 2;
 				imgIC.alignPivot(Align.CENTER, Align.CENTER);
 				contMc.addChild(imgIC);
 				lastX = imgIC.x;
@@ -116,7 +118,7 @@ package game.machine {
 				imgIC = null;
 			}
 			
-			test2_txt = StaticGUI._creatTextFieldTextRenderer(contMc, "= " + StaticGUI.modifiedBalanceString(arr[3]), test_txt.x , test_txt.y + 18, 100, 25, "_AvenirNextBoldItalic", 13, 0xffffff, null, TextFormatAlign.LEFT, true);
+			test2_txt = StaticGUI._creatTextFieldTextRenderer(contMc, "= " + StaticGUI.modifiedBalanceString(arr[3]), lastX + 15, test_txt.y + 2, 100, 25, "_AvenirNextBold", 13, 0xd8d8d8, null, TextFormatAlign.LEFT, true);
 			test2_txt.alignPivot(Align.LEFT, Align.CENTER);
 			
 			clearAr.push(test2_txt);
@@ -135,6 +137,8 @@ package game.machine {
 			this.alpha = 1;
 			TweenLite.from(this, 0.4, {alpha:0 } );
 			this.visible = true;
+			
+			this.alignPivot(Align.CENTER, Align.CENTER);
 		}
 		
 		public function clear():void {

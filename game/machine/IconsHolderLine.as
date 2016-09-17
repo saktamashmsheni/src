@@ -12,6 +12,7 @@ package game.machine
 		public var C:int;
 		public var map:Object = {};
 		public var isStop:Boolean;
+		public var isStaticReel:Boolean;
 		
 		public function IconsHolderLine() 
 		{

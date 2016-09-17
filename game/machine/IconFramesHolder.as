@@ -82,10 +82,6 @@ package game.machine {
 				
 				//testFrame.visible = true; //!!!!
 				
-				if (Machine.isBonusLikeIcon(index))
-				{
-					testFrame.isBonusLike = true;
-				}
 				
 			}
 		
@@ -151,6 +147,46 @@ package game.machine {
 		
 		}
 		
+		
+		
+		public function setBonusLikeIcons(obj:Object, icoInd:int):void
+		{
+			var indexesAr:Array;
+			var num:int;
+			var curLine:Array;
+			var frameAr:Array = [];
+			
+			initIconFrameHolder(false);
+			
+			indexesAr = []
+			
+			
+			//indexebis ageba sadac iconebis
+			
+			for (var k:int = 0; k < obj.Reels.length; k++)
+			{
+				for (var j:int = 0; j < obj.Reels[k].length; j++)
+				{
+					curLine = Lines.lineNumAr[k];
+					if (obj.Reels[k][j] == (icoInd))
+					{
+						indexesAr.push(j * 5 + (k + 1));
+						Tracer._log(k);
+					}
+				}
+			}
+			
+			//indexebis mixedvit framebis ageba da gamochena 
+			for (var i:int = 0; i < indexesAr.length; i++)
+			{
+				testFrame = getChildByName("frame_icon" + String(indexesAr[i])) as iconFrame;
+				Starling.juggler.add(testFrame);
+				testFrame.play();
+				testFrame.visible = true;
+				testFrame.isBonusLike = true;
+			}
+		
+		}
 		
 	
 	}
