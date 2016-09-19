@@ -287,8 +287,7 @@ package game
 			
 			
 			
-			//winner lines
-			this.linesHolder.showWinnerLinesArr(sObj, (gameState == AUTOPLAY_STATE || sObj.Bonus == true) ? false : true);
+			
 			
 			
 			
@@ -384,6 +383,8 @@ package game
 				}
 			   
 		   
+				//winner lines
+				this.linesHolder.showWinnerLinesArr(sObj, (gameState == AUTOPLAY_STATE || sObj.Bonus == true) ? false : true);
 			
 			
 			TweenLite.delayedCall(endDelay, checkForEndmsg, [sObj]);

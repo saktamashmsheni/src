@@ -115,6 +115,11 @@ package game.machine
 		
 		public function playIcon():void
 		{
+			if (iconAnimationMc != null)
+			{
+				trace("jora");
+				return;
+			}
 			
 			/*if (ID == GameHolder.cont.machineHolder.wildIndex + 1)
 			{
@@ -125,9 +130,10 @@ package game.machine
 			}
 			else*/
 			{
-				iconAnimationMc = new MovieClip(Assets.getAtlas("iconsAnimationImg", "iconsAnimationXml").getTextures(""), 25);
-				iconAnimationMc.color = Color.YELLOW;
+				iconAnimationMc = new MovieClip(Assets.getAtlas("iconsAnimationImg", "iconsAnimationXml").getTextures(""), 40);
+				//iconAnimationMc.color = Color.YELLOW;
 				alignCenter(iconAnimationMc);
+				iconAnimationMc.alpha = 1;
 				//iconAnimationMc.y += 2;
 				//iconAnimationMc.x += 1;
 			}
@@ -137,10 +143,11 @@ package game.machine
 			iconAnimationMc.play();
 			
 			
-			if (Machine.isWildIcon(ID))
+			//if (Machine.isWildIcon(ID))
 			{
 				iconAnimationMc.addEventListener(Event.COMPLETE, onWildAnimationComplete);
 			}
+			
 			
 		}
 		
@@ -149,17 +156,18 @@ package game.machine
 			if (iconAnimationMc == null)
 				return;
 				
-			//iconAnimationMc.removeEventListener(Event.COMPLETE, onWildAnimationComplete);
-			//iconAnimationMc.stop();
-			//Starling.juggler.remove(iconAnimationMc);
-			iconAnimationMc.fps = 25;
-			iconAnimationMc.currentFrame = 30;
+			iconAnimationMc.removeEventListener(Event.COMPLETE, onWildAnimationComplete);
+			iconAnimationMc.stop();
+			Starling.juggler.remove(iconAnimationMc);
+			//iconAnimationMc.fps = 25;
+			iconAnimationMc.currentFrame = 0;
 			
-			if (GameHolder.gameState == GameHolder.NORMAL_STATE)
-			{
+			//if (GameHolder.gameState == GameHolder.NORMAL_STATE)
+			//{
+				//iconAnimationMc.currentFrame = iconAnimationMc.numFrames - 1;
 				iconAnimationMc.currentFrame = iconAnimationMc.numFrames - 1;
 				Starling.juggler.remove(iconAnimationMc);
-			}
+			//}
 		}
 		
 		public function stopIcon():void

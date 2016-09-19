@@ -12,7 +12,7 @@
 	public class Root 
 	{
 		public static var ip:String = "5.10.35.195";
-		public static var port:Number = 5007;
+		public static var port:Number = 5003;
 		
 		public static var TESTING:Boolean = true;
 		
@@ -58,7 +58,7 @@
 		
 		///rooom
 		//public static var userRoomId:Number =  -Math.ceil(Math.random()*9999);
-		public static var userRoomId:Number = -3284;
+		public static var userRoomId:Number = -3285;
 		public static var userRoomSession:String = "";
 		
 		public static function connectToServer():void

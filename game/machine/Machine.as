@@ -668,39 +668,51 @@ package game.machine
 		
 		
 		
-		public function animateIcons(obj:Object, index:int, lineIndAr:Array):void
+		public function animateIcons(obj:Object):void
 		{
 			var indexesAr:Array;
 			var num:int;
 			var curLine:Array;
 			var frameAr:Array = [];
 			
-			stopIconsAnimation();
+			//stopIconsAnimation();
 			
-			resetAnimation();
+			//resetAnimation();
 			
-			curLine = Lines.lineNumAr[obj.WinnerLines[index][0]];
+			var alreadyPlayinAr:Array = [];
+			var _ic:Icon;
+			var curLineIndAr:Array;
 			
-			
-			//indexebis ageba sadac iconebis
-			for (var k:int = 0; k < obj.Reels.length; k++)
+			for (var i:int = 0; i <  obj.WinnerLines.length; i++) 
 			{
-				if (lineIndAr.indexOf(k) == -1)
+				curLineIndAr = GameHolder.cont.linesHolder.frameHolder.calcCurLineIndexesAr(obj, i);
+				curLine = Lines.lineNumAr[obj.WinnerLines[i][0]]
+			
+			
+				//indexebis ageba sadac iconebis
+				for (var k:int = 0; k < obj.Reels.length; k++)
 				{
-					continue;
-				}
-				if (obj.Reels[k][curLine[k] - 1] == (obj.WinnerLines[index][1]))
-				{
-					Icon(getIconByKJ(k + 1, curLine[k] - 1)).playIcon();
+					if (curLineIndAr.indexOf(k) == -1)
+					{
+						continue;
+					}
 					
-					Icon(getIconByKJ(k + 1, curLine[k] - 1)).filter = null;
+					_ic = getIconByKJ(k + 1, curLine[k] - 1);
+					
+					
+					if ((obj.Reels[k][curLine[k] - 1] == (obj.WinnerLines[i][1]) || isWildIcon(obj.Reels[k][curLine[k] - 1])) && alreadyPlayinAr.indexOf(_ic.KJ) == -1)
+					{
+						_ic.playIcon();
+						_ic.filter = null;
+						alreadyPlayinAr.push(_ic.KJ);
+					}
+					
+					_ic = null;
 				}
-				/*if (obj.Reels[k][curLine[k] - 1] == wildIndex)
-				{
-					Icon(getIconByKJ(k+1, curLine[k] - 1)).playIcon();
-				}*/
 			}
 			
+			curLineIndAr = null;
+			alreadyPlayinAr = null;
 		}
 		
 		

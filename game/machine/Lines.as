@@ -259,7 +259,7 @@ package game.machine {
 			
 			for (var j:int = 0; j < wildIcAr.length; j++) 
 			{
-				Icon(wildIcAr[j]).playIcon();
+				//Icon(wildIcAr[j]).playIcon();
 			}
 		}
 		
@@ -267,7 +267,11 @@ package game.machine {
 			//MusicManager._cont._addOrRemoveMusicMuter(MusicManager.MUSIC_MUTE);
 			hideAllLines();
 			animateLine(obj);
+			//animateWinnerIcons(obj);
+			GameHolder.cont.machineHolder.animateIcons(obj);
 		}
+		
+		
 		
 		public function resetMaskIcons():void {
 			for (var j:int = 0; j < maskIconsAr.length; j++) {
@@ -294,6 +298,9 @@ package game.machine {
 		
 		}
 		
+		
+		
+		
 		//animate line
 		private function animateLine(obj:Object):void {
 			var i:int;
@@ -302,10 +309,10 @@ package game.machine {
 			var curLineIndAr:Array = frameHolder.calcCurLineIndexesAr(obj, winAnimIndex);
 			frameHolder.setFrames(obj, winAnimIndex, curLineIndAr);
 			this.setCurLineMaskIcons(obj, winAnimIndex, curLineIndAr);
-			GameHolder.cont.machineHolder.animateIcons(obj, winAnimIndex, curLineIndAr);
+			//GameHolder.cont.machineHolder.animateIcons(obj, winAnimIndex, curLineIndAr);
 			
 			//Root.soundManager.PlaySound("icon" + String(obj.WinnerLines[winAnimIndex][1] + 1));
-			Root.soundManager.PlaySound("iconSound");
+			//Root.soundManager.PlaySound("iconSound");
 			
 			//masking
 			curLine = Lines.lineNumAr[obj.WinnerLines[winAnimIndex][0]];
