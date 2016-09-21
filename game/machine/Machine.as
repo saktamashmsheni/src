@@ -683,6 +683,7 @@ package game.machine
 			var _ic:Icon;
 			var curLineIndAr:Array;
 			
+			
 			for (var i:int = 0; i <  obj.WinnerLines.length; i++) 
 			{
 				curLineIndAr = GameHolder.cont.linesHolder.frameHolder.calcCurLineIndexesAr(obj, i);
@@ -713,6 +714,8 @@ package game.machine
 			
 			curLineIndAr = null;
 			alreadyPlayinAr = null;
+			
+			Root.soundManager.schedule("RegularWinSnd", 1);
 		}
 		
 		
@@ -908,11 +911,11 @@ package game.machine
 		
 		
 		
-		public function modifyWildIcons(wildsAr:Array):void 
+		public function modifyWildIcons(wildsAr:Array, obj:Object):void 
 		{
 			var ic:Icon;
 			
-			var newWildInd:int = getModifierWil();
+			var newWildInd:int = getModifierWild();
 			if (newWildInd == -1)
 			{
 				return;
@@ -923,12 +926,15 @@ package game.machine
 				if (isWildIcon(ic.ID) == false)
 				{
 					ic.setIcon(newWildInd);
+					obj.Reels[wildsAr[i][0]][wildsAr[i][1]] = newWildInd;
 				}
 			}
+			
+			trace(obj.Reels);
 		}
 		
 		
-		private function getModifierWil():int 
+		private function getModifierWild():int 
 		{
 			var arr:Array = GameSettings.WILDS_AR;
 			for (var i:int = 0; i < arr.length; i++) 

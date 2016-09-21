@@ -317,7 +317,7 @@ package game
 					
 					collectDel = 7
 				}
-				Root.soundManager.schedule("RegularWinSnd", 1);
+				//Root.soundManager.schedule("RegularWinSnd", 1);
 				TweenLite.delayedCall(collectDel, preEndDelayedFunc, [sObj]);
 			}
 			
@@ -378,7 +378,7 @@ package game
 			   
 			   if (sObj.WildReels.length > 0)
 				{
-					machineHolder.modifyWildIcons(sObj.WildReels)
+					machineHolder.modifyWildIcons(sObj.WildReels, sObj)
 					endDelay += 2;
 				}
 			   

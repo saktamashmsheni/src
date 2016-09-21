@@ -336,7 +336,10 @@ package game.footer {
 			try{
 				
 				GameHolder.cont.machineHolder.stopIconsAnimation(true);
-			}catch (err:Error){}
+			}catch (err:Error)
+			{
+				trace(err);
+			}
 			
 			
 			

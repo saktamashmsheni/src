@@ -56,6 +56,12 @@ package
 												   
 												   
 		
+		//machine and icon settings
+		
+		public static var HOVER_ANIM_ENABLED:Boolean = true;
+		public static var HOVER_ANIM_LOOP:Boolean = false;
+												   
+		
 		public static var LINES_AR:Array = [
 		
 											[

@@ -206,7 +206,7 @@ package game.machine {
 		public function showWinnerLinesArr(obj:Object, animateLines:Boolean = true):void {
 			var ic:Icon;
 			var i:int;
-			if (obj.WinnerLines.length < 1) {
+			if (obj.WinnerLines.length == 0) {
 				return;
 			}
 			
@@ -268,6 +268,7 @@ package game.machine {
 			hideAllLines();
 			animateLine(obj);
 			//animateWinnerIcons(obj);
+			//Root.soundManager.schedule("RegularWinSnd", 1);
 			GameHolder.cont.machineHolder.animateIcons(obj);
 		}
 		

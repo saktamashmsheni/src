@@ -37,8 +37,6 @@ package game.machine {
 			var texture:RenderTexture = new RenderTexture(45, 60);
 			//texture.draw(quad);
 			 
-			var image:Image = new Image(texture);
-			addChild(image);
 			
 			radioOff = StaticGUI._creatBitmapFontTextRenderer(this, radioStr, 0, 0, 50, 80, Assets.getFont("line_off_btn_bfont").name, TextFormatAlign.CENTER, false, -3, -1);
 			if (GameSettings.LINES_FIXED){
