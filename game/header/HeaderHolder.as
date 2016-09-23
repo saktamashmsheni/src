@@ -171,8 +171,8 @@ package game.header {
 		   
 		   
 		   volumeController = new VolumeController();
-		   volumeController.x = 263;
-		   volumeController.y = 115;
+		   volumeController.x = 313;
+		   volumeController.y = 90;
 		   addChild(volumeController);
 		   volumeController.visible = false;
 		   
@@ -300,6 +300,7 @@ package game.header {
 				case 'soundOnBtn':
 					SoundManager.SoundEnabled = false;
 					Root.soundManager.stopSound();
+					volumeController.muteToggleFunc();
 					StaticGUI._updateButtonSkin($b, 
 					                    'soundOffBtn', 
 							$textureAtlas.getTexture("sound_mute_btn_1.png"), 
@@ -310,6 +311,7 @@ package game.header {
 				case 'soundOffBtn':
 					
 					SoundManager.SoundEnabled = true;
+					volumeController.muteToggleFunc();
 					StaticGUI._updateButtonSkin($b, 
 					                     'soundOnBtn', 
 							$textureAtlas.getTexture("sound_btn_1.png"),
@@ -340,6 +342,25 @@ package game.header {
 					break;
 			}
 		
+		}
+		
+		
+		/*public function changeSoundToOn():void
+		{
+			StaticGUI._updateButtonSkin(soundBtn, 
+									 'soundOnBtn', 
+						$textureAtlas.getTexture("sound_btn_1.png"),
+						$textureAtlas.getTexture("sound_btn_1.png"),
+						$textureAtlas.getTexture("sound_btn_1.png"));
+		}*/
+		
+		public function changeSoundToOff():void
+		{
+			StaticGUI._updateButtonSkin(soundBtn, 
+									'soundOffBtn', 
+						$textureAtlas.getTexture("sound_mute_btn_1.png"), 
+						$textureAtlas.getTexture("sound_mute_btn_2.png"), 
+						$textureAtlas.getTexture("sound_mute_btn_3.png"));
 		}
 		
 		/*

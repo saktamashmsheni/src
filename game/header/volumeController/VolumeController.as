@@ -55,7 +55,7 @@ package game.header.volumeController
 			//----------slider------------------------------------------------------------------
 			slider = new SliderVolume();
 			slider.direction = Slider.DIRECTION_VERTICAL;
-			slider.y = 38;
+			slider.y = 28;
 			slider.addEventListener(Event.CHANGE, slider_changeHandler);
 			addChild(slider);
 			
@@ -63,7 +63,7 @@ package game.header.volumeController
 			$textureAtlas = HeaderHolder.cont.$textureAtlas;
 			
 			
-			muteBtn = StaticGUI._initButton(this, 
+			/*muteBtn = StaticGUI._initButton(this, 
 												-5, 
 												80, 
 					$textureAtlas.getTexture("sound_mute_btn_1.png"), 
@@ -72,7 +72,7 @@ package game.header.volumeController
 					
 			muteBtn.name = 'soundOnBtn';
 			muteBtn.addEventListener(Event.TRIGGERED, muteSoundClicked);
-			muteBtn.scaleX = muteBtn.scaleY = 0.9;
+			muteBtn.scaleX = muteBtn.scaleY = 0.9;*/
 			
 		}
 		
@@ -87,10 +87,10 @@ package game.header.volumeController
 			Root.soundManager.changeVolumeFromController();
 			MusicManager._cont.changeVolumeFromController();
 			
-			if (_slider.value == 0)
+			if (_slider.value <= 0)
 			{
 				isMuted = true;
-				
+				HeaderHolder.cont.changeSoundToOff();
 			}
 			else
 			{

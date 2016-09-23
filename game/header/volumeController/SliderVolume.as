@@ -35,7 +35,7 @@ package game.header.volumeController
 			this.step = 1;
 			this.page = 10;
 			this.value = 100;
-			this.height = 76;
+			this.height = 98;
 			this.minimumPadding = 0;
 			this.maximumPadding = 0;
 			this.addEventListener( Event.CHANGE, slider_changeHandler );
@@ -69,7 +69,7 @@ package game.header.volumeController
 			progressBar.minimum = this.minimum;
 			progressBar.maximum = this.maximum;
 			progressBar.value = this.value;
-			progressBar.width = 10;
+			progressBar.width = 20;
 			progressBar.height = this.height;
 			//progressBar.minimumPadding = -5;
 			//progressBar.maximumPadding = -5;

@@ -923,6 +923,7 @@ package game.machine
 			for (var i:int = 0; i < wildsAr.length; i++) 
 			{
 				ic = getIconByKJ(wildsAr[i][0] + 1, wildsAr[i][1]);
+				ic.modifiedWildsAnimation();
 				if (isWildIcon(ic.ID) == false)
 				{
 					ic.setIcon(newWildInd);

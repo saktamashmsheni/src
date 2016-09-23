@@ -379,7 +379,7 @@ package game
 			   if (sObj.WildReels.length > 0)
 				{
 					machineHolder.modifyWildIcons(sObj.WildReels, sObj)
-					endDelay += 2;
+					endDelay += 1;
 				}
 			   
 		   

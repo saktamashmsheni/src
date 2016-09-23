@@ -1,5 +1,7 @@
 package game.machine 
 {
+	import com.greensock.TweenLite;
+	import com.greensock.TweenMax;
 	import com.utils.FastBlurFilter;
 	import com.utils.StaticGUI;
 	import flash.display.BitmapData;
@@ -170,6 +172,12 @@ package game.machine
 			hoverAnimation.removeEventListener(Event.COMPLETE, onHoverAnimationComplete);
 		}
 		
+		
+		
+		public function modifiedWildsAnimation():void
+		{
+			TweenMax.to(this, 0.2, {scale:1.2, x:this.x - this.width*0.1, y:this.y - this.height*0.1, yoyo:true, repeat:1});
+		}
 		
 		
 		

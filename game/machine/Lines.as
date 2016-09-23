@@ -229,7 +229,7 @@ package game.machine {
 			var ind:int = transformedAr.indexOf(ic)
 			if (ind == transformedAr.length - 1)
 			{
-				transformedAr = []
+				transformedAr = [];
 			}
 		}
 		
@@ -242,9 +242,9 @@ package game.machine {
 				showWinnerLine(obj.WinnerLines[i][0] + 1);
 			}
 			
-			if (animateLines && GameHolder.cont.doubleHolder == null)
+			if (/*animateLines && */GameHolder.cont.doubleHolder == null)
 			{
-				TweenMax.delayedCall(1, winnerLineStartAnDelay, [obj]);
+				TweenMax.delayedCall(0.3, winnerLineStartAnDelay, [obj]);
 			}
 		}
 		
