@@ -125,34 +125,36 @@ package game.machine
 			}
 			
 			
-			if (Machine.isWildIcon(ID))
+			if (!Machine.isWildIcon(ID))
 			{
-				/*iconAnimationMc = new MovieClip(Assets.getAtlas("icon" + ID + "Img", "icon" + ID + "Xml").getTextures(""), 25);
+				iconAnimationMc = new MovieClip(Assets.getAtlas("icon" + 1 + "Img", "icon" + 1 + "Xml").getTextures(""), 60);
 				iconMc.visible = false;
 				iconAnimationMc.x -= 20;
-				iconAnimationMc.y -= 22;*/
-				//iconAnimationMc.addEventListener(Event.COMPLETE, onIconAnimationComplete);
-				////iconAnimationMc.loop = false;
+				iconAnimationMc.y -= 22;
+				iconAnimationMc.loop = false;
+				iconAnimationMc.addEventListener(Event.COMPLETE, onIconAnimationComplete);
+				
+				addChild(iconAnimationMc);
+				TweenLite.delayedCall(0.7, Starling.juggler.add, [iconAnimationMc]);
+				TweenLite.delayedCall(0.7, iconAnimationMc.play);
 			}
-			else
+			
+			if (!Machine.isWildIcon(ID) && GameSettings.HOVER_ANIM_ENABLED && hoverAnimation == null)
 			{
-				if (GameSettings.HOVER_ANIM_ENABLED && hoverAnimation == null)
+				hoverAnimation = new MovieClip(Assets.getAtlas("iconsAnimationImg", "iconsAnimationXml").getTextures(""), 40);
+				hoverAnimation.color = Color.YELLOW;
+				alignCenter(hoverAnimation);
+				hoverAnimation.alpha = 1;
+				
+				if (!GameSettings.HOVER_ANIM_LOOP)
 				{
-					hoverAnimation = new MovieClip(Assets.getAtlas("iconsAnimationImg", "iconsAnimationXml").getTextures(""), 40);
-					hoverAnimation.color = Color.YELLOW;
-					alignCenter(hoverAnimation);
-					hoverAnimation.alpha = 1;
-					
-					if (!GameSettings.HOVER_ANIM_LOOP)
-					{
-						hoverAnimation.loop = false;
-						hoverAnimation.addEventListener(Event.COMPLETE, onHoverAnimationComplete);
-					}
-					
-					addChild(hoverAnimation);
-					Starling.juggler.add(hoverAnimation);
-					hoverAnimation.play();
+					hoverAnimation.loop = false;
+					hoverAnimation.addEventListener(Event.COMPLETE, onHoverAnimationComplete);
 				}
+				
+				addChild(hoverAnimation);
+				Starling.juggler.add(hoverAnimation);
+				hoverAnimation.play();
 			}
 			
 		}
@@ -172,6 +174,22 @@ package game.machine
 			hoverAnimation.removeEventListener(Event.COMPLETE, onHoverAnimationComplete);
 		}
 		
+		private function onIconAnimationComplete(e:Event):void 
+		{
+			if (iconAnimationMc == null)
+				return;
+				
+				
+			iconAnimationMc.stop();
+			iconAnimationMc.currentFrame = iconAnimationMc.numFrames -1;
+			Starling.juggler.remove(iconAnimationMc);
+			//if (GameHolder.gameState == GameHolder.NORMAL_STATE)
+			//{
+			//}
+			
+			iconAnimationMc.removeEventListener(Event.COMPLETE, onIconAnimationComplete);
+		}
+		
 		
 		
 		public function modifiedWildsAnimation():void
@@ -188,12 +206,11 @@ package game.machine
 			{
 				/*if (Machine.isWildIcon(ID))
 					return;*/
-				
 				iconAnimationMc.stop();
 				Starling.juggler.remove(iconAnimationMc);
 				StaticGUI.safeRemoveChild(iconAnimationMc, true);
 				iconAnimationMc = null;
-				//iconMc.visible = true;
+				
 			}
 			if (hoverAnimation != null)
 			{
@@ -202,6 +219,8 @@ package game.machine
 				StaticGUI.safeRemoveChild(hoverAnimation, true);
 				hoverAnimation = null;
 			}
+			
+			iconMc.visible = true;
 		}
 		
 		public function resetBlur():void

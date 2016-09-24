@@ -172,8 +172,8 @@ package {
 				Assets.iconsAnimationImg = $o.getDefinition("IconsLib_iconsAnimationImg") as Class;
 				Assets.iconsAnimationXml = $o.getDefinition("IconsLib_iconsAnimationXml") as Class;
 				
-				//Assets.icon9Img = $o.getDefinition("IconsLib_icon9Img") as Class;
-				//Assets.icon9Xml = $o.getDefinition("IconsLib_icon9Xml") as Class;
+				Assets.icon1Img = $o.getDefinition("IconsLib_icon1Img") as Class;
+				Assets.icon1Xml = $o.getDefinition("IconsLib_icon1Xml") as Class;
 				
 			} else if (e.params.valTxt == "Fonts Library") {
 				$o = e.params.content.applicationDomain

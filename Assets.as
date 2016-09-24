@@ -180,8 +180,8 @@ package {
 		public static var allWildSheetXml:Class;
 		public static var iconsAnimationImg:Class;
 		public static var iconsAnimationXml:Class;
-		public static var icon9Img:Class;
-		public static var icon9Xml:Class;
+		public static var icon1Img:Class;
+		public static var icon1Xml:Class;
 		
 		
 		//leaderboard fonts
