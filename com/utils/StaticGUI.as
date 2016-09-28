@@ -488,6 +488,22 @@
 		{
 			return FooterHolder.InLari == false ? String(amount / GameSettings.CREDIT_VAL) : String((amount / 100).toFixed(2) + " GEL");
 		}
+		
+		
+		[Inline]
+		public static function shuffleArray(arr:Array):Array
+		{
+			var shuffledArr:Array = new Array(arr.length);
+			 
+			var randomPos:Number = 0;
+			for (var i:int = 0; i < shuffledArr.length; i++)
+			{
+				randomPos = int(Math.random() * arr.length);
+				shuffledArr[i] = arr.splice(randomPos, 1)[0];   //since splice() returns an Array, we have to specify that we want the first (only) element
+			}
+			
+			return shuffledArr;
+		}
 	
 	}
 }

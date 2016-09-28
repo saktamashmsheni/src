@@ -122,6 +122,8 @@
 			TweenLite.to(this, 0.5, {autoAlpha: 1});
 			//this.alpha = 1;
 			//this.visible = 1;
+			
+			Root.soundManager.PlaySound("uiStart");
 		}
 		
 		

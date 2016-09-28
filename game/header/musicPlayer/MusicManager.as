@@ -24,7 +24,8 @@ package game.header.musicPlayer {
 		private static var $musicCurrentState:uint;
 		
 		private const MUSIC_OUT_DELAY:uint = 7;
-		private const MUSIC_MAX_VALUME:Number = 0.7;
+		private const MUSIC_MAX_VALUME:Number = 0;
+		//private const MUSIC_MAX_VALUME:Number = 0.7;
 		private const MUSIC_MIN_VALUME:Number = 0;
 		
 		

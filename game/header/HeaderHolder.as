@@ -307,6 +307,7 @@ package game.header {
 							$textureAtlas.getTexture("sound_mute_btn_2.png"), 
 							$textureAtlas.getTexture("sound_mute_btn_3.png"));
 					
+					
 					break;
 				case 'soundOffBtn':
 					

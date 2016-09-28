@@ -58,7 +58,7 @@
 		
 		///rooom
 		//public static var userRoomId:Number =  -Math.ceil(Math.random()*9999);
-		public static var userRoomId:Number = -3285;
+		public static var userRoomId:Number = -3286;
 		public static var userRoomSession:String = "";
 		
 		public static function connectToServer():void

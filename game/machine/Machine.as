@@ -54,6 +54,8 @@ package game.machine
 		public static var Ydistance:Number;
 		public var curSpeed:Number = startSpeed;
 		
+		private var stopVarArr:Array = [0,1,2,3,4]
+		
 		//public var bonusIndex:int;
 		//public var scatterIndex:int;
 		//public var wildIndex:int;
@@ -237,6 +239,10 @@ package game.machine
 			var i:int;
 			lastIconsArray = [];
 			curSpeed = startSpeed;
+			
+			stopVarArr = StaticGUI.shuffleArray(stopVarArr);
+			Root.soundManager.PlaySound("spinStart");
+			Root.soundManager.loopdSound("spinLoop");
 			
 			i = 1;
 			var count:int = 1;
@@ -488,6 +494,12 @@ package game.machine
 				return;
 				
 			}
+			
+			if (line == REEL_X_COUNT)
+			{
+				Root.soundManager.PlaySound("sponLoopEnd");
+				Root.soundManager.stopLoopSound();
+			}
 				
 			
 			
@@ -549,11 +561,11 @@ package game.machine
 				
 				if (fastStop == false)
 				{
-					Root.soundManager.schedule('stopLine', 0.6);
+					Root.soundManager.schedule('stopV' + stopVarArr[line-1], 1);
 				}
 				else
 				{
-					Root.soundManager.schedule('stopLine', 0.1);
+					Root.soundManager.schedule('fastStop', 0.2);
 				}
 					
 				TEST_LINE.C = TEST_LINE.C -1;

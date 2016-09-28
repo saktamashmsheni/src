@@ -20,11 +20,11 @@
 		private var myChannel:SoundChannel = new SoundChannel();
 		private var sound:Sound;
 		private var reqString:String;
-		private var loopSoundVolume:Number = 0.31;
+		private var loopSoundVolume:Number = 1;
 		private var testClass:Class;
 		public var loopIsPlayng:Boolean;
 		
-		public static var SoundEnabled:Boolean = true;
+		private static var soundEnabled:Boolean = true;
 		
 		public function PlaySound(str:String, play:Boolean = true):Sound
 		{
@@ -223,6 +223,25 @@
 		public function modifyFromControllerVol(curVol:Number):Number
 		{
 			return VolumeController.controllerVol * curVol / 1;
+		}
+		
+		
+		
+		
+		
+		
+		static public function get SoundEnabled():Boolean 
+		{
+			return soundEnabled;
+		}
+		
+		static public function set SoundEnabled(value:Boolean):void 
+		{
+			soundEnabled = value;
+			if (value == true)
+			{
+				Root.soundManager.PlaySound("soundOnOff");
+			}
 		}
 		
 		
