@@ -65,7 +65,7 @@ package game.machine {
 			
 			//flashSprite.graphics.beginFill(0xCCCCCC);
 			
-			flashSprite.graphics.lineStyle(5, 0xff0000, 1);
+			flashSprite.graphics.lineStyle(6, 0xff0000, 1);
 			
 			if (zz[0] == 1) {
 				flashSprite.graphics.moveTo(xArray[0], yArray[0]);
@@ -100,6 +100,9 @@ package game.machine {
 		}
 		
 		public function _disposeLine():void {
+			
+			if (lineImg == null) return;
+			
 			if(lineBmd)lineBmd.dispose();
 			
 			if(lineTexure)lineTexure.dispose();
@@ -112,6 +115,31 @@ package game.machine {
 			lineBmd = null;
 		}
 		
+		
+		public function _disposeAll():void {
+			
+			if (lineImg == null) return;
+			
+			if(lineBmd)lineBmd.dispose();
+			
+			if(lineTexure)lineTexure.dispose();
+		
+			if (lineImg && this.contains(lineImg)) this.removeChild(lineImg);
+			
+			try 
+			{
+				lineImg.dispose();
+				lineImg = null;
+				lineTexure = null;
+				lineBmd = null;
+			}
+			catch (err:Error)
+			{
+				
+			}
+			
+			this.removeChildren();
+		}
 		
 		
 		private function removed(e:Event):void {

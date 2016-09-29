@@ -137,7 +137,7 @@ package game
 			linesHolder = new Lines();
 			linesHolder.x = -364;
 			linesHolder.y = -210;
-			linesHolder.alpha = .4;
+			//linesHolder.alpha = .4;
 			//linesHolder.scaleX = 1.03;
 			//linesHolder.scaleY = 0.94;
 			

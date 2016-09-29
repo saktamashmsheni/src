@@ -69,7 +69,7 @@ package game.machine
 				
 				addChild(iconMc);
 				
-				var q:Quad = new Quad(120, 120, 0xffffff);
+				/*var q:Quad = new Quad(120, 120, 0xffffff);
 				//q.x = int(iconMc.width / 2 - q.width / 2);
 				//q.y = int(iconMc.height / 2 - q.height / 2);
 				addChild(q);
@@ -77,7 +77,7 @@ package game.machine
 				var q2:Quad = new Quad(5, 5, 0x00ff00);
 				q2.x = int(q.width / 2 - q2.width / 2);
 				q2.y = int(q.height / 2 - q2.height / 2);
-				addChild(q2)
+				addChild(q2)*/
 				
 			}
 			

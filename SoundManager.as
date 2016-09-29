@@ -20,7 +20,7 @@
 		private var myChannel:SoundChannel = new SoundChannel();
 		private var sound:Sound;
 		private var reqString:String;
-		private var loopSoundVolume:Number = 1;
+		private var loopSoundVolume:Number = 0.9;
 		private var testClass:Class;
 		public var loopIsPlayng:Boolean;
 		
@@ -60,6 +60,20 @@
 			}
 			
 			return null;
+			/*
+			var sound:Sound = new Sound();
+			sound.addEventListener(IOErrorEvent.IO_ERROR, onNoSound)
+			
+			var reqString:String = "20 slice fruit/sounds/" + str + ".mp3";
+			
+			sound.load(new URLRequest(reqString))*/
+			
+			
+			if (play) {
+				sound.play();
+			}
+			
+			return sound;
 		}
 		
 		public function stopSound():void
@@ -137,8 +151,8 @@
 			}
 			else
 			{
-				//backgroundTransform.volume = loopSoundVolume;
-				//backgroundChannel.soundTransform = backgroundTransform;
+				backgroundTransform.volume = loopSoundVolume;
+				backgroundChannel.soundTransform = backgroundTransform;
 			}
 		}
 		
@@ -151,6 +165,20 @@
 			trace("pppppp:" + backgroundChannel.position);
 			return backgroundChannel.position;
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		public function loopdSound(str:String):void
 		{
@@ -167,11 +195,11 @@
 			testClass = Root.soundLibrary.applicationDomain.getDefinition(str) as Class;
 			backgrSound = new testClass() as Sound;
 			
-			//var MovieSoundUrl:URLRequest = new URLRequest(Root.TESTING == true ? "sounds/" + str + ".mp3" : "dictators/sounds/" + str + ".mp3");
-			//backgrSound.load(MovieSoundUrl);
+			/*backgrSound = new Sound();
+			backgrSound.addEventListener(IOErrorEvent.IO_ERROR, onNoSound)
+			var reqString:String = "20 slice fruit/sounds/" + str + ".mp3";
+			backgrSound.load(new URLRequest(reqString))*/
 			
-			//backgroundTransform.volume = modifyFromControllerVol(this.loopSoundVolume);
-			//backgroundChannel.soundTransform = backgroundTransform;
 			
 			backgroundChannel = backgrSound.play(0, 1, backgroundTransform);
 			backgroundChannel.addEventListener(Event.SOUND_COMPLETE, SoundLoop);
@@ -199,6 +227,19 @@
 			backgroundChannel = backgrSound.play(0, 1, backgroundTransform);
 			backgroundChannel.addEventListener(Event.SOUND_COMPLETE, SoundLoop);
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -240,7 +281,7 @@
 			soundEnabled = value;
 			if (value == true)
 			{
-				Root.soundManager.PlaySound("soundOnOff");
+				//Root.soundManager.PlaySound("soundOnOff");
 			}
 		}
 		

@@ -4,7 +4,7 @@ package com.utils {
 	
 	public class Line extends Sprite {
 		private var baseQuad:Quad;
-		private var _thickness:Number = 5;
+		private var _thickness:Number = 6;
 		private var _color:uint = 0xff0000;
 		private var saveLineToX:int;
 		private var saveLineToY:int;

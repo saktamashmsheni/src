@@ -497,7 +497,10 @@ package game.machine
 			
 			if (line == REEL_X_COUNT)
 			{
-				Root.soundManager.PlaySound("sponLoopEnd");
+				if (fastStop == false)
+					Root.soundManager.PlaySound("sponLoopEnd");
+					
+					
 				Root.soundManager.stopLoopSound();
 			}
 				
@@ -699,7 +702,7 @@ package game.machine
 			for (var i:int = 0; i <  obj.WinnerLines.length; i++) 
 			{
 				curLineIndAr = GameHolder.cont.linesHolder.frameHolder.calcCurLineIndexesAr(obj, i);
-				curLine = Lines.lineNumAr[obj.WinnerLines[i][0]]
+				curLine = Lines.lineNumAr[obj.WinnerLines[i][0]];
 			
 			
 				//indexebis ageba sadac iconebis

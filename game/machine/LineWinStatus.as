@@ -29,7 +29,7 @@ package game.machine {
 		private var contMc:Sprite;
 		private var clearAr:Array;
 		private var showXPos:Number = 408;
-		private var showYPos:Number = 380;
+		private var showYPos:Number = 435;
 		private var maska:Quad;
 		private var shadowImg:Image;
 		public function LineWinStatus() 

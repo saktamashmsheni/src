@@ -17,6 +17,7 @@ package game.machine {
 		private var testFrame:iconFrame;
 		private var lineTest:Line;
 		private var rectSize:Array
+		private var activeFramesAr:Array = [];
 		public function IconFramesHolder() {
 			rectSize = GameSettings.ICONS_SIZE[GameSettings.SYS_NUM];
 			this.addEventListener(Event.ADDED_TO_STAGE, added);
@@ -25,7 +26,7 @@ package game.machine {
 		private function added(e:Event):void {
 			removeEventListener(Event.ADDED_TO_STAGE, added);
 			
-			_setUpFrames(8);
+			//_setUpFrames(8);
 		}
 		
 		private function _setUpFrames(index:uint):void {
@@ -54,8 +55,11 @@ package game.machine {
 
 				lineTest.y = int(index / 5) * 145;
 				addChild(lineTest);
+				
+				activeFramesAr.push(lineTest);
 			//}
 			
+			lineTest = null;
 			
 			/*var lineTest:Line = new Line;
 			
@@ -77,30 +81,38 @@ package game.machine {
 		}
 		
 		
-		public function _disposeFrame():void {
-			if (lineTest) {
+		public function _disposeFrames():void {
+			/*if (lineTest) {
 				lineTest.removeChildren();
 				lineTest.dispose();
 				
 				if (this.contains(lineTest)) this.removeChild(lineTest);
 			}
+			this.removeChildren();*/
 			
-			lineTest = null;
+			//lineTest = null;
 			
+			for (var i:int = 0; i < activeFramesAr.length; i++) 
+			{
+				StaticGUI.safeRemoveChild(activeFramesAr[i], true);
+			}
+			activeFramesAr = [];
 		}
 		
 		public function initIconFrameHolder(icludeBonus:Boolean = true):void {
-			for (var i:int = 0; i < 15; i++) {
+			/*for (var i:int = 0; i < 15; i++) {
 				testFrame = getChildByName("frame_icon" + String(i + 1)) as iconFrame;
 				if (icludeBonus == false && testFrame.isBonusLike == true) {
 					continue;
 				}
-				testFrame.currentFrame = 0;
+				//testFrame.currentFrame = 0;
 				testFrame.visible = false;
 				testFrame.isBonusLike = false;
 				
 				Starling.juggler.remove(testFrame);
-			}
+			}*/
+			
+			_disposeFrames();
 		}
 		
 		public function setFrames(obj:Object, index:int, arr:Array):void {
@@ -115,21 +127,12 @@ package game.machine {
 			//indexebis mixedvit framebis ageba da gamochena 
 			for (var i:int = 0; i < arr.length; i++) {
 				num = (curLine[arr[i]] - 1) * 5 + (arr[i] + 1);
-				testFrame = getChildByName("frame_icon" + String(num)) as iconFrame;
+				/*testFrame = getChildByName("frame_icon" + String(num)) as iconFrame;
 				Starling.juggler.add(testFrame);
 				testFrame.play();
-				testFrame.visible = true;
+				testFrame.visible = true;*/
 				
-				
-				/*for (var j:int = 0; j < obj.WildReels.length; j++) 
-				{
-					if (arr[i] == obj.WildReels[j][0])
-					{
-						testFrame.visible = false;
-					}
-				}*/
-				
-				//testFrame.visible = true; //!!!!
+				_setUpFrames(num-1);
 				
 				
 			}
@@ -228,11 +231,11 @@ package game.machine {
 			//indexebis mixedvit framebis ageba da gamochena 
 			for (var i:int = 0; i < indexesAr.length; i++)
 			{
-				testFrame = getChildByName("frame_icon" + String(indexesAr[i])) as iconFrame;
+				/*testFrame = getChildByName("frame_icon" + String(indexesAr[i])) as iconFrame;
 				Starling.juggler.add(testFrame);
 				testFrame.play();
 				testFrame.visible = true;
-				testFrame.isBonusLike = true;
+				testFrame.isBonusLike = true;*/
 			}
 		
 		}

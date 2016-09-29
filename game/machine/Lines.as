@@ -38,6 +38,7 @@ package game.machine {
 		private var linesMask:Sprite;
 		private var testMaskIcon:Quad;
 		private var maskIconsAr:Array;
+		private var lineHelper:LineHelper;
 		public var lineWinStatus:LineWinStatus;
 		public var transformedAr:Array;
 		
@@ -58,7 +59,7 @@ package game.machine {
 		
 		private function setUpLines():void {
 			var img:Image;
-			var imgSp:LineHelper;
+			lineHelper;
 			
 			if (GameSettings.SYS_NUM == 0 && GameSettings.TOTAL_LINES == 27)
 				lineNumAr = GameSettings.LINES_AR[3];
@@ -117,69 +118,16 @@ package game.machine {
 			var $textureName:String;
 			var $textureAtlas:TextureAtlas = Assets.getAtlas("lines", "linesXml");
 			
-			//var $lineYPosVect:Vector.<int> = new Vector.<int>[210, 42, 335, 0, 20, 35, 250, 80, 80, 0];
 			
-			for (var i:int = 0; i < lineNumAr.length/*GameSettings.TOTAL_LINES*/; i++) {
-				imgSp = new LineHelper();
-				imgSp._showLine(lineNumAr[i]);
-				//$textureName = "lines" + StaticGUI.intWithZeros((i + 1),2) + ' instance 10000';
-				//img = new Image($textureAtlas.getTexture($textureName));
+			//for (var i:int = 0; i < lineNumAr.length; i++) {
+				lineHelper = new LineHelper();
+				linesContainer.addChild(lineHelper);
 				
-				//img.color = Color.RED;
-				//imgSp.addChild(img);
-				//imgSp.visible = false;
-				linesContainer.addChild(imgSp);
-				imgSp.name = "line" + String(i + 1);
-				//imgSp.y = $lineYPosVect[i];
 				
-				/*switch(i+1) {
-					case 1:
-						imgSp.y = 210;
-						break;
-					case 2:
-						imgSp.y = 42;
-						break;
-					case 3:
-						imgSp.y = 335;
-						break;
-						
-					case 4:
-						
-						break;
-					case 5:
-						imgSp.y = 20;
-						break;
-						
-					case 6:
-						imgSp.y = 35;
-						break;
-						
-					case 7:
-						imgSp.y = 250;
-						break;
-						
-					case 8:
-						imgSp.y = 80;
-						break;
-						
-					case 9:
-						imgSp.y = 80;
-						break;
-						
-					case 10:
-						imgSp.y = 0;
-						break;
-				}*/
-				
-				//img.dispose();
-			}
-			
-			//linesContainer.scaleX = 1.65;
-			//linesContainer.scaleY = 1.5;
-			//linesContainer.x = -60;
+			//}
 			
 			img = null;
-			imgSp = null;
+			//imgSp = null;
 			
 			
 			
@@ -248,12 +196,13 @@ package game.machine {
 		{
 			var i:int;
 			for (i = 0; i < obj.WinnerLines.length; i++) {
-				showWinnerLine(obj.WinnerLines[i][0] + 1);
+				//showWinnerLine(obj.WinnerLines[i][0] + 1);
 			}
 			
 			if (/*animateLines && */GameHolder.cont.doubleHolder == null)
 			{
 				TweenMax.delayedCall(0.3, winnerLineStartAnDelay, [obj]);
+				TweenMax.delayedCall(1.3, animateLine, [obj]);
 			}
 		}
 		
@@ -275,7 +224,7 @@ package game.machine {
 		public function winnerLineStartAnDelay(obj:Object):void {
 			//MusicManager._cont._addOrRemoveMusicMuter(MusicManager.MUSIC_MUTE);
 			hideAllLines();
-			animateLine(obj);
+			//TweenMax.delayedCall(0.5, animateLine, obj);
 			//animateWinnerIcons(obj);
 			//Root.soundManager.schedule("RegularWinSnd", 1);
 			GameHolder.cont.machineHolder.animateIcons(obj);
@@ -314,7 +263,8 @@ package game.machine {
 		//animate line
 		private function animateLine(obj:Object):void {
 			var i:int;
-			showWinnerLine(obj.WinnerLines[winAnimIndex][0] + 1);
+			lineHelper._disposeLine();
+			showWinnerLine(obj.WinnerLines[winAnimIndex][0]);
 			
 			var curLineIndAr:Array = frameHolder.calcCurLineIndexesAr(obj, winAnimIndex);
 			frameHolder.setFrames(obj, winAnimIndex, curLineIndAr);
@@ -356,8 +306,9 @@ package game.machine {
 				frameHolder.initIconFrameHolder(false);
 				GameHolder.cont.machineHolder.stopIconsAnimation(true);
 				resetMaskIcons();
-				lineAnimationStarter(obj, false);
+				//lineAnimationStarter(obj, false);
 				lineWinStatus.hide();
+				lineHelper._disposeAll();
 				return;
 			}
 			//cont.shown = false;
@@ -376,6 +327,8 @@ package game.machine {
 			}catch (e:Error) {
 				
 			}*/
+			
+			lineHelper._showLine(lineNumAr[num]);
 		}
 		
 		//activate
@@ -408,6 +361,7 @@ package game.machine {
 		public function killDelayedCalls():void {
 			TweenMax.killDelayedCallsTo(winnerLineStartAnDelay);
 			TweenMax.killDelayedCallsTo(animateLinesContDel);
+			TweenMax.killDelayedCallsTo(animateLine);
 		}
 		
 		//shown
@@ -423,19 +377,21 @@ package game.machine {
 				TweenMax.killDelayedCallsTo(lineAnimationStarter);
 				TweenMax.killDelayedCallsTo(winnerLineStartAnDelay);
 				TweenMax.killDelayedCallsTo(animateLinesContDel);
+				TweenMax.killDelayedCallsTo(animateLine);
 				this.visible = false;
 				hideAllLines();
 				frameHolder.initIconFrameHolder();
 				this.resetMaskIcons();
 				lineWinStatus.hide();
+				lineHelper._disposeAll();
 			}
 			_shown = value;
 		}
 		
 		public function hideAllLines():void {
 			for (var i:int = 0; i < GameSettings.TOTAL_LINES; i++) {
-				testLine = linesContainer.getChildByName("line" + String(i + 1));
-				testLine.visible = false;
+				//testLine = linesContainer.getChildByName("line" + String(i + 1));
+				//testLine.visible = false;
 				//testButt = lineBtns.getChildByName("b" + String(i + 1));
 				//testButt.alpha = 0.5;
 			}
