@@ -349,6 +349,7 @@ package {
 			myStarling.start();
 			myStarling.skipUnchangedFrames = true;
 			myStarling.showStats = Root.TESTING;
+			
 			//Tracer._log(getQualifiedClassName(Assets.allIconsXml),'get name')
 			//var ClassReference:Class = getDefinitionByName('Assets.ItemsLib_allIconsXml') as Class;
 			//Tracer._log('sss')

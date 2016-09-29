@@ -15,7 +15,6 @@ package cashier
 	import feathers.controls.TextInput;
 	import feathers.controls.text.StageTextTextEditor;
 	import feathers.controls.text.TextFieldTextRenderer;
-	import feathers.display.Scale9Image;
 	import feathers.events.FeathersEventType;
 	import feathers.text.BitmapFontTextFormat;
 	import flash.geom.Point;

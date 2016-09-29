@@ -135,8 +135,9 @@ package game
 			addChild(lineButsHolder);
 			
 			linesHolder = new Lines();
-			linesHolder.x = -369;
-			linesHolder.y = -157;
+			linesHolder.x = -364;
+			linesHolder.y = -210;
+			linesHolder.alpha = .4;
 			//linesHolder.scaleX = 1.03;
 			//linesHolder.scaleY = 0.94;
 			
@@ -155,9 +156,6 @@ package game
 			addChild(linesHolder);
 			linesHolder.addLineBtns(lineButsHolder);
 			
-			
-			
-			
 			for (i = 0; i < this.numChildren; i++)
 			{
 				this.getChildAt(i).x += GAME_OFFSET_X;
@@ -170,6 +168,7 @@ package game
 			addChild(leaderBoardHolder);
 			
 		    //TweenLite.delayedCall(1, showFreeSpinStatus, ["blalballba"]);
+			
 		}
 		
 		
@@ -183,7 +182,7 @@ package game
 			machineHolder.updateIndexes(obj);
 			machineHolder.initMachine();
 			linesHolder.initLines();
-			linesHolder.shown = false;
+			linesHolder.shown = true;//false
 			lineButsHolder.initButtons();
 		}
 		

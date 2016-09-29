@@ -15,6 +15,7 @@ package game.machine {
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.events.Event;
+	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	import starling.utils.Color;
 	import starling.utils.deg2rad;
@@ -57,7 +58,7 @@ package game.machine {
 		
 		private function setUpLines():void {
 			var img:Image;
-			var imgSp:Sprite;
+			var imgSp:LineHelper;
 			
 			if (GameSettings.SYS_NUM == 0 && GameSettings.TOTAL_LINES == 27)
 				lineNumAr = GameSettings.LINES_AR[3];
@@ -65,31 +66,28 @@ package game.machine {
 				lineNumAr = GameSettings.LINES_AR[GameSettings.SYS_NUM];
 			
 				
-				
 			linesContainer = new Sprite();
 			addChild(linesContainer);
 			
 			linesMask = new Sprite();
-			linesMask.x = -30;
-			linesMask.y = -60;
 			addChild(linesMask);
 			
 			var quad:Quad;
 			
-			quad = new Quad(30, 420, Color.GRAY);
-			quad.alpha = .5;
+			/*quad = new Quad(30, 420, Color.GRAY);
+			quad.alpha = 1;
 			quad.x = -quad.width;
-			linesMask.addChild(quad);
+			linesMask.addChild(quad);*/
 			
 			maskIconsAr = [];
+			
 			for (var j:int = 0; j < 15; j++) {
-				quad = new Quad(Icon.iconWidth +14, Icon.iconHeight + 16, Color.RED);
-				maskIconsAr.push(quad);
-				quad.alpha = 1;
-				quad.x = int(j % 5 * 165);
-				quad.y = int(j / 5) * (135)+2;
-				linesMask.addChild(quad);
 				
+				quad = new Quad(Icon.iconWidth, Icon.iconHeight, Color.RED);
+				maskIconsAr.push(quad);
+				quad.x = int(j % 5 * 154);
+				quad.y = int(j / 5) * (145);
+				linesMask.addChild(quad);
 				
 			}
 			
@@ -97,14 +95,23 @@ package game.machine {
 			quad.x = linesMask.width - quad.width*2;
 			linesMask.addChild(quad);*/
 			
-			for (j = 0; j < 5; j++) {
+			for (j = 0; j < 4; j++) {
 				
-				quad = new Quad(40, 420, Color.GREEN);
-				quad.alpha = 1;
-				quad.x = 165*j+133;
+				quad = new Quad(35, 410, Color.GREEN);
+				quad.x = 154*j+120;
 				linesMask.addChild(quad);
+				
 			}
 			
+			for (j = 0; j < 2; j++) {
+				
+				quad = new Quad(737, 25, Color.GREEN);
+				quad.y = 145*j+120;
+				linesMask.addChild(quad);
+				
+			}
+			
+			//linesMask.alpha = .2;
 			linesContainer.mask = linesMask;
 			
 			var $textureName:String;
@@ -112,15 +119,16 @@ package game.machine {
 			
 			//var $lineYPosVect:Vector.<int> = new Vector.<int>[210, 42, 335, 0, 20, 35, 250, 80, 80, 0];
 			
-			for (var i:int = 0; i < GameSettings.TOTAL_LINES; i++) {
-				imgSp = new Sprite();
-				$textureName = "lines" + StaticGUI.intWithZeros((i + 1),2) + ' instance 10000';
-				img = new Image($textureAtlas.getTexture($textureName));
+			for (var i:int = 0; i < lineNumAr.length/*GameSettings.TOTAL_LINES*/; i++) {
+				imgSp = new LineHelper();
+				imgSp._showLine(lineNumAr[i]);
+				//$textureName = "lines" + StaticGUI.intWithZeros((i + 1),2) + ' instance 10000';
+				//img = new Image($textureAtlas.getTexture($textureName));
+				
 				//img.color = Color.RED;
-				imgSp.addChild(img);
+				//imgSp.addChild(img);
 				//imgSp.visible = false;
 				linesContainer.addChild(imgSp);
-				imgSp.x = 5;
 				imgSp.name = "line" + String(i + 1);
 				//imgSp.y = $lineYPosVect[i];
 				
@@ -166,12 +174,16 @@ package game.machine {
 				//img.dispose();
 			}
 			
-			linesContainer.scaleX = 1.65;
-			linesContainer.scaleY = 1.5;
-			linesContainer.x = -60;
+			//linesContainer.scaleX = 1.65;
+			//linesContainer.scaleY = 1.5;
+			//linesContainer.x = -60;
 			
 			img = null;
 			imgSp = null;
+			
+			
+			
+			
 		}
 		
 		public function addLineBtns(lineBtns:LineButtons):void {
@@ -187,16 +199,13 @@ package game.machine {
 			addChild(lineWinStatus);
 			
 			frameHolder = new IconFramesHolder();
-			frameHolder.x = -40;
-			frameHolder.y = -60;
+			//frameHolder.x = -40;
+			//frameHolder.y = -60;
 			//frameHolder.scaleX = 0.94;
 			//frameHolder.scaleY = 1.1;
 			addChild(frameHolder);
 			addChild(linesMask)
 			GameHolder.cont.footerHolder.addEventListener(GameEvents.LINE_CHANGED, whenLineisChanged);
-			
-			
-			
 		
 		}
 		

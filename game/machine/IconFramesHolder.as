@@ -1,4 +1,5 @@
 package game.machine {
+	import com.utils.Line;
 	import com.utils.StaticGUI;
 	import game.GameHolder;
 	import game.machine.iconFrame;
@@ -14,30 +15,78 @@ package game.machine {
 	 */
 	public class IconFramesHolder extends Sprite {
 		private var testFrame:iconFrame;
-		
+		private var lineTest:Line;
+		private var rectSize:Array
 		public function IconFramesHolder() {
+			rectSize = GameSettings.ICONS_SIZE[GameSettings.SYS_NUM];
 			this.addEventListener(Event.ADDED_TO_STAGE, added);
 		}
 		
 		private function added(e:Event):void {
 			removeEventListener(Event.ADDED_TO_STAGE, added);
 			
-			setUpFrames();
+			_setUpFrames(8);
 		}
 		
-		private function setUpFrames():void {
-			for (var i:int = 0; i < 15; i++) {
-				testFrame = new iconFrame(Assets.getAtlas("iconFrames", "iconFramesXml").getTextures("win_frames_"), 50);
+		private function _setUpFrames(index:uint):void {
+			
+			
+			//for (var i:int = 0; i < 15; i++) {
+				/*testFrame = new iconFrame(Assets.getAtlas("iconFrames", "iconFramesXml").getTextures("win_frames_"), 50);
 				testFrame.name = "frame_icon" + String(i + 1);
 				//StaticGUI.setAlignPivot(testFrame);
 				testFrame.x = int(i % 5 * (169) - 37);
 
 				testFrame.y = int(int(i / 5) * (138) - 37);
-				testFrame.visible = false;
+				testFrame.visible = true;
 				addChild(testFrame);
-				testFrame.stop();
+				testFrame.stop();*/
 					//Starling.juggler.add(testFrame);
+				lineTest = new Line;
+				lineTest.lineTo(rectSize[0], 0);
+				lineTest.lineTo(0, rectSize[1]);
+				lineTest.lineTo(-rectSize[0], 0);
+				lineTest.lineTo(0, -rectSize[1]);
+					
+				
+				
+				lineTest.x = int(index % 5 * 154);
+
+				lineTest.y = int(index / 5) * 145;
+				addChild(lineTest);
+			//}
+			
+			
+			/*var lineTest:Line = new Line;
+			
+			//lineTest.lineTo(lineArray[i]*120+5, 0);
+			
+			defaultNum = zz[0];
+			lineTest.moveTo(0, 120 * (zz[0])-120/2);
+			lineTest.lineTo(60, 0);
+			lineTest.lineTo(120+40, getCorrectYCord(zz[1]));
+			lineTest.lineTo(120+40, -360+120/2);
+			/*lineTest.lineTo(120, getCorrectYCord(zz[3]));
+			lineTest.lineTo(120, getCorrectYCord(zz[4]));*/
+			
+			//lineTest.lineTo(110, 100);
+			/*lineTest.lineTo(-120, 0);
+			lineTest.lineTo(0, -120);*/
+			
+			//addChild(lineTest);*/
+		}
+		
+		
+		public function _disposeFrame():void {
+			if (lineTest) {
+				lineTest.removeChildren();
+				lineTest.dispose();
+				
+				if (this.contains(lineTest)) this.removeChild(lineTest);
 			}
+			
+			lineTest = null;
+			
 		}
 		
 		public function initIconFrameHolder(icludeBonus:Boolean = true):void {

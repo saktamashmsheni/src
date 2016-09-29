@@ -52,7 +52,9 @@ package
 		public static var REEL_TYPE:Array = [[3, 3], [5, 3], [5, 4]];
 		public static var MASHINE_OPTIONS:Array = [{xDist:154, yDist:145},
 												   {xDist:154, yDist:145},
-												   {xDist:154, yDist:120}]
+												   {xDist:154, yDist:120 } ]
+												  
+		public static const ICONS_SIZE:Vector.<Array> = new <Array>[[120,120],[120,120],[120,120]];
 												   
 												   
 		

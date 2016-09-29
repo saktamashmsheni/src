@@ -15,6 +15,7 @@ package game.machine
 	import starling.display.DisplayObject;
 	import starling.display.Image;
 	import starling.display.MovieClip;
+	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.display.Stage;
 	import starling.events.Event;
@@ -67,6 +68,17 @@ package game.machine
 				iconMc = new MovieClip(vectTexture);
 				
 				addChild(iconMc);
+				
+				var q:Quad = new Quad(120, 120, 0xffffff);
+				//q.x = int(iconMc.width / 2 - q.width / 2);
+				//q.y = int(iconMc.height / 2 - q.height / 2);
+				addChild(q);
+				
+				var q2:Quad = new Quad(5, 5, 0x00ff00);
+				q2.x = int(q.width / 2 - q2.width / 2);
+				q2.y = int(q.height / 2 - q2.height / 2);
+				addChild(q2)
+				
 			}
 			
 			if (Machine.isWildIcon(ID))
