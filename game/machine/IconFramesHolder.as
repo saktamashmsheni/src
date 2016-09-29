@@ -51,9 +51,9 @@ package game.machine {
 					
 				
 				
-				lineTest.x = int(index % 5 * 154);
+				lineTest.x = int((index) % 5 * 154);
 
-				lineTest.y = int(index / 5) * 145;
+				lineTest.y = int((index) / 5) * 145;
 				addChild(lineTest);
 				
 				activeFramesAr.push(lineTest);
