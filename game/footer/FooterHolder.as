@@ -187,8 +187,8 @@ package game.footer {
 													$autoObj, 
 					 $atlas.getTexture("auto_spin_controller_1.png"), 
 					 $atlas.getTexture("auto_spin_controller_2.png"), 
-					 $atlas.getTexture("auto_spin_controller_3.png"),
-					                                       null,
+					 $atlas.getTexture("auto_spin_controller_1.png"),
+					 $atlas.getTexture("auto_spin_controller_4.png"),
 												Assets.getFont("auto_spin_font").name, -7);
 			
 			autoSpinBtn.addEventListener( Event.TRIGGERED, onAutoSpinClick);
@@ -209,8 +209,8 @@ package game.footer {
 													$spnObj, 
 					 $atlas.getTexture("spin_controller_1.png"), 
 					 $atlas.getTexture("spin_controller_2.png"), 
-					 $atlas.getTexture("spin_controller_3.png"),
-					                                       null,
+					 $atlas.getTexture("spin_controller_1.png"),
+					 $atlas.getTexture("spin_controller_4.png"),
 												Assets.getFont("SPIN_FONT").name, -13, -1);
 												
 			
