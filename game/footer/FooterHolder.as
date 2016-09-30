@@ -350,7 +350,7 @@ package game.footer {
 					updateState(GameHolder.gameState);
 					spinEnabled = true;
 					
-					while (GameSettings.TOTAL_LINES * Root.betsArray[GameSettings.BET_INDEX] * GameSettings.CREDIT_VAL > balanceAmount) 
+					while (GameSettings.TOTAL_LINES * GameSettings.BETS_AR[GameSettings.BET_INDEX] * GameSettings.CREDIT_VAL > balanceAmount) 
 					{
 						if (GameSettings.BET_INDEX != 0) {
 							GameSettings.BET_INDEX = GameSettings.BET_INDEX - 1;
@@ -397,9 +397,9 @@ package game.footer {
 				//$betSlider._isEnabled(false);
 				MusicManager._cont._addOrRemoveMusicMuter(MusicManager.MUSIC_MUTE_ONDELAY);
 				
-				//Root.connectionManager.sendData({MT: SocketAnaliser.spinScatter, SID: "", IM: {Lines: GameSettings.ACT_LINES, Bet: Root.betsArray[GameSettings.BET_INDEX] * GameSettings.CREDIT_VAL}, UID: Root.userRoomId}, true);
-				//Root.connectionManager.sendData({MT: SocketAnaliser.spinWild, SID: "", IM: {Lines: GameSettings.ACT_LINES, Bet: Root.betsArray[GameSettings.BET_INDEX] * GameSettings.CREDIT_VAL}, UID: Root.userRoomId}, true);
-				Root.connectionManager.sendData({MT: SocketAnaliser.spin, SID: "", IM: {Lines: GameSettings.ACT_LINES, Bet: Root.betsArray[GameSettings.BET_INDEX] * GameSettings.CREDIT_VAL}, UID: Root.userRoomId}, true);
+				//Root.connectionManager.sendData({MT: SocketAnaliser.spinScatter, SID: "", IM: {Lines: GameSettings.ACT_LINES, Bet: GameSettings.BETS_AR[GameSettings.BET_INDEX] * GameSettings.CREDIT_VAL}, UID: Root.userRoomId}, true);
+				//Root.connectionManager.sendData({MT: SocketAnaliser.spinWild, SID: "", IM: {Lines: GameSettings.ACT_LINES, Bet: GameSettings.BETS_AR[GameSettings.BET_INDEX] * GameSettings.CREDIT_VAL}, UID: Root.userRoomId}, true);
+				Root.connectionManager.sendData({MT: SocketAnaliser.spin, SID: "", IM: {Lines: GameSettings.ACT_LINES, Bet: GameSettings.BETS_AR[GameSettings.BET_INDEX] * GameSettings.CREDIT_VAL}, UID: Root.userRoomId}, true);
 				dispatchEvent(new GameEvents(GameEvents.SPIN_STARTED));
 				GameHolder.cont.machineHolder.startMachineSpin();
 				
@@ -466,7 +466,7 @@ package game.footer {
 					updateState(GameHolder.gameState);
 					spinEnabled = true;
 					
-					while (GameSettings.TOTAL_LINES * Root.betsArray[GameSettings.BET_INDEX] * GameSettings.CREDIT_VAL > balanceAmount) 
+					while (GameSettings.TOTAL_LINES * GameSettings.BETS_AR[GameSettings.BET_INDEX] * GameSettings.CREDIT_VAL > balanceAmount) 
 					{
 						if (GameSettings.BET_INDEX != 0) {
 							GameSettings.BET_INDEX = GameSettings.BET_INDEX - 1;
@@ -703,7 +703,7 @@ package game.footer {
 				return;
 			
 			if (e.params.currentTarget.name == "plus") {
-				if (GameSettings.BET_INDEX + 1 < Root.betsArray.length)
+				if (GameSettings.BET_INDEX + 1 < GameSettings.BETS_AR.length)
 					GameSettings.BET_INDEX++;
 			} else if (e.params.currentTarget.name == "minus") {
 				if (GameSettings.BET_INDEX - 1 >= 0)
@@ -717,8 +717,8 @@ package game.footer {
 			if (this.spinEnabled == false) {
 				return;
 			}
-			if (GameSettings.BET_INDEX != Root.betsArray.length - 1) {
-				GameSettings.BET_INDEX = Root.betsArray.length - 1;
+			if (GameSettings.BET_INDEX != GameSettings.BETS_AR.length - 1) {
+				GameSettings.BET_INDEX = GameSettings.BETS_AR.length - 1;
 				updateBet(GameSettings.BET_INDEX);
 			} else {
 				GameSettings.BET_INDEX = 0;
@@ -750,15 +750,15 @@ package game.footer {
 		
 		public function updateBet(index:Number):void {
 			GameSettings.BET_INDEX = index;
-			betTxt.text = betAttrStr + String(Root.betsArray[GameSettings.BET_INDEX]);
+			betTxt.text = betAttrStr + String(GameSettings.BETS_AR[GameSettings.BET_INDEX]);
 			updateTotalBet();
 			
 			GoogleAnalytics._sendActionEvent(GAnalyticsEvents.GAME_EVENTS,'bet change','bet changed');
 		}
 		
 		private function updateTotalBet():void {
-			totalBetTXT.text = TOTALBET_TEXT+String(Root.betsArray[GameSettings.BET_INDEX] * GameSettings.ACT_LINES);
-			totalBetAmount = Root.betsArray[GameSettings.BET_INDEX] * GameSettings.ACT_LINES;
+			totalBetTXT.text = TOTALBET_TEXT+String(GameSettings.BETS_AR[GameSettings.BET_INDEX] * GameSettings.ACT_LINES);
+			totalBetAmount = GameSettings.BETS_AR[GameSettings.BET_INDEX] * GameSettings.ACT_LINES;
 			
 			changeScoreTypes();
 		}
@@ -770,7 +770,7 @@ package game.footer {
 			if (InLari) {
 				balanceTXT.text = BALANCE_TEXT+String((balanceAmount / 100).toFixed(2)) + " §";
 				totalBetTXT.text = TOTALBET_TEXT+String((totalBetAmount / 100 * GameSettings.CREDIT_VAL).toFixed(2));
-				betTxt.text = betAttrStr + String((Root.betsArray[GameSettings.BET_INDEX] / 100 * GameSettings.CREDIT_VAL).toFixed(2));
+				betTxt.text = betAttrStr + String((GameSettings.BETS_AR[GameSettings.BET_INDEX] / 100 * GameSettings.CREDIT_VAL).toFixed(2));
 				if (GameHolder.cont.freeSpinsState && GameHolder.cont.currentFreeSpinNum >= 0) {
 					winTXT.text = WIN_TEXT+String((freeSpinsWinAmount / 100).toFixed(2));
 				} else {
@@ -779,7 +779,7 @@ package game.footer {
 			} else {
 				balanceTXT.text = BALANCE_TEXT+String(int(balanceAmount / GameSettings.CREDIT_VAL));
 				totalBetTXT.text = TOTALBET_TEXT+String(totalBetAmount);
-				betTxt.text = betAttrStr + String(Root.betsArray[GameSettings.BET_INDEX]);
+				betTxt.text = betAttrStr + String(GameSettings.BETS_AR[GameSettings.BET_INDEX]);
 				if (GameHolder.cont.freeSpinsState && GameHolder.cont.currentFreeSpinNum >= 0) {
 					winTXT.text = WIN_TEXT+String(int(freeSpinsWinAmount / GameSettings.CREDIT_VAL));
 				} else {

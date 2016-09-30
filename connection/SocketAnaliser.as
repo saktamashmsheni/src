@@ -155,10 +155,12 @@
 					GameSettings.LINES_COUNT_CONFIG = socketObject.IM.Lines.LinesCountConfig;
 					
 					
+					GameSettings.BETS_AR = socketObject.IM.BetsConfig;
+					
+					
 					GameSettings.WILDS_AR = socketObject.IM.WILDS;
 					GameSettings.SCATTERS_AR = socketObject.IM.SCATTERS;
 					GameSettings.BONUSES_AR = [];
-					
 					
 					
 					Root.Key = Hex.toArray(socketObject.IM.Key);

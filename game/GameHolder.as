@@ -916,7 +916,7 @@ package game
 			}
 			
 			showLoader();
-			rules = new RulesHolder(Root.betsArray[GameSettings.BET_INDEX]);
+			rules = new RulesHolder(GameSettings.BETS_AR[GameSettings.BET_INDEX]);
 			//showLoader();
 			if (Assets.payTableLoaded)
 			{
@@ -1079,7 +1079,7 @@ package game
 		public function reconnectFunc(obj:Object):void
 		{
 			
-			footerHolder.updateBet(Root.betsArray.indexOf(obj.HandInfo.Bet));
+			footerHolder.updateBet(GameSettings.BETS_AR.indexOf(obj.HandInfo.Bet));
 			footerHolder.updateLines(obj.HandInfo.Line1);
 			
 			if (obj.Scatter.FreeSpins > 0)

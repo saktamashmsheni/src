@@ -24,7 +24,7 @@ package game.footer {
 			
 			$betSlider = new Slider();
 			$betSlider.minimum = 0;
-			$betSlider.maximum = Root.betsArray.length-1;
+			$betSlider.maximum = GameSettings.BETS_AR.length-1;
 			$betSlider.value = 0;
 			$betSlider.step = 1;
 			$betSlider.page = 10;
