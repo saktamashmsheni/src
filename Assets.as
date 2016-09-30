@@ -261,7 +261,7 @@ package {
 				var fontXML:XML = XML(new xmlClass());
 				
 				gameFontsAtlassDic[fontName] = new BitmapFont(fontTexture, fontXML);
-				TextField.registerBitmapFont(gameFontsAtlassDic[fontName]);
+				TextField.registerCompositor(gameFontsAtlassDic[fontName],gameFontsAtlassDic[fontName].name);
 			}
 			
 			return gameFontsAtlassDic[fontName];
