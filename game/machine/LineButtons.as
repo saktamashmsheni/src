@@ -2,14 +2,17 @@ package game.machine {
 	import com.utils.StaticGUI;
 	import feathers.controls.ButtonState;
 	import feathers.controls.Radio;
+	import feathers.controls.text.BitmapFontTextRenderer;
 	import feathers.core.ToggleGroup;
 	import feathers.skins.ImageSkin;
+	import flash.text.TextFormatAlign;
 	import game.footer.FooterHolder;
 	import starling.core.Starling;
 	import starling.display.Image;
 	import starling.display.MovieClip;
 	import starling.display.Sprite;
 	import starling.events.Event;
+	import starling.text.BitmapFont;
 	import starling.text.TextField;
 	import starling.textures.TextureAtlas;
 	
@@ -38,6 +41,8 @@ package game.machine {
 			var imgSp:Sprite;
 			var tt:TextField;
 			
+			var lineNumSp:Sprite;
+			
 			var yCount:int = 0;
 			var xCount:int = 0;
 			
@@ -55,30 +60,49 @@ package game.machine {
 				$textArr.push(String(GameSettings.LINES_COUNT_CONFIG[i]));
 			}
 			
+			
+			
+			if (GameSettings.LINES_FIXED) this.touchable = false;
+			
+			
+			
 			for (var $i:uint; $i < 5; $i++ ){
 				
-				
-				$radio = new LineNums($textArr[$i]);
-				$radio.name = 'radio_' + $i + '_l';
-				$radio.y = $i *-82;
-				$radio.toggleGroup = $groupl;
-				//$radio.defaultSkin = $skin;
-				$radio.useHandCursor = true;
-				this.addChild($radio);
-				$radio.validate();
-				$lineNumsVect.push($radio);
-				
-				
-				$radio = new LineNums($textArr[$i]);
-				$radio.name = 'radio_' + $i + '_r';
-				$radio.x = 812;
-				$radio.y = $i *-82;
-				$radio.useHandCursor = true;
-				$radio.toggleGroup = $groupr;
-				//$radio.defaultSkin = $skin;
-				
-				this.addChild($radio);
-				$radio.validate();
+				if (GameSettings.LINES_FIXED)
+				{
+					lineNumSp = new LineNumsFixed($textArr[$i], $i);
+					lineNumSp.y = $i *-82;
+					this.addChild(lineNumSp);
+					
+					lineNumSp = new LineNumsFixed($textArr[$i], $i);
+					lineNumSp.x = 812;
+					lineNumSp.y = $i *-82;
+					this.addChild(lineNumSp);
+				}
+				else
+				{
+					$radio = new LineNums($textArr[$i]);
+					$radio.name = 'radio_' + $i + '_l';
+					$radio.y = $i *-82;
+					$radio.toggleGroup = $groupl;
+					//$radio.defaultSkin = $skin;
+					$radio.useHandCursor = true;
+					this.addChild($radio);
+					$radio.validate();
+					$lineNumsVect.push($radio);
+					
+					
+					$radio = new LineNums($textArr[$i]);
+					$radio.name = 'radio_' + $i + '_r';
+					$radio.x = 812;
+					$radio.y = $i *-82;
+					$radio.useHandCursor = true;
+					$radio.toggleGroup = $groupr;
+					//$radio.defaultSkin = $skin;
+					
+					this.addChild($radio);
+					$radio.validate();
+				}
 				
 			}
 			
@@ -130,6 +154,7 @@ package game.machine {
 		}
 		
 		public function _selectLine(line:int = 0):void{
+			if (GameSettings.LINES_FIXED) return;
 			Radio($lineNumsVect[line]).isSelected  = true;
 		}
 		
