@@ -49,7 +49,29 @@ package {
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			cont = this;
 			
+			if (myStarling != null) {
+				assLoadMan.unLoadAllLoaders();
+				return;
+			}
+			myStarling = new Starling(Main, stage);
+			//Starling.handleLostContext = true;  //shapebs ro vkargavdi
+			myStarling.antiAliasing = 1;
+			myStarling.start();
+			myStarling.skipUnchangedFrames = true;
+			myStarling.showStats = Root.TESTING;
 			
+			if (!swfLoaded)
+				Preloader._cont._loadingProgressCue(-1, -1, null, 'Initializing...');
+			
+			socketAnaliser = new SocketAnaliser();
+			socketAnaliser.init();
+			//socketAnaliser.addEventListener(GameEvents.CONNECTED, whenConnected);
+			Root.connectToServer();
+			
+		}
+		
+		public function startLoadAssets():void 
+		{
 			if (Root.TESTING == true){/*GameSettings.PATH = "";*/}
 			else { GameSettings.PATH = this.parent.loaderInfo.parameters['AssetPath'] }
 			
@@ -339,7 +361,7 @@ package {
 		
 		private function allAssetsLoaded(e:AssetsLoaderEvents):void {
 			
-			if (myStarling != null) {
+			/*if (myStarling != null) {
 				assLoadMan.unLoadAllLoaders();
 				return;
 			}
@@ -350,34 +372,39 @@ package {
 			myStarling.skipUnchangedFrames = true;
 			myStarling.showStats = Root.TESTING;
 			
-			//Tracer._log(getQualifiedClassName(Assets.allIconsXml),'get name')
-			//var ClassReference:Class = getDefinitionByName('Assets.ItemsLib_allIconsXml') as Class;
-			//Tracer._log('sss')
-			
-			/*
-			   var definitions:*;
-			   if (this.loaderInfo.applicationDomain.hasOwnProperty("getQualifiedDefinitionNames")) {
-			   definitions = this.loaderInfo.applicationDomain["getQualifiedDefinitionNames"]();
-			   for (var i:int = 0; i < definitions.length; i++) {
-			   Tracer._log(definitions[i] + "\n")
-			   }
-			   }
-			
-			 */
 			if (!swfLoaded)
 				Preloader._cont._loadingProgressCue(-1, -1, null, 'Initializing...');
 			
 			socketAnaliser = new SocketAnaliser();
 			socketAnaliser.init();
 			//socketAnaliser.addEventListener(GameEvents.CONNECTED, whenConnected);
-			Root.connectToServer();
+			Root.connectToServer();*/
 			
 			assLoadMan.unLoadAllLoaders();
 			
 			if (!swfLoaded) {
 				swfLoaded = true
 			}
-			;
+			
+			Main.cont.startMain();
+			IniClass.cont.hidePreloaderIfThereis();
+			Main.cont.showGame();
+			
+			
+			
+			GameHolder.cont.initialiseWholeMachine(SocketAnaliser.AUTH_OBJECT);
+					
+			if (SocketAnaliser.AUTH_OBJECT.Reconnect == true)
+			{
+			   GameHolder.cont.reconnectFunc(SocketAnaliser.AUTH_OBJECT)
+			}
+			if (SocketAnaliser.AUTH_OBJECT.Chips == 0 && Root.TESTING == false)
+			{
+				GameHolder.cont.addCashier();
+			}
+			
+			socketAnaliser.activateOldMessages();
+			
 		}
 		
 		public function fullScreen(e:MouseEvent):void {

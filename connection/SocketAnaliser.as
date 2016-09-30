@@ -47,6 +47,9 @@
 		private var messagesArr:Array = [];
 		private var timer:Timer;
 		
+		
+		public static var AUTH_OBJECT:Object;
+		
 		public function init():void {
 			Root.connectionManager.addEventListener(ConnectionManager.ON_CONNECTION, Authorize);
 			Root.connectionManager.addEventListener(ConnectionManager.ON_CONNECTION_LOST, connectionLost);
@@ -130,11 +133,12 @@
 			
 			switch (socketObject.MT) {
 				case addNew: 
-					IniClass.cont.hidePreloaderIfThereis();
-					Main.cont.showGame();
 					
 					
+					StopMessage = true;
 					
+					AUTH_OBJECT = socketObject.IM;
+ 					
 					GameSettings.GAME_ID = socketObject.IM.GameID;
 					
 					GameSettings.SYS_NUM = socketObject.IM.Reels;
@@ -165,22 +169,20 @@
 					
 					Root.Key = Hex.toArray(socketObject.IM.Key);
 					
-					GameHolder.cont.initialiseWholeMachine(socketObject.IM);
+					
 					
 					//jackpot
 					GameSettings.IS_JACKPOT_ON = socketObject.IM.JackPotAmount;
 					//GameHolder.cont.showJackpotStartWindow();
 					//FourWayJackpot.cont.updateInfo(socketObject.IM.JackPotStats, socketObject.IM);
 					
+					IniClass.cont.startLoadAssets();
 					
-					if (socketObject.IM.Reconnect == true)
-				    {
-					   GameHolder.cont.reconnectFunc(socketObject.IM)
-				    }
-					if (socketObject.IM.Chips == 0 && Root.TESTING == false)
-					{
-						GameHolder.cont.addCashier();
-					}
+					
+					
+					
+					
+					
 					
 					
 					

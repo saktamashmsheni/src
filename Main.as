@@ -47,13 +47,18 @@
 			visible = false;
 			cont = this;
 			
+			
+		}
+		
+		public function startMain():void
+		{
 			initialise();
 			stage.addEventListener(ResizeEvent.RESIZE, onResize);
 			onResize(null);
 		}
 		
 		
-		private function initialise():void {
+		public function initialise():void {
 			
 			bgImg = new Image(Assets.getTexture("gameBg"));
 			this.addChild(bgImg);
