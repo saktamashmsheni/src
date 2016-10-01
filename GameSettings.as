@@ -55,7 +55,7 @@ package
 												   {xDist:154, yDist:120 } ]
 												  
 		public static const ICONS_SIZE:Vector.<Array> = new <Array>[[120,120],[120,120],[120,120]];
-												   
+		public static const ICONSFRAME_SIZE:Vector.<Array> = new <Array>[[130,130],[130,130],[120,120]];
 												   
 		
 		//machine and icon settings

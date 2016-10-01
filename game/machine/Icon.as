@@ -39,8 +39,8 @@ package game.machine
 		public var KJ:String;
 		public var positionInReel:Number;
 		public var isBonusLike:Boolean = false;
-		public static var iconWidth:Number = 120;
-		public static var iconHeight:Number = 120;
+		public static var iconWidth:Number = GameSettings.ICONS_SIZE[GameSettings.SYS_NUM][0];
+		public static var iconHeight:Number = GameSettings.ICONS_SIZE[GameSettings.SYS_NUM][1];
 		public var iconAnimationMc:MovieClip;
 		public var hoverAnimation:MovieClip;
 		private var currenTWildIconIndex:int = -1;
@@ -69,14 +69,14 @@ package game.machine
 				
 				addChild(iconMc);
 				
-				/*var q:Quad = new Quad(120, 120, 0xffffff);
-				//q.x = int(iconMc.width / 2 - q.width / 2);
-				//q.y = int(iconMc.height / 2 - q.height / 2);
+				/*var q:Quad = new Quad(130, 130, 0xffffff);
+				
+				q.alpha = .5;
+				
 				addChild(q);
 				
 				var q2:Quad = new Quad(5, 5, 0x00ff00);
-				q2.x = int(q.width / 2 - q2.width / 2);
-				q2.y = int(q.height / 2 - q2.height / 2);
+				
 				addChild(q2)*/
 				
 			}
@@ -111,6 +111,11 @@ package game.machine
 			
 			
 			alignCenter(iconMc);
+			/*if(q)q.x = int(iconMc.x+iconMc.width / 2 - q.width / 2);
+			if(q)q.y = int(iconMc.y+iconMc.height / 2 - q.height / 2);
+			
+			if(q2)q2.x = int(q.x+q.width / 2 - q2.width / 2);
+			if(q2)q2.y = int(q.y+q.height / 2 - q2.height / 2);*/
 			
 		}
 		
@@ -121,11 +126,11 @@ package game.machine
 			if (ic.height > Icon.iconHeight)
 				ic.y = int( -(ic.height - Icon.iconHeight) / 2);
 				
-			if (Machine.isWildIcon(ID))
+			/*if (Machine.isWildIcon(ID))
 			{
 				ic.x -= 1;
 				ic.y -= 1;
-			}
+			}*/
 		}
 		
 		public function playIcon():void

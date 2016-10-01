@@ -135,8 +135,8 @@ package game
 			addChild(lineButsHolder);
 			
 			linesHolder = new Lines();
-			linesHolder.x = -364;
-			linesHolder.y = -210;
+			linesHolder.x = -369;
+			linesHolder.y = -215;
 			//linesHolder.alpha = .4;
 			//linesHolder.scaleX = 1.03;
 			//linesHolder.scaleY = 0.94;

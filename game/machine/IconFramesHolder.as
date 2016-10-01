@@ -19,14 +19,14 @@ package game.machine {
 		private var rectSize:Array
 		private var activeFramesAr:Array = [];
 		public function IconFramesHolder() {
-			rectSize = GameSettings.ICONS_SIZE[GameSettings.SYS_NUM];
+			rectSize = GameSettings.ICONSFRAME_SIZE[GameSettings.SYS_NUM];
 			this.addEventListener(Event.ADDED_TO_STAGE, added);
 		}
 		
 		private function added(e:Event):void {
 			removeEventListener(Event.ADDED_TO_STAGE, added);
 			
-			//_setUpFrames(8);
+			//_setUpFrames(10);
 		}
 		
 		private function _setUpFrames(index:uint):void {

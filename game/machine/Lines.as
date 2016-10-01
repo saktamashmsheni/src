@@ -83,12 +83,17 @@ package game.machine {
 			
 			maskIconsAr = [];
 			
+			var qWidth:uint = GameSettings.ICONSFRAME_SIZE[GameSettings.SYS_NUM][0];
+			var qHeight:uint = GameSettings.ICONSFRAME_SIZE[GameSettings.SYS_NUM][1];
+			trace(qWidth,qHeight,GameSettings.SYS_NUM)
+			
 			for (var j:int = 0; j < 15; j++) {
 				
-				quad = new Quad(Icon.iconWidth, Icon.iconHeight, Color.RED);
+				quad = new Quad(qWidth, qHeight, Color.RED);
 				maskIconsAr.push(quad);
 				quad.x = int(j % 5 * 154);
 				quad.y = int(j / 5) * (145);
+			
 				linesMask.addChild(quad);
 				
 			}
@@ -99,16 +104,18 @@ package game.machine {
 			
 			for (j = 0; j < 4; j++) {
 				
-				quad = new Quad(35, 410, Color.GREEN);
-				quad.x = 154*j+120;
+				quad = new Quad(24, 420, Color.GREEN);
+				
+				quad.x = 154*j+130;
 				linesMask.addChild(quad);
 				
 			}
 			
 			for (j = 0; j < 2; j++) {
 				
-				quad = new Quad(737, 25, Color.GREEN);
-				quad.y = 145*j+120;
+				quad = new Quad(746, 16, Color.GREEN);
+				quad.y = 145 * j + 130;
+				
 				linesMask.addChild(quad);
 				
 			}
@@ -121,8 +128,10 @@ package game.machine {
 			
 			
 			//for (var i:int = 0; i < lineNumAr.length; i++) {
-				lineHelper = new LineHelper();
-				linesContainer.addChild(lineHelper);
+			lineHelper = new LineHelper();
+			lineHelper.x += 4;
+			lineHelper.y += 4;
+			linesContainer.addChild(lineHelper);
 				
 				
 			//}
