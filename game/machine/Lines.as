@@ -3,6 +3,7 @@ package game.machine {
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Circ;
 	import com.greensock.easing.Expo;
+	import com.greensock.easing.Linear;
 	import com.utils.StaticGUI;
 	import game.GameHolder;
 	import game.header.musicPlayer.MusicManager;
@@ -203,6 +204,7 @@ package game.machine {
 			{
 				TweenMax.delayedCall(0.3, winnerLineStartAnDelay, [obj]);
 				TweenMax.delayedCall(1.3, animateLine, [obj]);
+				//TweenMax.to(this, 0.05, {alpha:0, yoyo:true, repeat:-1, repeatDelay:0.9, ease:Linear.easeNone});
 			}
 		}
 		

@@ -147,13 +147,13 @@ package game.machine
 				iconAnimationMc.addEventListener(Event.COMPLETE, onIconAnimationComplete);
 				
 				addChild(iconAnimationMc);
-				TweenLite.delayedCall(0.7, Starling.juggler.add, [iconAnimationMc]);
+				TweenLite.delayedCall(1, Starling.juggler.add, [iconAnimationMc]);
 				TweenLite.delayedCall(0.7, iconAnimationMc.play);
 			}
 			
 			if (!Machine.isWildIcon(ID) && GameSettings.HOVER_ANIM_ENABLED && hoverAnimation == null)
 			{
-				hoverAnimation = new MovieClip(Assets.getAtlas("iconsAnimationImg", "iconsAnimationXml").getTextures(""), 40);
+				hoverAnimation = new MovieClip(Assets.getAtlas("iconsAnimationImg", "iconsAnimationXml").getTextures(""), 30);
 				//hoverAnimation.color = Color.YELLOW;
 				alignCenter(hoverAnimation);
 				hoverAnimation.alpha = 1;

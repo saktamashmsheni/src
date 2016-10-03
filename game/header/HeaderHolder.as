@@ -67,6 +67,7 @@ package game.header {
 			logoMc.y = 14;
 			logoMc.touchable = false;
 			addChild(logoMc);
+			logoMc.touchable = false;
 			
 			
 			var $tf:TextFormat = new TextFormat;
