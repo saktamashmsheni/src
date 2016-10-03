@@ -86,6 +86,8 @@ package cashier
 		private var transferValuta_txt:TextField;
 		private var valuta_txt:TextField;
 		private var progressBar:ProgressBar;
+		private var toMainSp:MyButton;
+		private var toGameSp:MyButton;
 		public var shouldRemoveThis:Boolean = false;
 		
 		
@@ -99,7 +101,7 @@ package cashier
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, added);
 			initTransfer();
-			initialise();
+			//initialise();
 			
 			TweenMax.from(this, 0.6, { scaleX:0.5, scaleY:0.5, alpha:0, ease:Expo.easeOut } );
 		}
@@ -120,8 +122,8 @@ package cashier
 			trBg.y = -55;
 			
 			x_btn = new MyButton((Assets.getAtlas("transferSheet", "transferSheetXml").getTextures("xBtn")), "CC");
-			x_btn.x = 245;
-			x_btn.y = -175;
+			x_btn.x = 255;
+			x_btn.y = -235;
 			addChild(x_btn);
 			
 			/*logo = new Image(Assets.getAtlas("transferSheet", "transferSheetXml").getTexture("logo.png"));
@@ -141,8 +143,8 @@ package cashier
 			
 			toGame_btn = new MyButton(Assets.getAtlas("transferSheet", "transferSheetXml").getTextures("inBtn"), "CC");
 			toGame_btn.hoverEnabled = false;
-			toGame_btn.x = -80;
-			toGame_btn.y = -90;
+			toGame_btn.x = -136;
+			toGame_btn.y = 119;
 			addChild(toGame_btn);
 			toGame_btn.setFontText(GameSettings.GAME_XML.transfer.shetana, "_bpgMrgvlovaniCaps", 14, 0xffffff, $textShadow, TextFormatAlign.CENTER);
 			toGame_btn.val_txt.x += 8;
@@ -150,8 +152,8 @@ package cashier
 			
 			toMain_btn = new MyButton(Assets.getAtlas("transferSheet", "transferSheetXml").getTextures("outBtn"), "CC");
 			toMain_btn.hoverEnabled = false;
-			toMain_btn.x = 80;
-			toMain_btn.y = -90;
+			toMain_btn.x = -toGame_btn.x;
+			toMain_btn.y = toGame_btn.y;
 			addChild(toMain_btn);
 			toMain_btn.setFontText(GameSettings.GAME_XML.transfer.gamotana, "_bpgMrgvlovaniCaps", 14, 0xffffff, $textShadow, TextFormatAlign.CENTER);
 			toMain_btn.val_txt.x += 8;
@@ -161,37 +163,39 @@ package cashier
 			
 			//----------slider------------------------------------------------------------------
 			slider = new SliderTransf();
-			slider.y = -27;
+			slider.x = -50;
+			slider.y = 10;
 			slider.addEventListener(Event.CHANGE, slider_changeHandler);
 			addChild(slider);
 			
 			
-			
+			var transferMoneySP:Sprite = new Sprite();
+			addChild(transferMoneySP);
+			transferMoneySP.x = slider.x + slider.width/2 + 39;
+			transferMoneySP.y = slider.y;
 			transferedMoneyBg = new Image(Assets.getAtlas("transferSheet", "transferSheetXml").getTexture("transferedMoneyBg.png"));
 			transferedMoneyBg.alignPivot(Align.CENTER, Align.CENTER);
-			transferedMoneyBg.scaleX = 1.5;
-			transferedMoneyBg.x = 0;
-			transferedMoneyBg.y = 0;
-			addChild(transferedMoneyBg);
+			transferedMoneyBg.scaleX = 1;
+			transferMoneySP.addChild(transferedMoneyBg);
 			
 			transfer_txt = new TextInput();
-			this.addChild(transfer_txt);
+			transferMoneySP.addChild(transfer_txt);
 			transfer_txt.text = "0.00";
 			transfer_txt.restrict = "0-9";
 			transfer_txt.maxChars = 16;
-			transfer_txt.width = 183;
+			transfer_txt.width = transferMoneySP.width;
 			transfer_txt.height = 43;
 			transfer_txt.alignPivot(Align.CENTER, Align.CENTER);
 			transfer_txt.x = 0;
-			transfer_txt.y = transferedMoneyBg.y;
+			transfer_txt.y = -5;
 			transfer_txt.textEditorFactory = function():StageTextTextEditor
 			{
 				var editor:StageTextTextEditor = new StageTextTextEditor();
 				editor.autoCorrect = false;
 				editor.multiline = false;
 				editor.textAlign = TextFormatAlign.CENTER;
-				//editor.fontFamily = "_myriadProBold";
-				editor.fontFamily = Assets.getFont("PerpetuaBold").name;
+				editor.fontFamily = "_myriadProBold";
+				//editor.fontFamily = "PerpetuaBold";
 				editor.fontSize = 22;
 				editor.color = 0x000000;
 				return editor;
@@ -201,9 +205,9 @@ package cashier
 			
 			
 			var $tf:TextFormat = new TextFormat;
-			$tf.font = Assets.getFont("dejavuSans").name;
-			$tf.size =  13;
-			$tf.color = 0x8c8a8a;
+			$tf.font = "_myriadProBold";
+			$tf.size =  15;
+			$tf.color = 0xffffff;
 			$tf.bold = true;
 			
 			
@@ -219,41 +223,52 @@ package cashier
 			addChild(valuta_txt);
 			
 			
-			tomain_txt = new TextField(300, 23, GameSettings.GAME_XML.transfer.mainbal, $tf);
-			tomain_txt.alignPivot(Align.CENTER, Align.CENTER);
-			tomain_txt.x = -135;
-			tomain_txt.y = 70;
-			addChild(tomain_txt);
+			var hoverQu:Quad = new Quad(200, 100, 0xff0000);
+			hoverQu.alignPivot(Align.CENTER, Align.CENTER);
+			hoverQu.x -= 20;
+			
+			toMainSp = new MyButton(null, "CC");
+			addChild(toMainSp);
+			toMainSp.x = -98;
+			toMainSp.y = -131;
 			mainB_bg = new Image(Assets.getAtlas("transferSheet", "transferSheetXml").getTexture("balanceMoneyBg.png"));
 			mainB_bg.alignPivot(Align.CENTER, Align.CENTER);
-			mainB_bg.x = -135;
-			mainB_bg.y = 110;
-			addChild(mainB_bg);
-			mainBalance_txt =  StaticGUI._creatTextFieldTextRenderer(this, "0.00", -135, 115, 183, 43, '_myriadProBold', 22, 0xcdf3fb, $textShadow, TextFormatAlign.CENTER);
+			toMainSp.addChild(mainB_bg);
+			tomain_txt = new TextField(300, 23, GameSettings.GAME_XML.transfer.mainbal + ":", $tf);
+			tomain_txt.alignPivot(Align.CENTER, Align.CENTER);
+			tomain_txt.x = -20;
+			tomain_txt.y = -20;
+			toMainSp.addChild(tomain_txt);
+			mainBalance_txt =  StaticGUI._creatTextFieldTextRenderer(this, "0.00", -20, 10, 300, 43, '_myriadProBold', 35, 0xffffff, $textShadow, TextFormatAlign.CENTER);
 			mainBalance_txt.alignPivot(Align.CENTER, Align.CENTER);
-			//mainBalance_txt.x = -135;
-			//mainBalance_txt.y = 106;
-			addChild(mainBalance_txt);
+			toMainSp.addChild(mainBalance_txt);
+			toMainSp.addEventListener(MouseEvent.CLICK, transFerToGameF);
+			toMainSp.setHover(hoverQu);
 			
 			
-			
-			
-			toGame_txt = new TextField(300, 23, GameSettings.GAME_XML.transfer.gameBal, $tf);
-			toGame_txt.alignPivot(Align.CENTER, Align.CENTER);
-			toGame_txt.x = 135;
-			toGame_txt.y = tomain_txt.y;
-			addChild(toGame_txt);
+			hoverQu = new Quad(200, 100, 0xff0000);
+			hoverQu.alignPivot(Align.CENTER, Align.CENTER);
+			hoverQu.x += 20;
+			toGameSp = new MyButton(null, "CC");
+			addChild(toGameSp);
+			toGameSp.x = -toMainSp.x - 3;
+			toGameSp.y = toMainSp.y;
 			gameB_bg = new Image(Assets.getAtlas("transferSheet", "transferSheetXml").getTexture("balanceMoneyBg.png"));
 			gameB_bg.alignPivot(Align.CENTER, Align.CENTER);
-			gameB_bg.x = 135;
-			gameB_bg.y = mainB_bg.y;
-			addChild(gameB_bg);
-			//gameBalance_txt = new TextField(183, 43, "0.00", Assets.getFont("PerpetuaBold").name, 26, 0xffffff, true);
-			gameBalance_txt =  StaticGUI._creatTextFieldTextRenderer(this, "0.00", 135, mainBalance_txt.y, 183, 43, '_myriadProBold', 22, 0xcdf3fb, $textShadow, TextFormatAlign.CENTER);
+			gameB_bg.rotation = deg2rad(180);
+			toGameSp.addChild(gameB_bg);
+			toGame_txt = new TextField(300, 23, GameSettings.GAME_XML.transfer.gameBal + ":", $tf);
+			toGame_txt.alignPivot(Align.CENTER, Align.CENTER);
+			toGame_txt.x = -tomain_txt.x;
+			toGame_txt.y = tomain_txt.y;
+			toGameSp.addChild(toGame_txt);
+			gameBalance_txt =  StaticGUI._creatTextFieldTextRenderer(this, "0.00", -mainBalance_txt.x, mainBalance_txt.y, 183, 43, '_myriadProBold', 35, 0xffffff, $textShadow, TextFormatAlign.CENTER);
 			gameBalance_txt.alignPivot(Align.CENTER, Align.CENTER);
-			//gameBalance_txt.x = 135;
-			//gameBalance_txt.y = mainBalance_txt.y;
-			addChild(gameBalance_txt);
+			toGameSp.addChild(gameBalance_txt);
+			toGameSp.addEventListener(MouseEvent.CLICK, transFerToMainF);
+			toGameSp.setHover(hoverQu);
+			
+			hoverQu = null;
 			
 			
 			
@@ -261,13 +276,13 @@ package cashier
 			arrow = new Image(Assets.getAtlas("transferSheet", "transferSheetXml").getTexture("arrow.png"));
 			arrow.pivotX = arrow.width / 2; 
 			arrow.pivotY = arrow.height / 2;
-			arrow.x = 0;
-			arrow.y = 108;
+			arrow.x = toGame_btn.x;
+			arrow.y = 90;
 			addChild(arrow);
 			
 			
 			transfer_btn = new MyButton(Assets.getAtlas("transferSheet", "transferSheetXml").getTextures("transferBtn"), "CC");
-			transfer_btn.y = 180;
+			transfer_btn.y = 55;
 			transfer_btn.setFontText(GameSettings.GAME_XML.transfer.transferb, "_bpgMrgvlovaniCaps", 17, 0xffffff, $textShadow, TextFormatAlign.CENTER);
 			transfer_btn.val_txt.y = 15;
 			addChild(transfer_btn);
@@ -386,7 +401,11 @@ package cashier
 		
 		private function transFerToGameF(e:MouseEvent):void 
 		{
-			arrow.rotation = deg2rad(0);
+			arrow.x = toGame_btn.x;
+			
+			mainB_bg.visible = true;
+			gameB_bg.visible = false;
+			
 			//head.x = 0;
 			toGame_btn.gotoAndStop(1);
 			toMain_btn.gotoAndStop(2);
@@ -401,8 +420,12 @@ package cashier
 		
 		private function transFerToMainF(e:MouseEvent):void 
 		{
-			arrow.rotation = deg2rad(180);
-			//head.x = 0;
+			arrow.x = toMain_btn.x;
+			
+			mainB_bg.visible = false;
+			gameB_bg.visible = true;
+			
+			
 			toGame_btn.gotoAndStop(2);
 			toMain_btn.gotoAndStop(1);
 			transfer_txt.text = "0.00";

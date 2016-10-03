@@ -32,9 +32,9 @@ package cashier
 			this.step = 1;
 			this.page = 10;
 			this.value = 0;
-			this.width = 400;
-			this.minimumPadding = 30;
-			this.maximumPadding = 30;
+			this.width = 350;
+			this.minimumPadding = 5;
+			this.maximumPadding = 10;
 			this.addEventListener( Event.CHANGE, slider_changeHandler );
 			
 			this.thumbProperties.defaultSkin = new Image( Assets.getAtlas("transferSheet", "transferSheetXml").getTexture("sliderHead.png") );
@@ -53,12 +53,12 @@ package cashier
 			this.validate();
 			
 			progressBar = new ProgressBar();
-			progressBar.x = 35;
-			progressBar.y = 35;
+			progressBar.x = 15;
+			progressBar.y = 15;
 			progressBar.minimum = this.minimum;
 			progressBar.maximum = this.maximum;
 			progressBar.value = this.value;
-			progressBar.width = this.width - 70;
+			progressBar.width = this.width - 50;
 			progressBar.height = 15;
 			//progressBar.minimumPadding = -5;
 			//progressBar.maximumPadding = -5;

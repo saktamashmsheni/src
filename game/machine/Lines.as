@@ -59,8 +59,6 @@ package game.machine {
 		}
 		
 		private function setUpLines():void {
-			var img:Image;
-			lineHelper;
 			
 			if (GameSettings.SYS_NUM == 0 && GameSettings.TOTAL_LINES == 27)
 				lineNumAr = GameSettings.LINES_AR[3];
@@ -127,20 +125,11 @@ package game.machine {
 			var $textureAtlas:TextureAtlas = Assets.getAtlas("lines", "linesXml");
 			
 			
-			//for (var i:int = 0; i < lineNumAr.length; i++) {
 			lineHelper = new LineHelper();
 			lineHelper.x += 4;
 			lineHelper.y += 4;
 			linesContainer.addChild(lineHelper);
 				
-				
-			//}
-			
-			img = null;
-			//imgSp = null;
-			
-			
-			
 			
 		}
 		

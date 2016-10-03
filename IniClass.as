@@ -212,8 +212,8 @@ package {
 				//Assets.IRONXml = $o.getDefinition("FontsLib_IRONXml") as Class;
 				//Assets.BpgGel = $o.getDefinition("FontsLib_BpgGel") as Class;
 				//Assets.BpgGelXml = $o.getDefinition("FontsLib_BpgGelXml") as Class;
-				//Assets.dejavuSans = $o.getDefinition("FontsLib_dejavuSans") as Class;
-				//Assets.dejavuSansXml = $o.getDefinition("FontsLib_dejavuSansXml") as Class;
+				Assets.dejavuSans = $o.getDefinition("FontsLib_dejavuSans") as Class;
+				Assets.dejavuSansXml = $o.getDefinition("FontsLib_dejavuSansXml") as Class;
 				//Assets.nuevaStd = $o.getDefinition("FontsLib_nuevaStd") as Class;
 				//Assets.nuevaStdXml = $o.getDefinition("FontsLib_nuevaStdXml") as Class;
 				Assets.exRounded = $o.getDefinition("FontsLib_exRounded") as Class;
@@ -230,7 +230,7 @@ package {
 				//Font.registerFont($o.getDefinition("FontsLib__bpgGELDejaVuSerifCaps"));
 				//Font.registerFont($o.getDefinition("FontsLib__artBrush"));
 				//Font.registerFont($o.getDefinition("FontsLib__bpgMrgvlovaniCaps"));
-				//Font.registerFont($o.getDefinition("FontsLib__myriadProBold"));
+				Font.registerFont($o.getDefinition("FontsLib__myriadProBold"));
 				Font.registerFont($o.getDefinition("FontsLib__FuturaLTCon")); // es unda waishalos 
 				Font.registerFont($o.getDefinition("FontsLib__AvenirNextBold"));
 				//Font.registerFont($o.getDefinition("FontsLib__AvenirNextBoldItalic"));

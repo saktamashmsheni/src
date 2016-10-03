@@ -144,7 +144,7 @@ package game.machine
 			
 			if (!Machine.isWildIcon(ID))
 			{
-				iconAnimationMc = new MovieClip(Assets.getAtlas("icon" + 1 + "Img", "icon" + 1 + "Xml").getTextures(""), 60);
+				iconAnimationMc = new MovieClip(Assets.getAtlas("icon" + 1 + "Img", "icon" + 1 + "Xml").getTextures(""), 40);
 				iconMc.visible = false;
 				iconAnimationMc.x -= 20;
 				iconAnimationMc.y -= 22;
@@ -158,7 +158,7 @@ package game.machine
 			
 			if (!Machine.isWildIcon(ID) && GameSettings.HOVER_ANIM_ENABLED && hoverAnimation == null)
 			{
-				hoverAnimation = new MovieClip(Assets.getAtlas("iconsAnimationImg", "iconsAnimationXml").getTextures(""), 30);
+				hoverAnimation = new MovieClip(Assets.getAtlas("iconsAnimationImg", "iconsAnimationXml").getTextures(""), 40);
 				//hoverAnimation.color = Color.YELLOW;
 				alignCenter(hoverAnimation);
 				hoverAnimation.alpha = 1;
