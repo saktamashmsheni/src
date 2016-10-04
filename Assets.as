@@ -229,12 +229,14 @@ package {
 		public static var line_on_btn_bfontXml:Class;
 		
 		//double fonts
-		//double fonts
 		public static var double_roboto_bold:Class;
 		public static var double_roboto_boldXml:Class;
-		
 		public static var double_roboto_bold_nums:Class;
 		public static var double_roboto_bold_numsXml:Class;
+		
+		//cashier fonts
+		public static var transfer_Font:Class;
+		public static var transfer_FontXml:Class;
 		
 		
 		

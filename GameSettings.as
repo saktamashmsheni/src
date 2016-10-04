@@ -41,7 +41,7 @@ package
 		
 		public static var Currency_ID:int;
 		public static var Currency_Rate:Number;
-		public static var Currency_Values:Array = [ { name:"GEL", order:2 }, { name:"USD", order:3 },  { name:"EUR", order:4 },  { name:"GBP", order:5 },  { name:"RUB", order:6 },  { name:"UAH", order:7 } ];
+		public static var Currency_Values:Array = [ { name:"GEL", order:2, shortCut:"l"}, { name:"USD", order:3, shortCut:"d"},  { name:"EUR", order:4, shortCut:"e"},  { name:"GBP", order:5, shortCut:"f"},  { name:"RUB", order:6, shortCut:"r"},  { name:"UAH", order:7, shortCut:"a"} ];
 		
 		
 		public static var SOUND_ENABLED:Boolean = true;

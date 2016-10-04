@@ -181,8 +181,8 @@ package cashier
 			transferMoneySP.addChild(transferedMoneyBg);
 			
 			
-			var transferDefaultFormat:BitmapFontTextFormat = new BitmapFontTextFormat(Assets.getFont('win_bfont').name);
-			transferDefaultFormat.letterSpacing = -10;
+			var transferDefaultFormat:BitmapFontTextFormat = new BitmapFontTextFormat(Assets.getFont('transfer_Font').name);
+			transferDefaultFormat.letterSpacing = -3;
 			
 			transfer_txt = new TextInput();
 			transferMoneySP.addChild(transfer_txt);
@@ -192,7 +192,7 @@ package cashier
 			transfer_txt.width = transferMoneySP.width;
 			transfer_txt.height = 43;
 			transfer_txt.alignPivot(Align.CENTER, Align.CENTER);
-			transfer_txt.x = 3;
+			transfer_txt.x = 15;
 			transfer_txt.y = -5;
 			transfer_txt.textEditorFactory = function():ITextEditor//StageTextTextEditor
 			{
@@ -220,19 +220,6 @@ package cashier
 			$tf.size =  15;
 			$tf.color = 0xffffff;
 			$tf.bold = true;
-			
-			
-			transferValuta_txt = new TextField(300, 23, "", $tf);
-			transferValuta_txt.alignPivot(Align.CENTER, Align.CENTER);
-			transferValuta_txt.y = -63;
-			addChild(transferValuta_txt);
-			
-			valuta_txt = new TextField(300, 23, "", $tf);
-			valuta_txt.alignPivot(Align.CENTER, Align.CENTER);
-			valuta_txt.x = -155;
-			valuta_txt.y = 200;
-			addChild(valuta_txt);
-			
 			
 			var hoverQu:Quad = new Quad(200, 100, 0xff0000);
 			hoverQu.alignPivot(Align.CENTER, Align.CENTER);
@@ -306,6 +293,17 @@ package cashier
 			transfer_btn.addEventListener(MouseEvent.CLICK, onTransferClick);
 			
 			GoogleAnalytics._sendScreenView('Slot cashier screen');
+			
+			transferValuta_txt = new TextField(300, 23, "", $tf);
+			transferValuta_txt.alignPivot(Align.CENTER, Align.CENTER);
+			transferValuta_txt.y = -63;
+			addChild(transferValuta_txt);
+			
+			valuta_txt = new TextField(300, 23, "", $tf);
+			valuta_txt.alignPivot(Align.CENTER, Align.CENTER);
+			valuta_txt.x = -155;
+			valuta_txt.y = 200;
+			addChild(valuta_txt);
 		}
 		
 		
@@ -400,7 +398,7 @@ package cashier
 			
 			if (GameSettings.Currency_ID != 2)
 			{
-				valuta_txt.text = "1 " + getCurrecyType() + " = " + GameSettings.Currency_Rate + " GEL";
+				valuta_txt.text = "1 " + getCurrecyType(true) + " = " + GameSettings.Currency_Rate + " GEL";
 			}
 			else
 			{
@@ -458,13 +456,16 @@ package cashier
 		}
 		
 		
-		public function getCurrecyType():String
+		public function getCurrecyType(isName:Boolean = false):String
 		{
 			for (var i:int = 0; i < GameSettings.Currency_Values.length; i++) 
 			{
 				if (GameSettings.Currency_Values[i].order == GameSettings.Currency_ID)
 				{
-					return GameSettings.Currency_Values[i].name;
+					if (isName)
+						return GameSettings.Currency_Values[i].name;
+					else
+						return GameSettings.Currency_Values[i].shortCut;
 				}
 			}
 			return "";
@@ -526,7 +527,7 @@ package cashier
 					}
 					else
 					{
-						transfer_txt.text = String(transfer_txt.text) + " GEL";
+						transfer_txt.text = String(transfer_txt.text) + " l";
 					}
 				}
 				else
@@ -539,7 +540,7 @@ package cashier
 					}
 					else
 					{
-						transfer_txt.text = String(transfer_txt.text) + " GEL";
+						transfer_txt.text = String(transfer_txt.text) + " l";
 					}
 				}
 				
@@ -556,7 +557,7 @@ package cashier
 					}
 					else
 					{
-						transfer_txt.text = String(transfer_txt.text) + " GEL";
+						transfer_txt.text = String(transfer_txt.text) + " l";
 					}
 				}
 				
@@ -578,11 +579,11 @@ package cashier
 			{
 				if (transferTogameBol == true)
 				{
-					transferValuta_txt.text = strAr[0] + " " + getCurrecyType() + " = " + String((Number(strAr[0]) * GameSettings.Currency_Rate).toFixed(2)) + " GEL";
+					transferValuta_txt.text = strAr[0] + " " + getCurrecyType(true) + " = " + String((Number(strAr[0]) * GameSettings.Currency_Rate).toFixed(2)) + " GEL";
 				}
 				else
 				{
-					transferValuta_txt.text = strAr[0] + " GEL" + " = " + String((Number(strAr[0]) / GameSettings.Currency_Rate).toFixed(2)) + " " + getCurrecyType();
+					transferValuta_txt.text = strAr[0] + " GEL" + " = " + String((Number(strAr[0]) / GameSettings.Currency_Rate).toFixed(2)) + " " + getCurrecyType(true);
 				}
 			}
 		}
@@ -684,7 +685,7 @@ package cashier
 					mainBalance = String(Number(mainBalance).toFixed(2));
 					gameBalance = String(Number(gameBalance).toFixed(2));
 			
-					mainBalance_txt.text = mainBalance + " " + getCurrecyType();
+					mainBalance_txt.text = mainBalance + " " + getCurrecyType(true);
 					gameBalance_txt.text = gameBalance + " GEL";		
 					break;
 					

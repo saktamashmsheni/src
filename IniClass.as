@@ -294,7 +294,6 @@ package {
 				Assets.line_buttons_fontXml = $o.getDefinition("FontsLib_line_buttons_fontXml") as Class;
 				Assets.line_off_btn_bfont = $o.getDefinition("FontsLib_line_off_btn_bfont") as Class;
 				Assets.line_off_btn_bfontXml = $o.getDefinition("FontsLib_line_off_btn_bfontXml") as Class;
-				
 				Assets.line_on_btn_bfont = $o.getDefinition("FontsLib_line_on_btn_bfont") as Class;
 				Assets.line_on_btn_bfontXml = $o.getDefinition("FontsLib_line_on_btn_bfontXml") as Class;
 				
@@ -303,6 +302,10 @@ package {
 				Assets.double_roboto_boldXml = $o.getDefinition("FontsLib_double_roboto_boldXml") as Class;
 				Assets.double_roboto_bold_nums = $o.getDefinition("FontsLib_double_roboto_bold_nums") as Class;
 				Assets.double_roboto_bold_numsXml = $o.getDefinition("FontsLib_double_roboto_bold_numsXml") as Class;
+				
+				//cashier fonts
+				Assets.transfer_Font = $o.getDefinition("FontsLib_transfer_Font") as Class;
+				Assets.transfer_FontXml = $o.getDefinition("FontsLib_transfer_FontXml") as Class;
 				
 				
 				
