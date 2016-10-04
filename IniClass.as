@@ -384,6 +384,8 @@ package {
 			
 			if (!swfLoaded) {
 				swfLoaded = true
+			}else {
+				return;	
 			}
 			
 			Main.cont.startMain();

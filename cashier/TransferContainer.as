@@ -13,8 +13,10 @@ package cashier
 	import feathers.controls.ProgressBar;
 	import feathers.controls.Slider;
 	import feathers.controls.TextInput;
+	import feathers.controls.text.BitmapFontTextEditor;
 	import feathers.controls.text.StageTextTextEditor;
 	import feathers.controls.text.TextFieldTextRenderer;
+	import feathers.core.ITextEditor;
 	import feathers.events.FeathersEventType;
 	import feathers.text.BitmapFontTextFormat;
 	import flash.geom.Point;
@@ -178,6 +180,10 @@ package cashier
 			transferedMoneyBg.scaleX = 1;
 			transferMoneySP.addChild(transferedMoneyBg);
 			
+			
+			var transferDefaultFormat:BitmapFontTextFormat = new BitmapFontTextFormat(Assets.getFont('win_bfont').name);
+			transferDefaultFormat.letterSpacing = -10;
+			
 			transfer_txt = new TextInput();
 			transferMoneySP.addChild(transfer_txt);
 			transfer_txt.text = "0.00";
@@ -186,11 +192,11 @@ package cashier
 			transfer_txt.width = transferMoneySP.width;
 			transfer_txt.height = 43;
 			transfer_txt.alignPivot(Align.CENTER, Align.CENTER);
-			transfer_txt.x = 0;
+			transfer_txt.x = 3;
 			transfer_txt.y = -5;
-			transfer_txt.textEditorFactory = function():StageTextTextEditor
+			transfer_txt.textEditorFactory = function():ITextEditor//StageTextTextEditor
 			{
-				var editor:StageTextTextEditor = new StageTextTextEditor();
+				/*var editor:StageTextTextEditor = new StageTextTextEditor();
 				editor.autoCorrect = false;
 				editor.multiline = false;
 				editor.textAlign = TextFormatAlign.CENTER;
@@ -198,7 +204,12 @@ package cashier
 				//editor.fontFamily = "PerpetuaBold";
 				editor.fontSize = 22;
 				editor.color = 0x000000;
-				return editor;
+				return editor;*/
+				
+				var textEditor:BitmapFontTextEditor = new BitmapFontTextEditor();
+				textEditor.styleProvider = null;
+				textEditor.textFormat = transferDefaultFormat;
+				return textEditor;
 			}
 			transfer_txt.addEventListener( FeathersEventType.FOCUS_IN, input_focusInHandler );
 			
