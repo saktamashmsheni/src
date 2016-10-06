@@ -49,12 +49,15 @@ package
 		public static var IS_JACKPOT_ON:Boolean;
 		
 		
-		public static var REEL_TYPE:Array = [[3, 3], [5, 3], [5, 4]];
-		public static var MASHINE_OPTIONS:Array = [{xDist:154, yDist:145},
+		public static const REEL_TYPE:Array = [[3, 3], [5, 3], [5, 4]];
+		public static const MASHINE_OPTIONS:Array = [{xDist:154, yDist:145},
 												   {xDist:154, yDist:145},
-												   {xDist:154, yDist:120 } ]
-												  
-		public static const ICONS_SIZE:Vector.<Array> = new <Array>[[120,120],[120,120],[120,120]];
+												   {xDist:155, yDist:105 } ]
+												   
+												   
+		public static const ICON_HOLDER_POS:Vector.<Array> = new <Array>[[-34,40],[-34,40],[-34,20]];
+		
+		public static const ICONS_SIZE:Vector.<Array> = new <Array>[[120,120],[120,120],[125,125]];
 		public static const ICONSFRAME_SIZE:Vector.<Array> = new <Array>[[130,130],[130,130],[120,120]];
 												   
 		

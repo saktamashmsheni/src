@@ -69,15 +69,7 @@ package game.machine
 				
 				addChild(iconMc);
 				
-				/*var q:Quad = new Quad(130, 130, 0xffffff);
 				
-				q.alpha = .5;
-				
-				addChild(q);
-				
-				var q2:Quad = new Quad(5, 5, 0x00ff00);
-				
-				addChild(q2)*/
 				
 			}
 			
@@ -111,7 +103,18 @@ package game.machine
 			
 			
 			alignCenter(iconMc);
-			/*if(q)q.x = int(iconMc.x+iconMc.width / 2 - q.width / 2);
+			
+			/*var q:Quad = new Quad(130, 130, 0xffffff);
+				
+			q.alpha = .5;
+			
+			addChild(q);
+			
+			var q2:Quad = new Quad(5, 5, 0x00ff00);
+			
+			addChild(q2)
+			
+			if(q)q.x = int(iconMc.x+iconMc.width / 2 - q.width / 2);
 			if(q)q.y = int(iconMc.y+iconMc.height / 2 - q.height / 2);
 			
 			if(q2)q2.x = int(q.x+q.width / 2 - q2.width / 2);
@@ -121,9 +124,15 @@ package game.machine
 		
 		private function alignCenter(ic:DisplayObject):void
 		{
-			if (ic.width > Icon.iconWidth)
+			ic.width = Icon.iconWidth;
+			ic.height = Icon.iconHeight;
+			//ic.pivotX = int(ic.width / 2);
+			//ic.pivotY = int(ic.height / 2);
+			
+			
+			//if (ic.width > Icon.iconWidth)
 				ic.x = int(-(ic.width - Icon.iconWidth) / 2);
-			if (ic.height > Icon.iconHeight)
+			//if (ic.height > Icon.iconHeight)
 				ic.y = int( -(ic.height - Icon.iconHeight) / 2);
 				
 			/*if (Machine.isWildIcon(ID))

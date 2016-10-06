@@ -144,8 +144,8 @@ package game.machine
 			
 			iconPool = new SpritePool(Icon, 60);
 			iconsHolder = new IconsHolder();
-			iconsHolder.x = -34;
-			iconsHolder.y = 40;
+			iconsHolder.x = GameSettings.ICON_HOLDER_POS[GameSettings.SYS_NUM][0];//-34;
+			iconsHolder.y = GameSettings.ICON_HOLDER_POS[GameSettings.SYS_NUM][1];//40;
 			this.addChild(iconsHolder);
 			
 			iMask = new Quad(775, 441);
@@ -167,21 +167,21 @@ package game.machine
 				this.iconsHolder["s" + i].x = int((i - 1) * (xDist));
 				this.iconsHolder["s" + i].y = int(this.iconsHolder["s" + i].y);
 				this.iconsHolder.addChild(this.iconsHolder["s" + i]);
-				used = new Array(9);
+				/*used = new Array(9);
 				var k:int = 0;
 				while (k < 9)
 				{
 					used[k] = 0;
 					k = (k + 1);
-				}
+				}*/
 				var j:int = 1;
 				while (j <= REEL_Y_COUNT)
 				{
-					do
+					/*do
 					{
 						var itm:int = int(Math.random() * 9);
 					} while (used[itm])
-					used[itm] = 1;
+					used[itm] = 1;*/
 					this.iconsHolder["s" + i].map["i" + j] = iconPool.getSprite();
 					this.iconsHolder["s" + i].map["i" + j].setIcon(((i - 1) * REEL_Y_COUNT + j - 1) % GameSettings.TOTAL_ICONS);
 					this.iconsHolder["s" + i].map["i" + j].y = (REEL_Y_COUNT - j) * Ydistance;
