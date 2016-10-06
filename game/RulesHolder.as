@@ -55,7 +55,7 @@ package game
 		private var back_btn:MyButton;
 		private var next_btn:MyButton;
 		private var count:int;
-		private var totalPages:int = 6;
+		private var totalPages:int = 5;
 		private var scatter_txt:TextFieldTextRenderer;
 		private var wild_txt:TextFieldTextRenderer;
 		private var page1_txt:TextFieldTextRenderer;
@@ -138,23 +138,23 @@ package game
 			
 			
 			pagesCont = new Sprite3D();
-			pagesCont.y = 30;
-			pagesCont.x = -15;
+			pagesCont.y = -10;
+			pagesCont.x = 0;
 			addChild(pagesCont);
 			
 			prev_btn = new MyButton(Assets.getAtlas("paytableAssetsImg", "paytableAssetsXml").getTextures("backBtn"), "CC");
-			prev_btn.x = -221;
+			prev_btn.x = -105;
 			prev_btn.y = 261;
 			addChild(prev_btn);
 			
 			back_btn = new MyButton(Assets.getAtlas("paytableAssetsImg", "paytableAssetsXml").getTextures("togameBtn"), "CC");
-			back_btn.x = -15;
+			back_btn.x = 0;
 			back_btn.y = prev_btn.y;
 			addChild(back_btn);
 			
 			next_btn = new MyButton(Assets.getAtlas("paytableAssetsImg", "paytableAssetsXml").getTextures("nextBtn"), "CC");
-			next_btn.x = 192;
-			next_btn.y = prev_btn.y;
+			next_btn.x = 105;
+			next_btn.y = prev_btn.y-1;
 			addChild(next_btn);
 			
 			prev_btn.addEventListener(MouseEvent.CLICK, onNextPrevClick);
@@ -167,25 +167,6 @@ package game
 			TweenMax.from(pagesCont, 0.8, { rotationX:deg2rad( -80), alpha:0, ease:Back.easeInOut } );
 			
 			TweenMax.from(this, 0.8, {scaleX:0, scaleY:0, ease:Expo.easeOut});
-			
-			
-			/*var fonts:Array = Font.enumerateFonts();
-		   for each(var font:Font in fonts) {
-			
-			Tracer._log( font.fontName+":" + font.fontType );
-		   }*/
-		   
-		    /*var textRenderer:TextFieldTextRenderer = new TextFieldTextRenderer();
-			var format:TextFormat = new TextFormat( "_bpgMrgvlovaniCaps" );
-			format.size = 20;
-			format.color = 0xffffff;
-			format.align = TextFormatAlign.CENTER;
-			textRenderer.textFormat = format;
-			textRenderer.text = '9999 / <font color="#ff0000">9999</font>';
-			textRenderer.isHTML = true;
-			addChild(textRenderer);
-			textRenderer.width = 400;
-			textRenderer.height = 400;*/
 			
 			
 			GoogleAnalytics._sendScreenView('Slot paytable screen');
@@ -280,226 +261,25 @@ package game
 			pagesCont.addChild(pageBg);
 			
 			clearPage();
-			if (num == 1 || num == 2)
+			if (num == 1)
 			{
 				
-				if (num == 1)
+				gadaxdaAr = [];
+				var scoreString:String;
+				var numsTxt:TextFieldTextRenderer;
+				var numAr:Array = [5, 4, 3, 2];
+				for (var j:int = 0; j < scoresArr.length; j++) 
 				{
-					wild_txt = returnTFRenderer(String(GameSettings.GAME_XML.payTable.wild).toUpperCase(), 110, 100, 54, -120, "_bpgMrgvlovaniCaps", 11, TextFormatAlign.CENTER,0xffffff, $textStroke);
-					wild_txt.alignPivot(Align.CENTER, Align.CENTER);
-					pagesCont.addChild(wild_txt);
-					
-					scatter_txt = returnTFRenderer(String(GameSettings.GAME_XML.payTable.scatter).toUpperCase(), 110, 121, 54, 150, "_bpgMrgvlovaniCaps", 13, TextFormatAlign.CENTER, Color.WHITE, $textStroke);
-					StaticGUI.setAlignPivot(scatter_txt);
-					pagesCont.addChild(scatter_txt);
-					
-					
-					gadaxdaAr = [];
-					var scoreString:String;
-					var numsTxt:TextFieldTextRenderer;
-					var numAr:Array = [5, 4, 3, 2];
-					for (var j:int = 0; j < scoresArr.length; j++) 
+					scoreString = "";
+					for (var k:int = 0; k < scoresArr[j].length; k++) 
 					{
-						scoreString = "";
-						for (var k:int = 0; k < scoresArr[j].length; k++) 
-						{
-							scoreString += (j == 7 ? String(3) : String(numAr[k])) + '<font color="#ffffff"> •    ' + String(Number(scoresArr[j][scoresArr[j].length-k-1]) * betAmount) + "</font><br/>";
-						}
-						
-						numsTxt = returnTFRenderer(scoreString, 200, 100, scoresPositionsArr[j].x, scoresPositionsArr[j].y, "_myriadProBold", j==6?22:19, TextFormatAlign.LEFT, 0xfba90c, $textStroke);
-						gadaxdaAr.push(numsTxt);
-						pagesCont.addChild(numsTxt);
+						scoreString += (j == 7 ? String(3) : String(numAr[k])) + '<font color="#ffffff"> •    ' + String(Number(scoresArr[j][scoresArr[j].length-k-1]) * betAmount) + "</font><br/>";
 					}
 					
-					/*wildIcon = new Image(Machine.wildIconsAtlas.getTexture("w" + String(StaticGUI.intWithZeros(Root.ALL_WILD_INDEX, 3)) + ".png"));
-					pagesCont.addChild(wildIcon);
-					StaticGUI.setAlignPivot(wildIcon);
-					wildIcon.scaleX = wildIcon.scaleY = 0.88;
-					wildIcon.x = - 61;
-					wildIcon.y = - 129;*/
-					
+					numsTxt = returnTFRenderer(scoreString, 200, 100, scoresPositionsArr[j].x, scoresPositionsArr[j].y, "_myriadProBold", j==6?22:19, TextFormatAlign.LEFT, 0xfba90c, $textStroke);
+					gadaxdaAr.push(numsTxt);
+					pagesCont.addChild(numsTxt);
 				}
-				else if (num == 2)
-				{
-					page2_txt = returnTFRenderer(GameSettings.GAME_XML.payTable.page2.pageText, 600, 171, -300, -180, "_bpgMrgvlovaniCaps", 14, TextFormatAlign.CENTER);
-					pagesCont.addChild(page2_txt);
-					
-					page2Bot_txt = returnTFRenderer("LINES", 600, 171, -300, 20, "_bpgMrgvlovaniCaps", 25, TextFormatAlign.CENTER, 0xf3cf3d);
-					pagesCont.addChild(page2Bot_txt);
-				}
-			}
-			else if (num == 3)
-			{
-				page3_txt = returnTFRenderer(GameSettings.GAME_XML.payTable.page3.pageText, 180, 400, 135, -190, "_bpgMrgvlovaniCaps", 12, TextFormatAlign.LEFT);
-				pagesCont.addChild(page3_txt);
-				
-				wildChoose_btn = new MyButton(Assets.getAtlas("paytableAssetsImg", "paytableAssetsXml").getTextures("wild_choose_btn"), "CC");
-				wildChoose_btn.addEventListener(MouseEvent.CLICK, onWildSelectorClick);
-				addChild(wildChoose_btn);
-				wildChoose_btn.setFontText(GameSettings.GAME_XML.droshisShecvla, "_bpgArialCaps", 15, Color.WHITE, $textShadow, TextFormatAlign.CENTER);
-				wildChoose_btn.val_txt.y += 19;
-				wildChoose_btn.x = 200;
-				wildChoose_btn.y = 190;
-				
-			}
-			else if (num == 4)
-			{
-				page4_txt = returnTFRenderer(GameSettings.GAME_XML.payTable.page4.pageText, 400, 800, -300, -130, "_bpgArialCaps", 13, TextFormatAlign.LEFT);
-				pagesCont.addChild(page4_txt);
-				
-				page4_Prize_txt = returnTFRenderer("#      " + GameSettings.GAME_XML.prize, 450, 50, 130, -147, "_bpgArialCaps", 15, TextFormatAlign.LEFT);
-				pagesCont.addChild(page4_Prize_txt);
-				
-				
-				
-				
-				container = new ScrollContainer();
-				this.addChild( container );
-				var xPosition:Number = 0;
-				
-				var scrollItem:Sprite;
-				var img:Image;
-				var imgBg:Image;
-				
-				var str:String = "";
-				
-				for (var l:int = 0; l < 50; l++) 
-				{
-					str = "";
-					scrollItem = new Sprite();
-					str += '<font color = "#f3ef20">' + String(l + 1) + "</font> - ";
-					/*if (l < 2)
-					{
-						if (l == 0)
-						{
-							imgBg = new Image(Assets.getAtlas("paytableAssetsImg", "paytableAssetsXml").getTexture("1bg.png"));
-							scrollItem.addChild(imgBg);
-							
-							img = new Image(Assets.getAtlas("paytableAssetsImg", "paytableAssetsXml").getTexture("half" + Root.lang + ".png"));
-							scrollItem.addChild(img);
-						}
-						else
-						{
-							imgBg = new Image(Assets.getAtlas("paytableAssetsImg", "paytableAssetsXml").getTexture("2bg.png"));
-							scrollItem.addChild(imgBg);
-							
-							img = new Image(Assets.getAtlas("paytableAssetsImg", "paytableAssetsXml").getTexture("quar" + Root.lang + ".png"));
-							scrollItem.addChild(img);
-						}
-						
-						img.x = 20;
-						img.y = 10;
-						str += ('<font color = "#f3ef20">' + GameSettings.GAME_XML.sagzuri + "</font>");
-					}
-					else*/
-					{
-						
-						str += ('<font color = "#5fdb15">' + String(prizesAr[l]) + " GEL</font>");
-					}
-					
-					str += "<br/>"
-					
-					prizesAr_text = returnTFRenderer(str, 200, 19, 15, 0, "_bpgArialCaps", 18, TextFormatAlign.LEFT);
-					/*if (l < 2)
-					{
-						prizesAr_text.y = 110;
-					}*/
-					scrollItem.addChild(prizesAr_text);
-					container.addChild(scrollItem);
-					
-					scrollItem = null;
-					img = null;
-					
-				}
-				
-				
-				
-				
-				container.width = 200;
-				container.height = 275;
-				
-				container.x = 95;
-				container.y = -85;
-				
-				var layout:VerticalLayout = new VerticalLayout();
-				layout.gap = 5;
-				container.layout = layout;
-				
-				container.scrollBarDisplayMode = Scroller.SCROLL_BAR_DISPLAY_MODE_FIXED;
-				
-				container.verticalScrollBarFactory = function ():ScrollBar
-				{
-					var scrollbar:ScrollBar = new ScrollBar();
-				 
-					scrollbar.direction = ScrollBar.DIRECTION_VERTICAL;
-				 
-					scrollbar.trackLayoutMode = ScrollBar.TRACK_LAYOUT_MODE_SINGLE;
-				 
-					scrollbar.thumbFactory = function ():Button
-					{
-						var button:Button = new Button();
-						//button.defaultSkin = new Quad(10, 50, 0x000000);
-						button.defaultSkin = new Image(Assets.getAtlas("paytableAssetsImg", "paytableAssetsXml").getTexture("scroller.png"));
-						return button;
-					}
-				 
-					scrollbar.minimumTrackFactory = function ():Button
-					{
-						var button:Button = new Button();
-						//button.defaultSkin = new Quad(10, 10, 0x999999);
-						button.defaultSkin = new Image(Assets.getAtlas("paytableAssetsImg", "paytableAssetsXml").getTexture("scrollerBg.png"));
-						return button;
-					}
-				 
-					return scrollbar;
-				}
-				
-				container.validate();
-				
-				container.addEventListener(TouchEvent.TOUCH, removeScrollTween);
-				
-				addAutoScrollFunc();
-			
-			}
-			else if (num == 5)
-			{
-				page5_txt = returnTFRenderer(GameSettings.GAME_XML.payTable.page5.pageText, 180, 400, 135, -190, "_bpgMrgvlovaniCaps", 12, TextFormatAlign.LEFT);
-				pagesCont.addChild(page5_txt);
-				
-				gameAmountTXT = StaticGUI._creatTextFieldTextRenderer(pagesCont, GameSettings.GAME_XML.double.satamasho + " <br/>200", -250, -160, 180, 50, '_bpgArialCaps', 15, 0xcdf3fb, $textShadow,TextFormatAlign.CENTER, true);
-				gameAmountTXT.pivotX = int(gameAmountTXT.width / 2);
-				
-				toWinTXT = StaticGUI._creatTextFieldTextRenderer(pagesCont, GameSettings.GAME_XML.double.feriigebs + " 400", -70, -93, -1, 30, '_bpgArialCaps', 22, 0xd7c294, $textShadow, TextFormatAlign.LEFT);
-				toWinTXT.pivotX = int(toWinTXT.width / 2);
-				
-				toWinTXTMast = StaticGUI._creatTextFieldTextRenderer(pagesCont, GameSettings.GAME_XML.double.mastiigebs + " 800", -70, 7, -1, 30, '_bpgArialCaps', 22, 0xd7c294, $textShadow, TextFormatAlign.LEFT);
-				toWinTXTMast.pivotX = int(toWinTXTMast.width / 2);
-			}
-			else if (num == 6)
-			{
-				first_txt = returnTFRenderer(GameSettings.GAME_XML.payTable.page6.pageText[0], 619, 80, 5, -151, "_bpgGELDejaVuSerifCaps", 24, TextFormatAlign.CENTER,0xffffff,$textStroke);
-				first_txt.alignPivot(Align.CENTER, Align.CENTER);
-				pagesCont.addChild(first_txt);
-				
-				second_txt = returnTFRenderer(GameSettings.GAME_XML.payTable.page6.pageText[1], 700, 80, -5, -105, "_bpgGELDejaVuSerifCaps", 15, TextFormatAlign.CENTER);
-				second_txt.alignPivot(Align.CENTER, Align.CENTER);
-				pagesCont.addChild(second_txt);
-				
-				bronze = returnTFRenderer(GameSettings.GAME_XML.payTable.page6.ji[0], 285, 72, -180, 10, "_bpgMrgvlovaniCaps", 14, TextFormatAlign.CENTER, 0x000000, $textShadowWhite);
-				bronze.alignPivot(Align.CENTER, Align.CENTER);
-				pagesCont.addChild(bronze);
-				
-				gold = returnTFRenderer(GameSettings.GAME_XML.payTable.page6.ji[1], 285, 72, 180, 10, "_bpgMrgvlovaniCaps", 14, TextFormatAlign.CENTER, 0x000000, $textShadowWhite);
-				gold.alignPivot(Align.CENTER, Align.CENTER);
-				pagesCont.addChild(gold);
-				
-				silver = returnTFRenderer(GameSettings.GAME_XML.payTable.page6.ji[2], 285, 72, -180, 150, "_bpgMrgvlovaniCaps", 14, TextFormatAlign.CENTER, 0x000000, $textShadowWhite);
-				silver.alignPivot(Align.CENTER, Align.CENTER);
-				pagesCont.addChild(silver);
-				
-				platinum = returnTFRenderer(GameSettings.GAME_XML.payTable.page6.ji[3], 285, 72, 180, 150, "_bpgMrgvlovaniCaps", 14, TextFormatAlign.CENTER, 0x000000, $textShadowWhite);
-				platinum.alignPivot(Align.CENTER, Align.CENTER);
-				pagesCont.addChild(platinum);
 				
 			}
 			
@@ -528,29 +308,6 @@ package game
 		
 		private function returnTFRenderer(curText:String, _width:Number, _height:Number, _x:Number, _y:Number, fontName:String, fontSize:int = 12, _align:String = TextFormatAlign.LEFT, fontColor:uint = 0xffffff, txtShadowObj:Object = null):TextFieldTextRenderer
 		{
-			/*var TextFieldTextRenderer:TextFieldTextRenderer = new TextFieldTextRenderer();
-		   TextFieldTextRenderer.width = _width;
-		   TextFieldTextRenderer.height = _height;
-		   TextFieldTextRenderer.isEditable = false;
-		   TextFieldTextRenderer.isEnabled = false;
-		   TextFieldTextRenderer.x = _x
-		   TextFieldTextRenderer.y = _y;
-		   TextFieldTextRenderer.text = curText;
-		   TextFieldTextRenderer.textEditorFactory = function():ITextEditorViewPort{
-			var textEditor:TextFieldTextEditorViewPort = new TextFieldTextEditorViewPort();
-			textEditor.styleProvider = null;
-			textEditor.textFormat = new TextFormat(fontName, fontSize, fontColor,null,null,null,null,null,_align );
-			textEditor.multiline = true;
-			textEditor.embedFonts = true;
-			textEditor.isHTML = true;
-			textEditor.wordWrap = true;
-			
-			return textEditor;
-		   }
-		   
-		   TextFieldTextRenderer.validate();
-		   return TextFieldTextRenderer;*/
-		   
 		   
 		   var htmlTxt:TextFieldTextRenderer = new TextFieldTextRenderer();
 

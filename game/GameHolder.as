@@ -1043,7 +1043,7 @@ package game
 		public function hideSlotItemsForStates(hideFooter:Boolean = false):void
 		{
 			
-			//TweenLite.to(machineHolder, 0.5, {autoAlpha: 0});
+			TweenLite.to(machineHolder.iconsHolder, 0.5, {autoAlpha: 0});
 			TweenLite.to(linesHolder, 0.5, {autoAlpha: 0});
 			TweenLite.to(linesHolder.frameHolder, 0.5, {autoAlpha: 0});
 			
@@ -1059,7 +1059,7 @@ package game
 			if ((gameState == AUTOPLAY_STATE && bonusHolder == null) || (!gameState == DOUBLE_STATE && bonusHolder == null) || gameState == NORMAL_STATE || (gameState == DOUBLE_STATE && bonusHolder == null))
 			{
 				
-				TweenLite.to(machineHolder, 0.5, {autoAlpha: 1});
+				TweenLite.to(machineHolder.iconsHolder, 0.5, {autoAlpha: 1});
 				TweenLite.to(linesHolder, 0.5, {autoAlpha: 1});
 				TweenLite.to(linesHolder.frameHolder, 0.5, {autoAlpha: 1});
 				TweenLite.to(footerHolder, 0.5, {autoAlpha: 1});

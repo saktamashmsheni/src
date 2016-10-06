@@ -141,15 +141,16 @@
  					
 					GameSettings.GAME_ID = socketObject.IM.GameID;
 					
-					GameSettings.SYS_NUM = socketObject.IM.Reels;
+					//GameSettings.SYS_NUM = socketObject.IM.Reels;
+					GameSettings.SYS_NUM = 2;
 					
 					GameSettings.TOTAL_ICONS = socketObject.IM.ImagesCount;
 					
 					//currency
-					//GameSettings.Currency_ID = socketObject.IM.CurrencyID;
-					//GameSettings.Currency_Rate = socketObject.IM.Buy;
-					GameSettings.Currency_ID = 3;
-					GameSettings.Currency_Rate = 1.5;
+					GameSettings.Currency_ID = socketObject.IM.CurrencyID;
+					GameSettings.Currency_Rate = socketObject.IM.Buy;
+					//GameSettings.Currency_ID = 3;
+					//GameSettings.Currency_Rate = 1.5;
 					
 					//lines
 					GameSettings.TOTAL_LINES = socketObject.IM.Lines.Number;

@@ -321,7 +321,6 @@ package {
 				Assets.paytableBg3 = $o.getDefinition("PaytableLib_paytableBg3") as Class;
 				Assets.paytableBg4 = $o.getDefinition("PaytableLib_paytableBg4") as Class;
 				Assets.paytableBg5 = $o.getDefinition("PaytableLib_paytableBg5") as Class;
-				Assets.paytableBg6 = $o.getDefinition("PaytableLib_paytableBg6") as Class;
 				Assets.paytableAssetsImg = $o.getDefinition("PaytableLib_paytableAssetsImg") as Class;
 				Assets.paytableAssetsXml = $o.getDefinition("PaytableLib_paytableAssetsXml") as Class;
 				Assets.payTableLoaded = true;
