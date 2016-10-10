@@ -28,10 +28,13 @@ package
 		
 		public static const SWFType:String = "swf";
 		public static const XMLType:String = "xml";
+		public static const JsonType:String = "json";
 		
 		private var loadersAr:Array;
 		
 		private var allLoadExperienceDic:Dictionary = new Dictionary();
+		private var swfLoader:Loader;
+		private var xmlLoader:URLLoader;
 		
 		public function setLoadAssets(path:String, valTxt:String, type:String):void
 		{
@@ -91,7 +94,7 @@ package
 			
 			if (curLoadingObj.type == SWFType)
 			{
-				var swfLoader:Loader = new Loader();
+				swfLoader = new Loader();
 				swfLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, swfLoaderComplete);
 				swfLoader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, swfLoaderProgress);
 				if (!Root.TESTING)
@@ -106,9 +109,9 @@ package
 				
 				loadersAr.push(swfLoader);
 			}
-			else if (curLoadingObj.type == XMLType)
+			else if (curLoadingObj.type == XMLType || curLoadingObj.type == JsonType)
 			{
-				var xmlLoader:URLLoader = new URLLoader();
+				xmlLoader = new URLLoader();
 				xmlLoader.addEventListener(Event.COMPLETE, xmlLoaderComplete, false, 0, true);
 				xmlLoader.addEventListener(ProgressEvent.PROGRESS, xmlLoaderProgress);
 				xmlLoader.load(new URLRequest(curLoadingObj.path));
@@ -149,9 +152,18 @@ package
 		
 		private function xmlLoaderComplete(e:Event):void 
 		{
-			curLoadingObj.content = new XML(e.target.data);
-			currentLoaderComplete(curLoadingObj);
-			startLoadAssets();
+			if (curLoadingObj.type == XMLType)
+			{
+				curLoadingObj.content = new XML(e.target.data);
+				currentLoaderComplete(curLoadingObj);
+				startLoadAssets();
+			}
+			else if (curLoadingObj.type == JsonType)
+			{
+				curLoadingObj.content = JSON.parse(e.target.data);
+				currentLoaderComplete(curLoadingObj);
+				startLoadAssets();
+			}
 		}
 		
 		

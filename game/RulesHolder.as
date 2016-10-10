@@ -55,7 +55,7 @@ package game
 		private var back_btn:MyButton;
 		private var next_btn:MyButton;
 		private var count:int;
-		private var totalPages:int = 5;
+		private var totalPages:int;
 		private var scatter_txt:TextFieldTextRenderer;
 		private var wild_txt:TextFieldTextRenderer;
 		private var page1_txt:TextFieldTextRenderer;
@@ -104,6 +104,7 @@ package game
 		
 		private function initPayTable():void 
 		{
+			totalPages = GameSettings.PAYTABLE_TOTAL_PAGES;
 			
 			$textShadow = {};
 			$textShadow.blurX = 2;

@@ -7,12 +7,15 @@ package
 	public class GameSettings 
 	{
 		
+		public static var CONFIG_JSON:Object;
+		
 		public static var GAME_ID:int;
 		public static var GAME_NAME:String = "20 slice fruit";
 		public static var PATH:String = GAME_NAME + "/"; // saxeli da path meqneba albat shesacvleli dinamiuri ro iyos
 		
 		public static var SYS_NUM:int = 0;
 		public static var PAYTABLE_AR:Array = [];
+		public static var PAYTABLE_TOTAL_PAGES:int;
 		
 		public static var BALANCE:Number;
 		
@@ -63,9 +66,17 @@ package
 		
 		//machine and icon settings
 		
+		public static var ICON_ANIM_ENABLED:Boolean = true;
+		public static var ICON_ANIM_LOOP:Boolean = false;
+		public static var ICON_ANIM_DELAY:int = 1;
+		
 		public static var HOVER_ANIM_ENABLED:Boolean = true;
 		public static var HOVER_ANIM_LOOP:Boolean = false;
-												   
+		
+	    public static var STATIC_ANIM_ENABLED:Boolean = true;
+		public static var STATIC_ANIM_LOOP:Boolean = true;
+		
+		
 		
 		public static var LINES_AR:Array = [
 		

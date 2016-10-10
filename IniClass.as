@@ -103,6 +103,7 @@ package {
 			assLoadMan.setLoadAssets(GameSettings.PATH + "SoundLibrary.swf", "Sound Library", AssetsLoaderManager.SWFType);
 			assLoadMan.setLoadAssets(GameSettings.PATH + "IconsLibrary.swf", "Icons Library", AssetsLoaderManager.SWFType);
 			assLoadMan.setLoadAssets(GameSettings.PATH + "xml/" + Root.lang + ".xml", "XML Muipack", AssetsLoaderManager.XMLType);
+			assLoadMan.setLoadAssets(GameSettings.PATH + "config.json", "Configurating", AssetsLoaderManager.JsonType);
 			assLoadMan.startLoadAssets();
 		}
 		
@@ -196,6 +197,10 @@ package {
 				
 				Assets.icon1Img = $o.getDefinition("IconsLib_icon1Img") as Class;
 				Assets.icon1Xml = $o.getDefinition("IconsLib_icon1Xml") as Class;
+				
+				Assets.staticAnim = $o.getDefinition("IconsLib_staticAnim") as Class;
+				Assets.staticAnimXml = $o.getDefinition("IconsLib_staticAnimXml") as Class;
+				
 				
 			} else if (e.params.valTxt == "Fonts Library") {
 				$o = e.params.content.applicationDomain
@@ -314,7 +319,7 @@ package {
 			} else if (e.params.valTxt == "XML Muipack") {
 				GameSettings.GAME_XML = e.params.content as XML;
 			} else if (e.params.valTxt == "Paytable Library") {
-				$o = e.params.content.applicationDomain
+				$o = e.params.content.applicationDomain;
 				
 				Assets.paytableBg1 = $o.getDefinition("PaytableLib_paytableBg1") as Class;
 				Assets.paytableBg2 = $o.getDefinition("PaytableLib_paytableBg2") as Class;
@@ -327,7 +332,7 @@ package {
 			}
 			
 			else if (e.params.valTxt == "Bonus Library") {
-				$o = e.params.content.applicationDomain
+				$o = e.params.content.applicationDomain;
 				
 				Assets.bonusBg = 				$o.getDefinition("BonusLib_bonusBg") as Class;
 				Assets.daxli = 					$o.getDefinition("BonusLib_daxli") as Class;
@@ -342,11 +347,14 @@ package {
 			}
 			
 			else if (e.params.valTxt == "Jackpot Library") {
-				$o = e.params.content.applicationDomain
+				$o = e.params.content.applicationDomain;
 				
 				Assets.jackpotWinAssetsImg = $o.getDefinition("JackpotWinLib_jackpotWinAssetsImg") as Class;
 				Assets.jackpotWinAssetsXml = $o.getDefinition("JackpotWinLib_jackpotWinAssetsXml") as Class;
 				Assets.JackpotWinLoaded = true;
+			}
+			else if (e.params.valTxt == "Configurating"){
+				GameSettings.CONFIG_JSON = e.params.content as Object;
 			}
 			
 			//assLoadMan.updateLoad();
@@ -384,6 +392,8 @@ package {
 			
 			assLoadMan.unLoadAllLoaders();
 			
+			updateGameSettings();
+			
 			if (!swfLoaded) {
 				swfLoaded = true
 			}else {
@@ -410,6 +420,26 @@ package {
 			socketAnaliser.activateOldMessages();
 			
 		}
+		
+		
+		
+		private function updateGameSettings():void 
+		{
+			var obj:Object = GameSettings.CONFIG_JSON;
+			
+			//icon animations
+			GameSettings.ICON_ANIM_ENABLED = obj.iconAnimation.ICON_ANIM_ENABLED;
+			GameSettings.ICON_ANIM_LOOP = obj.iconAnimation.ICON_ANIM_LOOP;
+			GameSettings.ICON_ANIM_DELAY = obj.iconAnimation.ICON_ANIM_DELAY;
+			GameSettings.HOVER_ANIM_ENABLED = obj.iconAnimation.HOVER_ANIM_ENABLED;
+			GameSettings.HOVER_ANIM_LOOP = obj.iconAnimation.HOVER_ANIM_LOOP;
+			GameSettings.STATIC_ANIM_ENABLED = obj.iconAnimation.STATIC_ANIM_ENABLED;
+			GameSettings.STATIC_ANIM_LOOP = obj.iconAnimation.STATIC_ANIM_LOOP;
+			
+			//paytable
+			GameSettings.PAYTABLE_TOTAL_PAGES = obj.payTable.PAYTABLE_TOTAL_PAGES;
+		}
+		
 		
 		public function fullScreen(e:MouseEvent):void {
 			

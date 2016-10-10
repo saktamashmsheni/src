@@ -182,6 +182,8 @@ package {
 		public static var iconsAnimationXml:Class;
 		public static var icon1Img:Class;
 		public static var icon1Xml:Class;
+		public static var staticAnim:Class;
+		public static var staticAnimXml:Class;
 		
 		
 		//leaderboard fonts
