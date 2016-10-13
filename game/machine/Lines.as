@@ -83,14 +83,30 @@ package game.machine {
 			
 			var qWidth:uint = GameSettings.ICONSFRAME_SIZE[GameSettings.SYS_NUM][0];
 			var qHeight:uint = GameSettings.ICONSFRAME_SIZE[GameSettings.SYS_NUM][1];
-			trace(qWidth,qHeight,GameSettings.SYS_NUM)
+			var lineLoop:uint = GameSettings.LINEMASK_LOOP[GameSettings.SYS_NUM];
+			var maskStepper:uint = GameSettings.LINEMASK_STEPPER[GameSettings.SYS_NUM];
+			var maskStepX:uint = GameSettings.LINEMASK_STEP_X_Y[GameSettings.SYS_NUM][0];
+			var maskStepY:uint = GameSettings.LINEMASK_STEP_X_Y[GameSettings.SYS_NUM][1];
 			
-			for (var j:int = 0; j < 15; j++) {
+			var maskLineHelerpVLoop:uint = GameSettings.ICONSFRAME_VERT_HELPER_LOOP[GameSettings.SYS_NUM];
+			var maskLineHelperVWidth:uint = GameSettings.ICONSFRAME_VERT_HELPER_SIZE[GameSettings.SYS_NUM][0];
+			var maskLineHelperVHeight:uint = GameSettings.ICONSFRAME_VERT_HELPER_SIZE[GameSettings.SYS_NUM][1];
+			var maskLineHelperVStepX:uint = GameSettings.ICONSFRAME_VERT_HELPER_STEP_X[GameSettings.SYS_NUM];
+			var maskLineHelperVOffset:uint = GameSettings.ICONSFRAME_VERT_HELPER_OFFSET[GameSettings.SYS_NUM];
+			
+			
+			var maskLineHelerpHLoop:uint = GameSettings.ICONSFRAME_HORIZ_HELPER_LOOP[GameSettings.SYS_NUM];
+			var maskLineHelperHWidth:uint = GameSettings.ICONSFRAME_HORIZ_HELPER_SIZE[GameSettings.SYS_NUM][0];
+			var maskLineHelperHHeight:uint = GameSettings.ICONSFRAME_HORIZ_HELPER_SIZE[GameSettings.SYS_NUM][1];
+			var maskLineHelperHStepY:uint = GameSettings.ICONSFRAME_HORIZ_HELPER_STEP_Y[GameSettings.SYS_NUM];
+			var maskLineHelperHOffset:uint = GameSettings.ICONSFRAME_HORIZ_HELPER_OFFSET[GameSettings.SYS_NUM];
+			
+			for (var j:int = 0; j < lineLoop; j++) {
 				
 				quad = new Quad(qWidth, qHeight, Color.RED);
 				maskIconsAr.push(quad);
-				quad.x = int(j % 5 * 154);
-				quad.y = int(j / 5) * (145);
+				quad.x = int(j % maskStepper * maskStepX);
+				quad.y = int(j / maskStepper) * maskStepY;
 			
 				linesMask.addChild(quad);
 				
@@ -100,30 +116,29 @@ package game.machine {
 			quad.x = linesMask.width - quad.width*2;
 			linesMask.addChild(quad);*/
 			
-			for (j = 0; j < 4; j++) {
+			for (j = 0; j < maskLineHelerpVLoop; j++) {
 				
-				quad = new Quad(24, 420, Color.GREEN);
+				quad = new Quad(maskLineHelperVWidth, maskLineHelperVHeight, Color.GREEN);
 				
-				quad.x = 154*j+130;
+				quad.x = maskLineHelperVStepX*j+maskLineHelperVOffset;
 				linesMask.addChild(quad);
 				
 			}
 			
-			for (j = 0; j < 2; j++) {
+			for (j = 0; j < maskLineHelerpHLoop; j++) {
 				
-				quad = new Quad(746, 16, Color.GREEN);
-				quad.y = 145 * j + 130;
+				quad = new Quad(maskLineHelperHWidth, maskLineHelperHHeight, Color.GREEN);
+				quad.y = maskLineHelperHStepY * j + maskLineHelperHOffset;
 				
 				linesMask.addChild(quad);
 				
 			}
 			
-			//linesMask.alpha = .2;
-			linesContainer.mask = linesMask;
+			linesMask.alpha = .2;
+			//linesContainer.mask = linesMask;
 			
 			var $textureName:String;
 			var $textureAtlas:TextureAtlas = Assets.getAtlas("lines", "linesXml");
-			
 			
 			lineHelper = new LineHelper();
 			lineHelper.x += 4;

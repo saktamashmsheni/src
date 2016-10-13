@@ -54,14 +54,27 @@ package
 		
 		public static const REEL_TYPE:Array = [[3, 3], [5, 3], [5, 4]];
 		public static const MASHINE_OPTIONS:Array = [{xDist:154, yDist:145},
-												   {xDist:154, yDist:145},
-												   {xDist:155, yDist:105 } ]
+													 {xDist:154, yDist:145},
+												     {xDist:155, yDist:105 } ]
 												   
 												   
 		public static const ICON_HOLDER_POS:Vector.<Array> = new <Array>[[-34,40],[-34,40],[-34,20]];
 		
-		public static const ICONS_SIZE:Vector.<Array> = new <Array>[[120,120],[120,120],[125,125]];
-		public static const ICONSFRAME_SIZE:Vector.<Array> = new <Array>[[130,130],[130,130],[120,120]];
+		public static const ICONS_SIZE:Vector.<Array> = new <Array>[[120,120],[130,130],[125,125]];
+		public static const ICONSFRAME_SIZE:Vector.<Array> = new <Array>[[130,130],[130,130],[125,125]];
+		public static const LINEMASK_LOOP:Vector.<uint> = new <uint>[9,15,20];
+		public static const LINEMASK_STEPPER:Vector.<uint> = new <uint>[3,5,5];
+		public static const LINEMASK_STEP_X_Y:Vector.<Array> = new <Array>[[154,145],[154,145],[154,145]];
+		
+		public static const ICONSFRAME_VERT_HELPER_LOOP:Vector.<uint> = new <uint>[2,4,4];
+		public static const ICONSFRAME_VERT_HELPER_SIZE:Vector.<Array> = new <Array>[[24, 420],[24, 420],[24, 420]];
+		public static const ICONSFRAME_VERT_HELPER_STEP_X:Vector.<uint> = new <uint>[154,154,154];
+		public static const ICONSFRAME_VERT_HELPER_OFFSET:Vector.<uint> = new <uint>[130,130,130];
+		
+		public static const ICONSFRAME_HORIZ_HELPER_LOOP:Vector.<uint> = new <uint>[2,4,5];
+		public static const ICONSFRAME_HORIZ_HELPER_SIZE:Vector.<Array> = new <Array>[[746, 16],[746, 16],[746, 16]];
+		public static const ICONSFRAME_HORIZ_HELPER_STEP_Y:Vector.<uint> = new <uint>[145,145,145];
+		public static const ICONSFRAME_HORIZ_HELPER_OFFSET:Vector.<uint> = new <uint>[130,130,130];
 												   
 		
 		//machine and icon settings

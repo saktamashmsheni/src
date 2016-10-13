@@ -125,8 +125,8 @@ package game.machine
 		
 		private function alignCenter(ic:DisplayObject):void
 		{
-			//ic.width = Icon.iconWidth;
-			//ic.height = Icon.iconHeight;
+			ic.width = Icon.iconWidth;
+			ic.height = Icon.iconHeight;
 			//ic.pivotX = int(ic.width / 2);
 			//ic.pivotY = int(ic.height / 2);
 			

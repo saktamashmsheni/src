@@ -150,7 +150,7 @@ package game.machine
 			
 			iMask = new Quad(775, 441);
 			iMask.color = Color.RED;
-			iMask.alpha = .5;
+			//iMask.alpha = .5;
 			iMask.y = 25;
 			iMask.x = -55;
 			addChild(iMask);
