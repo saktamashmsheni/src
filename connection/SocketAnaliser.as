@@ -143,8 +143,8 @@
  					
 					GameSettings.GAME_ID = socketObject.IM.GameID;
 					
-					GameSettings.SYS_NUM = socketObject.IM.Reels;
-					//GameSettings.SYS_NUM = 2;
+					//GameSettings.SYS_NUM = socketObject.IM.Reels;
+					GameSettings.SYS_NUM = 2;
 					
 					GameSettings.TOTAL_ICONS = socketObject.IM.ImagesCount;
 					
@@ -160,7 +160,6 @@
 					GameSettings.LINES_FIXED = socketObject.IM.Lines.Fixed;
 					GameSettings.LINES_VISIBILITY = socketObject.IM.Lines.Visible;
 					GameSettings.LINES_COUNT_CONFIG = socketObject.IM.Lines.LinesCountConfig;
-					
 					
 					GameSettings.BETS_AR = socketObject.IM.BetsConfig;
 					

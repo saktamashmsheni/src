@@ -17,13 +17,17 @@ package game.machine {
 		private var testFrame:iconFrame;
 		private var lineTest:Line;
 		private var rectSize:Array
+		private var setXY:Array;
 		private var activeFramesAr:Array = [];
 		public function IconFramesHolder() {
-			rectSize = GameSettings.ICONSFRAME_SIZE[GameSettings.SYS_NUM];
+		
+			
 			this.addEventListener(Event.ADDED_TO_STAGE, added);
 		}
 		
 		private function added(e:Event):void {
+			rectSize = GameSettings.ICONSFRAME_SIZE[GameSettings.SYS_NUM];
+			setXY = GameSettings.LINEMASK_STEP_X_Y[GameSettings.SYS_NUM]
 			removeEventListener(Event.ADDED_TO_STAGE, added);
 			
 			//_setUpFrames(10);
@@ -51,9 +55,9 @@ package game.machine {
 					
 				
 				
-				lineTest.x = int((index) % 5 * 154);
+				lineTest.x = int(index % 5 * setXY[0]);
 
-				lineTest.y = int((index) / 5) * 145;
+				lineTest.y = int(index / 5) * setXY[1];
 				addChild(lineTest);
 				
 				activeFramesAr.push(lineTest);

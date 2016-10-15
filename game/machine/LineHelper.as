@@ -59,8 +59,9 @@ package game.machine {
 			//trace(lineArr)
 			var zz:Array = lineArr;
 			
-			var yArray:Array = [60, 205, 350];
-			var xArray:Array = [60,215,368,522,675];
+			var xArray:Array = GameSettings.LINES_WIN_COORDS[GameSettings.SYS_NUM][0]//[60,215,368,522,675];
+			var yArray:Array = GameSettings.LINES_WIN_COORDS[GameSettings.SYS_NUM][1]//[60, 205, 350];
+			
 			flashSprite = new flash.display.Sprite();
 			
 			//flashSprite.graphics.beginFill(0xCCCCCC);

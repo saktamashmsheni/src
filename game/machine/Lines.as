@@ -83,6 +83,7 @@ package game.machine {
 			
 			var qWidth:uint = GameSettings.ICONSFRAME_SIZE[GameSettings.SYS_NUM][0];
 			var qHeight:uint = GameSettings.ICONSFRAME_SIZE[GameSettings.SYS_NUM][1];
+			
 			var lineLoop:uint = GameSettings.LINEMASK_LOOP[GameSettings.SYS_NUM];
 			var maskStepper:uint = GameSettings.LINEMASK_STEPPER[GameSettings.SYS_NUM];
 			var maskStepX:uint = GameSettings.LINEMASK_STEP_X_Y[GameSettings.SYS_NUM][0];
