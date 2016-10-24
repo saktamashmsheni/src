@@ -521,10 +521,10 @@ package game.machine
 				TEST_LINE.map["i" + TEST_LINE.C].identifier = String(line) + String(REEL_Y_COUNT - num);
 				TEST_LINE.map["i" + TEST_LINE.C].ID = obj.Reels[line-1][REEL_Y_COUNT - num - 1];
 				
-				/*if (obj.Reels[line-1][REEL_Y_COUNT - num - 1] == this.fistScatterIndex && fastStop == false)
+				if (isScatterIcon(obj.Reels[line-1][REEL_Y_COUNT - num - 1]) && fastStop == false)
 				{
-					TweenLite.delayedCall(line*0.045, Root.soundManager.schedule, ["firstScatter2",0.8]);
-				}*/
+					TweenLite.delayedCall(line*0.045, Root.soundManager.schedule, ["Star_0" + String(line),0.8]);
+				}
 				
 				if (num != REEL_Y_COUNT)
 				{

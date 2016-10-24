@@ -316,7 +316,13 @@ package game
 					
 					collectDel = 7
 				}
-				//Root.soundManager.schedule("RegularWinSnd", 1);
+				
+				var winStr:String = "Wind_Regular_0";
+				var winRnd:int = Math.floor(Math.random() * 5) + 1;
+				winStr += String(winRnd);
+				
+				Root.soundManager.schedule(winStr, 1);
+				
 				TweenLite.delayedCall(collectDel, preEndDelayedFunc, [sObj]);
 			}
 			

@@ -143,8 +143,8 @@
  					
 					GameSettings.GAME_ID = socketObject.IM.GameID;
 					
-					//GameSettings.SYS_NUM = socketObject.IM.Reels;
-					GameSettings.SYS_NUM = 2;
+					GameSettings.SYS_NUM = socketObject.IM.Reels;
+					//GameSettings.SYS_NUM = 2;
 					
 					GameSettings.TOTAL_ICONS = socketObject.IM.ImagesCount;
 					

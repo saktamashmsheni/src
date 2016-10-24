@@ -10,7 +10,8 @@ package
 		public static var CONFIG_JSON:Object;
 		
 		public static var GAME_ID:int;
-		public static var GAME_NAME:String = "20 slice fruit";
+		//public static var GAME_NAME:String = "20 slice fruit";
+		public static var GAME_NAME:String = "acid fruits";
 		public static var PATH:String = GAME_NAME + "/"; // saxeli da path meqneba albat shesacvleli dinamiuri ro iyos
 		
 		public static var SYS_NUM:int = 0;
