@@ -14,6 +14,8 @@ package
 		public static var GAME_NAME:String = "acid fruits";
 		public static var PATH:String = GAME_NAME + "/"; // saxeli da path meqneba albat shesacvleli dinamiuri ro iyos
 		
+		public static var PREFERENCES:Object;
+		
 		public static var SYS_NUM:int = 0;
 		public static var PAYTABLE_AR:Array = [];
 		public static var PAYTABLE_TOTAL_PAGES:int;

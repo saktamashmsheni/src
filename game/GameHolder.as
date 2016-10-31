@@ -176,6 +176,7 @@ package game
 		//init whole game
 		public function initialiseWholeMachine(obj:Object):void
 		{
+			footerHolder.initFooter();
 			footerHolder.updateBalance(obj.Chips);
 			footerHolder.updateLines(GameSettings.ACT_LINES);
 			footerHolder.updateBet(GameSettings.BET_INDEX);
@@ -184,6 +185,8 @@ package game
 			linesHolder.initLines();
 			linesHolder.shown = true;//false
 			lineButsHolder.initButtons();
+			
+			leaderBoardHolder.initLeaderBoard();
 		}
 		
 		private function whenSpinComplete(e:GameEvents):void

@@ -355,6 +355,7 @@ package {
 			}
 			else if (e.params.valTxt == "Configurating"){
 				GameSettings.CONFIG_JSON = e.params.content as Object;
+				GameSettings.PREFERENCES = GameSettings.CONFIG_JSON.preferences;
 			}
 			
 			//assLoadMan.updateLoad();

@@ -84,7 +84,7 @@ package leaderBoard
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, added);
 			cont = this;
-			initLeaderBoard();
+			//initLeaderBoard();
 			
 		}
 		
@@ -93,14 +93,14 @@ package leaderBoard
 		
 		
 		
-		private function initLeaderBoard():void 
+		public function initLeaderBoard():void 
 		{
 			
 			_atlas = Assets.getAtlas("leaderboardSheet", "leaderboardSheetXml");
 			
 			boardBg = new Image(_atlas.getTexture("bg.png"));
-			boardBg.x = -20;
-			boardBg.y = -8;
+			boardBg.x = GameSettings.PREFERENCES.leaderboard.bg.OF_X;
+			boardBg.y = GameSettings.PREFERENCES.leaderboard.bg.OF_Y;
 			addChild(boardBg);
 			
 			logo = new Image(_atlas.getTexture("leaderboard_logo.png"));

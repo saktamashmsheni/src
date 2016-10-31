@@ -67,9 +67,9 @@ package game.footer {
 		private static const betAttrStr:String = "";
 		
 		
-		private const BALANCE_TEXT:String = 'BALANCE: ';
+		private var BALANCE_TEXT:String = 'BALANCE: ';
 		private const TOTALBET_TEXT:String = '';
-		private const WIN_TEXT:String = 'WIN: ';
+		private var WIN_TEXT:String = 'WIN: ';
 		private var changeLariBtn:MyButton;
 		private var $spnObj:Object;
 		
@@ -94,44 +94,55 @@ package game.footer {
 		
 		private function addedToStage(e:Event):void {
 			removeEventListener(Event.ADDED_TO_STAGE, addedToStage);
-			
-			initFooter();
-			
 		}
 		
 
 		
-		private function initFooter():void {
+		public function initFooter():void {
 			
 			cont = this;
+			
+			BALANCE_TEXT = GameSettings.PREFERENCES.footer.balance.TXT;
+			WIN_TEXT = GameSettings.PREFERENCES.footer.win.TXT;
 			
 			$atlas = Assets.getAtlas("footerSheet", "footerSheetXml");
 			
 			
 			//-----shua teqstebi
+			var balanceSp:Sprite = new Sprite();
+			balanceSp.x = -73;
+			balanceSp.y = 0;
+			balanceSp.x = balanceSp.x + GameSettings.PREFERENCES.footer.balance.OF_X;
+			balanceSp.y = balanceSp.y + GameSettings.PREFERENCES.footer.balance.OF_Y;
 			var balanceBgImg:Image = new Image($atlas.getTexture("balance_bg.png"));
-			balanceBgImg.x = -73;
-			addChild(balanceBgImg);
+			balanceSp.addChild(balanceBgImg);
 			
-			balanceTXT = StaticGUI._creatBitmapFontTextRenderer(this, BALANCE_TEXT + '0', -60, 20, 380, 23, Assets.getFont("balance_bfont").name, TextFormatAlign.CENTER, false, -13, -1);
+			balanceTXT = StaticGUI._creatBitmapFontTextRenderer(balanceSp, BALANCE_TEXT + '0', 13, 20, 380, 23, Assets.getFont("balance_bfont").name, GameSettings.PREFERENCES.footer.balance.TEXT_ALIGN, false, -13, -1);
+			balanceTXT.x = balanceTXT.x + GameSettings.PREFERENCES.footer.balance.LABEL_OF_X;
+			balanceTXT.y = balanceTXT.y + GameSettings.PREFERENCES.footer.balance.LABEL_OF_Y;
 			changeLariBtn = new MyButton(null, "CC");
 			changeLariBtn.x = balanceTXT.x;
 			changeLariBtn.y = balanceTXT.y;
-			addChild(changeLariBtn);
-			var quad:Quad = new Quad(balanceTXT.width, balanceTXT.height+20, Color.RED);
+			balanceSp.addChild(changeLariBtn);
+			var quad:Quad = new Quad(balanceSp.width, balanceSp.height+20, Color.RED);
 			
 			quad.alpha = 0;
 			changeLariBtn.addChild(quad);
 			changeLariBtn.addEventListener(MouseEvent.CLICK, onBalanceClick);
+			addChild(balanceSp);
 			
 			
-			
+			var winSp:Sprite = new Sprite();
+			winSp.x = 313;
+			winSp.y = -1;
+			winSp.x = winSp.x + GameSettings.PREFERENCES.footer.win.OF_X;
+			winSp.y = winSp.y + GameSettings.PREFERENCES.footer.win.OF_Y;
 			var winBgImg:Image = new Image($atlas.getTexture("win_bg.png"));
-			winBgImg.x = 313;
-			winBgImg.y = -1;
-			addChild(winBgImg);
-			winTXT = StaticGUI._creatBitmapFontTextRenderer(this, WIN_TEXT + '0', 260, 20, 380, 23, Assets.getFont("win_bfont").name, TextFormatAlign.CENTER, false, -13, -1);
-			
+			winSp.addChild(winBgImg);
+			winTXT = StaticGUI._creatBitmapFontTextRenderer(winSp, WIN_TEXT + '0', -53, 21, 380, 23, Assets.getFont("win_bfont").name, GameSettings.PREFERENCES.footer.balance.TEXT_ALIGN, false, -13, -1);
+			winTXT.x = winTXT.x + GameSettings.PREFERENCES.footer.win.LABEL_OF_X;
+			winTXT.y = winTXT.y + GameSettings.PREFERENCES.footer.win.LABEL_OF_Y;
+			addChild(winSp);
 			
 			
 			
@@ -139,6 +150,8 @@ package game.footer {
 			addChild(footAttrImg);
 			footAttrImg.x = -103;
 			footAttrImg.y = -13;
+			footAttrImg.x = footAttrImg.x + GameSettings.PREFERENCES.footer.footerAttr.OF_X;
+			footAttrImg.y = footAttrImg.y + GameSettings.PREFERENCES.footer.footerAttr.OF_Y;
 			
 			
 			
@@ -172,15 +185,16 @@ package game.footer {
 			
 			//autoSpin
 			
-			
 			var $autoObj:Object = new Object;
 			$autoObj.label = 'AUTO';
 			$autoObj.x = 530;
 			$autoObj.y = 95;
+			$autoObj.x = $autoObj.x + GameSettings.PREFERENCES.footer.autoSpin.OF_X;
+			$autoObj.y = $autoObj.y + GameSettings.PREFERENCES.footer.autoSpin.OF_Y;
 			//$autoObj.maxWidth = 229;
 			//$autoObj.maxHeight = 116;
-			$autoObj.labelOffsetY = -7;
-			$autoObj.labelOffsetX = -10;
+			$autoObj.labelOffsetY = GameSettings.PREFERENCES.footer.autoSpin.LABEL_OF_Y;
+			$autoObj.labelOffsetX = GameSettings.PREFERENCES.footer.autoSpin.LABEL_OF_X;
 			
 			
 			autoSpinBtn = StaticGUI._setButtonWithBitmapFont(this,
@@ -204,7 +218,10 @@ package game.footer {
 			$spnObj.y = 67;
 			//$spnObj.maxWidth = 229;
 			//$spnObj.maxHeight = 116;
-			$spnObj.labelOffsetY = 0;
+			$spnObj.x = $spnObj.x + GameSettings.PREFERENCES.footer.spin.OF_X;
+			$spnObj.y = $spnObj.y + GameSettings.PREFERENCES.footer.spin.OF_Y;
+			$spnObj.labelOffsetY = GameSettings.PREFERENCES.footer.spin.LABEL_OF_Y;
+			$spnObj.labelOffsetX = GameSettings.PREFERENCES.footer.spin.LABEL_OF_X;
 			spinBtn = StaticGUI._setButtonWithBitmapFont(this,
 													$spnObj, 
 					 $atlas.getTexture("spin_controller_1.png"), 
@@ -220,11 +237,11 @@ package game.footer {
 			
 			
 			
-			
-			
 		   creditHolder = new CreditContainer();
 		   creditHolder.x = 20;
 		   creditHolder.y = 95;
+		   creditHolder.x = creditHolder.x + GameSettings.PREFERENCES.footer.credit.OF_X;
+		   creditHolder.y = creditHolder.y + GameSettings.PREFERENCES.footer.credit.OF_Y;
 		   creditHolder.addEventListener(GameEvents.CREDIT_CHANGED, whenCreditChanged);
 		   addChild(creditHolder);
 		   
@@ -237,6 +254,8 @@ package game.footer {
 			betBgImg = null;
 			betButs.x = 107;
 			betButs.y = 76;
+			betButs.x = betButs.x + GameSettings.PREFERENCES.footer.bet.OF_X;
+			betButs.y = betButs.y + GameSettings.PREFERENCES.footer.bet.OF_Y;
 			betButs.plusBtn.addEventListener(MouseEvent.CLICK, onBetPlusMinusClick);
 			betButs.minusBtn.addEventListener(MouseEvent.CLICK, onBetPlusMinusClick);
 			addChild(betButs);
@@ -248,6 +267,9 @@ package game.footer {
 			var totalBetCon:Sprite = new Sprite();
 			totalBetCon.x = 268;
 			totalBetCon.y = 77;
+			totalBetCon.x = totalBetCon.x + GameSettings.PREFERENCES.footer.totalBet.OF_X;
+			totalBetCon.y = totalBetCon.y + GameSettings.PREFERENCES.footer.totalBet.OF_Y;
+			
 			addChild(totalBetCon);
 			var totalbetBgImg:Image = new Image($atlas.getTexture("totalbet_bg.png"));
 			totalBetCon.addChildAt(totalbetBgImg, 0);
