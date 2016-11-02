@@ -145,7 +145,7 @@ package game
 			
 			prev_btn = new MyButton(Assets.getAtlas("paytableAssetsImg", "paytableAssetsXml").getTextures("backBtn"), "CC");
 			prev_btn.x = -105;
-			prev_btn.y = 261;
+			prev_btn.y = 195;
 			addChild(prev_btn);
 			
 			back_btn = new MyButton(Assets.getAtlas("paytableAssetsImg", "paytableAssetsXml").getTextures("togameBtn"), "CC");

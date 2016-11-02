@@ -320,12 +320,17 @@ package game
 					collectDel = 7
 				}
 				
-				var winStr:String = "Wind_Regular_0";
-				var winRnd:int = Math.floor(Math.random() * 5) + 1;
-				winStr += String(winRnd);
+				if (sObj.WinnerLines.length > 0)
+				{
+					var winStr:String = "winSnd";
+					winStr += String(sObj.WinnerLines[0][1] + 1);
+					Root.soundManager.schedule(winStr, 1);
+				}
 				
-				Root.soundManager.schedule(winStr, 1);
-				
+				if (gameState == AUTOPLAY_STATE)
+				{
+					collectDel += 1;
+				}
 				TweenLite.delayedCall(collectDel, preEndDelayedFunc, [sObj]);
 			}
 			
@@ -389,10 +394,17 @@ package game
 					machineHolder.modifyWildIcons(sObj.WildReels, sObj)
 					endDelay += 1;
 				}
+				
+				
+				if (gameState == AUTOPLAY_STATE && sObj.WinnerLines.length > 0)
+				{
+					endDelay += 3;
+				}
 			   
+				
 		   
 				//winner lines
-				this.linesHolder.showWinnerLinesArr(sObj, (gameState == AUTOPLAY_STATE || sObj.Bonus == true) ? false : true);
+				this.linesHolder.showWinnerLinesArr(sObj, (sObj.Bonus == true) ? false : true);
 			
 			
 			TweenLite.delayedCall(endDelay, checkForEndmsg, [sObj]);
@@ -465,7 +477,7 @@ package game
 			
 			if (gameState == AUTOPLAY_STATE)
 			{
-				TweenLite.delayedCall(obj.WinnerLines.length > 0 ? 1 : 0.4, this.footerHolder.autoSpinFunction);
+				TweenLite.delayedCall(obj.WinnerLines.length > 0 ? 1 : 0.2, this.footerHolder.autoSpinFunction);
 			}
 			
 			
@@ -483,7 +495,7 @@ package game
 		private function spinStarted(e:GameEvents):void
 		{
 			Tracer._log("spin started");
-			this.linesHolder.shown = false;
+			//this.linesHolder.shown = false;
 			if (freeSpinsState == true)
 			{
 				updateLogoWhileFreeSpins(-1, true);

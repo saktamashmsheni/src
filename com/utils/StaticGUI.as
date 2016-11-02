@@ -484,9 +484,10 @@
 		
 		
 		[Inline]
-		public static function modifiedBalanceString(amount:Number):String
+		public static function modifiedBalanceString(amount:Number, withCurType:int = 0):String
 		{
-			return FooterHolder.InLari == false ? String(amount / GameSettings.CREDIT_VAL) : String((amount / 100).toFixed(2) + " GEL");
+			return FooterHolder.InLari == false ? String(int(amount / GameSettings.CREDIT_VAL)) : scoreToValutaFixed(amount, withCurType);
+			//return FooterHolder.InLari == false ? String(amount / GameSettings.CREDIT_VAL) : String((amount / 100).toFixed(2) + " GEL");
 		}
 		
 		
@@ -504,6 +505,73 @@
 			
 			return shuffledArr;
 		}
+		
+		[Inline]
+		public static function getCurrecyType():String
+		{
+			for (var i:int = 0; i < GameSettings.Currency_Values.length; i++) 
+			{
+				if (GameSettings.Currency_Values[i].order == GameSettings.Currency_ID)
+				{
+					return GameSettings.Currency_Values[i].name;
+				}
+			}
+			return "";
+		}
+		
+		[Inline]
+		public static function getCurrecyShortcuts():String
+		{
+			for (var i:int = 0; i < GameSettings.Currency_Values.length; i++) 
+			{
+				if (GameSettings.Currency_Values[i].order == GameSettings.Currency_ID)
+				{
+					return GameSettings.Currency_Values[i].shortCut;
+				}
+			}
+			return "";
+		}
+		
+		
+		[Inline]
+		public static function scoreToValutaFixed(amount:Number, withSymbol:int = 0, alwaysInMoney:Boolean = false):String
+		{
+			var str:String
+			if (FooterHolder.InLari || alwaysInMoney == true)
+			{
+				if (GameSettings.Currency_ID != 8)
+				{
+					str = String(Number(amount / 100).toFixed(2));
+				}
+				else
+				{
+					str = String(int(amount / 100));
+				}
+			}
+			else
+			{
+				str =  String(amount);
+			}
+			
+			
+			if (withSymbol > 0)
+			{
+				if (withSymbol == 1)
+				{
+					return String(str) + "" + getCurrecyShortcuts();
+				}
+				else
+				{
+					return String(str) + " " + getCurrecyType();
+				}
+				
+			}
+			else
+			{
+				return String(str);
+			}
+		}
+		
 		
 		
 	

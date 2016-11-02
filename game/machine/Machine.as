@@ -523,7 +523,7 @@ package game.machine
 				
 				if (isScatterIcon(obj.Reels[line-1][REEL_Y_COUNT - num - 1]) && fastStop == false)
 				{
-					TweenLite.delayedCall(line*0.045, Root.soundManager.schedule, ["Star_0" + String(line),0.8]);
+					TweenLite.delayedCall(line*0.030, Root.soundManager.schedule, ["Star_0" + String(line),0.8]);
 				}
 				
 				if (num != REEL_Y_COUNT)

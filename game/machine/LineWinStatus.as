@@ -43,8 +43,8 @@ package game.machine {
 			
 			//this.touchable = false;
 			
-			this.x = showXPos;
-			this.y = showYPos;
+			this.x = showXPos + GameSettings.PREFERENCES.footer.lineWinStatus.OF_X;
+			this.y = showYPos + GameSettings.PREFERENCES.footer.lineWinStatus.OF_Y;
 			
 			this.visible = false;
 			

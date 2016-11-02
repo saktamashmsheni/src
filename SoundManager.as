@@ -39,7 +39,7 @@
 				return null;
 			}
 			
-			/*try 
+			try 
 			{
 				testClass = Root.soundLibrary.applicationDomain.getDefinition(str) as Class;
 				sound = new testClass() as Sound;
@@ -59,9 +59,9 @@
 				return null;
 			}
 			
-			return null;*/
+			return null;
 			
-			var sound:Sound = new Sound();
+			/*var sound:Sound = new Sound();
 			sound.addEventListener(IOErrorEvent.IO_ERROR, onNoSound)
 			
 			var reqString:String = "20 slice fruit/sounds/" + str + ".mp3";
@@ -73,7 +73,7 @@
 				sound.play();
 			}
 			
-			return sound;
+			return sound;*/
 		}
 		
 		public function stopSound():void
@@ -189,16 +189,16 @@
 			}*/
 			loopIsPlayng = true;
 			addBackgroundListener();
-			/*backgrSound = new Sound();
+			backgrSound = new Sound();
 			backgroundChannel = new SoundChannel();
 			
 			testClass = Root.soundLibrary.applicationDomain.getDefinition(str) as Class;
-			backgrSound = new testClass() as Sound;*/
+			backgrSound = new testClass() as Sound;
 			
-			backgrSound = new Sound();
+			/*backgrSound = new Sound();
 			backgrSound.addEventListener(IOErrorEvent.IO_ERROR, onNoSound)
 			var reqString:String = "20 slice fruit/sounds/" + str + ".mp3";
-			backgrSound.load(new URLRequest(reqString))
+			backgrSound.load(new URLRequest(reqString))*/
 			
 			
 			backgroundChannel = backgrSound.play(0, 1, backgroundTransform);

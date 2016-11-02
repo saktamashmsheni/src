@@ -100,7 +100,7 @@ package {
 			
 			assLoadMan.setLoadAssets(GameSettings.PATH + "ItemsLibrary.swf", "Items Library", AssetsLoaderManager.SWFType);
 			assLoadMan.setLoadAssets(GameSettings.PATH + "FontsLibrary.swf", "Fonts Library", AssetsLoaderManager.SWFType);
-			//assLoadMan.setLoadAssets(GameSettings.PATH + "SoundLibrary.swf", "Sound Library", AssetsLoaderManager.SWFType);
+			assLoadMan.setLoadAssets(GameSettings.PATH + "SoundLibrary.swf", "Sound Library", AssetsLoaderManager.SWFType);
 			assLoadMan.setLoadAssets(GameSettings.PATH + "IconsLibrary.swf", "Icons Library", AssetsLoaderManager.SWFType);
 			assLoadMan.setLoadAssets(GameSettings.PATH + "xml/" + Root.lang + ".xml", "XML Muipack", AssetsLoaderManager.XMLType);
 			assLoadMan.setLoadAssets(GameSettings.PATH + "config.json", "Configurating", AssetsLoaderManager.JsonType);
