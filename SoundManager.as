@@ -60,20 +60,20 @@
 			}
 			
 			return null;
-			/*
-			var sound:Sound = new Sound();
+			
+			/*var sound:Sound = new Sound();
 			sound.addEventListener(IOErrorEvent.IO_ERROR, onNoSound)
 			
 			var reqString:String = "20 slice fruit/sounds/" + str + ".mp3";
 			
-			sound.load(new URLRequest(reqString))*/
+			sound.load(new URLRequest(reqString))
 			
 			
 			if (play) {
 				sound.play();
 			}
 			
-			return sound;
+			return sound;*/
 		}
 		
 		public function stopSound():void

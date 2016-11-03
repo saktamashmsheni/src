@@ -10,8 +10,11 @@ package
 		public static var CONFIG_JSON:Object;
 		
 		public static var GAME_ID:int;
-		public static var GAME_NAME:String = "20 slice fruit";
+		//public static var GAME_NAME:String = "20 slice fruit";
+		public static var GAME_NAME:String = "acid fruits";
 		public static var PATH:String = GAME_NAME + "/"; // saxeli da path meqneba albat shesacvleli dinamiuri ro iyos
+		
+		public static var PREFERENCES:Object;
 		
 		public static var SYS_NUM:int = 0;
 		public static var PAYTABLE_AR:Array = [];
@@ -60,7 +63,7 @@ package
 												   
 		public static const ICON_HOLDER_POS:Vector.<Array> = new <Array>[[-34,40],[-34,40],[-34,20]];
 		
-		public static const ICONS_SIZE:Vector.<Array> = new <Array>[[120,120],[130,130],[125,125]];
+		public static const ICONS_SIZE:Vector.<Array> = new <Array>[[120,120],[135,135],[125,125]];
 		
 		public static const ICONSFRAME_SIZE:Vector.<Array> = new <Array>[[130,130],[130,130],[130,100]];
 		public static const LINEMASK_LOOP:Vector.<uint> = new <uint>[9,15,20];

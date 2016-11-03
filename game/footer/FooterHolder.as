@@ -67,9 +67,9 @@ package game.footer {
 		private static const betAttrStr:String = "";
 		
 		
-		private const BALANCE_TEXT:String = 'BALANCE: ';
+		private var BALANCE_TEXT:String = 'BALANCE: ';
 		private const TOTALBET_TEXT:String = '';
-		private const WIN_TEXT:String = 'WIN: ';
+		private var WIN_TEXT:String = 'WIN: ';
 		private var changeLariBtn:MyButton;
 		private var $spnObj:Object;
 		
@@ -94,44 +94,55 @@ package game.footer {
 		
 		private function addedToStage(e:Event):void {
 			removeEventListener(Event.ADDED_TO_STAGE, addedToStage);
-			
-			initFooter();
-			
 		}
 		
 
 		
-		private function initFooter():void {
+		public function initFooter():void {
 			
 			cont = this;
+			
+			BALANCE_TEXT = GameSettings.PREFERENCES.footer.balance.TXT;
+			WIN_TEXT = GameSettings.PREFERENCES.footer.win.TXT;
 			
 			$atlas = Assets.getAtlas("footerSheet", "footerSheetXml");
 			
 			
 			//-----shua teqstebi
+			var balanceSp:Sprite = new Sprite();
+			balanceSp.x = -73;
+			balanceSp.y = 0;
+			balanceSp.x = balanceSp.x + GameSettings.PREFERENCES.footer.balance.OF_X;
+			balanceSp.y = balanceSp.y + GameSettings.PREFERENCES.footer.balance.OF_Y;
 			var balanceBgImg:Image = new Image($atlas.getTexture("balance_bg.png"));
-			balanceBgImg.x = -73;
-			addChild(balanceBgImg);
+			balanceSp.addChild(balanceBgImg);
 			
-			balanceTXT = StaticGUI._creatBitmapFontTextRenderer(this, BALANCE_TEXT + '0', -60, 20, 380, 23, Assets.getFont("balance_bfont").name, TextFormatAlign.CENTER, false, -13, -1);
+			balanceTXT = StaticGUI._creatBitmapFontTextRenderer(balanceSp, BALANCE_TEXT + '0', 13, 20, 380, 23, Assets.getFont("balance_bfont").name, GameSettings.PREFERENCES.footer.balance.TEXT_ALIGN, false, GameSettings.PREFERENCES.footer.balance.LS, -1);
+			balanceTXT.x = balanceTXT.x + GameSettings.PREFERENCES.footer.balance.LABEL_OF_X;
+			balanceTXT.y = balanceTXT.y + GameSettings.PREFERENCES.footer.balance.LABEL_OF_Y;
 			changeLariBtn = new MyButton(null, "CC");
 			changeLariBtn.x = balanceTXT.x;
 			changeLariBtn.y = balanceTXT.y;
-			addChild(changeLariBtn);
-			var quad:Quad = new Quad(balanceTXT.width, balanceTXT.height+20, Color.RED);
+			balanceSp.addChild(changeLariBtn);
+			var quad:Quad = new Quad(balanceSp.width, balanceSp.height+20, Color.RED);
 			
 			quad.alpha = 0;
 			changeLariBtn.addChild(quad);
 			changeLariBtn.addEventListener(MouseEvent.CLICK, onBalanceClick);
+			addChild(balanceSp);
 			
 			
-			
+			var winSp:Sprite = new Sprite();
+			winSp.x = 313;
+			winSp.y = -1;
+			winSp.x = winSp.x + GameSettings.PREFERENCES.footer.win.OF_X;
+			winSp.y = winSp.y + GameSettings.PREFERENCES.footer.win.OF_Y;
 			var winBgImg:Image = new Image($atlas.getTexture("win_bg.png"));
-			winBgImg.x = 313;
-			winBgImg.y = -1;
-			addChild(winBgImg);
-			winTXT = StaticGUI._creatBitmapFontTextRenderer(this, WIN_TEXT + '0', 260, 20, 380, 23, Assets.getFont("win_bfont").name, TextFormatAlign.CENTER, false, -13, -1);
-			
+			winSp.addChild(winBgImg);
+			winTXT = StaticGUI._creatBitmapFontTextRenderer(winSp, WIN_TEXT + '0', -53, 21, 380, 23, Assets.getFont("win_bfont").name, GameSettings.PREFERENCES.footer.balance.TEXT_ALIGN, false, GameSettings.PREFERENCES.footer.win.LS, -1);
+			winTXT.x = winTXT.x + GameSettings.PREFERENCES.footer.win.LABEL_OF_X;
+			winTXT.y = winTXT.y + GameSettings.PREFERENCES.footer.win.LABEL_OF_Y;
+			addChild(winSp);
 			
 			
 			
@@ -139,6 +150,8 @@ package game.footer {
 			addChild(footAttrImg);
 			footAttrImg.x = -103;
 			footAttrImg.y = -13;
+			footAttrImg.x = footAttrImg.x + GameSettings.PREFERENCES.footer.footerAttr.OF_X;
+			footAttrImg.y = footAttrImg.y + GameSettings.PREFERENCES.footer.footerAttr.OF_Y;
 			
 			
 			
@@ -172,15 +185,16 @@ package game.footer {
 			
 			//autoSpin
 			
-			
 			var $autoObj:Object = new Object;
 			$autoObj.label = 'AUTO';
 			$autoObj.x = 530;
 			$autoObj.y = 95;
+			$autoObj.x = $autoObj.x + GameSettings.PREFERENCES.footer.autoSpin.OF_X;
+			$autoObj.y = $autoObj.y + GameSettings.PREFERENCES.footer.autoSpin.OF_Y;
 			//$autoObj.maxWidth = 229;
 			//$autoObj.maxHeight = 116;
-			$autoObj.labelOffsetY = -7;
-			$autoObj.labelOffsetX = -10;
+			$autoObj.labelOffsetY = GameSettings.PREFERENCES.footer.autoSpin.LABEL_OF_Y;
+			$autoObj.labelOffsetX = GameSettings.PREFERENCES.footer.autoSpin.LABEL_OF_X;
 			
 			
 			autoSpinBtn = StaticGUI._setButtonWithBitmapFont(this,
@@ -189,7 +203,7 @@ package game.footer {
 					 $atlas.getTexture("auto_spin_controller_2.png"), 
 					 $atlas.getTexture("auto_spin_controller_1.png"),
 					 $atlas.getTexture("auto_spin_controller_4.png"),
-												Assets.getFont("auto_spin_font").name, -7);
+												Assets.getFont("auto_spin_font").name, GameSettings.PREFERENCES.footer.autoSpin.LS);
 			
 			autoSpinBtn.addEventListener( Event.TRIGGERED, onAutoSpinClick);
 			
@@ -204,14 +218,17 @@ package game.footer {
 			$spnObj.y = 67;
 			//$spnObj.maxWidth = 229;
 			//$spnObj.maxHeight = 116;
-			$spnObj.labelOffsetY = 0;
+			$spnObj.x = $spnObj.x + GameSettings.PREFERENCES.footer.spin.OF_X;
+			$spnObj.y = $spnObj.y + GameSettings.PREFERENCES.footer.spin.OF_Y;
+			$spnObj.labelOffsetY = GameSettings.PREFERENCES.footer.spin.LABEL_OF_Y;
+			$spnObj.labelOffsetX = GameSettings.PREFERENCES.footer.spin.LABEL_OF_X;
 			spinBtn = StaticGUI._setButtonWithBitmapFont(this,
 													$spnObj, 
 					 $atlas.getTexture("spin_controller_1.png"), 
 					 $atlas.getTexture("spin_controller_2.png"), 
 					 $atlas.getTexture("spin_controller_1.png"),
 					 $atlas.getTexture("spin_controller_4.png"),
-												Assets.getFont("SPIN_FONT").name, -13, -1);
+												Assets.getFont("SPIN_FONT").name, GameSettings.PREFERENCES.footer.spin.LS, -1);
 												
 			
 
@@ -220,11 +237,11 @@ package game.footer {
 			
 			
 			
-			
-			
 		   creditHolder = new CreditContainer();
 		   creditHolder.x = 20;
 		   creditHolder.y = 95;
+		   creditHolder.x = creditHolder.x + GameSettings.PREFERENCES.footer.credit.OF_X;
+		   creditHolder.y = creditHolder.y + GameSettings.PREFERENCES.footer.credit.OF_Y;
 		   creditHolder.addEventListener(GameEvents.CREDIT_CHANGED, whenCreditChanged);
 		   addChild(creditHolder);
 		   
@@ -237,6 +254,8 @@ package game.footer {
 			betBgImg = null;
 			betButs.x = 107;
 			betButs.y = 76;
+			betButs.x = betButs.x + GameSettings.PREFERENCES.footer.bet.OF_X;
+			betButs.y = betButs.y + GameSettings.PREFERENCES.footer.bet.OF_Y;
 			betButs.plusBtn.addEventListener(MouseEvent.CLICK, onBetPlusMinusClick);
 			betButs.minusBtn.addEventListener(MouseEvent.CLICK, onBetPlusMinusClick);
 			addChild(betButs);
@@ -248,6 +267,9 @@ package game.footer {
 			var totalBetCon:Sprite = new Sprite();
 			totalBetCon.x = 268;
 			totalBetCon.y = 77;
+			totalBetCon.x = totalBetCon.x + GameSettings.PREFERENCES.footer.totalBet.OF_X;
+			totalBetCon.y = totalBetCon.y + GameSettings.PREFERENCES.footer.totalBet.OF_Y;
+			
 			addChild(totalBetCon);
 			var totalbetBgImg:Image = new Image($atlas.getTexture("totalbet_bg.png"));
 			totalBetCon.addChildAt(totalbetBgImg, 0);
@@ -321,6 +343,7 @@ package game.footer {
 		public function onSpinClick(e:Event = null):void {
 			
 			Root.soundManager.stopSound();
+			Root.soundManager.stopLoopSound();
 			if (e != null)
 			{
 				Root.soundManager.PlaySound("options_click");
@@ -333,13 +356,6 @@ package game.footer {
 				return;
 			}
 			
-			try{
-				
-				GameHolder.cont.machineHolder.stopIconsAnimation(true);
-			}catch (err:Error)
-			{
-				trace(err);
-			}
 			
 			
 			
@@ -381,6 +397,14 @@ package game.footer {
 					
 					return;
 				}
+				
+				try 
+				{
+					GameHolder.cont.linesHolder.shown = false;
+					GameHolder.cont.machineHolder.stopIconsAnimation(true);
+				}catch (err:Error){}
+				
+				
 				sendSpinSecureCount++;
 				//Tracer._log("sendSpinSecureCount: " + sendSpinSecureCount + String(new Date()));
 				if (sendSpinSecureCount > 1) {
@@ -391,6 +415,7 @@ package game.footer {
 				if (GameHolder.gameState == GameHolder.NORMAL_STATE) {
 					TweenLite.killDelayedCallsTo(spinStopDisable);
 					spinBtn.label = "STOP";
+					//spinBtn = StaticGUI._setButtonBitmapLabel(spinBtn,"STOP", $spnObj.labelOffsetY, Assets.getFont("SPIN_FONT").name, -13, Assets.getFont("SPIN_FONT").size);
 					TweenLite.delayedCall(1.5, spinStopDisable);
 				}
 				
@@ -422,7 +447,7 @@ package game.footer {
 			} else if (GameHolder.gameState == GameHolder.DOUBLE_STATE) {
 				GameHolder.gameState = GameHolder.NORMAL_STATE;
 				updateState(GameHolder.gameState);
-				GameHolder.cont.linesHolder.shown = false;
+				
 				
 				spinEnabled = false;
 				
@@ -438,7 +463,7 @@ package game.footer {
 				
 				GoogleAnalytics._sendActionEvent(GAnalyticsEvents.GAME_EVENTS,'collect win','collect clicked');
 				
-				GameHolder.cont.machineHolder.stopIconsAnimation(true);
+				
 			}
 		
 		}
@@ -580,7 +605,7 @@ package game.footer {
 				case GameHolder.NORMAL_STATE: 
 					autoSpinBtn.label = "AUTO";
 					
-					spinBtn = StaticGUI._setButtonBitmapLabel(spinBtn,"SPIN", $spnObj.labelOffsetY, Assets.getFont("SPIN_FONT").name, -13, Assets.getFont("SPIN_FONT").size);
+					spinBtn = StaticGUI._setButtonBitmapLabel(spinBtn,"SPIN", $spnObj.labelOffsetY, Assets.getFont("SPIN_FONT").name, GameSettings.PREFERENCES.footer.spin.LS, Assets.getFont("SPIN_FONT").size);
 					//spinBtn.label = "SPIN";
 					//$betSlider._isEnabled((false));
 					
@@ -600,7 +625,7 @@ package game.footer {
 				case GameHolder.DOUBLE_STATE: 
 					//$betSlider._isEnabled(false);
 					//autoSpinBtn.alpha = .5;
-					spinBtn = StaticGUI._setButtonBitmapLabel(spinBtn,"COLLECT", $spnObj.labelOffsetY, Assets.getFont("SPIN_FONT").name, -8, 40);
+					spinBtn = StaticGUI._setButtonBitmapLabel(spinBtn,"COLLECT", $spnObj.labelOffsetY, Assets.getFont("SPIN_FONT").name, GameSettings.PREFERENCES.footer.collect.LS, 40);
 					//spinBtn.label = "COLLECT";
 					autoSpinBtn.label = "DOUBLE";
 					
@@ -608,7 +633,7 @@ package game.footer {
 				
 				case GameHolder.FREE_SPINS_STATE: 
 					autoSpinBtn.label = "AUTO";
-					spinBtn = StaticGUI._setButtonBitmapLabel(spinBtn,"SPIN", $spnObj.labelOffsetY, Assets.getFont("SPIN_FONT").name, -13, Assets.getFont("SPIN_FONT").size);
+					spinBtn = StaticGUI._setButtonBitmapLabel(spinBtn,"SPIN", $spnObj.labelOffsetY, Assets.getFont("SPIN_FONT").name, GameSettings.PREFERENCES.footer.spin.LS, Assets.getFont("SPIN_FONT").size);
 					//spinBtn.label = "SPIN";
 					break;
 			}
@@ -627,13 +652,14 @@ package game.footer {
 				_start = altWin == 0 ? balanceAmount : balanceAmount - altWin;
 				_win = balanceAmount + winAmount;
 				//Tracer._log(" winAmount/totalBetAmount/5 + 0.3 : " + (winAmount / totalBetAmount / 5 + 0.3));
-				TweenMax.to(this, winAmount / totalBetAmount / 5 / GameSettings.CREDIT_VAL + 0.3, {_start: _win, onUpdate: updateBalanceAnimUpdate, ease: Circ.easeOut, onComplete: changeScoreTypes});
+				TweenMax.to(this, winAmount / totalBetAmount / 15 / GameSettings.CREDIT_VAL + 0.3, {_start: _win, onUpdate: updateBalanceAnimUpdate, ease: Circ.easeOut, onComplete: changeScoreTypes});
 			}
 			
 		}
 		
 		private function updateBalanceAnimUpdate():void {
-			balanceTXT.text = InLari == false ? BALANCE_TEXT + String(int(_start / GameSettings.CREDIT_VAL)) : BALANCE_TEXT + String((_start / 100).toFixed(2)) + " §";
+			//balanceTXT.text = InLari == false ? BALANCE_TEXT + String(int(_start / GameSettings.CREDIT_VAL)) : BALANCE_TEXT + String((_start / 100).toFixed(2)) + " §";
+			balanceTXT.text = BALANCE_TEXT + StaticGUI.modifiedBalanceString(_start, 1);
 			setRequiresRedraw();
 		}
 		
@@ -657,7 +683,7 @@ package game.footer {
 			if (winAmount == 0)
 				return;
 			
-			GameHolder.cont.linesHolder.shown = false;
+			//GameHolder.cont.linesHolder.shown = false;
 			
 			if (animate == false) {
 				winTXT.text = WIN_TEXT+"0";
@@ -670,15 +696,34 @@ package game.footer {
 					_startWin = winAmount;
 				
 				if (_startWin > 0) {
-					Root.soundManager.schedule("shot2", 0.3);
+					//Root.soundManager.schedule("countsound", 0.3);
+					Root.soundManager.loopdSound("countsound")
 				}
 				winAmount = 0;
-				TweenMax.to(this, _startWin / totalBetAmount / 5 / GameSettings.CREDIT_VAL + 0.3, {_startWin: 0, onUpdate: resetWinAnimUpdate, ease: Circ.easeOut, onComplete: changeScoreTypes});
+				TweenMax.to(this, _startWin / totalBetAmount / 15 / GameSettings.CREDIT_VAL + 0.3, {_startWin: 0, onUpdate: resetWinAnimUpdate, ease: Circ.easeOut, onComplete: resetWinComplete});
 			}
+		}
+		
+		private function resetWinComplete():void 
+		{
+			changeScoreTypes();
+			Root.soundManager.stopLoopSound();
 		}
 		
 		private function resetWinAnimUpdate():void {
 			winTXT.text = InLari == false ? WIN_TEXT+String(int(_startWin / GameSettings.CREDIT_VAL)) : WIN_TEXT+String((_startWin / 100).toFixed(2))
+			
+			
+			//var soundCount:int = 0;
+			//soundCount++;
+			
+			
+			/*if (int(_startWin % 10) == 9)
+			{
+				
+				Root.soundManager.schedule("countsound", 0.8);
+			}*/
+			
 			setRequiresRedraw();
 		}
 		
@@ -768,7 +813,7 @@ package game.footer {
 			lastWasLari = InLari;
 			
 			if (InLari) {
-				balanceTXT.text = BALANCE_TEXT+String((balanceAmount / 100).toFixed(2)) + " §";
+				balanceTXT.text = BALANCE_TEXT+String((balanceAmount / 100).toFixed(2)) + "" + StaticGUI.getCurrecyShortcuts();
 				totalBetTXT.text = TOTALBET_TEXT+String((totalBetAmount / 100 * GameSettings.CREDIT_VAL).toFixed(2));
 				betTxt.text = betAttrStr + String((GameSettings.BETS_AR[GameSettings.BET_INDEX] / 100 * GameSettings.CREDIT_VAL).toFixed(2));
 				if (GameHolder.cont.freeSpinsState && GameHolder.cont.currentFreeSpinNum >= 0) {

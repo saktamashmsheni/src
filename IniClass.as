@@ -370,6 +370,7 @@ package {
 			}
 			else if (e.params.valTxt == AssetsLoaderManager.CONFIGURATION){
 				GameSettings.CONFIG_JSON = e.params.content as Object;
+				GameSettings.PREFERENCES = GameSettings.CONFIG_JSON.preferences;
 				
 			}else if (e.params.valTxt == AssetsLoaderManager.WINS_POP_LIBRARY) {
 				

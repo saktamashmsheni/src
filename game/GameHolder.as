@@ -176,6 +176,7 @@ package game
 		//init whole game
 		public function initialiseWholeMachine(obj:Object):void
 		{
+			footerHolder.initFooter();
 			footerHolder.updateBalance(obj.Chips);
 			footerHolder.updateLines(GameSettings.ACT_LINES);
 			footerHolder.updateBet(GameSettings.BET_INDEX);
@@ -185,7 +186,7 @@ package game
 			linesHolder.shown = true;//false
 			lineButsHolder.initButtons();
 			
-			//TODO here starts to load big win banners
+			leaderBoardHolder.initLeaderBoard();
 		}
 		
 		private function whenSpinComplete(e:GameEvents):void
@@ -318,7 +319,18 @@ package game
 					
 					collectDel = 7
 				}
-				//Root.soundManager.schedule("RegularWinSnd", 1);
+				
+				if (sObj.WinnerLines.length > 0)
+				{
+					var winStr:String = "winSnd";
+					winStr += String(sObj.WinnerLines[0][1] + 1);
+					Root.soundManager.schedule(winStr, 1);
+				}
+				
+				if (gameState == AUTOPLAY_STATE)
+				{
+					collectDel += 1;
+				}
 				TweenLite.delayedCall(collectDel, preEndDelayedFunc, [sObj]);
 			}
 			
@@ -382,10 +394,17 @@ package game
 					machineHolder.modifyWildIcons(sObj.WildReels, sObj)
 					endDelay += 1;
 				}
+				
+				
+				if (gameState == AUTOPLAY_STATE && sObj.WinnerLines.length > 0)
+				{
+					endDelay += 3;
+				}
 			   
+				
 		   
 				//winner lines
-				this.linesHolder.showWinnerLinesArr(sObj, (gameState == AUTOPLAY_STATE || sObj.Bonus == true) ? false : true);
+				this.linesHolder.showWinnerLinesArr(sObj, (sObj.Bonus == true) ? false : true);
 			
 			
 			TweenLite.delayedCall(endDelay, checkForEndmsg, [sObj]);
@@ -458,7 +477,7 @@ package game
 			
 			if (gameState == AUTOPLAY_STATE)
 			{
-				TweenLite.delayedCall(obj.WinnerLines.length > 0 ? 1 : 0.4, this.footerHolder.autoSpinFunction);
+				TweenLite.delayedCall(obj.WinnerLines.length > 0 ? 1 : 0.2, this.footerHolder.autoSpinFunction);
 			}
 			
 			
@@ -476,7 +495,7 @@ package game
 		private function spinStarted(e:GameEvents):void
 		{
 			Tracer._log("spin started");
-			this.linesHolder.shown = false;
+			//this.linesHolder.shown = false;
 			if (freeSpinsState == true)
 			{
 				updateLogoWhileFreeSpins(-1, true);
@@ -790,12 +809,12 @@ package game
 		public function loadBonus(BonusStrikes:int):void
 		{
 			bonusHolder = new BonusMcContainer(footerHolder.totalBetAmount, BonusStrikes);
-			if ((IniClass.cont.assLoadMan.isInLoadingExperoenceDone(AssetsLoaderManager.BONUS_LIBRARY)) == true)
+			if ((IniClass.cont.assLoadMan.isInLoadingExperoenceDone("Bonus Library")) == true)
 			{
 				return;
 			}
 			IniClass.cont.assLoadMan.clearLoadManager();
-			IniClass.cont.assLoadMan.setLoadAssets(GameSettings.PATH + "BonusLibrary.swf", AssetsLoaderManager.BONUS_LIBRARY, AssetsLoaderManager.SWFType);
+			IniClass.cont.assLoadMan.setLoadAssets(GameSettings.PATH + "BonusLibrary.swf", "Bonus Library", AssetsLoaderManager.SWFType);
 			IniClass.cont.assLoadMan.startLoadAssets();
 		}
 		
@@ -803,7 +822,7 @@ package game
 		{
 			
 			showLoader();
-			if (IniClass.cont.assLoadMan.isInLoadingExperience(AssetsLoaderManager.BONUS_LIBRARY))
+			if (IniClass.cont.assLoadMan.isInLoadingExperoence("Bonus Library"))
 			{
 				addBonusGame();
 				return;
@@ -817,7 +836,7 @@ package game
 			{
 				IniClass.cont.assLoadMan.clearLoadManager();
 				IniClass.cont.assLoadMan.addEventListener(AssetsLoaderEvents.ALL_ASSETS_LOADED, allBonusAssetsLoaded);
-				IniClass.cont.assLoadMan.setLoadAssets(GameSettings.PATH + "BonusLibrary.swf", AssetsLoaderManager.BONUS_LIBRARY, AssetsLoaderManager.SWFType);
+				IniClass.cont.assLoadMan.setLoadAssets(GameSettings.PATH + "BonusLibrary.swf", "Bonus Library", AssetsLoaderManager.SWFType);
 				IniClass.cont.assLoadMan.startLoadAssets();
 			}
 		}
@@ -830,21 +849,13 @@ package game
 		
 		public function addBonusGame():void
 		{
-			if (!(IniClass.cont.assLoadMan.isInLoadingExperoenceDone(AssetsLoaderManager.BONUS_LIBRARY)))
+			if (!(IniClass.cont.assLoadMan.isInLoadingExperoenceDone("Bonus Library")))
 			{
 				setTimeout(addBonusGame, 100);
 				return;
 			}
 			hideLoader();
 			addChild(bonusHolder);
-		}
-		
-		
-		public function winsPopLoader():void {
-			IniClass.cont.assLoadMan.clearLoadManager();
-			IniClass.cont.assLoadMan.addEventListener(AssetsLoaderEvents.ALL_ASSETS_LOADED, allBonusAssetsLoaded);
-			IniClass.cont.assLoadMan.setLoadAssets(GameSettings.PATH + "WinsPopLibrary.swf.swf", AssetsLoaderManager.WINS_POP_LIBRARY , AssetsLoaderManager.SWFType);
-			IniClass.cont.assLoadMan.startLoadAssets();
 		}
 		
 		public function bonusFinish(bonusWin:Number, allSuccess:Boolean = false):void
@@ -936,7 +947,7 @@ package game
 			{
 				IniClass.cont.assLoadMan.clearLoadManager();
 				IniClass.cont.assLoadMan.addEventListener(AssetsLoaderEvents.ALL_ASSETS_LOADED, allAssetsLoaded);
-				IniClass.cont.assLoadMan.setLoadAssets(GameSettings.PATH + "PaytableLibrary.swf", AssetsLoaderManager.PAYTABLE_LIBRARY, AssetsLoaderManager.SWFType);
+				IniClass.cont.assLoadMan.setLoadAssets(GameSettings.PATH + "PaytableLibrary.swf", "Paytable Library", AssetsLoaderManager.SWFType);
 				IniClass.cont.assLoadMan.startLoadAssets();
 			}
 		}
@@ -1026,7 +1037,7 @@ package game
 			{
 				IniClass.cont.assLoadMan.clearLoadManager();
 				IniClass.cont.assLoadMan.addEventListener(AssetsLoaderEvents.ALL_ASSETS_LOADED, allJackpotAssetsLoaded);
-				IniClass.cont.assLoadMan.setLoadAssets(GameSettings.PATH + "JackpotWinLibrary.swf", AssetsLoaderManager.JACKPOT_LIBRARY, AssetsLoaderManager.SWFType);
+				IniClass.cont.assLoadMan.setLoadAssets(GameSettings.PATH + "JackpotWinLibrary.swf", "Jackpot Library", AssetsLoaderManager.SWFType);
 				IniClass.cont.assLoadMan.startLoadAssets();
 			}
 		}
@@ -1092,9 +1103,7 @@ package game
 			footerHolder.updateBet(GameSettings.BETS_AR.indexOf(obj.HandInfo.Bet));
 			footerHolder.updateLines(obj.HandInfo.Line1);
 			
-			
-			//TOFIX on reconnect Scatter is missing
-			/*if (obj.Scatter.FreeSpins > 0)
+			if (obj.Scatter.FreeSpins > 0)
 			{
 				
 				footerHolder.spinEnabled = false;
@@ -1119,7 +1128,7 @@ package game
 				
 					//Root.soundManager.stopLoopSound()
 					//Root.soundManager.loopdSound("scatter");
-			}*/
+			}
 			
 			if (obj.HandInfo == null)
 			{

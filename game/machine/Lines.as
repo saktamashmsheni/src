@@ -136,7 +136,7 @@ package game.machine {
 			}
 			
 			linesMask.alpha = .2;
-			//linesContainer.mask = linesMask;
+			linesContainer.mask = linesMask;
 			
 			var $textureName:String;
 			var $textureAtlas:TextureAtlas = Assets.getAtlas("lines", "linesXml");

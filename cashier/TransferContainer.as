@@ -309,6 +309,12 @@ package cashier
 		
 		private function input_focusInHandler(e:Event):void 
 		{
+			var strAr:Array = transfer_txt.text.split(".");
+			var newStr:String = strAr[0] + "." + String(strAr[1]).substr(0, 2);
+			transfer_txt.text = newStr;
+			strAr = null;
+			newStr = "";
+			
 			transfer_txt.removeEventListener(FeathersEventType.FOCUS_OUT, input_focusOutHandler);
 			transfer_txt.addEventListener(FeathersEventType.FOCUS_OUT, input_focusOutHandler);
 			transfer_txt.selectRange(0, transfer_txt.text.length);
