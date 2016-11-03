@@ -27,6 +27,7 @@
 	import starling.events.Event;
 	import starling.events.KeyboardEvent;
 	import starling.events.ResizeEvent;
+	import starling.textures.Texture;
 	
 	public class Main extends Sprite {
 		
@@ -65,6 +66,8 @@
 			
 			StaticGUI.setAlignPivot(bgImg)
 			
+			
+			
 			/*bgImg.x = -(bgImg.width - this.stage.stageWidth) / 2;
 			bgImg.y = -(bgImg.height - this.stage.stageHeight) / 2;*/
 			
@@ -79,6 +82,14 @@
 			Starling.current.stage.addEventListener(KeyboardEvent.KEY_UP, myKeyDown);
 			
 			GoogleAnalytics._sendScreenView('Slot main screen');
+			
+			/*var texture:Texture = IniClass.cont.assets.getTexture("ItemsLib_gameBg");
+			var img:Image = new Image(texture);
+			img.x = 150;
+			img.y = 150;
+			addChild(img)
+			
+			trace(IniClass.cont.assets.getTextureNames)*/
 		
 		}
 		

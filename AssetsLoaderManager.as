@@ -30,6 +30,21 @@ package
 		public static const XMLType:String = "xml";
 		public static const JsonType:String = "json";
 		
+		
+		// Loading assets cons names, it saves in dictionary
+		
+		public static const ITEMS_LIBRARY:String = 'itemsLibrary';
+		public static const ICONS_LIBRARY:String = 'iconsLibrary';
+		public static const FONTS_LIBRARY:String = 'fontsLibrary';
+		public static const SOUND_LIBRARY:String = 'soundLibrary';
+		public static const XML_MUI_PACK:String = 'XMLMuipack';
+		public static const PAYTABLE_LIBRARY:String = 'paytableLibrary';
+		public static const BONUS_LIBRARY:String = 'bonusLibrary';
+		public static const JACKPOT_LIBRARY:String = 'jackpotLibrary';
+		public static const WINS_POP_LIBRARY:String = 'winsPopLibrary';
+		public static const CONFIGURATION:String  = 'configuration';
+		
+		
 		private var loadersAr:Array;
 		
 		private var allLoadExperienceDic:Dictionary = new Dictionary();
@@ -48,7 +63,7 @@ package
 		}
 		
 		
-		public function isInLoadingExperoence(nameStr:String):Boolean
+		public function isInLoadingExperience(nameStr:String):Boolean
 		{
 			if (allLoadExperienceDic[nameStr] != null)
 			{

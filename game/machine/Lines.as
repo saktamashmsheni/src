@@ -347,6 +347,7 @@ package game.machine {
 			lineHelper._showLine(lineNumAr[num]);
 		}
 		
+		
 		//activate
 		private function activateLines(num:Number):void {
 			for (var i:int = 0; i < GameSettings.TOTAL_LINES; i++) {

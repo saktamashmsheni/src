@@ -52,7 +52,9 @@ package game.machine {
 			//addChild(lineTest);*/
 			
 			removeEventListener(Event.ADDED_TO_STAGE, added);
-			addEventListener(Event.REMOVED_FROM_STAGE, removed)
+			addEventListener(Event.REMOVED_FROM_STAGE, removed);
+			
+			_showLine([1, 3, 1, 2, 4]);
 		}
 		
 		public function _showLine(lineArr:Array):void {
@@ -70,10 +72,15 @@ package game.machine {
 			
 			if (zz[0] == 1) {
 				flashSprite.graphics.moveTo(xArray[0], yArray[0]);
+				
 			}else if (zz[0] == 2) {
 				flashSprite.graphics.moveTo(xArray[0], yArray[1]);
-			}else {
-				flashSprite.graphics.moveTo(xArray[0], yArray[2]);
+				
+			}else if (zz[0] == 3){
+				flashSprite.graphics.moveTo(xArray[0], yArray[3]);
+				
+			}else if (zz[0] == 4) {
+				flashSprite.graphics.moveTo(xArray[0], yArray[4]);
 			}
 			
 			for(var i:uint; i<zz.length; i++){
