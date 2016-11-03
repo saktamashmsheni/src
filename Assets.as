@@ -157,9 +157,6 @@ package {
 		public static var wildSelectorSheet:Class;
 		public static var wildSelectorSheetXml:Class;*/
 		
-		//wins pop
-		public static var winsPopAsset:Class;
-		public static var winsPopAssetXml:Class;
 		
 		
 		//big win
@@ -245,11 +242,8 @@ package {
 		
 		
 		
-		
-		
 		public static var mainSlot:Class;
 		public static var mainSlotXml:Class;
-		
 		
 		
 		

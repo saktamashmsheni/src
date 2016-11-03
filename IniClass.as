@@ -16,12 +16,10 @@ package {
 	import flash.utils.getQualifiedClassName;
 	import Main;
 	import game.GameHolder;
-	import starling.display.Image;
 	
 	import starling.core.Starling
 	import starling.events.ResizeEvent;
 	import starling.textures.Texture;
-	import starling.utils.AssetManager
 	
 	public class IniClass extends MovieClip {
 		
@@ -37,7 +35,6 @@ package {
 		public var swfLoaded:Boolean = false;
 		
 		public var assLoadMan:AssetsLoaderManager;
-		public var assets:AssetManager;
 		
 		public function IniClass() {
 			addEventListener(Event.ADDED_TO_STAGE, added);
@@ -101,39 +98,28 @@ package {
 				}*/
 			}
 			
-			assLoadMan.setLoadAssets(GameSettings.PATH + "ItemsLibrary.swf", AssetsLoaderManager.ITEMS_LIBRARY, AssetsLoaderManager.SWFType);
-			assLoadMan.setLoadAssets(GameSettings.PATH + "FontsLibrary.swf", AssetsLoaderManager.FONTS_LIBRARY, AssetsLoaderManager.SWFType);
-			assLoadMan.setLoadAssets(GameSettings.PATH + "SoundLibrary.swf", AssetsLoaderManager.SOUND_LIBRARY, AssetsLoaderManager.SWFType);
-			assLoadMan.setLoadAssets(GameSettings.PATH + "IconsLibrary.swf", AssetsLoaderManager.ICONS_LIBRARY, AssetsLoaderManager.SWFType);
-			assLoadMan.setLoadAssets(GameSettings.PATH + "xml/" + Root.lang + ".xml", AssetsLoaderManager.XML_MUI_PACK, AssetsLoaderManager.XMLType);
-			assLoadMan.setLoadAssets(GameSettings.PATH + "config.json", AssetsLoaderManager.CONFIGURATION, AssetsLoaderManager.JsonType);
+			assLoadMan.setLoadAssets(GameSettings.PATH + "ItemsLibrary.swf", "Items Library", AssetsLoaderManager.SWFType);
+			assLoadMan.setLoadAssets(GameSettings.PATH + "FontsLibrary.swf", "Fonts Library", AssetsLoaderManager.SWFType);
+			assLoadMan.setLoadAssets(GameSettings.PATH + "SoundLibrary.swf", "Sound Library", AssetsLoaderManager.SWFType);
+			assLoadMan.setLoadAssets(GameSettings.PATH + "IconsLibrary.swf", "Icons Library", AssetsLoaderManager.SWFType);
+			assLoadMan.setLoadAssets(GameSettings.PATH + "xml/" + Root.lang + ".xml", "XML Muipack", AssetsLoaderManager.XMLType);
+			assLoadMan.setLoadAssets(GameSettings.PATH + "config.json", "Configurating", AssetsLoaderManager.JsonType);
 			assLoadMan.startLoadAssets();
 		}
 		
 		public function currAssetLoaded(e:AssetsLoaderEvents):void {
 			
 			var $o:Object;
-			if (e.params.valTxt == AssetsLoaderManager.ITEMS_LIBRARY) {
+			if (e.params.valTxt == "Items Library") {
 				$o = e.params.content.applicationDomain;
-				/*assets = new AssetManager;
-				assets.enqueue(e.params.content.content);
-				var definitions:Vector.<String>;
-				var libClass:Class;
-			    if ($o.hasOwnProperty("getQualifiedDefinitionNames")) {
-				  definitions = $o["getQualifiedDefinitionNames"]();
 				
-					for (var i:int = 0; i < definitions.length; i++) {
-					//Tracer._log(definitions[i] + "\n")
-						if(definitions[i].indexOf('ItemsLib_') != -1){
-							libClass = Class($o.getDefinition(definitions[i]));
-							
-						}
-					}
-			    }*/
-				   
-				   
-				  
-				  
+				/*var definitions:*;
+				   if ($o.hasOwnProperty("getQualifiedDefinitionNames")) {
+				   definitions = $o["getQualifiedDefinitionNames"]();
+				   for (var i:int = 0; i < definitions.length; i++) {
+				   Tracer._log(definitions[i] + "\n")
+				   }
+				   }*/
 				
 				Assets.gameBg = $o.getDefinition("ItemsLib_gameBg") as Class;
 				Assets.slot_icons_bg = $o.getDefinition("ItemsLib_slot_icons_bg") as Class;
@@ -199,7 +185,7 @@ package {
 				
 				
 				
-			} else if (e.params.valTxt == AssetsLoaderManager.ICONS_LIBRARY) {
+			} else if (e.params.valTxt == "Icons Library") {
 				
 				$o = e.params.content.applicationDomain;
 				Assets.allIconsImg = $o.getDefinition("IconsLib_allIconsImg") as Class;
@@ -216,7 +202,7 @@ package {
 				Assets.staticAnimXml = $o.getDefinition("IconsLib_staticAnimXml") as Class;
 				
 				
-			} else if (e.params.valTxt == AssetsLoaderManager.FONTS_LIBRARY) {
+			} else if (e.params.valTxt == "Fonts Library") {
 				$o = e.params.content.applicationDomain
 				
 				//Assets.PerpetuaFont = $o.getDefinition("FontsLib_PerpetuaFont") as Class;
@@ -328,12 +314,11 @@ package {
 				
 				
 				
-			} else if (e.params.valTxt == AssetsLoaderManager.SOUND_LIBRARY) {
+			} else if (e.params.valTxt == "Sound Library") {
 				Root.soundLibrary = e.params.content;
-			} else if (e.params.valTxt == AssetsLoaderManager.XML_MUI_PACK) {
+			} else if (e.params.valTxt == "XML Muipack") {
 				GameSettings.GAME_XML = e.params.content as XML;
-				
-			} else if (e.params.valTxt == AssetsLoaderManager.PAYTABLE_LIBRARY) {
+			} else if (e.params.valTxt == "Paytable Library") {
 				$o = e.params.content.applicationDomain;
 				
 				Assets.paytableBg1 = $o.getDefinition("PaytableLib_paytableBg1") as Class;
@@ -346,7 +331,7 @@ package {
 				Assets.payTableLoaded = true;
 			}
 			
-			else if (e.params.valTxt == AssetsLoaderManager.BONUS_LIBRARY) {
+			else if (e.params.valTxt == "Bonus Library") {
 				$o = e.params.content.applicationDomain;
 				
 				Assets.bonusBg = 				$o.getDefinition("BonusLib_bonusBg") as Class;
@@ -361,21 +346,16 @@ package {
 				Assets.BonusLoaded = true;
 			}
 			
-			else if (e.params.valTxt == AssetsLoaderManager.JACKPOT_LIBRARY) {
+			else if (e.params.valTxt == "Jackpot Library") {
 				$o = e.params.content.applicationDomain;
 				
 				Assets.jackpotWinAssetsImg = $o.getDefinition("JackpotWinLib_jackpotWinAssetsImg") as Class;
 				Assets.jackpotWinAssetsXml = $o.getDefinition("JackpotWinLib_jackpotWinAssetsXml") as Class;
 				Assets.JackpotWinLoaded = true;
 			}
-			else if (e.params.valTxt == AssetsLoaderManager.CONFIGURATION){
+			else if (e.params.valTxt == "Configurating"){
 				GameSettings.CONFIG_JSON = e.params.content as Object;
 				GameSettings.PREFERENCES = GameSettings.CONFIG_JSON.preferences;
-				
-			}else if (e.params.valTxt == AssetsLoaderManager.WINS_POP_LIBRARY) {
-				
-				Assets.winsPopAsset = 	$o.getDefinition("BonusLib_begemotianimationXml") as Class;
-				Assets.winsPopAssetXml = 	$o.getDefinition("BonusLib_begemotianimationXml") as Class;
 			}
 			
 			//assLoadMan.updateLoad();
@@ -424,7 +404,6 @@ package {
 			Main.cont.startMain();
 			IniClass.cont.hidePreloaderIfThereis();
 			Main.cont.showGame();
-			
 			
 			
 			

@@ -109,6 +109,21 @@ package game.footer {
 			
 			
 			//-----shua teqstebi
+			
+			
+			
+			var winSp:Sprite = new Sprite();
+			winSp.x = 313;
+			winSp.y = -1;
+			winSp.x = winSp.x + GameSettings.PREFERENCES.footer.win.OF_X;
+			winSp.y = winSp.y + GameSettings.PREFERENCES.footer.win.OF_Y;
+			var winBgImg:Image = new Image($atlas.getTexture("win_bg.png"));
+			winSp.addChild(winBgImg);
+			winTXT = StaticGUI._creatBitmapFontTextRenderer(winSp, WIN_TEXT + '0', -53, 21, 380, 23, Assets.getFont("win_bfont").name, GameSettings.PREFERENCES.footer.balance.TEXT_ALIGN, false, GameSettings.PREFERENCES.footer.win.LS, -1);
+			winTXT.x = winTXT.x + GameSettings.PREFERENCES.footer.win.LABEL_OF_X;
+			winTXT.y = winTXT.y + GameSettings.PREFERENCES.footer.win.LABEL_OF_Y;
+			addChild(winSp);
+			
 			var balanceSp:Sprite = new Sprite();
 			balanceSp.x = -73;
 			balanceSp.y = 0;
@@ -124,25 +139,12 @@ package game.footer {
 			changeLariBtn.x = balanceTXT.x;
 			changeLariBtn.y = balanceTXT.y;
 			balanceSp.addChild(changeLariBtn);
-			var quad:Quad = new Quad(balanceSp.width, balanceSp.height+20, Color.RED);
+			var quad:Quad = new Quad(balanceTXT.width + 20, balanceTXT.height+20, Color.RED);
 			
 			quad.alpha = 0;
 			changeLariBtn.addChild(quad);
 			changeLariBtn.addEventListener(MouseEvent.CLICK, onBalanceClick);
 			addChild(balanceSp);
-			
-			
-			var winSp:Sprite = new Sprite();
-			winSp.x = 313;
-			winSp.y = -1;
-			winSp.x = winSp.x + GameSettings.PREFERENCES.footer.win.OF_X;
-			winSp.y = winSp.y + GameSettings.PREFERENCES.footer.win.OF_Y;
-			var winBgImg:Image = new Image($atlas.getTexture("win_bg.png"));
-			winSp.addChild(winBgImg);
-			winTXT = StaticGUI._creatBitmapFontTextRenderer(winSp, WIN_TEXT + '0', -53, 21, 380, 23, Assets.getFont("win_bfont").name, GameSettings.PREFERENCES.footer.balance.TEXT_ALIGN, false, GameSettings.PREFERENCES.footer.win.LS, -1);
-			winTXT.x = winTXT.x + GameSettings.PREFERENCES.footer.win.LABEL_OF_X;
-			winTXT.y = winTXT.y + GameSettings.PREFERENCES.footer.win.LABEL_OF_Y;
-			addChild(winSp);
 			
 			
 			

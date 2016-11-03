@@ -80,9 +80,7 @@ package
 		public static const ICONSFRAME_HORIZ_HELPER_STEP_Y:Vector.<uint> = new <uint>[145,145,105];
 		public static const ICONSFRAME_HORIZ_HELPER_OFFSET:Vector.<uint> = new <uint>[130,130,100];
 		
-		public static const LINES_WIN_COORDS:Vector.<Array> = new <Array>[[[60,215,368,522,675], [60, 205, 350]],
-																		  [[60, 215, 368, 522, 675], [60, 205, 350]],
-																		  [[60, 220, 368, 522, 675], [50, 160, 260, 360]]];
+		public static const LINES_WIN_COORDS:Vector.<Array> = new <Array>[[[60,215,368,522,675], [60, 205, 350]],[[60,215,368,522,675], [60, 205, 350]],[[60,215,368,522,675], [60, 205, 350]]];
 												   
 		
 		//machine and icon settings
