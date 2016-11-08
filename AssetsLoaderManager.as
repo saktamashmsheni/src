@@ -30,6 +30,8 @@ package
 		public static const XMLType:String = "xml";
 		public static const JsonType:String = "json";
 		
+		
+		
 		private var loadersAr:Array;
 		
 		private var allLoadExperienceDic:Dictionary = new Dictionary();
