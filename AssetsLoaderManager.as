@@ -32,9 +32,7 @@ package
 		public static const JsonType:String = "json";
 		
 		
-<<<<<<< HEAD
-=======
-				// Loading assets cons names, it saves in dictionary
+		// Loading assets cons names, it saves in dictionary
 		
 		public static const ITEMS_LIBRARY:String = 'itemsLibrary';
 		public static const ICONS_LIBRARY:String = 'iconsLibrary';
@@ -47,7 +45,6 @@ package
 		public static const WINS_POP_LIBRARY:String = 'winsPopLibrary';
 		public static const CONFIGURATION:String  = 'configuration';
 		
->>>>>>> origin/master
 		
 		private var loadersAr:Array;
 		
