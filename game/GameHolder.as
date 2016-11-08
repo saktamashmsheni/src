@@ -822,6 +822,7 @@ package game
 		{
 			
 			showLoader();
+			if (IniClass.cont.assLoadMan.isInLoadingExperoence(AssetsLoaderManager.BONUS_LIBRARY))
 			{
 				addBonusGame();
 				return;
