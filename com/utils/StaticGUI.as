@@ -483,7 +483,7 @@
 		}
 		
 		
-		[Inline]
+	
 		public static function modifiedBalanceString(amount:Number, withCurType:int = 0):String
 		{
 			return FooterHolder.InLari == false ? String(int(amount / GameSettings.CREDIT_VAL)) : scoreToValutaFixed(amount, withCurType);
@@ -533,7 +533,7 @@
 		}
 		
 		
-		[Inline]
+		//[Inline]
 		public static function scoreToValutaFixed(amount:Number, withSymbol:int = 0, alwaysInMoney:Boolean = false):String
 		{
 			var str:String

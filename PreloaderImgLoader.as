@@ -31,13 +31,14 @@
 			
 			removeEventListener(Event.ADDED_TO_STAGE, _added);
 			addEventListener(Event.REMOVED_FROM_STAGE, _removed);
-			
+
 			$lc = new LoaderContext(true);
 			$lc.checkPolicyFile = true;
 			$loaderThumb = new Loader;
 			$loaderThumb.contentLoaderInfo.addEventListener(Event.COMPLETE, avatarIonLoad);
 			$loaderThumb.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
 			$loaderThumb.load(new URLRequest($imgPath), $lc);
+			
 		
 		}
 		

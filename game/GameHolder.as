@@ -809,12 +809,12 @@ package game
 		public function loadBonus(BonusStrikes:int):void
 		{
 			bonusHolder = new BonusMcContainer(footerHolder.totalBetAmount, BonusStrikes);
-			if ((IniClass.cont.assLoadMan.isInLoadingExperoenceDone("Bonus Library")) == true)
+			if ((IniClass.cont.assLoadMan.isInLoadingExperoenceDone(AssetsLoaderManager.BONUS_LIBRARY)) == true)
 			{
 				return;
 			}
 			IniClass.cont.assLoadMan.clearLoadManager();
-			IniClass.cont.assLoadMan.setLoadAssets(GameSettings.PATH + "BonusLibrary.swf", "Bonus Library", AssetsLoaderManager.SWFType);
+			IniClass.cont.assLoadMan.setLoadAssets(GameSettings.PATH + "BonusLibrary.swf", AssetsLoaderManager.BONUS_LIBRARY, AssetsLoaderManager.SWFType);
 			IniClass.cont.assLoadMan.startLoadAssets();
 		}
 		
@@ -822,7 +822,6 @@ package game
 		{
 			
 			showLoader();
-			if (IniClass.cont.assLoadMan.isInLoadingExperoence("Bonus Library"))
 			{
 				addBonusGame();
 				return;
@@ -836,7 +835,7 @@ package game
 			{
 				IniClass.cont.assLoadMan.clearLoadManager();
 				IniClass.cont.assLoadMan.addEventListener(AssetsLoaderEvents.ALL_ASSETS_LOADED, allBonusAssetsLoaded);
-				IniClass.cont.assLoadMan.setLoadAssets(GameSettings.PATH + "BonusLibrary.swf", "Bonus Library", AssetsLoaderManager.SWFType);
+				IniClass.cont.assLoadMan.setLoadAssets(GameSettings.PATH + "BonusLibrary.swf", AssetsLoaderManager.BONUS_LIBRARY, AssetsLoaderManager.SWFType);
 				IniClass.cont.assLoadMan.startLoadAssets();
 			}
 		}
@@ -849,7 +848,7 @@ package game
 		
 		public function addBonusGame():void
 		{
-			if (!(IniClass.cont.assLoadMan.isInLoadingExperoenceDone("Bonus Library")))
+			if (!(IniClass.cont.assLoadMan.isInLoadingExperoenceDone(AssetsLoaderManager.BONUS_LIBRARY)))
 			{
 				setTimeout(addBonusGame, 100);
 				return;

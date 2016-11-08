@@ -4,6 +4,7 @@ package
 	import flash.display.Loader;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
+	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
@@ -29,6 +30,21 @@ package
 		public static const SWFType:String = "swf";
 		public static const XMLType:String = "xml";
 		public static const JsonType:String = "json";
+		
+		
+				// Loading assets cons names, it saves in dictionary
+		
+		public static const ITEMS_LIBRARY:String = 'itemsLibrary';
+		public static const ICONS_LIBRARY:String = 'iconsLibrary';
+		public static const FONTS_LIBRARY:String = 'fontsLibrary';
+		public static const SOUND_LIBRARY:String = 'soundLibrary';
+		public static const XML_MUI_PACK:String = 'XMLMuipack';
+		public static const PAYTABLE_LIBRARY:String = 'paytableLibrary';
+		public static const BONUS_LIBRARY:String = 'bonusLibrary';
+		public static const JACKPOT_LIBRARY:String = 'jackpotLibrary';
+		public static const WINS_POP_LIBRARY:String = 'winsPopLibrary';
+		public static const CONFIGURATION:String  = 'configuration';
+		
 		
 		private var loadersAr:Array;
 		
@@ -97,6 +113,7 @@ package
 				swfLoader = new Loader();
 				swfLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, swfLoaderComplete);
 				swfLoader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, swfLoaderProgress);
+				swfLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
 				if (!Root.TESTING)
 				{
 					var context:LoaderContext = new LoaderContext( true, new ApplicationDomain( ApplicationDomain.currentDomain ), SecurityDomain.currentDomain );
@@ -106,7 +123,7 @@ package
 				{
 					swfLoader.load(new URLRequest(curLoadingObj.path));
 				}
-				
+				trace(curLoadingObj.path)
 				loadersAr.push(swfLoader);
 			}
 			else if (curLoadingObj.type == XMLType || curLoadingObj.type == JsonType)
@@ -117,6 +134,10 @@ package
 				xmlLoader.load(new URLRequest(curLoadingObj.path));
 				loadersAr.push(xmlLoader);
 			}
+		}
+		
+		private function ioErrorHandler(e:IOErrorEvent):void {
+			
 		}
 		
 		
