@@ -202,7 +202,7 @@ package {
 				Assets.staticAnimXml = $o.getDefinition("IconsLib_staticAnimXml") as Class;
 				
 				
-			} else if (e.params.valTxt == "Fonts Library") {
+			} else if (e.params.valTxt == AssetsLoaderManager.FONTS_LIBRARY) {
 				$o = e.params.content.applicationDomain
 				
 				//Assets.PerpetuaFont = $o.getDefinition("FontsLib_PerpetuaFont") as Class;

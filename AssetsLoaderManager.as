@@ -32,7 +32,7 @@ package
 		public static const JsonType:String = "json";
 		
 		
-				// Loading assets cons names, it saves in dictionary
+		// Loading assets cons names, it saves in dictionary
 		
 		public static const ITEMS_LIBRARY:String = 'itemsLibrary';
 		public static const ICONS_LIBRARY:String = 'iconsLibrary';
