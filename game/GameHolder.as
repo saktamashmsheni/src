@@ -112,7 +112,7 @@ package game
 			hideSlotItemsForStates();
 			showDoubleHolder(120);
 		}
-		
+		///asdasdasdasdas
 		private function initialise():void
 		{
 			var i:int;
@@ -123,7 +123,7 @@ package game
 			machineHolder.y = -250;
 			addChild(machineHolder);
 			this.machineHolder.addEventListener(GameEvents.SPIN_COMPLETE, whenSpinComplete);
-			asdasd
+			
 			fourWayJackpotHolder = new FourWayJackpot();
 			fourWayJackpotHolder.x = 0;
 			fourWayJackpotHolder.y = -238;
