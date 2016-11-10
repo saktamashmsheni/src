@@ -13,6 +13,7 @@ package game {
 	import starling.events.Event;
 	import starling.text.TextField;
 	import starling.text.TextFormat;
+	import starling.textures.TextureAtlas;
 	import starling.utils.Align;
 	import starling.utils.Align;
 	
@@ -26,6 +27,12 @@ package game {
 		private var val_txt:TextField;
 		private var starsAr:Array;
 		private var bigWinImg:Image;
+		private var starImg:Image;
+		private var headerImg:Image;
+		private var coinsImg:Image;
+		
+		private var atlas:TextureAtlas;
+		
 		public var _win:int;
 		public var _start:int;
 		public static var COEF:int = 250;
@@ -65,9 +72,28 @@ package game {
 		
 		private function initBigWin():void {
 			var mc:MovieClip;
-			bigWinImg = new Image(Assets.getTexture("bigWin"));
+			
+			atlas = Assets.getAtlas("winsPopAsset", "winsPopAssetXml");
+			
+			
+			starImg = new Image(atlas.getTexture("big_win_stars.png"));
+			starImg.alignPivot(Align.CENTER, Align.CENTER);
+			starImg.y = -200;
+			addChild(starImg);
+			
+			bigWinImg = new Image(atlas.getTexture("big_win_bg.png"));
 			bigWinImg.alignPivot(Align.CENTER, Align.CENTER);
 			addChild(bigWinImg);
+			
+			headerImg = new Image(atlas.getTexture("big_win_header.png"));
+			headerImg.alignPivot(Align.CENTER, Align.CENTER);
+			headerImg.y = -50;
+			addChild(headerImg);
+			
+			coinsImg = new Image(atlas.getTexture("big_win_coins.png"));
+			coinsImg.alignPivot(Align.CENTER, Align.CENTER);
+			coinsImg.y = -50;
+			addChild(coinsImg);
 			
 			var $tf:TextFormat = new TextFormat;
 			$tf.font = Assets.getFont("exRounded").name;

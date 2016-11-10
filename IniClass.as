@@ -281,9 +281,6 @@ package {
 				Assets.bpg_gel_dejavu_serif_22_yellow = $o.getDefinition("FontsLib_bpg_gel_dejavu_serif_22_yellow") as Class;
 				Assets.bpg_gel_dejavu_serif_22_yellowXml = $o.getDefinition("FontsLib_bpg_gel_dejavu_serif_22_yellowXml") as Class;
 				
-				
-				
-				
 				//footer fonts
 				Assets.SPIN_FONT = $o.getDefinition("FontsLib_SPIN_FONT") as Class;
 				Assets.SPIN_FONTXml = $o.getDefinition("FontsLib_SPIN_FONTXml") as Class;
@@ -358,9 +355,13 @@ package {
 				GameSettings.PREFERENCES = GameSettings.CONFIG_JSON.preferences;
 				
 			}else if (e.params.valTxt == AssetsLoaderManager.WINS_POP_LIBRARY) {
+				$o = e.params.content.applicationDomain;
 				
-				Assets.winsPopAsset = 	$o.getDefinition("BonusLib_begemotianimationXml") as Class;
-				Assets.winsPopAssetXml = 	$o.getDefinition("BonusLib_begemotianimationXml") as Class;
+				Assets.winsPopAsset = 	$o.getDefinition("WinsPopLib_winsAssetsImg") as Class;
+				Assets.winsPopAssetXml = 	$o.getDefinition("WinsPopLib_winsAssetsXml") as Class;
+				
+				Assets.winsPop_bfont = $o.getDefinition("WinsPopLib_winspop_bitmapFont") as Class;   
+				Assets.winsPop_bfontXml = $o.getDefinition("WinsPopLib_winspop_bitmapFontXml") as Class;   
 			}
 			
 			//assLoadMan.updateLoad();

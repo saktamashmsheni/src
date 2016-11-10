@@ -187,6 +187,9 @@ package game
 			lineButsHolder.initButtons();
 			
 			leaderBoardHolder.initLeaderBoard();
+			
+			winsPopLoader();
+			
 		}
 		
 		private function whenSpinComplete(e:GameEvents):void
@@ -841,6 +844,23 @@ package game
 			}
 		}
 		
+		public function winsPopLoader():void
+		{
+			IniClass.cont.assLoadMan.clearLoadManager();
+			IniClass.cont.assLoadMan.addEventListener(AssetsLoaderEvents.ALL_ASSETS_LOADED, bigWinPopLoaded);
+			IniClass.cont.assLoadMan.setLoadAssets(GameSettings.PATH + "WinsPopLibrary.swf", AssetsLoaderManager.WINS_POP_LIBRARY, AssetsLoaderManager.SWFType);
+			IniClass.cont.assLoadMan.startLoadAssets();
+			
+			
+		}
+		
+		private function bigWinPopLoaded(e:AssetsLoaderEvents):void {
+			IniClass.cont.assLoadMan.removeEventListener(AssetsLoaderEvents.ALL_ASSETS_LOADED, bigWinPopLoaded);
+			var winPop:BigWinCont = new BigWinCont(1528);
+			this.addChild(winPop);
+		}
+		
+		
 		private function allBonusAssetsLoaded(e:AssetsLoaderEvents):void
 		{
 			IniClass.cont.assLoadMan.removeEventListener(AssetsLoaderEvents.ALL_ASSETS_LOADED, allBonusAssetsLoaded);
@@ -947,7 +967,7 @@ package game
 			{
 				IniClass.cont.assLoadMan.clearLoadManager();
 				IniClass.cont.assLoadMan.addEventListener(AssetsLoaderEvents.ALL_ASSETS_LOADED, allAssetsLoaded);
-				IniClass.cont.assLoadMan.setLoadAssets(GameSettings.PATH + "PaytableLibrary.swf", "Paytable Library", AssetsLoaderManager.SWFType);
+				IniClass.cont.assLoadMan.setLoadAssets(GameSettings.PATH + "PaytableLibrary.swf", AssetsLoaderManager.PAYTABLE_LIBRARY, AssetsLoaderManager.SWFType);
 				IniClass.cont.assLoadMan.startLoadAssets();
 			}
 		}
@@ -1037,7 +1057,7 @@ package game
 			{
 				IniClass.cont.assLoadMan.clearLoadManager();
 				IniClass.cont.assLoadMan.addEventListener(AssetsLoaderEvents.ALL_ASSETS_LOADED, allJackpotAssetsLoaded);
-				IniClass.cont.assLoadMan.setLoadAssets(GameSettings.PATH + "JackpotWinLibrary.swf", "Jackpot Library", AssetsLoaderManager.SWFType);
+				IniClass.cont.assLoadMan.setLoadAssets(GameSettings.PATH + "JackpotWinLibrary.swf", AssetsLoaderManager.JACKPOT_LIBRARY, AssetsLoaderManager.SWFType);
 				IniClass.cont.assLoadMan.startLoadAssets();
 			}
 		}
@@ -1103,7 +1123,9 @@ package game
 			footerHolder.updateBet(GameSettings.BETS_AR.indexOf(obj.HandInfo.Bet));
 			footerHolder.updateLines(obj.HandInfo.Line1);
 			
-			if (obj.Scatter.FreeSpins > 0)
+			//TO FIX Scatter.FreeSpins>information=TypeError: Error #1010: A term is undefined and has no properties.
+
+			/*if (obj.Scatter.FreeSpins > 0)
 			{
 				
 				footerHolder.spinEnabled = false;
@@ -1128,7 +1150,7 @@ package game
 				
 					//Root.soundManager.stopLoopSound()
 					//Root.soundManager.loopdSound("scatter");
-			}
+			}*/
 			
 			if (obj.HandInfo == null)
 			{
