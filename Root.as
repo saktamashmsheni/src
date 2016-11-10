@@ -12,7 +12,7 @@
 	public class Root 
 	{
 		public static var ip:String = "5.10.35.195";
-		public static var port:Number = 5003;
+		public static var port:Number = 5007;
 		
 		public static var TESTING:Boolean = true;
 		

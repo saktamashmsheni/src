@@ -1077,7 +1077,7 @@ package game
 		public function removeJackpotAnim():void
 		{
 			jackpotWinAnimation.disposeAll();
-			StaticGUI.safeRemoveChild(jackpotWinAnimation, true)
+			StaticGUI.safeRemoveChild(jackpotWinAnimation, true);
 			jackpotWinAnimation = null;
 		}
 		
@@ -1120,65 +1120,78 @@ package game
 		public function reconnectFunc(obj:Object):void
 		{
 			
-			footerHolder.updateBet(GameSettings.BETS_AR.indexOf(obj.HandInfo.Bet));
-			footerHolder.updateLines(obj.HandInfo.Line1);
-			
-			//TO FIX Scatter.FreeSpins>information=TypeError: Error #1010: A term is undefined and has no properties.
-
-			/*if (obj.Scatter.FreeSpins > 0)
-			{
-				
-				footerHolder.spinEnabled = false;
-				
-				GameHolder.gameState = GameHolder.NORMAL_STATE;
-				footerHolder.updateState(GameHolder.NORMAL_STATE);
-				
-				freeSpinsAmount = obj.Scatter.TotalFreeSpins;
-				
-				currentFreeSpinNum = 0;
-				freeSpinsState = true;
-				footerHolder.spinEnabled = true;
-				
-				updateLogoWhileFreeSpins(obj.Scatter.FreeSpins);
-				
-				GameHolder.gameState = GameHolder.NORMAL_STATE;
-				
-				//this.machineHolder.showScatterBg();
-				
-				footerHolder.freeSpinsWinAmount = obj.Scatter.FreeSpinWin;
-				footerHolder.updateWin(obj.Scatter.FreeSpinWin);
-				
-					//Root.soundManager.stopLoopSound()
-					//Root.soundManager.loopdSound("scatter");
-			}*/
-			
 			if (obj.HandInfo == null)
-			{
 				return;
+				
+				
+			footerHolder.updateBet(GameSettings.BETS_AR.indexOf(obj.HandInfo.SpinResult.Bet));
+			footerHolder.updateLines(obj.HandInfo.SpinResult.Line);
+			if (obj.HandInfo.SpinResult.Reels)
+			{
+				machineHolder.setCustomReels(obj.HandInfo.SpinResult.Reels);
+				TweenLite.delayedCall(0.1, linesHolder.showWinnerLinesArr, [obj.HandInfo.SpinResult, false]);
 			}
-			
-			machineHolder.setCustomReels(obj.HandInfo.SpinResult.Reels);
 			linesHolder.hideAllLines();
-			TweenLite.delayedCall(0.1, linesHolder.showWinnerLinesArr, [obj.HandInfo.SpinResult, false]);
 			
-			if (obj.HandInfo.HandState == 0)
-			{
-				footerHolder.updateWin(obj.HandInfo.Win);
-			}
+			
+			
+			
+			if (obj.HandInfo.DoubleState)
+				footerHolder.updateWin(obj.HandInfo.DoubleState.Win);
 			else
-			{
 				footerHolder.updateWin(obj.HandInfo.SpinResult.TotalWin);
-			}
 			
-			if (obj.HandInfo.HandState == 0)
+				
+			if (obj.HandInfo.DoubleState)
 			{
 				GameHolder.gameState = GameHolder.DOUBLE_STATE;
 				this.footerHolder.updateState(GameHolder.DOUBLE_STATE);
 				footerHolder.spinEnabled = true;
 				GameHolder.cont.hideSlotItemsForStates();
-				showDoubleHolder(obj.HandInfo.Win);
-				this.doubleHolder.modifyCardsOnReconnect(obj.HandInfo.Cards);
+				showDoubleHolder(obj.HandInfo.DoubleState.Win);
+				this.doubleHolder.modifyCardsOnReconnect(obj.HandInfo.DoubleState.Cards);
 			}
+			
+			
+			
+			if (obj.HandInfo.FreeSpinState)
+			{
+				
+				if (obj.HandInfo.FreeSpinState.FreeSpinState == 1)
+					WILD_FREE_SPIN = true;
+				else
+					WILD_FREE_SPIN = false;
+					
+					
+				footerHolder.spinEnabled = false;
+				
+				GameHolder.gameState = GameHolder.NORMAL_STATE;
+				footerHolder.updateState(GameHolder.NORMAL_STATE);
+				
+				freeSpinsAmount = obj.HandInfo.FreeSpinState.TotalFreeSpin;
+				
+				currentFreeSpinNum = 0;
+				freeSpinsState = true;
+				footerHolder.spinEnabled = true;
+				
+				if (GameHolder.WILD_FREE_SPIN == false)
+					updateLogoWhileFreeSpins(obj.HandInfo.FreeSpinState.FreeSpins);
+				
+				GameHolder.gameState = GameHolder.NORMAL_STATE;
+				
+				
+				footerHolder.freeSpinsWinAmount = obj.HandInfo.SpinResult.TotalWin;
+				footerHolder.updateWin(obj.HandInfo.SpinResult.TotalWin);
+				
+				if (WILD_FREE_SPIN)
+				{
+					///wild
+					machineHolder.setWildStaticReels(obj.HandInfo.SpinResult.WildReels);
+					machineHolder.modifyWildIcons(obj.HandInfo.SpinResult.WildReels, obj.HandInfo.SpinResult)
+				}
+				
+			}
+			
 		}
 		
 		private function setBonusItemsForReconnect(obj:Object):void
