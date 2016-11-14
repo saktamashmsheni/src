@@ -25,7 +25,6 @@ package game.footer {
 	import starling.events.EnterFrameEvent;
 	import starling.textures.TextureAtlas;
 	import starling.utils.Color;
-	
 	import feathers.controls.Button;
 	import starling.display.Image;
 	import starling.display.MovieClip;

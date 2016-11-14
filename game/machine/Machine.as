@@ -54,7 +54,7 @@ package game.machine
 		public static var Ydistance:Number;
 		public var curSpeed:Number = startSpeed;
 		
-		private var stopVarArr:Array = [0,1,2,3,4]
+		private var stopVarArr:Array = [0,1,2]
 		
 		//public var bonusIndex:int;
 		//public var scatterIndex:int;
@@ -564,7 +564,7 @@ package game.machine
 				
 				if (fastStop == false)
 				{
-					Root.soundManager.schedule('stopV' + stopVarArr[line-1], 1);
+					Root.soundManager.schedule('stopV' + stopVarArr[(line-1)%3], 1);
 				}
 				else
 				{

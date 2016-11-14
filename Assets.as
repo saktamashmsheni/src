@@ -242,10 +242,16 @@ package {
 		public static var transfer_Font:Class;
 		public static var transfer_FontXml:Class;
 		
+		//win animation fonts
+		static public var winsPop_bfont:Class;
+		static public var winsPop_bfontXml:Class;
+		
 		
 		
 		public static var mainSlot:Class;
 		public static var mainSlotXml:Class;
+		
+		
 		
 		
 		private static var gameTexturesDic:Dictionary = new Dictionary();
