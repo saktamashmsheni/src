@@ -5,6 +5,8 @@ package game {
 	import com.greensock.TweenLite;
 	import com.greensock.TweenMax;
 	import com.utils.StaticGUI;
+	import feathers.controls.text.BitmapFontTextRenderer;
+	import flash.text.TextFormatAlign;
 	import starling.core.Starling;
 	import starling.display.Image;
 	import starling.display.MovieClip;
@@ -13,9 +15,11 @@ package game {
 	import starling.events.Event;
 	import starling.text.TextField;
 	import starling.text.TextFormat;
+	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	import starling.utils.Align;
 	import starling.utils.Align;
+	import starling.utils.Color;
 	
 	/**
 	 * ...
@@ -24,31 +28,53 @@ package game {
 	public class BigWinCont extends Sprite {
 		
 		private var winamount:int;
-		private var val_txt:TextField;
+		private var val_txt:BitmapFontTextRenderer;
 		private var starsAr:Array;
 		private var bigWinImg:Image;
 		private var starImg:Image;
 		private var headerImg:Image;
 		private var coinsImg:Image;
 		
+		private var starBgTexture:Texture;
+		private var bigWinTexture:Texture;
+		private var headerTexture:Texture;
+		private var coinsTexture:Texture;
+		
+		
+		
 		private var atlas:TextureAtlas;
 		
 		public var _win:int;
 		public var _start:int;
-		public static var COEF:int = 250;
+		private var winType:String;
+		private var quadBg:Quad;
 		
-		public function BigWinCont(winamount:int) {
+		public static var COEF:int = 250;
+		public static const BIG_WIN:String = 'bigWin';
+		public static const MEGA_WIN:String = 'megaWin';
+		public static const SUPER_WIN:String = 'superWin';
+		
+		
+		public function BigWinCont(winamount:int, winType:String = BigWinCont.MEGA_WIN) {
 			this.winamount = winamount;
+			this.winType = winType;
 			this.addEventListener(Event.ADDED_TO_STAGE, added);
 		}
 		
 		private function added(e:Event):void {
 			removeEventListener(Event.ADDED_TO_STAGE, added);
 			
+			quadBg = new Quad(1500, 1500, Color.BLACK);
+			quadBg.alpha = .6;
+			quadBg.alignPivot(Align.CENTER, Align.CENTER);
+			addChild(quadBg);
+			
 			initBigWin();
 			
+			
+			
 			var num:Number = this.numChildren;
-			for (var i:int = 0; i < num; i++) {
+			for (var i:int = 1; i < num; i++) {
 				TweenLite.from(this.getChildAt(i), 1.5, {delay: (i) * 0.02, scaleX: 0, scaleY: 0, alpha: 0, ease: Elastic.easeOut});
 			}
 			
@@ -75,36 +101,69 @@ package game {
 			
 			atlas = Assets.getAtlas("winsPopAsset", "winsPopAssetXml");
 			
-			
-			starImg = new Image(atlas.getTexture("big_win_stars.png"));
+			switch(winType) {
+				case BigWinCont.BIG_WIN:
+					
+					starBgTexture = atlas.getTexture("big_win_stars.png");
+					bigWinTexture = atlas.getTexture("big_win_bg.png");
+					headerTexture = atlas.getTexture("big_win_header.png");
+					coinsTexture = atlas.getTexture("big_win_coins.png")
+					break;
+					
+				case BigWinCont.SUPER_WIN:
+					starBgTexture = atlas.getTexture("super_win_stars.png");
+					bigWinTexture = atlas.getTexture("super_win_bg.png");
+					headerTexture = atlas.getTexture("super_win_header.png");
+					coinsTexture = atlas.getTexture("super_win_coins.png");
+					
+					break;
+					
+				case BigWinCont.MEGA_WIN:
+					
+					starBgTexture = atlas.getTexture("mega_win_stars.png");
+					bigWinTexture = atlas.getTexture("mega_win_bg.png");
+					headerTexture = atlas.getTexture("mega_win_header.png");
+					coinsTexture = atlas.getTexture("mega_win_coins.png");
+					
+					
+					break;
+			}
+			starImg = new Image(starBgTexture);
 			starImg.alignPivot(Align.CENTER, Align.CENTER);
 			starImg.y = -200;
 			addChild(starImg);
 			
-			bigWinImg = new Image(atlas.getTexture("big_win_bg.png"));
+			bigWinImg = new Image(bigWinTexture);
 			bigWinImg.alignPivot(Align.CENTER, Align.CENTER);
 			addChild(bigWinImg);
 			
-			headerImg = new Image(atlas.getTexture("big_win_header.png"));
+			headerImg = new Image(headerTexture);
 			headerImg.alignPivot(Align.CENTER, Align.CENTER);
 			headerImg.y = -50;
 			addChild(headerImg);
 			
-			coinsImg = new Image(atlas.getTexture("big_win_coins.png"));
+			coinsImg = new Image(coinsTexture);
 			coinsImg.alignPivot(Align.CENTER, Align.CENTER);
-			coinsImg.y = -50;
+			//coinsImg.y = -50;
+			switch(winType) {
+				case BigWinCont.BIG_WIN: coinsImg.y = -50; break;
+				case BigWinCont.SUPER_WIN: coinsImg.y = -50;break;
+				case BigWinCont.MEGA_WIN: coinsImg.y = 120;break;
+			}
 			addChild(coinsImg);
 			
-			var $tf:TextFormat = new TextFormat;
-			$tf.font = Assets.getFont("exRounded").name;
-			$tf.size =  50;
+			/*var $tf:TextFormat = new TextFormat;
+			$tf.font = Assets.getFont("winsPop_bfont").name;   
+			$tf.size =  70;
 			$tf.color = 0xffffff;
-			$tf.bold = true;
+			$tf.bold = true;*/
 			
-			val_txt = new TextField(400, 400, "0", $tf);
+			val_txt = StaticGUI._creatBitmapFontTextRenderer(this, '0', 0, 160, 800, 300, Assets.getFont("winsPop_bfont").name,TextFormatAlign.CENTER,false,-35);
+			//new TextField(500, 300, "0", $tf);
 			val_txt.alignPivot(Align.CENTER, Align.CENTER);
-			val_txt.y = 30;
-			addChild(val_txt);
+			//val_txt.y = 30;
+			//val_txt.
+			//addChild(val_txt);
 			
 			starsAr = [];
 			
@@ -123,16 +182,16 @@ package game {
 		}
 		
 		public function updateTotal():void {
-			this.val_txt.text = String((int(_start / GameSettings.CREDIT_VAL))) + "";
+			this.val_txt.text = String((int(_start / GameSettings.CREDIT_VAL))) + " " + StaticGUI.getCurrecyShortcuts();
 		}
 		
 		public function hide():void {
 			var num:Number = this.numChildren;
-			for (var i:int = 0; i < num; i++) {
-				TweenLite.to(this.getChildAt(i), 0.4, {delay: (i) * 0.01, scaleX: 0, scaleY: 0, alpha: 0, ease: Back.easeIn});
+			for (var i:int = 1; i < num; i++) {
+				TweenLite.to(this.getChildAt(i), 0.3, {delay: (i) * 0.01, scaleX: 0, scaleY: 0, alpha: 0, ease: Back.easeIn});
 			}
 			
-			TweenLite.delayedCall(3, removeMe);
+			TweenLite.delayedCall(1.5, removeMe);
 		}
 		
 		public function removeMe():void {
@@ -142,13 +201,7 @@ package game {
 				StaticGUI.safeRemoveChild(starsAr[i], true);
 				starsAr[i] = null;
 			}
-			this.removeChildren();
-			this.dispose();
-			starsAr = [];
 			
-			Assets.disposeTextureItem("bigWinImg");
-			bigWinImg.dispose();
-			bigWinImg = null;
 			
 			try {
 				StaticGUI.safeRemoveChild(this);
@@ -159,6 +212,31 @@ package game {
 					StaticGUI.safeRemoveChild(this);
 				}
 			}
+			
+			starImg.dispose();
+			starImg = null;
+			
+			headerImg.dispose();
+			headerImg = null;
+			
+			bigWinImg.dispose();
+			bigWinImg = null;
+			
+			coinsImg.dispose();
+			coinsImg = null;
+			
+			val_txt.dispose();
+			val_txt = null;
+			
+			
+			atlas.dispose();
+			atlas = null;
+			
+			this.removeChildren();
+			this.dispose();
+			starsAr = null;
+			quadBg.dispose();
+			quadBg = null;
 		}
 		
 		public static function shouldShow(start:Number, end:Number):Boolean {
