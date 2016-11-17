@@ -8,6 +8,7 @@ package game {
 	import feathers.controls.text.BitmapFontTextRenderer;
 	import flash.text.TextFormatAlign;
 	import starling.core.Starling;
+	import starling.display.BlendMode;
 	import starling.display.Image;
 	import starling.display.MovieClip;
 	import starling.display.Quad;
@@ -20,6 +21,7 @@ package game {
 	import starling.utils.Align;
 	import starling.utils.Align;
 	import starling.utils.Color;
+	import starling.utils.deg2rad;
 	
 	/**
 	 * ...
@@ -35,11 +37,15 @@ package game {
 		private var headerImg:Image;
 		private var coinsImg:Image;
 		
+		private var shineEffImg1:Image;
+		private var shineEffImg2:Image;
+		private var shineEffImg3:Image;
+		
 		private var starBgTexture:Texture;
 		private var bigWinTexture:Texture;
 		private var headerTexture:Texture;
 		private var coinsTexture:Texture;
-		
+		private var shineTexture:Texture;
 		
 		
 		private var atlas:TextureAtlas;
@@ -55,7 +61,7 @@ package game {
 		public static const SUPER_WIN:String = 'superWin';
 		
 		
-		public function BigWinCont(winamount:int, winType:String = BigWinCont.MEGA_WIN) {
+		public function BigWinCont(winamount:int, winType:String = BigWinCont.SUPER_WIN) {
 			this.winamount = winamount;
 			this.winType = winType;
 			this.addEventListener(Event.ADDED_TO_STAGE, added);
@@ -100,6 +106,7 @@ package game {
 			var mc:MovieClip;
 			
 			atlas = Assets.getAtlas("winsPopAsset", "winsPopAssetXml");
+			shineTexture = atlas.getTexture("shine_effect.png");
 			
 			switch(winType) {
 				case BigWinCont.BIG_WIN:
@@ -107,11 +114,12 @@ package game {
 					starBgTexture = atlas.getTexture("big_win_stars.png");
 					bigWinTexture = atlas.getTexture("big_win_bg.png");
 					headerTexture = atlas.getTexture("big_win_header.png");
-					coinsTexture = atlas.getTexture("big_win_coins.png")
+					coinsTexture = atlas.getTexture("big_win_coins.png");
+					
 					break;
 					
 				case BigWinCont.SUPER_WIN:
-					starBgTexture = atlas.getTexture("super_win_stars.png");
+					starBgTexture = atlas.getTexture("super_win_star.png");
 					bigWinTexture = atlas.getTexture("super_win_bg.png");
 					headerTexture = atlas.getTexture("super_win_header.png");
 					coinsTexture = atlas.getTexture("super_win_coins.png");
@@ -167,7 +175,7 @@ package game {
 			
 			starsAr = [];
 			
-			for (var i:int = 0; i < 100; i++) {
+			/*for (var i:int = 0; i < 100; i++) {
 				mc = new MovieClip(Assets.getAtlas("starEffectSheet", "starEffectSheetXml").getTextures("star"), 40);
 				mc.alignPivot(Align.CENTER, Align.CENTER);
 				mc.x = Math.round(Math.random() * 600 - Math.random() * 600);
@@ -176,9 +184,53 @@ package game {
 				addChild(mc);
 				Starling.juggler.add(mc);
 				starsAr.push(mc);
+			}*/
+			
+			switch(winType) {
+				case BigWinCont.BIG_WIN:
+
+					shineEffImg1 = addShineEff(shineTexture, 140, -110, 1);
+					shineEffImg2 = addShineEff(shineTexture, -190, 40, 2.5);
+					
+					addChild(shineEffImg2);
+					
+					break;
+					
+				case BigWinCont.SUPER_WIN:
+					
+					shineEffImg1 = addShineEff(shineTexture, 0, -250, 1);
+					shineEffImg2 = addShineEff(shineTexture, 160, 30, 1.5);
+					shineEffImg3 = addShineEff(shineTexture, -270, -40, 2.3);
+					
+					break;
+					
+				case BigWinCont.MEGA_WIN:
+					
+					shineEffImg1 = addShineEff(shineTexture, -160, -180, 1);
+					shineEffImg2 = addShineEff(shineTexture, 170, -105, 1.8);
+					
+					break;
 			}
 			
+			
+			
 			mc = null;
+		}
+		
+		
+		private function addShineEff(texture:Texture, xpos:int = 0, ypos:int = 0, showdelay:uint = 0):Image {
+			var img:Image = new Image(texture);
+			img.blendMode = BlendMode.SCREEN;
+			img.alignPivot(Align.CENTER, Align.CENTER);
+			img.rotation = deg2rad(Math.random() * 180);
+			img.alpha = 0;
+			img.scale = .2;
+			img.x = xpos;
+			img.y = ypos;
+			TweenLite.to(img, 1, { delay: showdelay, scale: 1, rotation:deg2rad(0), alpha: 1 } );
+			TweenLite.delayedCall(showdelay, function():void{addChild(img)});
+			
+			return img;
 		}
 		
 		public function updateTotal():void {
@@ -228,6 +280,18 @@ package game {
 			val_txt.dispose();
 			val_txt = null;
 			
+			shineTexture.dispose();
+			shineTexture = null;
+			
+			if (shineEffImg1) shineEffImg1.dispose();
+			if (shineEffImg2) shineEffImg2.dispose();
+			if (shineEffImg3) shineEffImg3.dispose();
+			
+			
+			
+			shineEffImg1 = null;
+			shineEffImg2 = null;
+			shineEffImg3 = null;
 			
 			atlas.dispose();
 			atlas = null;
