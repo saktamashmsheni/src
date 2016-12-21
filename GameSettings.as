@@ -10,8 +10,8 @@ package
 		public static var CONFIG_JSON:Object;
 		
 		public static var GAME_ID:int;
-		//public static var GAME_NAME:String = "20 slice fruit";
-		public static var GAME_NAME:String = "acid fruits";
+		public static var GAME_NAME:String = "20 slice fruit";
+		//public static var GAME_NAME:String = "acid fruits";
 		//public static var GAME_NAME:String = "dragon fruit";
 		public static var PATH:String = GAME_NAME + "/"; // saxeli da path meqneba albat shesacvleli dinamiuri ro iyos
 		
@@ -88,7 +88,7 @@ package
 		
 		public static var ICON_ANIM_ENABLED:Boolean = true;
 		public static var ICON_ANIM_LOOP:Boolean = false;
-		public static var ICON_ANIM_DELAY:int = 1;
+		public static var ICON_ANIM_DELAY:Number = 1;
 		
 		public static var HOVER_ANIM_ENABLED:Boolean = true;
 		public static var HOVER_ANIM_LOOP:Boolean = false;

@@ -171,7 +171,7 @@ package game.machine
 			
 			if (!Machine.isWildIcon(ID) && GameSettings.HOVER_ANIM_ENABLED && hoverAnimation == null)
 			{
-				hoverAnimation = new MovieClip(Assets.getAtlas("iconsAnimationImg", "iconsAnimationXml").getTextures(""), 40);
+				hoverAnimation = new MovieClip(Assets.getAtlas("iconsAnimationImg", "iconsAnimationXml").getTextures(""), 55);
 				//hoverAnimation.color = Color.YELLOW;
 				alignCenter(hoverAnimation);
 				hoverAnimation.alpha = 1;

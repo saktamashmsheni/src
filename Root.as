@@ -15,7 +15,6 @@
 		public static var port:Number = 5003;
 		
 		public static var TESTING:Boolean = true;
-		
 		public static var Key:ByteArray = Hex.toArray(Hex.fromString(CONFIG::KEY));
 		public static var Key1:ByteArray = Hex.toArray(Hex.fromString(CONFIG::KEY));
 		
@@ -42,7 +41,7 @@
 		
 		///rooom
 		//public static var userRoomId:Number =  -Math.ceil(Math.random()*9999);
-		public static var userRoomId:Number = -3292;
+		public static var userRoomId:Number = -3242;
 		public static var userRoomSession:String = "";
 		
 		public static function connectToServer():void

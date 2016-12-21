@@ -292,10 +292,6 @@ package game
 			
 			
 			
-			
-			
-			
-			
 			if (sObj.ScatterWin.length > 0)
 			{
 				for (var i:int = 0; i < sObj.ScatterWin.length; i++) 
