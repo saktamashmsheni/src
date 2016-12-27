@@ -188,7 +188,7 @@ package game
 			
 			leaderBoardHolder.initLeaderBoard();
 			
-			winsPopLoader();
+			//winsPopLoader();
 			
 		}
 		

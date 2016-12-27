@@ -89,12 +89,15 @@ package
 		public static var ICON_ANIM_ENABLED:Boolean = true;
 		public static var ICON_ANIM_LOOP:Boolean = false;
 		public static var ICON_ANIM_DELAY:Number = 1;
+		public static var ICON_ANIM_FAST_REMOVE:Number;
 		
 		public static var HOVER_ANIM_ENABLED:Boolean = true;
 		public static var HOVER_ANIM_LOOP:Boolean = false;
+		public static var HOVER_FAST_REMOVE:Boolean;
 		
 	    public static var STATIC_ANIM_ENABLED:Boolean = true;
 		public static var STATIC_ANIM_LOOP:Boolean = true;
+		public static var STATIC_FAST_REMOVE:Boolean = true;
 		
 		
 		

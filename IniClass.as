@@ -438,10 +438,14 @@ package {
 			GameSettings.ICON_ANIM_ENABLED = obj.iconAnimation.ICON_ANIM_ENABLED;
 			GameSettings.ICON_ANIM_LOOP = obj.iconAnimation.ICON_ANIM_LOOP;
 			GameSettings.ICON_ANIM_DELAY = obj.iconAnimation.ICON_ANIM_DELAY;
+			GameSettings.ICON_ANIM_FAST_REMOVE = obj.iconAnimation.ICON_ANIM_FAST_REMOVE;
 			GameSettings.HOVER_ANIM_ENABLED = obj.iconAnimation.HOVER_ANIM_ENABLED;
 			GameSettings.HOVER_ANIM_LOOP = obj.iconAnimation.HOVER_ANIM_LOOP;
+			GameSettings.HOVER_FAST_REMOVE = obj.iconAnimation.HOVER_FAST_REMOVE;
 			GameSettings.STATIC_ANIM_ENABLED = obj.iconAnimation.STATIC_ANIM_ENABLED;
 			GameSettings.STATIC_ANIM_LOOP = obj.iconAnimation.STATIC_ANIM_LOOP;
+			GameSettings.STATIC_FAST_REMOVE = obj.iconAnimation.STATIC_FAST_REMOVE;
+			
 			
 			//paytable
 			GameSettings.PAYTABLE_TOTAL_PAGES = obj.payTable.PAYTABLE_TOTAL_PAGES;

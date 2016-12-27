@@ -94,7 +94,6 @@ package game.machine
 						iconMc.removeFrameAt(GameHolder.cont.machineHolder.wildIndex * 2);
 						iconMc.addFrameAt(GameHolder.cont.machineHolder.wildIndex * 2, Machine.wildIconsAtlas.getTexture("w" + String(StaticGUI.intWithZeros(Root.ALL_WILD_INDEX, 3)) + ".png"))
 					}
-					
 				}*/
 				iconMc.currentFrame = (ID) * 2;
 			}else
@@ -125,8 +124,8 @@ package game.machine
 		
 		private function alignCenter(ic:DisplayObject):void
 		{
-			ic.width = Icon.iconWidth;
-			ic.height = Icon.iconHeight;
+			//ic.width = Icon.iconWidth;
+			//ic.height = Icon.iconHeight;
 			//ic.pivotX = int(ic.width / 2);
 			//ic.pivotY = int(ic.height / 2);
 			
@@ -154,24 +153,26 @@ package game.machine
 			
 			if (!Machine.isWildIcon(ID) && GameSettings.ICON_ANIM_ENABLED && iconAnimationMc == null)
 			{
-				iconAnimationMc = new MovieClip(Assets.getAtlas("icon" + 1 + "Img", "icon" + 1 + "Xml").getTextures(""), 40);
+				iconAnimationMc = new MovieClip(Assets.getAtlas("icon" + 1 + "Img", "icon" + 1 + "Xml").getTextures(""), 30);
 				iconMc.visible = false;
 				iconAnimationMc.x -= 20;
 				iconAnimationMc.y -= 22;
 				if (!GameSettings.ICON_ANIM_LOOP)
 				{
 					iconAnimationMc.loop = false;
-					iconAnimationMc.addEventListener(Event.COMPLETE, onIconAnimationComplete);
+					//iconAnimationMc.addEventListener(Event.COMPLETE, onIconAnimationComplete);
 				}
-				
+				iconAnimationMc.addEventListener(Event.COMPLETE, onIconAnimationComplete);
 				addChild(iconAnimationMc);
+				iconAnimationMc.scaleX = iconAnimationMc.scaleY = 1
+				alignCenter(iconAnimationMc);
 				TweenLite.delayedCall(GameSettings.ICON_ANIM_DELAY, Starling.juggler.add, [iconAnimationMc]);
 				TweenLite.delayedCall(GameSettings.ICON_ANIM_DELAY, iconAnimationMc.play);
 			}
 			
 			if (!Machine.isWildIcon(ID) && GameSettings.HOVER_ANIM_ENABLED && hoverAnimation == null)
 			{
-				hoverAnimation = new MovieClip(Assets.getAtlas("iconsAnimationImg", "iconsAnimationXml").getTextures(""), 55);
+				hoverAnimation = new MovieClip(Assets.getAtlas("iconsAnimationImg", "iconsAnimationXml").getTextures(""), 35);
 				//hoverAnimation.color = Color.YELLOW;
 				alignCenter(hoverAnimation);
 				hoverAnimation.alpha = 1;
@@ -190,7 +191,7 @@ package game.machine
 			if (GameSettings.STATIC_ANIM_ENABLED && staticAnimation == null)
 			{
 				staticAnimation = new MovieClip(Assets.getAtlas("staticAnim", "staticAnimXml").getTextures(""), 30);
-				staticAnimation.scaleX = staticAnimation.scaleY = 1.2;
+				staticAnimation.scaleX = staticAnimation.scaleY = 1;
 				alignCenter(staticAnimation);
 				staticAnimation.alpha = 1;
 				
@@ -210,20 +211,32 @@ package game.machine
 		
 		private function onHoverAnimationComplete(e:Event):void 
 		{
+			if (GameSettings.HOVER_FAST_REMOVE == true)
+			{
+				removeHoverAnimation();
+			}
+		}
+		
+		private function removeHoverAnimation():void 
+		{
 			if (hoverAnimation == null)
 				return;
 				
 				
 			hoverAnimation.stop();
 			Starling.juggler.remove(hoverAnimation);
-			//if (GameHolder.gameState == GameHolder.NORMAL_STATE)
-			//{
-			//}
-			
 			hoverAnimation.removeEventListener(Event.COMPLETE, onHoverAnimationComplete);
 		}
 		
 		private function onStaticAnimationComplete(e:Event):void 
+		{
+			if (GameSettings.STATIC_FAST_REMOVE == true)
+			{
+				removeStaticAnim();
+			}
+		}
+		
+		private function removeStaticAnim():void 
 		{
 			if (staticAnimation == null)
 				return;
@@ -235,19 +248,33 @@ package game.machine
 			staticAnimation.removeEventListener(Event.COMPLETE, onHoverAnimationComplete);
 		}
 		
+		
 		private function onIconAnimationComplete(e:Event):void 
+		{
+			if (GameSettings.ICON_ANIM_FAST_REMOVE == true)
+			{
+				removeIconAnimation();
+			}
+			else
+			{
+				iconAnimationMc.stop();
+			}
+			
+			TweenMax.delayedCall(0.6, iconAnimationMc.play);
+		}
+		
+		private function removeIconAnimation():void 
 		{
 			if (iconAnimationMc == null)
 				return;
 				
-				
 			iconAnimationMc.stop();
-			iconAnimationMc.currentFrame = iconAnimationMc.numFrames -1;
+			iconAnimationMc.currentFrame = 0;
 			Starling.juggler.remove(iconAnimationMc);
+			
 			
 			iconAnimationMc.removeEventListener(Event.COMPLETE, onIconAnimationComplete);
 		}
-		
 		
 		
 		
@@ -265,6 +292,10 @@ package game.machine
 		
 		public function stopIcon():void
 		{
+			removeStaticAnim();
+			removeHoverAnimation();
+			removeIconAnimation();
+			
 			if (iconAnimationMc != null)
 			{
 				/*if (Machine.isWildIcon(ID))
