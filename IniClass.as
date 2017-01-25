@@ -98,16 +98,17 @@ package {
 				}*/
 			}
 			
+			assLoadMan.setLoadAssets(GameSettings.PATH + "config.json", AssetsLoaderManager.CONFIGURATION, AssetsLoaderManager.JsonType);
 			assLoadMan.setLoadAssets(GameSettings.PATH + "ItemsLibrary.swf", AssetsLoaderManager.ITEMS_LIBRARY, AssetsLoaderManager.SWFType);
 			assLoadMan.setLoadAssets(GameSettings.PATH + "FontsLibrary.swf", AssetsLoaderManager.FONTS_LIBRARY, AssetsLoaderManager.SWFType);
 			assLoadMan.setLoadAssets(GameSettings.PATH + "SoundLibrary.swf", AssetsLoaderManager.SOUND_LIBRARY, AssetsLoaderManager.SWFType);
 			assLoadMan.setLoadAssets(GameSettings.PATH + "IconsLibrary.swf", AssetsLoaderManager.ICONS_LIBRARY, AssetsLoaderManager.SWFType);
 			assLoadMan.setLoadAssets(GameSettings.PATH + "xml/" + Root.lang + ".xml", AssetsLoaderManager.XML_MUI_PACK, AssetsLoaderManager.XMLType);
-			assLoadMan.setLoadAssets(GameSettings.PATH + "config.json", AssetsLoaderManager.CONFIGURATION, AssetsLoaderManager.JsonType);
 			assLoadMan.startLoadAssets();
 		}
 		
 		public function currAssetLoaded(e:AssetsLoaderEvents):void {
+			var i:int;
 			
 			var $o:Object;
 			if (e.params.valTxt == AssetsLoaderManager.ITEMS_LIBRARY) {
@@ -164,6 +165,11 @@ package {
 				Assets.errorSheetXml = $o.getDefinition("ItemsLib_errorSheetXml") as Class;
 				
 				
+				if (GameSettings.MULTIPLE_WINS)
+				{
+					Assets.xWinsSheet = $o.getDefinition("ItemsLib_xWinsSheet") as Class;
+					Assets.xWinsSheetXml = $o.getDefinition("ItemsLib_xWinsSheetXml") as Class;
+				}
 				
 				//loader
 				Assets.loaderSheet = $o.getDefinition("ItemsLib_loaderSheet") as Class;
@@ -192,14 +198,27 @@ package {
 				Assets.allIconsXml = $o.getDefinition("IconsLib_allIconsXml") as Class;
 				//Assets.allWildSheet = $o.getDefinition("IconsLib_allWildSheet") as Class;
 				//Assets.allWildSheetXml = $o.getDefinition("IconsLib_allWildSheetXml") as Class;
-				Assets.iconsAnimationImg = $o.getDefinition("IconsLib_iconsAnimationImg") as Class;
-				Assets.iconsAnimationXml = $o.getDefinition("IconsLib_iconsAnimationXml") as Class;
 				
-				Assets.icon1Img = $o.getDefinition("IconsLib_icon1Img") as Class;
-				Assets.icon1Xml = $o.getDefinition("IconsLib_icon1Xml") as Class;
+				if(GameSettings.HOVER_ANIM_ENABLED == true)
+				{
+					Assets.iconsAnimationImg = $o.getDefinition("IconsLib_iconsAnimationImg") as Class;
+					Assets.iconsAnimationXml = $o.getDefinition("IconsLib_iconsAnimationXml") as Class;
+				}
 				
-				Assets.staticAnim = $o.getDefinition("IconsLib_staticAnim") as Class;
-				Assets.staticAnimXml = $o.getDefinition("IconsLib_staticAnimXml") as Class;
+				
+				for (i = 0; i < GameSettings.TOTAL_ICONS; i++) 
+				{
+					Assets["icon"+ i + "Img"] = $o.getDefinition("IconsLib_icon"+i+"Img") as Class;
+					Assets["icon"+ i + "Xml"] = $o.getDefinition("IconsLib_icon"+i+"Xml") as Class;
+				}
+				
+				
+
+				if (GameSettings.STATIC_ANIM_ENABLED)
+				{
+					Assets.staticAnim = $o.getDefinition("IconsLib_staticAnim") as Class;
+					Assets.staticAnimXml = $o.getDefinition("IconsLib_staticAnimXml") as Class;
+				}
 				
 				
 			} else if (e.params.valTxt == AssetsLoaderManager.FONTS_LIBRARY) {
@@ -318,11 +337,12 @@ package {
 			} else if (e.params.valTxt == AssetsLoaderManager.PAYTABLE_LIBRARY) {
 				$o = e.params.content.applicationDomain;
 				
-				Assets.paytableBg1 = $o.getDefinition("PaytableLib_paytableBg1") as Class;
-				Assets.paytableBg2 = $o.getDefinition("PaytableLib_paytableBg2") as Class;
-				Assets.paytableBg3 = $o.getDefinition("PaytableLib_paytableBg3") as Class;
-				Assets.paytableBg4 = $o.getDefinition("PaytableLib_paytableBg4") as Class;
-				Assets.paytableBg5 = $o.getDefinition("PaytableLib_paytableBg5") as Class;
+				
+				for (i = 0; i < GameSettings.PAYTABLE_TOTAL_PAGES; i++) 
+				{
+					Assets["paytableBg"+ (i + 1)] = $o.getDefinition("PaytableLib_paytableBg"+(i+1)) as Class;
+				}
+				
 				Assets.paytableAssetsImg = $o.getDefinition("PaytableLib_paytableAssetsImg") as Class;
 				Assets.paytableAssetsXml = $o.getDefinition("PaytableLib_paytableAssetsXml") as Class;
 				Assets.payTableLoaded = true;
@@ -353,6 +373,7 @@ package {
 			else if (e.params.valTxt == AssetsLoaderManager.CONFIGURATION){
 				GameSettings.CONFIG_JSON = e.params.content as Object;
 				GameSettings.PREFERENCES = GameSettings.CONFIG_JSON.preferences;
+				updateGameSettings();
 				
 			}else if (e.params.valTxt == AssetsLoaderManager.WINS_POP_LIBRARY) {
 				$o = e.params.content.applicationDomain;
@@ -399,7 +420,7 @@ package {
 			
 			assLoadMan.unLoadAllLoaders();
 			
-			updateGameSettings();
+			//updateGameSettings();
 			
 			if (!swfLoaded) {
 				swfLoaded = true
@@ -435,6 +456,14 @@ package {
 			var obj:Object = GameSettings.CONFIG_JSON;
 			
 			//icon animations
+			GameSettings.MULTIPLE_WINS = obj.game.MULTIPLE_WINS;
+			GameSettings.WINNER_LINE_START_AND_DELAY = obj.game.WINNER_LINE_START_AND_DELAY;
+			GameSettings.ANIMATE_LINE_DELAY = obj.game.ANIMATE_LINE_DELAY;
+			GameSettings.SCALE_ICONS = obj.game.SCALE_ICONS;
+			
+			GameSettings.TOTAL_ICONS = obj.game.TOTAL_ICONS;
+			GameSettings.ICONS_OFF_Y = obj.game.ICONS_OFF_Y;
+			GameSettings.ICONS_OFF_X = obj.game.ICONS_OFF_X;
 			GameSettings.ICON_ANIM_ENABLED = obj.iconAnimation.ICON_ANIM_ENABLED;
 			GameSettings.ICON_ANIM_LOOP = obj.iconAnimation.ICON_ANIM_LOOP;
 			GameSettings.ICON_ANIM_DELAY = obj.iconAnimation.ICON_ANIM_DELAY;
@@ -445,10 +474,23 @@ package {
 			GameSettings.STATIC_ANIM_ENABLED = obj.iconAnimation.STATIC_ANIM_ENABLED;
 			GameSettings.STATIC_ANIM_LOOP = obj.iconAnimation.STATIC_ANIM_LOOP;
 			GameSettings.STATIC_FAST_REMOVE = obj.iconAnimation.STATIC_FAST_REMOVE;
+			GameSettings.HIDE_ICON = obj.iconAnimation.HIDE_ICON;
+			GameSettings.WILD_ANIM_ENABLED = obj.iconAnimation.WILD_ANIM_ENABLED;
+			GameSettings.WILD_ANIM_LOOP = obj.iconAnimation.WILD_ANIM_LOOP;
+			GameSettings.WILD_HOVER_ENABLED = obj.iconAnimation.WILD_HOVER_ENABLED;
+			GameSettings.WILD_HOVER_LOOP = obj.iconAnimation.WILD_HOVER_LOOP;
 			
+			GameSettings.ALL_ICONS_OFFSET_X = obj.preferences.machine.icons.ALL_OFFSET_X;
+			GameSettings.ALL_ICONS_OFFSET_Y = obj.preferences.machine.icons.ALL_OFFSET_Y;
+			GameSettings.FRAMES_OFFSET_X = obj.preferences.machine.framesHolder.OFFSET_X;
+			GameSettings.FRAMES_OFFSET_Y = obj.preferences.machine.framesHolder.OFFSET_Y;
+			GameSettings.LINEMAST_OFFSET_X = obj.preferences.machine.linesMask.OFFSET_X;
+			GameSettings.LINEMAST_OFFSET_Y = obj.preferences.machine.linesMask.OFFSET_Y;
 			
 			//paytable
 			GameSettings.PAYTABLE_TOTAL_PAGES = obj.payTable.PAYTABLE_TOTAL_PAGES;
+			GameSettings.POSITIONS_AR = obj.payTable.POSITIONS_AR;
+			GameSettings.PAYTABLE_SHEKVECA = obj.payTable.PAYTABLE_SHEKVECA;
 		}
 		
 		

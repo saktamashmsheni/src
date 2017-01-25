@@ -70,7 +70,10 @@ package game.machine {
 			addChild(linesContainer);
 			
 			linesMask = new Sprite();
+			//linesMask.x = -3;
 			addChild(linesMask);
+			linesMask.x += GameSettings.LINEMAST_OFFSET_X;
+			linesMask.y += GameSettings.LINEMAST_OFFSET_Y;
 			
 			var quad:Quad;
 			
@@ -135,7 +138,7 @@ package game.machine {
 				
 			}
 			
-			linesMask.alpha = .2;
+			linesMask.alpha = .5;
 			linesContainer.mask = linesMask;
 			
 			var $textureName:String;
@@ -162,13 +165,16 @@ package game.machine {
 			addChild(lineWinStatus);
 			
 			frameHolder = new IconFramesHolder();
-			//frameHolder.x = -40;
-			//frameHolder.y = -60;
-			//frameHolder.scaleX = 0.94;
-			//frameHolder.scaleY = 1.1;
+			frameHolder.x += GameSettings.FRAMES_OFFSET_X;
+			frameHolder.y += GameSettings.FRAMES_OFFSET_Y;
+			
+			
 			addChild(frameHolder);
 			addChild(linesMask)
 			GameHolder.cont.footerHolder.addEventListener(GameEvents.LINE_CHANGED, whenLineisChanged);
+			
+			
+			//frameHolder.setFrames2();
 		
 		}
 		
@@ -216,8 +222,8 @@ package game.machine {
 			
 			if (/*animateLines && */GameHolder.cont.doubleHolder == null)
 			{
-				TweenMax.delayedCall(0.3, winnerLineStartAnDelay, [obj]);
-				TweenMax.delayedCall(1.3, animateLine, [obj]);
+				TweenMax.delayedCall(GameSettings.WINNER_LINE_START_AND_DELAY, winnerLineStartAnDelay, [obj]);
+				TweenMax.delayedCall(GameSettings.ANIMATE_LINE_DELAY, animateLine, [obj]);
 				//TweenMax.to(this, 0.05, {alpha:0, yoyo:true, repeat:-1, repeatDelay:0.9, ease:Linear.easeNone});
 			}
 		}
@@ -319,12 +325,13 @@ package game.machine {
 			winAnimIndex++;
 			if (winAnimIndex == obj.WinnerLines.length) {
 				winAnimIndex = 0
-				frameHolder.initIconFrameHolder(false);
+				frameHolder.initIconFrameHolder(true);
 				GameHolder.cont.machineHolder.stopIconsAnimation(true);
 				resetMaskIcons();
 				//lineAnimationStarter(obj, false);
 				lineWinStatus.hide();
 				lineHelper._disposeAll();
+				if (GameSettings.MULTIPLE_WINS){GameHolder.cont.removeMultipleWins};
 				return;
 			}
 			//cont.shown = false;
@@ -400,6 +407,7 @@ package game.machine {
 				this.resetMaskIcons();
 				lineWinStatus.hide();
 				lineHelper._disposeAll();
+				if(GameSettings.MULTIPLE_WINS){GameHolder.cont.removeMultipleWins()}
 			}
 			_shown = value;
 		}

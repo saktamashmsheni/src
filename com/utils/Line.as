@@ -1,6 +1,7 @@
 package com.utils {
 	import starling.display.Quad;
 	import starling.display.Sprite;
+	import starling.utils.Color;
 	
 	public class Line extends Sprite {
 		private var baseQuad:Quad;
@@ -10,6 +11,7 @@ package com.utils {
 		private var saveLineToY:int;
 		private var moveToX:int;
 		private var moveToY:int;
+		public var isBonusLike:Boolean = false;
 		
 		
 		public function Line() {
@@ -18,7 +20,10 @@ package com.utils {
 		
 		public function lineTo(toX:int, toY:int, movX:int=0, movY:int=0):void {
 			
-			baseQuad = new Quad(1, _thickness, _color);
+			//baseQuad = new Quad(1, _thickness, _color);
+			//baseQuad = new Quad(1, _thickness, Color.YELLOW);
+			//baseQuad = new Quad(1, _thickness, 0xd1cf35);
+			baseQuad = new Quad(1, _thickness, GameSettings.PREFERENCES.machine.lineColor);
 			baseQuad.x = saveLineToX+moveToX;
 			baseQuad.y = saveLineToY+moveToY;
 			baseQuad.width = Math.round(Math.sqrt((toX*toX)+(toY*toY)));
@@ -36,10 +41,12 @@ package com.utils {
 		}
 		
 		public function set thickness(t:Number):void {
-			var currentRotation:Number = baseQuad.rotation;
+			/*var currentRotation:Number = baseQuad.rotation;
 			baseQuad.rotation = 0;
 			baseQuad.height = _thickness = t;
-			baseQuad.rotation = currentRotation;
+			baseQuad.rotation = currentRotation;*/
+			_thickness = t;
+			
 		}
 		
 		public function get thickness():Number {

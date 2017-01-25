@@ -16,6 +16,7 @@ package game
 	import game.machine.LineButtons;
 	import game.machine.Lines;
 	import game.machine.Machine;
+	import game.machine.MultipleWins;
 	import jackpotCL.FourWayJackpot;
 	import cashier.TransferContainer;
 	import flash.text.TextFormat;
@@ -87,6 +88,8 @@ package game
 		//static private const GAME_OFFSET_X:Number = 80;
 		private var wildSelector:WildSelector;
 		static private const GAME_OFFSET_X:Number = 0;
+		private var multipleWins:MultipleWins;
+		private var endDelay:Number;
 		public static var WILD_FREE_SPIN:Boolean;
 		public var leaderboardInfo_mc:LeaderboardInfo;
 		public var scatterWinMc:ScatterWinWindow;
@@ -135,7 +138,7 @@ package game
 			addChild(lineButsHolder);
 			
 			linesHolder = new Lines();
-			linesHolder.x = -369;
+			linesHolder.x = -373;
 			linesHolder.y = -215;
 			//linesHolder.alpha = .4;
 			//linesHolder.scaleX = 1.03;
@@ -149,6 +152,8 @@ package game
 			footerHolder = new FooterHolder();
 			footerHolder.x = -373;
 			footerHolder.y = 215;
+			footerHolder.x = footerHolder.x + GameSettings.PREFERENCES.footer.cont.OF_X;
+			footerHolder.y = footerHolder.y + GameSettings.PREFERENCES.footer.cont.OF_Y;
 			addChild(footerHolder);
 			footerHolder.addEventListener(GameEvents.SPIN_STARTED, spinStarted);
 			
@@ -192,11 +197,14 @@ package game
 			
 		}
 		
+		
+		
 		private function whenSpinComplete(e:GameEvents):void
 		{
 			
 			var sObj:Object = e.params.socketObject;
 			var wildSpecNum:int = -1;
+			endDelay = 0;
 			
 			this.footerHolder.sendSpinSecureCount = 0;
 			//free spins
@@ -297,7 +305,13 @@ package game
 				for (var i:int = 0; i < sObj.ScatterWin.length; i++) 
 				{
 					this.machineHolder.setBonusLikeIconsAnimations(sObj, sObj.ScatterWin[i][1]);
+					this.linesHolder.shown = true;
 					this.linesHolder.frameHolder.setBonusLikeIcons(sObj, sObj.ScatterWin[i][1]);
+				}
+				
+				if (sObj.WinnerLines.length <= 0)
+				{
+					Root.soundManager.PlaySound("scatterWin");
 				}
 			}
 			
@@ -341,15 +355,31 @@ package game
 				addChild(scatterWinMc);
 			}*/
 			
-			//activate old messages
-			IniClass.cont.socketAnaliser.activateOldMessages();
+			
+			
+			if (WILD_FREE_SPIN && sObj.FreeSpins > 0)
+			{
+				footerHolder.spinEnabled = false;
+				footerHolder.touchable = false;
+				//activate old messages
+				endDelay += (sObj.WildReels.length + sObj.WinnerLines.length * 1.2);
+				TweenLite.delayedCall(sObj.WildReels.length + sObj.WinnerLines.length * 1.2, IniClass.cont.socketAnaliser.activateOldMessages);
+			}
+			else
+			{
+				//activate old messages
+				TweenLite.delayedCall(0, IniClass.cont.socketAnaliser.activateOldMessages);
+			}
+			
+			
+			
 			
 			if (sObj.Bonus == true)
 			{
 				return;
 			}
 			
-			var endDelay:Number = 0;
+			
 			if (BigWin.shouldShow(footerHolder.totalBetAmount, sObj.TotalWin) == true)
 			{
 				endDelay = 8.2;
@@ -403,13 +433,26 @@ package game
 				
 		   
 				//winner lines
-				this.linesHolder.showWinnerLinesArr(sObj, (sObj.Bonus == true) ? false : true);
+				if (WILD_FREE_SPIN && sObj.FreeSpins > 0)
+				{
+					TweenLite.delayedCall(sObj.WildReels.length + sObj.WinnerLines.length, this.linesHolder.showWinnerLinesArr, [sObj, (sObj.Bonus == true) ? false : true]);
+				}
+				else
+				{
+					this.linesHolder.showWinnerLinesArr(sObj, (sObj.Bonus == true) ? false : true);
+				}
+				
+				
+				if (GameSettings.MULTIPLE_WINS && sObj.BulkDepth > 2)
+				{
+					addMultipleWins(sObj.BulkDepth);
+				}
 			
 			
 			TweenLite.delayedCall(endDelay, checkForEndmsg, [sObj]);
 			
 			sObj = null;
-		
+			
 		}
 		
 		private function enableTouchOnWildStateEnd():void
@@ -460,8 +503,11 @@ package game
 				}
 			}
 			
-			this.footerHolder.spinEnabled = true;
-			this.footerHolder.touchable = true;
+			if (!(WILD_FREE_SPIN && obj.FreeSpins > 0))
+			{
+				this.footerHolder.spinEnabled = true;
+				this.footerHolder.touchable = true;
+			}
 			if (freeSpinsState && currentFreeSpinNum > 0 && (currentFreeSpinNum) != freeSpinsAmount)
 			{
 				footerHolder.autoSpinAmount = 999;
@@ -1086,6 +1132,7 @@ package game
 			
 			if (hideFooter)
 			{
+				//footerHolder.touchable = false;
 				TweenLite.to(footerHolder, 0.5, {autoAlpha: 0});
 			}
 		
@@ -1100,6 +1147,7 @@ package game
 				TweenLite.to(linesHolder, 0.5, {autoAlpha: 1});
 				TweenLite.to(linesHolder.frameHolder, 0.5, {autoAlpha: 1});
 				TweenLite.to(footerHolder, 0.5, {autoAlpha: 1});
+				//footerHolder.touchable = true;
 			}
 			
 			if (bonusHolder != null)
@@ -1240,6 +1288,22 @@ package game
 			}
 			
 			GoogleAnalytics._sendScreenView('Slot main screen');
+		}
+		
+		
+		
+		public function addMultipleWins(xNum):void 
+		{
+			multipleWins = new MultipleWins(xNum);
+			addChild(multipleWins);
+		}
+		public function removeMultipleWins():void 
+		{
+			if (multipleWins == null) return;
+			
+			multipleWins.destroyALL();
+			StaticGUI.safeRemoveChild(multipleWins, true);
+			multipleWins = null;
 		}
 	
 	}

@@ -169,6 +169,9 @@
 					GameSettings.BONUSES_AR = [];
 					
 					
+					GameSettings.PAYTABLE_AR = socketObject.IM.PayTable;
+					
+					
 					Root.Key = Hex.toArray(socketObject.IM.Key);
 					
 					

@@ -107,10 +107,10 @@
 			var stageScaleY:Number = parseFloat(Number(stage.stageHeight / 750).toFixed(1));
 			
 			
-			bgImg.scaleX = bgImg.scaleY = /*gameHolder.scaleX = gameHolder.scaleY =*/ (stageScaleX > stageScaleY) ? stageScaleY : stageScaleX;
+			bgImg.scaleX = bgImg.scaleY = gameHolder.scaleX = gameHolder.scaleY = (stageScaleX > stageScaleY) ? stageScaleY : stageScaleX;
 			
-			if (gameHolder.scaleX < .9) {
-				bgImg.scaleX = bgImg.scaleY /*= gameHolder.scaleX = gameHolder.scaleY*/ = .9;
+			if (gameHolder.scaleX < 1) {
+				bgImg.scaleX = bgImg.scaleY = gameHolder.scaleX = gameHolder.scaleY = 1;
 			}
 			
 			

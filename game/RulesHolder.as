@@ -90,8 +90,59 @@ package game
 			betAmount = bet;
 			prizesAr = Root.prizesAr;
 			scoresArr = [[10, 30, 100], [10, 30, 100], [20, 50, 200], [40, 100, 500], [40, 100, 500], [10, 50, 200, 3000], [15, 100, 500], [100]];
-			scoresPositionsArr = [new Point(145,90), new Point(-240, 90), new Point(145,-25), new Point(-240,-25), new Point(145,-130), new Point(-240,-150), new Point(10,-30), new Point(10, 145)];
+			scoresArr = shekvecaAr(GameSettings.PAYTABLE_AR);
+			scoresPositionsArr;
+			//scoresPositionsArr = [new Point(265,-43), new Point(85,-43), new Point(-100,-43), new Point(-285,-43), new Point(265,-150), new Point(-100,-150), new Point(-285,-150), new Point(85,-150)];
 			this.addEventListener(Event.ADDED_TO_STAGE, added);
+		}
+		
+		private function shekvecaAr(paytableAr:Array):Array 
+		{
+			if (!GameSettings.PAYTABLE_SHEKVECA)
+			{
+				return paytableAr;
+			}
+			var cnt:int;
+			var removeIndexesAR:Array = [];
+			for (var i:int = 0; i < paytableAr.length-1; i++) 
+			{
+				cnt = 0;
+				for (var j:int = 0; j < 4; j++) 
+				{
+					if (paytableAr[i][j] == paytableAr[i + 1][j])
+					{
+						cnt++;
+					}
+				}
+				if (cnt != 4)
+				{
+					cnt = 0;
+					for (var l:int = 0; l < paytableAr[i].length; l++) 
+					{
+						if (paytableAr[i][l] == 0)
+						{
+							cnt ++;
+						}
+					}
+				}
+				if (cnt == 4)
+				{
+					removeIndexesAR.push(i);
+				}
+				
+				
+			}
+			
+			var newAr:Array = [];
+			for (var k:int = 0; k <paytableAr.length ; k++) 
+			{
+				if (removeIndexesAR.indexOf(k) == -1)
+				{
+					newAr.push(paytableAr[k]);
+				}
+			}
+			
+			return newAr;
 		}
 		
 		private function added(e:Event):void 
@@ -144,17 +195,17 @@ package game
 			addChild(pagesCont);
 			
 			prev_btn = new MyButton(Assets.getAtlas("paytableAssetsImg", "paytableAssetsXml").getTextures("backBtn"), "CC");
-			prev_btn.x = -105;
+			prev_btn.x = -95;
 			prev_btn.y = 195;
 			addChild(prev_btn);
 			
 			back_btn = new MyButton(Assets.getAtlas("paytableAssetsImg", "paytableAssetsXml").getTextures("togameBtn"), "CC");
-			back_btn.x = 0;
+			back_btn.x = 10;
 			back_btn.y = prev_btn.y;
 			addChild(back_btn);
 			
 			next_btn = new MyButton(Assets.getAtlas("paytableAssetsImg", "paytableAssetsXml").getTextures("nextBtn"), "CC");
-			next_btn.x = 105;
+			next_btn.x = 115;
 			next_btn.y = prev_btn.y-1;
 			addChild(next_btn);
 			
@@ -210,8 +261,8 @@ package game
 				else
 				{
 					count++;
-					if (count == 4)
-					count++;
+					//if (count == 4)
+					//count++;
 					setPage(count);
 				}
 			}
@@ -225,8 +276,8 @@ package game
 				else
 				{
 					count--;
-					if (count == 4)
-					count--;
+					//if (count == 4)
+					//count--;
 					setPage(count);
 				}
 			}
@@ -254,17 +305,15 @@ package game
 			
 			pageBgTexture = Assets.getTexture("paytableBg" + String(num));
 			pageBg = new Image(pageBgTexture);
-			if (num == 4)
-			{
-				pageBg.y -= 30;
-			}
+			pageBg.y += 7;
+
 			pageBg.alignPivot(Align.CENTER, Align.CENTER);
 			pagesCont.addChild(pageBg);
 			
 			clearPage();
 			if (num == 1)
 			{
-				
+				scoresPositionsArr = GameSettings.POSITIONS_AR;
 				gadaxdaAr = [];
 				var scoreString:String;
 				var numsTxt:TextFieldTextRenderer;
@@ -272,12 +321,17 @@ package game
 				for (var j:int = 0; j < scoresArr.length; j++) 
 				{
 					scoreString = "";
+					
 					for (var k:int = 0; k < scoresArr[j].length; k++) 
 					{
-						scoreString += (j == 7 ? String(3) : String(numAr[k])) + '<font color="#ffffff"> •    ' + String(Number(scoresArr[j][scoresArr[j].length-k-1]) * betAmount) + "</font><br/>";
+						if (scoresArr[j][scoresArr[j].length - k - 1] == 0)
+						{
+							continue;
+						}
+						scoreString += (String(numAr[k])) + '<font color="#ffffff"> • ' + String(Number(scoresArr[j][scoresArr[j].length-k-1]) * betAmount) + "</font><br/>";
 					}
 					
-					numsTxt = returnTFRenderer(scoreString, 200, 100, scoresPositionsArr[j].x, scoresPositionsArr[j].y, "_myriadProBold", j==6?22:19, TextFormatAlign.LEFT, 0xfba90c, $textStroke);
+					numsTxt = returnTFRenderer(scoreString, 200, 100, scoresPositionsArr[j][0], scoresPositionsArr[j][1], "_myriadProBold", 19, TextFormatAlign.LEFT, 0xfba90c, $textStroke);
 					gadaxdaAr.push(numsTxt);
 					pagesCont.addChild(numsTxt);
 				}

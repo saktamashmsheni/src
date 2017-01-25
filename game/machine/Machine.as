@@ -1,5 +1,6 @@
 package game.machine 
 {
+	import caurina.transitions.AuxFunctions;
 	import com.greensock.easing.Back;
 	import com.greensock.easing.Expo;
 	import com.greensock.TweenLite;
@@ -131,22 +132,24 @@ package game.machine
 			
 			var iconBg:Image = new Image(Assets.getTexture("slot_icons_bg"));
 			iconBg.x = -53;
-			iconBg.y = 26;
+			iconBg.y = 23;
 			addChild(iconBg);
 			iconBg = null;
 			
 			
-			var bg:Image = new Image(Assets.getTexture("machineBg"));
-			bg.x = -133;
-			bg.y = -43;
-			addChild(bg);
-			bg = null;
+			
 			
 			iconPool = new SpritePool(Icon, 60);
 			iconsHolder = new IconsHolder();
 			iconsHolder.x = GameSettings.ICON_HOLDER_POS[GameSettings.SYS_NUM][0];//-34;
 			iconsHolder.y = GameSettings.ICON_HOLDER_POS[GameSettings.SYS_NUM][1];//40;
 			this.addChild(iconsHolder);
+			
+			var bg:Image = new Image(Assets.getTexture("machineBg"));
+			bg.x = -133;
+			bg.y = -43;
+			addChild(bg);
+			bg = null;
 			
 			iMask = new Quad(775, 441);
 			iMask.color = Color.RED;
@@ -183,7 +186,8 @@ package game.machine
 					} while (used[itm])
 					used[itm] = 1;*/
 					this.iconsHolder["s" + i].map["i" + j] = iconPool.getSprite();
-					this.iconsHolder["s" + i].map["i" + j].setIcon(((i - 1) * REEL_Y_COUNT + j - 1) % GameSettings.TOTAL_ICONS);
+					//this.iconsHolder["s" + i].map["i" + j].setIcon(((i - 1) * REEL_Y_COUNT + j - 1) % GameSettings.TOTAL_ICONS);
+					this.iconsHolder["s" + i].map["i" + j].setIcon(Math.floor(i-1));
 					this.iconsHolder["s" + i].map["i" + j].y = (REEL_Y_COUNT - j) * Ydistance;
 					this.iconsHolder["s" + i].addChild(this.iconsHolder["s" + i].map["i" + j]);
 					lastIconsArray.push(this.iconsHolder["s" + i].map["i" + j]);
@@ -523,7 +527,7 @@ package game.machine
 				
 				if (isScatterIcon(obj.Reels[line-1][REEL_Y_COUNT - num - 1]) && fastStop == false)
 				{
-					TweenLite.delayedCall(line*0.030, Root.soundManager.schedule, ["Star_0" + String(line),0.8]);
+					TweenLite.delayedCall(line*0.030, Root.soundManager.schedule, ["Star_0" + String(line),0.5]);
 				}
 				
 				if (num != REEL_Y_COUNT)
@@ -670,11 +674,11 @@ package game.machine
 		}
 		
 		
-		public function resetAnimation():void
+		public function resetAnimation(includeBonus:Boolean = false):void
 		{
 			for (var i:int = 0; i < lastIconsArray.length; i++) 
 			{
-				if (lastIconsArray[i].isBonusLike == false)
+				if (lastIconsArray[i].isBonusLike == false || (includeBonus && lastIconsArray[i].isBonusLike == true))
 				{
 					Icon(lastIconsArray[i]).stopIcon();
 				}
@@ -696,6 +700,7 @@ package game.machine
 			
 			var alreadyPlayinAr:Array = [];
 			var _ic:Icon;
+			var _ic2:Icon;
 			var curLineIndAr:Array;
 			
 			
@@ -715,7 +720,6 @@ package game.machine
 					
 					_ic = getIconByKJ(k + 1, curLine[k] - 1);
 					
-					
 					if ((obj.Reels[k][curLine[k] - 1] == (obj.WinnerLines[i][1]) || isWildIcon(obj.Reels[k][curLine[k] - 1])) && alreadyPlayinAr.indexOf(_ic.KJ) == -1)
 					{
 						_ic.playIcon();
@@ -730,7 +734,10 @@ package game.machine
 			curLineIndAr = null;
 			alreadyPlayinAr = null;
 			
-			Root.soundManager.schedule("RegularWinSnd", 1);
+			if (GameSettings.PREFERENCES.machine.regularWinSoundEnabled)
+			{
+				Root.soundManager.schedule("RegularWinSnd", 1);
+			}
 		}
 		
 		
@@ -750,7 +757,7 @@ package game.machine
 			{
 				
 				
-				resetAnimation();
+				resetAnimation(finalStop);
 				
 				curLine = Lines.lineNumAr[i];
 				
@@ -935,13 +942,25 @@ package game.machine
 			{
 				return;
 			}
+			
+			var delCount:int = 0;
+			
 			for (var i:int = 0; i < wildsAr.length; i++) 
 			{
 				ic = getIconByKJ(wildsAr[i][0] + 1, wildsAr[i][1]);
 				ic.modifiedWildsAnimation();
 				if (isWildIcon(ic.ID) == false)
 				{
-					ic.setIcon(newWildInd);
+					if (GameHolder.WILD_FREE_SPIN)
+					{
+						TweenLite.delayedCall(delCount, ic.setIcon, [newWildInd]);
+						TweenLite.delayedCall(delCount, Root.soundManager.PlaySound, ['stopLine2']);
+						delCount ++;
+					}
+					else
+					{
+						ic.setIcon(newWildInd);
+					}
 					obj.Reels[wildsAr[i][0]][wildsAr[i][1]] = newWildInd;
 				}
 			}

@@ -66,7 +66,8 @@ package game.machine {
 			
 			//flashSprite.graphics.beginFill(0xCCCCCC);
 			
-			flashSprite.graphics.lineStyle(6, 0xff0000, 1);
+			//flashSprite.graphics.lineStyle(6, 0xff0000, 1);
+			flashSprite.graphics.lineStyle(6, GameSettings.PREFERENCES.machine.lineColor, 1);
 			
 			if (zz[0] == 1) {
 				flashSprite.graphics.moveTo(xArray[0], yArray[0]);

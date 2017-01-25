@@ -182,8 +182,27 @@ package {
 		public static var allWildSheetXml:Class;
 		public static var iconsAnimationImg:Class;
 		public static var iconsAnimationXml:Class;
+		public static var icon0Img:Class;
+		public static var icon0Xml:Class;
 		public static var icon1Img:Class;
 		public static var icon1Xml:Class;
+		public static var icon2Img:Class;
+		public static var icon2Xml:Class;
+		public static var icon3Img:Class;
+		public static var icon3Xml:Class;
+		public static var icon4Img:Class;
+		public static var icon4Xml:Class;
+		public static var icon5Img:Class;
+		public static var icon5Xml:Class;
+		public static var icon6Img:Class;
+		public static var icon6Xml:Class;
+		public static var icon7Img:Class;
+		public static var icon7Xml:Class;
+		public static var icon8Img:Class;
+		public static var icon8Xml:Class;
+		public static var icon9Img:Class;
+		public static var icon9Xml:Class;
+		
 		public static var staticAnim:Class;
 		public static var staticAnimXml:Class;
 		
@@ -251,6 +270,10 @@ package {
 		public static var mainSlot:Class;
 		public static var mainSlotXml:Class;
 		
+		
+		//multiple wins
+		public static var xWinsSheet:Class;
+		public static var xWinsSheetXml:Class;
 		
 		
 		

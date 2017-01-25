@@ -100,7 +100,7 @@ package game.footer
 				testCreditBtn.y = 0;
 				testCreditBtn.addEventListener(MouseEvent.CLICK, onButsClick);
 				addChild(testCreditBtn);
-				creditTxt = StaticGUI._creatTextFieldTextRenderer(testCreditBtn, '<font color="#ffffff">1</font> CREDIT = <font color="#f1bc45">'+(Number(typeAr[i]) / 100).toFixed(2)+"</font> GEL", 0, -5, 180, 17, '_BebasNeue', 18, 0xffffff, $textShadow, TextFormatAlign.CENTER, true);
+				creditTxt = StaticGUI._creatTextFieldTextRenderer(testCreditBtn, '<font color="#ffffff">1</font> CREDIT = <font color="#f1bc45">'+(Number(typeAr[i]) / 100).toFixed(2)+"</font> GEL", 0, -3, 180, 17, '_BebasNeue', 18, 0xffffff, $textShadow, TextFormatAlign.CENTER, true);
 				StaticGUI.setAlignPivot(creditTxt);
 				mcAr.push(testCreditBtn);
 				

@@ -33,7 +33,7 @@ package game.machine {
 			//_setUpFrames(10);
 		}
 		
-		private function _setUpFrames(index:uint):void {
+		private function _setUpFrames(index:uint, isBonusLike:Boolean = false):void {
 			
 			
 			//for (var i:int = 0; i < 15; i++) {
@@ -48,6 +48,8 @@ package game.machine {
 				testFrame.stop();*/
 					//Starling.juggler.add(testFrame);
 				lineTest = new Line;
+				lineTest.thickness = 6;
+				//lineTest.color = Color.BLACK;
 				lineTest.lineTo(rectSize[0], 0);
 				lineTest.lineTo(0, rectSize[1]);
 				lineTest.lineTo(-rectSize[0], 0);
@@ -59,6 +61,8 @@ package game.machine {
 
 				lineTest.y = int(index / 5) * setXY[1];
 				addChild(lineTest);
+				
+				lineTest.isBonusLike = isBonusLike;
 				
 				activeFramesAr.push(lineTest);
 			//}
@@ -85,7 +89,7 @@ package game.machine {
 		}
 		
 		
-		public function _disposeFrames():void {
+		public function _disposeFrames(includeBonus:Boolean = false):void {
 			/*if (lineTest) {
 				lineTest.removeChildren();
 				lineTest.dispose();
@@ -96,11 +100,27 @@ package game.machine {
 			
 			//lineTest = null;
 			
+			var newAr:Array = [];
+			
 			for (var i:int = 0; i < activeFramesAr.length; i++) 
 			{
+				if (includeBonus == false && activeFramesAr[i].isBonusLike == true)
+				{
+					newAr.push(activeFramesAr[i]);
+					continue;
+				}
+				
 				StaticGUI.safeRemoveChild(activeFramesAr[i], true);
 			}
+			
 			activeFramesAr = [];
+			
+			for (var j:int = 0; j < newAr.length; j++) 
+			{
+				activeFramesAr.push(newAr[j]);
+			}
+			
+			newAr = null;
 		}
 		
 		public function initIconFrameHolder(icludeBonus:Boolean = true):void {
@@ -116,7 +136,7 @@ package game.machine {
 				Starling.juggler.remove(testFrame);
 			}*/
 			
-			_disposeFrames();
+			_disposeFrames(icludeBonus);
 		}
 		
 		public function setFrames(obj:Object, index:int, arr:Array):void {
@@ -142,6 +162,25 @@ package game.machine {
 			}
 		
 		}
+		
+		
+		public function setFrames2():void {
+			var num:int;
+			var curLine:Array;
+			var frameAr:Array = [];
+			
+			initIconFrameHolder(false);
+			
+			for (var i:int = 0; i < 15; i++) 
+			{
+				_setUpFrames(i);
+			}
+			
+			
+			
+		
+		}
+		
 		
 		public function calcCurLineIndexesAr(obj:Object, index:int):Array {
 			var indexesAr:Array;
@@ -177,6 +216,12 @@ package game.machine {
 							break;
 						}
 					}
+					
+					/*//es shemowmebaa tu sxva simboloa momgebian simboloebs shoris
+					if (indexesAr.length == obj.WinnerLines[index][2])
+					{
+						continue;
+					}*/
 					
 					indexesAr.push(k);
 				}
@@ -235,6 +280,7 @@ package game.machine {
 			//indexebis mixedvit framebis ageba da gamochena 
 			for (var i:int = 0; i < indexesAr.length; i++)
 			{
+				_setUpFrames(indexesAr[i] - 1, true);
 				/*testFrame = getChildByName("frame_icon" + String(indexesAr[i])) as iconFrame;
 				Starling.juggler.add(testFrame);
 				testFrame.play();

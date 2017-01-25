@@ -6,20 +6,32 @@ package
 	 */
 	public class GameSettings 
 	{
-		
 		public static var CONFIG_JSON:Object;
 		
 		public static var GAME_ID:int;
-		public static var GAME_NAME:String = "20 slice fruit";
-		//public static var GAME_NAME:String = "acid fruits";
+		//public static var GAME_NAME:String = "20 slice fruit";
+		//public static var GAME_NAME:String = "40 slice fruit";
+		public static var GAME_NAME:String = "star fruit";
 		//public static var GAME_NAME:String = "dragon fruit";
+		//public static var GAME_NAME:String = "mammoth";
+		//public static var GAME_NAME:String = "frozen fruits";
 		public static var PATH:String = GAME_NAME + "/"; // saxeli da path meqneba albat shesacvleli dinamiuri ro iyos
+		
+		public static var MULTIPLE_WINS:Boolean;
+		
+		
+		
+		public static var WINNER_LINE_START_AND_DELAY:Number;
+		public static var ANIMATE_LINE_DELAY:Number;
+		
 		
 		public static var PREFERENCES:Object;
 		
 		public static var SYS_NUM:int = 0;
 		public static var PAYTABLE_AR:Array = [];
 		public static var PAYTABLE_TOTAL_PAGES:int;
+		public static var POSITIONS_AR:Array;
+		public static var PAYTABLE_SHEKVECA:Boolean;
 		
 		public static var BALANCE:Number;
 		
@@ -31,11 +43,20 @@ package
 		public static var LINES_VISIBILITY:Boolean;
 		public static var LINES_COUNT_CONFIG:Array;
 		
+		public static var ALL_ICONS_OFFSET_X:int;
+		public static var ALL_ICONS_OFFSET_Y:int;
+		public static var FRAMES_OFFSET_X:int;
+		public static var FRAMES_OFFSET_Y:int;
+		public static var LINEMAST_OFFSET_X:int;
+		public static var LINEMAST_OFFSET_Y:int;
+		
 		public static var BET_INDEX:int;
 		public static var TOTAL_BET:int;
 		public static var BETS_AR:Array;
 		
 		public static var TOTAL_ICONS:int;
+		public static var ICONS_OFF_Y:int;
+		public static var ICONS_OFF_X:int;
 		
 		public static var SCATTERS_AR:Array;
 		public static var WILDS_AR:Array;
@@ -59,14 +80,16 @@ package
 		public static const REEL_TYPE:Array = [[3, 3], [5, 3], [5, 4]];
 		public static const MASHINE_OPTIONS:Array = [{xDist:154, yDist:145},
 													 {xDist:154, yDist:145},
-												     {xDist:155, yDist:105 } ]
+												     {xDist:155, yDist:108 } ]
 												   
 												   
-		public static const ICON_HOLDER_POS:Vector.<Array> = new <Array>[[-34,40],[-34,40],[-34,20]];
+		public static const ICON_HOLDER_POS:Vector.<Array> = new <Array>[[-34,40],[-43,40],[-34,20]];
 		
-		public static const ICONS_SIZE:Vector.<Array> = new <Array>[[120,120],[135,135],[125,125]];
+		public static const ICONS_SIZE:Vector.<Array> = new <Array>[[120,120],[135,135],[125,123]];
+		public static var SCALE_ICONS:Number;
 		
-		public static const ICONSFRAME_SIZE:Vector.<Array> = new <Array>[[130,130],[130,130],[130,100]];
+		
+		public static const ICONSFRAME_SIZE:Vector.<Array> = new <Array>[[130,130],[130,135],[125,105]];
 		public static const LINEMASK_LOOP:Vector.<uint> = new <uint>[9,15,20];
 		public static const LINEMASK_STEPPER:Vector.<uint> = new <uint>[3,5,5];
 		public static const LINEMASK_STEP_X_Y:Vector.<Array> = new <Array>[[154,145],[154,145],[154,105]];
@@ -85,7 +108,7 @@ package
 												   
 		
 		//machine and icon settings
-		
+		public static var HIDE_ICON:Boolean = true;
 		public static var ICON_ANIM_ENABLED:Boolean = true;
 		public static var ICON_ANIM_LOOP:Boolean = false;
 		public static var ICON_ANIM_DELAY:Number = 1;
@@ -98,6 +121,12 @@ package
 	    public static var STATIC_ANIM_ENABLED:Boolean = true;
 		public static var STATIC_ANIM_LOOP:Boolean = true;
 		public static var STATIC_FAST_REMOVE:Boolean = true;
+		
+		public static var WILD_ANIM_ENABLED:Boolean;
+		public static var WILD_ANIM_LOOP:Boolean;
+		public static var WILD_HOVER_ENABLED:Boolean;
+		public static var WILD_HOVER_LOOP:Boolean;
+		
 		
 		
 		
