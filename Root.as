@@ -18,6 +18,8 @@
 		//public static var port:Number = 8804; //dragon fruit
 		public static var port:Number = 8805; //star fruit
 		
+		
+		
 		public static var TESTING:Boolean = true;
 		public static var Key:ByteArray = Hex.toArray(Hex.fromString(CONFIG::KEY));
 		public static var Key1:ByteArray = Hex.toArray(Hex.fromString(CONFIG::KEY));

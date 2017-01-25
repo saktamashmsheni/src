@@ -28,6 +28,7 @@ package game {
 		private var bigWinImg:Image;
 		public var _win:int;
 		public var _start:int;
+		//public static var COEF:int = 250;
 		public static var COEF:int = 250;
 		
 		public function BigWin(winamount:int) {

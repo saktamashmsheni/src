@@ -943,7 +943,7 @@ package game.machine
 				return;
 			}
 			
-			var delCount:int = 0;
+			var delCount:Number = 0;
 			
 			for (var i:int = 0; i < wildsAr.length; i++) 
 			{
@@ -955,7 +955,7 @@ package game.machine
 					{
 						TweenLite.delayedCall(delCount, ic.setIcon, [newWildInd]);
 						TweenLite.delayedCall(delCount, Root.soundManager.PlaySound, ['stopLine2']);
-						delCount ++;
+						delCount += 0.5;
 					}
 					else
 					{
@@ -966,6 +966,33 @@ package game.machine
 			}
 			
 			trace(obj.Reels);
+		}
+		
+		public function getWildSpinsDelCount(wildsAr:Array, obj:Object):Number 
+		{
+			var ic:Icon;
+			
+			var newWildInd:int = getModifierWild();
+			if (newWildInd == -1)
+			{
+				return 0;
+			}
+			
+			var delCount:Number = 0;
+			
+			for (var i:int = 0; i < wildsAr.length; i++) 
+			{
+				ic = getIconByKJ(wildsAr[i][0] + 1, wildsAr[i][1]);
+				if (isWildIcon(ic.ID) == false)
+				{
+					if (GameHolder.WILD_FREE_SPIN)
+					{
+						delCount += 0.5;
+					}
+				}
+			}
+			
+			return delCount;
 		}
 		
 		

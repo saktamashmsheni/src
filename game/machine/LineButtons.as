@@ -6,6 +6,7 @@ package game.machine {
 	import feathers.core.ToggleGroup;
 	import feathers.skins.ImageSkin;
 	import flash.text.TextFormatAlign;
+	import game.GameHolder;
 	import game.footer.FooterHolder;
 	import starling.core.Starling;
 	import starling.display.Image;
@@ -146,6 +147,10 @@ package game.machine {
 				this.touchable = false;
 				_selectLine($textArr.length-1);
 			}
+			else
+			{
+				_selectLine(GameSettings.LINES_COUNT_CONFIG.indexOf(GameSettings.ACT_LINES));
+			}
 		}
 		
 		
@@ -176,6 +181,8 @@ package game.machine {
 			
 			$radio = Radio(this.getChildByName('radio_' + $group.selectedIndex +'_l'));
 			$radio.isSelected = true;
+			
+			GameHolder.cont.footerHolder.updateLines(GameSettings.LINES_COUNT_CONFIG[$group.selectedIndex]);
 		}
 	}
 }

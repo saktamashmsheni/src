@@ -164,7 +164,8 @@ package game.machine
 				}
 				if (Machine.isWildIcon(ID))
 				{
-					iconAnimationMc.loop = true;
+					//iconAnimationMc.loop = true;
+					iconAnimationMc.loop = GameSettings.WILD_ANIM_LOOP;
 					iconAnimationMc.addEventListener(Event.COMPLETE, onIconAnimationComplete);
 				}
 				//iconAnimationMc.addEventListener(Event.COMPLETE, onIconAnimationComplete);

@@ -113,14 +113,19 @@ package game
 					{
 						cnt++;
 					}
+					if (GameSettings.GAME_NAME == "star fruit" && i == 4)
+					{
+						cnt = 0;
+					}
 				}
 				if (cnt != 4)
 				{
 					cnt = 0;
 					for (var l:int = 0; l < paytableAr[i].length; l++) 
 					{
-						if (paytableAr[i][l] == 0)
+						if (int(paytableAr[i][l]) == 0)
 						{
+							trace("asdasdasd");
 							cnt ++;
 						}
 					}

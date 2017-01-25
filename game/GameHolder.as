@@ -204,6 +204,7 @@ package game
 			
 			var sObj:Object = e.params.socketObject;
 			var wildSpecNum:int = -1;
+			var wildSpinDel:Number = 0;
 			endDelay = 0;
 			
 			this.footerHolder.sendSpinSecureCount = 0;
@@ -272,6 +273,16 @@ package game
 				GameHolder.gameState = GameHolder.FREE_SPINS_STATE;
 			}
 			
+			
+			
+			if (WILD_FREE_SPIN && sObj.FreeSpins > 0)
+			{
+				wildSpinDel = machineHolder.getWildSpinsDelCount(sObj.WildReels, sObj);
+			}
+			
+			
+			
+			
 			if (freeSpinsState && (currentFreeSpinNum) == freeSpinsAmount)
 			{
 				footerHolder.autoSpinAmount = 0;
@@ -327,8 +338,8 @@ package game
 				if (BigWin.shouldShow(footerHolder.totalBetAmount, sObj.TotalWin) == true)
 				{
 					bigWinAnim = new BigWin(sObj.TotalWin);
-					this.addChild(bigWinAnim);
 					bigWinAnim.x = GAME_OFFSET_X;
+					TweenLite.delayedCall(wildSpinDel, this.addChild, [bigWinAnim]);
 					
 					collectDel = 7
 				}
@@ -337,7 +348,7 @@ package game
 				{
 					var winStr:String = "winSnd";
 					winStr += String(sObj.WinnerLines[0][1] + 1);
-					Root.soundManager.schedule(winStr, 1);
+					TweenLite.delayedCall(wildSpinDel, Root.soundManager.schedule, [winStr, 1]);
 				}
 				
 				if (gameState == AUTOPLAY_STATE)
@@ -362,8 +373,8 @@ package game
 				footerHolder.spinEnabled = false;
 				footerHolder.touchable = false;
 				//activate old messages
-				endDelay += (sObj.WildReels.length + sObj.WinnerLines.length * 1.2);
-				TweenLite.delayedCall(sObj.WildReels.length + sObj.WinnerLines.length * 1.2, IniClass.cont.socketAnaliser.activateOldMessages);
+				endDelay += (wildSpinDel + sObj.WinnerLines.length);
+				TweenLite.delayedCall(wildSpinDel + sObj.WinnerLines.length, IniClass.cont.socketAnaliser.activateOldMessages);
 			}
 			else
 			{
@@ -382,7 +393,7 @@ package game
 			
 			if (BigWin.shouldShow(footerHolder.totalBetAmount, sObj.TotalWin) == true)
 			{
-				endDelay = 8.2;
+				endDelay = 8.2 + wildSpinDel;
 			}
 			
 			
@@ -435,7 +446,7 @@ package game
 				//winner lines
 				if (WILD_FREE_SPIN && sObj.FreeSpins > 0)
 				{
-					TweenLite.delayedCall(sObj.WildReels.length + sObj.WinnerLines.length, this.linesHolder.showWinnerLinesArr, [sObj, (sObj.Bonus == true) ? false : true]);
+					TweenLite.delayedCall(wildSpinDel, this.linesHolder.showWinnerLinesArr, [sObj, (sObj.Bonus == true) ? false : true]);
 				}
 				else
 				{

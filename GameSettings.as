@@ -9,13 +9,15 @@ package
 		public static var CONFIG_JSON:Object;
 		
 		public static var GAME_ID:int;
-		//public static var GAME_NAME:String = "20 slice fruit";
-		//public static var GAME_NAME:String = "40 slice fruit";
-		public static var GAME_NAME:String = "star fruit";
-		//public static var GAME_NAME:String = "dragon fruit";
-		//public static var GAME_NAME:String = "mammoth";
-		//public static var GAME_NAME:String = "frozen fruits";
-		public static var PATH:String = GAME_NAME + "/"; // saxeli da path meqneba albat shesacvleli dinamiuri ro iyos
+		public static var GAME_NAME:String = "";
+		public static var PATH:String;
+		
+		public static var GAMES_AND_PORTS:Array = [["frozen fruits", 8801], 
+												   ["40 slice fruit", 8802], 
+												   ["20 slice fruit", 8803], 
+												   ["dragon fruit", 8804],
+												   ["star fruit", 8805]
+												   ];
 		
 		public static var MULTIPLE_WINS:Boolean;
 		

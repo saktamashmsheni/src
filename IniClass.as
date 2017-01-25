@@ -66,14 +66,8 @@ package {
 			socketAnaliser = new SocketAnaliser();
 			socketAnaliser.init();
 			//socketAnaliser.addEventListener(GameEvents.CONNECTED, whenConnected);
-			Root.connectToServer();
 			
-		}
-		
-		public function startLoadAssets():void 
-		{
-			if (Root.TESTING == true){/*GameSettings.PATH = "";*/}
-			else { GameSettings.PATH = this.parent.loaderInfo.parameters['AssetPath'] }
+			
 			
 			if (Root.TESTING == false)
 			{
@@ -83,12 +77,20 @@ package {
 				Root.lang = this.parent.loaderInfo.parameters['Lang'];
 				if (Root.lang == "ka") {Root.lang = "ge"};
 				Root.userRoomSession = this.parent.loaderInfo.parameters['SessionId'];
+				
+				GameSettings.GAME_NAME = getGameName(Root.port);
+				GameSettings.PATH = "/" + this.parent.loaderInfo.parameters['AssetPath'] + GameSettings.GAME_NAME + "/";
+				
 				/*ExternalInterface.call("console.log", Root.ip);
 				ExternalInterface.call("console.log", Root.port);
 				ExternalInterface.call("console.log", Root.userRoomId);
 				ExternalInterface.call("console.log", Root.lang);
 				ExternalInterface.call("console.log", Root.userRoomSession);*/
 			}else{
+				
+				GameSettings.GAME_NAME = getGameName(Root.port);
+				GameSettings.PATH = GameSettings.GAME_NAME + "/";
+				
 				//var statsClass:Class = getDefinitionByName("net.hires.debug.Stats") as Class;
 				//this.addChild(new statsClass);
 				
@@ -98,6 +100,18 @@ package {
 				}*/
 			}
 			
+			
+			
+			Root.connectToServer();
+			
+		}
+		
+		public function startLoadAssets():void 
+		{
+			/*if (Root.TESTING == true){}
+			else { GameSettings.PATH = this.parent.loaderInfo.parameters['AssetPath'] }*/
+			
+			
 			assLoadMan.setLoadAssets(GameSettings.PATH + "config.json", AssetsLoaderManager.CONFIGURATION, AssetsLoaderManager.JsonType);
 			assLoadMan.setLoadAssets(GameSettings.PATH + "ItemsLibrary.swf", AssetsLoaderManager.ITEMS_LIBRARY, AssetsLoaderManager.SWFType);
 			assLoadMan.setLoadAssets(GameSettings.PATH + "FontsLibrary.swf", AssetsLoaderManager.FONTS_LIBRARY, AssetsLoaderManager.SWFType);
@@ -105,6 +119,21 @@ package {
 			assLoadMan.setLoadAssets(GameSettings.PATH + "IconsLibrary.swf", AssetsLoaderManager.ICONS_LIBRARY, AssetsLoaderManager.SWFType);
 			assLoadMan.setLoadAssets(GameSettings.PATH + "xml/" + Root.lang + ".xml", AssetsLoaderManager.XML_MUI_PACK, AssetsLoaderManager.XMLType);
 			assLoadMan.startLoadAssets();
+		}
+		
+		
+		private function getGameName(port:Number):String 
+		{
+			for (var i:int = 0; i < GameSettings.GAMES_AND_PORTS.length; i++) 
+			{
+				if (GameSettings.GAMES_AND_PORTS[i][1] == port)
+				{
+					return GameSettings.GAMES_AND_PORTS[i][0];
+				}
+			}
+			
+			throw new Error("COULDNT FIND GAME NAME");
+			return "";
 		}
 		
 		public function currAssetLoaded(e:AssetsLoaderEvents):void {
