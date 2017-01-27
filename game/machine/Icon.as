@@ -2,6 +2,8 @@ package game.machine
 {
 	import com.greensock.TweenLite;
 	import com.greensock.TweenMax;
+	import com.greensock.easing.Back;
+	import com.greensock.easing.Elastic;
 	import com.utils.FastBlurFilter;
 	import com.utils.StaticGUI;
 	import flash.display.BitmapData;
@@ -24,6 +26,7 @@ package game.machine
 	import starling.textures.TextureAtlas;
 	import starling.textures.TextureSmoothing;
 	import starling.utils.Color;
+	import starling.utils.deg2rad;
 	/**
 	 * ...
 	 * @author George Chitaladze
@@ -301,9 +304,19 @@ package game.machine
 		
 		
 		
-		public function modifiedWildsAnimation():void
+		public function modifiedWildsAnimation(animType:int = -1):void
 		{
-			TweenMax.to(this, 0.2, {scale:1.2, x:this.x - this.width*0.1, y:this.y - this.height*0.1, yoyo:true, repeat:1});
+			if (animType == 3)
+			{
+				this.scaleX = this.scaleY = 0;
+				this.rotation = deg2rad(1680);
+				TweenMax.to(this, 1, {scale:1, rotation:deg2rad(0), x:this.x - this.width*0.1, y:this.y - this.height*0.1, ease:Back.easeOut});
+			}
+			else
+			{
+				TweenMax.to(this, 0.2, {scale:1.2, x:this.x - this.width*0.1, y:this.y - this.height*0.1, yoyo:true, repeat:1});
+			}
+			
 		}
 		
 		

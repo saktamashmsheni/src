@@ -275,6 +275,14 @@ package {
 		public static var xWinsSheet:Class;
 		public static var xWinsSheetXml:Class;
 		
+		//sideAnim
+		public static var sideAnim1:Class;
+		public static var sideAnim1Xml:Class;
+		public static var sideAnim2:Class;
+		public static var sideAnim2Xml:Class;
+		public static var sideAnim3:Class;
+		public static var sideAnim3Xml:Class;
+		
 		
 		
 		private static var gameTexturesDic:Dictionary = new Dictionary();

@@ -933,7 +933,7 @@ package game.machine
 		
 		
 		
-		public function modifyWildIcons(wildsAr:Array, obj:Object):void 
+		public function modifyWildIcons(wildsAr:Array, obj:Object, wildSpecNum:int):void 
 		{
 			var ic:Icon;
 			
@@ -948,7 +948,8 @@ package game.machine
 			for (var i:int = 0; i < wildsAr.length; i++) 
 			{
 				ic = getIconByKJ(wildsAr[i][0] + 1, wildsAr[i][1]);
-				ic.modifiedWildsAnimation();
+				//ic.modifiedWildsAnimation(wildSpecNum);
+				
 				if (isWildIcon(ic.ID) == false)
 				{
 					if (GameHolder.WILD_FREE_SPIN)
@@ -961,6 +962,7 @@ package game.machine
 					{
 						ic.setIcon(newWildInd);
 					}
+					ic.modifiedWildsAnimation(wildSpecNum);
 					obj.Reels[wildsAr[i][0]][wildsAr[i][1]] = newWildInd;
 				}
 			}

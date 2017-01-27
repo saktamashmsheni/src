@@ -114,8 +114,8 @@
 			}
 			
 			
-			gameHolder.x = int(stage.stageWidth / 2) + 100;
-			gameHolder.y = int(stage.stageHeight) / 2;
+			gameHolder.x = int(stage.stageWidth / 2) + GameSettings.PREFERENCES.game.OFF_X;
+			gameHolder.y = int(stage.stageHeight) / 2 + GameSettings.PREFERENCES.game.OFF_Y;
 			
 			bgImg.x = this.stage.stageWidth / 2;
 			bgImg.y = this.stage.stageHeight/ 2;

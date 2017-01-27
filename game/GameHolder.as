@@ -90,6 +90,7 @@ package game
 		static private const GAME_OFFSET_X:Number = 0;
 		private var multipleWins:MultipleWins;
 		private var endDelay:Number;
+		private var sideAnim_con:SideAnim;
 		public static var WILD_FREE_SPIN:Boolean;
 		public var leaderboardInfo_mc:LeaderboardInfo;
 		public var scatterWinMc:ScatterWinWindow;
@@ -197,7 +198,11 @@ package game
 			
 			//winsPopLoader();
 			
+			
+			
 		}
+		
+		
 		
 		
 		
@@ -281,6 +286,28 @@ package game
 			{
 				wildSpinDel = machineHolder.getWildSpinsDelCount(sObj.WildReels, sObj);
 			}
+			
+			
+			if (sObj.WildReels.length > 0)
+			{
+				TweenLite.delayedCall(2, machineHolder.modifyWildIcons, [sObj.WildReels, sObj, GameSettings.WILD_SPEC_TOP]);
+				endDelay += 1;
+				
+				if (GameSettings.WILD_SPEC_TOP == 3)
+				{
+					wildSpinDel = 3;
+					footerHolder.spinEnabled = false;
+					footerHolder.touchable = false;
+					
+					if (GameSettings.SIDE_ANIM)
+					{
+						addSideAnim();
+					}
+				}
+			}
+			
+			
+			
 			
 			
 			
@@ -381,7 +408,7 @@ package game
 			else
 			{
 				//activate old messages
-				TweenLite.delayedCall(0, IniClass.cont.socketAnaliser.activateOldMessages);
+				TweenLite.delayedCall(wildSpinDel, IniClass.cont.socketAnaliser.activateOldMessages);
 			}
 			
 			
@@ -431,11 +458,7 @@ package game
 			   
 			   
 			   
-			   if (sObj.WildReels.length > 0)
-				{
-					machineHolder.modifyWildIcons(sObj.WildReels, sObj)
-					endDelay += 1;
-				}
+			    
 				
 				
 				if (gameState == AUTOPLAY_STATE && sObj.WinnerLines.length > 0)
@@ -446,14 +469,14 @@ package game
 				
 		   
 				//winner lines
-				if (WILD_FREE_SPIN && sObj.FreeSpins > 0)
-				{
+				/*if (WILD_FREE_SPIN && sObj.FreeSpins > 0)
+				{*/
 					TweenLite.delayedCall(wildSpinDel, this.linesHolder.showWinnerLinesArr, [sObj, (sObj.Bonus == true) ? false : true]);
-				}
+				/*}
 				else
 				{
 					this.linesHolder.showWinnerLinesArr(sObj, (sObj.Bonus == true) ? false : true);
-				}
+				}*/
 				
 				
 				if (GameSettings.MULTIPLE_WINS && sObj.BulkDepth > 2)
@@ -1244,7 +1267,7 @@ package game
 				{
 					///wild
 					machineHolder.setWildStaticReels(obj.HandInfo.SpinResult.WildReels);
-					machineHolder.modifyWildIcons(obj.HandInfo.SpinResult.WildReels, obj.HandInfo.SpinResult)
+					machineHolder.modifyWildIcons(obj.HandInfo.SpinResult.WildReels, obj.HandInfo.SpinResult, GameSettings.WILD_SPEC_TOP)
 				}
 				
 			}
@@ -1317,6 +1340,22 @@ package game
 			multipleWins.destroyALL();
 			StaticGUI.safeRemoveChild(multipleWins, true);
 			multipleWins = null;
+		}
+		
+		
+		
+		public function addSideAnim():void
+		{
+			sideAnim_con = new SideAnim();
+			addChild(sideAnim_con);
+			sideAnim_con.x = 330;
+			sideAnim_con.y = -30;
+		}
+		
+		public function removeSideAnim():void
+		{
+			StaticGUI.safeRemoveChild(sideAnim_con);
+			sideAnim_con = null;
 		}
 	
 	}

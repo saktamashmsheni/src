@@ -21,6 +21,7 @@ package
 												   ];
 		
 		public static var MULTIPLE_WINS:Boolean;
+		public static var SIDE_ANIM:int = 0;
 		
 		public static var CHECK_FOR_WIN_LINE_LEN:Boolean = true;
 		
@@ -65,6 +66,7 @@ package
 		
 		public static var SCATTERS_AR:Array;
 		public static var WILDS_AR:Array;
+		public static var WILD_SPEC_TOP:int = -1;
 		public static var BONUSES_AR:Array;
 		
 		

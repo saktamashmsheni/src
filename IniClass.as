@@ -200,6 +200,15 @@ package {
 					Assets.xWinsSheetXml = $o.getDefinition("ItemsLib_xWinsSheetXml") as Class;
 				}
 				
+				if (GameSettings.SIDE_ANIM > 0)
+				{
+					for (var j:int = 0; j < GameSettings.SIDE_ANIM; j++) 
+					{
+						Assets["sideAnim" + String(j+1)] = $o.getDefinition("ItemsLib_sideAnim" + String(j+1)) as Class;
+						Assets["sideAnim" + String(j+1) + "Xml"] = $o.getDefinition("ItemsLib_sideAnim" + String(j+1) + "Xml") as Class;
+					}
+				}
+				
 				//loader
 				Assets.loaderSheet = $o.getDefinition("ItemsLib_loaderSheet") as Class;
 				Assets.loaderSheetXml = $o.getDefinition("ItemsLib_loaderSheetXml") as Class;
@@ -492,6 +501,9 @@ package {
 			
 			if (obj.game.CHECK_FOR_WIN_LINE_LEN != null)
 				GameSettings.CHECK_FOR_WIN_LINE_LEN = obj.game.CHECK_FOR_WIN_LINE_LEN;
+				
+			if (obj.game.SIDE_ANIM != null)
+				GameSettings.SIDE_ANIM = obj.game.SIDE_ANIM;
 			
 			GameSettings.TOTAL_ICONS = obj.game.TOTAL_ICONS;
 			GameSettings.ICONS_OFF_Y = obj.game.ICONS_OFF_Y;
@@ -523,6 +535,8 @@ package {
 			GameSettings.PAYTABLE_TOTAL_PAGES = obj.payTable.PAYTABLE_TOTAL_PAGES;
 			GameSettings.POSITIONS_AR = obj.payTable.POSITIONS_AR;
 			GameSettings.PAYTABLE_SHEKVECA = obj.payTable.PAYTABLE_SHEKVECA;
+			
+			
 			
 			
 		}

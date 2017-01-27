@@ -165,6 +165,12 @@
 					
 					
 					GameSettings.WILDS_AR = socketObject.IM.WILDS;
+					for (var i:int = 0; i < GameSettings.WILDS_AR.length; i++) 
+					{
+						if (GameSettings.WILDS_AR[i][1] > GameSettings.WILD_SPEC_TOP)
+							GameSettings.WILD_SPEC_TOP = GameSettings.WILDS_AR[i][1];
+						
+					}
 					GameSettings.SCATTERS_AR = socketObject.IM.SCATTERS;
 					GameSettings.BONUSES_AR = [];
 					
