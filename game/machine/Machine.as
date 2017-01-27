@@ -186,8 +186,8 @@ package game.machine
 					} while (used[itm])
 					used[itm] = 1;*/
 					this.iconsHolder["s" + i].map["i" + j] = iconPool.getSprite();
-					//this.iconsHolder["s" + i].map["i" + j].setIcon(((i - 1) * REEL_Y_COUNT + j - 1) % GameSettings.TOTAL_ICONS);
-					this.iconsHolder["s" + i].map["i" + j].setIcon(Math.floor(i-1));
+					this.iconsHolder["s" + i].map["i" + j].setIcon(((i - 1) * REEL_Y_COUNT + j - 1) % GameSettings.TOTAL_ICONS);
+					//this.iconsHolder["s" + i].map["i" + j].setIcon(Math.floor(i-1));
 					this.iconsHolder["s" + i].map["i" + j].y = (REEL_Y_COUNT - j) * Ydistance;
 					this.iconsHolder["s" + i].addChild(this.iconsHolder["s" + i].map["i" + j]);
 					lastIconsArray.push(this.iconsHolder["s" + i].map["i" + j]);

@@ -217,11 +217,14 @@ package game.machine {
 						}
 					}
 					
-					/*//es shemowmebaa tu sxva simboloa momgebian simboloebs shoris
-					if (indexesAr.length == obj.WinnerLines[index][2])
+					//es shemowmebaa tu sxva simboloa momgebian simboloebs shoris
+					if (GameSettings.CHECK_FOR_WIN_LINE_LEN)
 					{
-						continue;
-					}*/
+						if (indexesAr.length == obj.WinnerLines[index][2])
+						{
+							continue;
+						}
+					}
 					
 					indexesAr.push(k);
 				}

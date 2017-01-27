@@ -73,8 +73,10 @@ package game.machine {
 				flashSprite.graphics.moveTo(xArray[0], yArray[0]);
 			}else if (zz[0] == 2) {
 				flashSprite.graphics.moveTo(xArray[0], yArray[1]);
-			}else {
+			}else if(zz[0] == 3){
 				flashSprite.graphics.moveTo(xArray[0], yArray[2]);
+			}else {
+				flashSprite.graphics.moveTo(xArray[0], yArray[3]);
 			}
 			
 			for(var i:uint; i<zz.length; i++){

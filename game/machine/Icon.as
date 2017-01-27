@@ -220,6 +220,12 @@ package game.machine
 			//iconAnimationMc.alpha = 0.4;
 			//iconMc.visible = true;
 			
+			if (GameSettings.PREFERENCES.machine.iconAnimationOffsets != null)
+			{
+				iconAnimationMc.x += GameSettings.PREFERENCES.machine.iconAnimationOffsets["icon" + ID + "_X"];
+				iconAnimationMc.y += GameSettings.PREFERENCES.machine.iconAnimationOffsets["icon" + ID + "_Y"];
+			}
+			
 		}
 		
 		private function onHoverAnimationComplete(e:Event):void 

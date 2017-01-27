@@ -490,6 +490,9 @@ package {
 			GameSettings.ANIMATE_LINE_DELAY = obj.game.ANIMATE_LINE_DELAY;
 			GameSettings.SCALE_ICONS = obj.game.SCALE_ICONS;
 			
+			if (obj.game.CHECK_FOR_WIN_LINE_LEN != null)
+				GameSettings.CHECK_FOR_WIN_LINE_LEN = obj.game.CHECK_FOR_WIN_LINE_LEN;
+			
 			GameSettings.TOTAL_ICONS = obj.game.TOTAL_ICONS;
 			GameSettings.ICONS_OFF_Y = obj.game.ICONS_OFF_Y;
 			GameSettings.ICONS_OFF_X = obj.game.ICONS_OFF_X;
@@ -520,6 +523,8 @@ package {
 			GameSettings.PAYTABLE_TOTAL_PAGES = obj.payTable.PAYTABLE_TOTAL_PAGES;
 			GameSettings.POSITIONS_AR = obj.payTable.POSITIONS_AR;
 			GameSettings.PAYTABLE_SHEKVECA = obj.payTable.PAYTABLE_SHEKVECA;
+			
+			
 		}
 		
 		

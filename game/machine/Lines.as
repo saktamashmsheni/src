@@ -150,6 +150,9 @@ package game.machine {
 			linesContainer.addChild(lineHelper);
 				
 			
+			
+			//showWinnerLine(3);
+			
 		}
 		
 		public function addLineBtns(lineBtns:LineButtons):void {

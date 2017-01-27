@@ -61,7 +61,7 @@ package game {
 		public static const SUPER_WIN:String = 'superWin';
 		
 		
-		public function BigWinCont(winamount:int, winType:String = BigWinCont.SUPER_WIN) {
+		public function BigWinCont(winamount:int, winType:String = BigWinCont.MEGA_WIN) {
 			this.winamount = winamount;
 			this.winType = winType;
 			this.addEventListener(Event.ADDED_TO_STAGE, added);

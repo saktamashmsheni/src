@@ -172,6 +172,8 @@ package game
 			leaderBoardHolder.y = -300;
 			addChild(leaderBoardHolder);
 			
+			//winsPopLoader();
+			
 		    //TweenLite.delayedCall(1, showFreeSpinStatus, ["blalballba"]);
 			
 		}

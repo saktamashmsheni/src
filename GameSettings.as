@@ -16,10 +16,13 @@ package
 												   ["40 slice fruit", 8802], 
 												   ["20 slice fruit", 8803], 
 												   ["dragon fruit", 8804],
-												   ["star fruit", 8805]
+												   ["star fruit", 8805],
+												   ["mammoth", 5005]
 												   ];
 		
 		public static var MULTIPLE_WINS:Boolean;
+		
+		public static var CHECK_FOR_WIN_LINE_LEN:Boolean = true;
 		
 		
 		
@@ -91,22 +94,22 @@ package
 		public static var SCALE_ICONS:Number;
 		
 		
-		public static const ICONSFRAME_SIZE:Vector.<Array> = new <Array>[[130,130],[130,135],[125,105]];
+		public static const ICONSFRAME_SIZE:Vector.<Array> = new <Array>[[130,130],[130,135],[100,105]];
 		public static const LINEMASK_LOOP:Vector.<uint> = new <uint>[9,15,20];
 		public static const LINEMASK_STEPPER:Vector.<uint> = new <uint>[3,5,5];
-		public static const LINEMASK_STEP_X_Y:Vector.<Array> = new <Array>[[154,145],[154,145],[154,105]];
+		public static const LINEMASK_STEP_X_Y:Vector.<Array> = new <Array>[[154,145],[154,145],[154,107]];
 		
 		public static const ICONSFRAME_VERT_HELPER_LOOP:Vector.<uint> = new <uint>[2,4,4];
-		public static const ICONSFRAME_VERT_HELPER_SIZE:Vector.<Array> = new <Array>[[24, 420],[24, 420],[24, 415]];
+		public static const ICONSFRAME_VERT_HELPER_SIZE:Vector.<Array> = new <Array>[[24, 420],[24, 420],[57, 415]];
 		public static const ICONSFRAME_VERT_HELPER_STEP_X:Vector.<uint> = new <uint>[154,154,154];
-		public static const ICONSFRAME_VERT_HELPER_OFFSET:Vector.<uint> = new <uint>[130,130,130];
+		public static const ICONSFRAME_VERT_HELPER_OFFSET:Vector.<uint> = new <uint>[130,130,100];
 		
 		public static const ICONSFRAME_HORIZ_HELPER_LOOP:Vector.<uint> = new <uint>[2,2,3];
 		public static const ICONSFRAME_HORIZ_HELPER_SIZE:Vector.<Array> = new <Array>[[746, 16],[746, 16],[746, 5]];
 		public static const ICONSFRAME_HORIZ_HELPER_STEP_Y:Vector.<uint> = new <uint>[145,145,105];
 		public static const ICONSFRAME_HORIZ_HELPER_OFFSET:Vector.<uint> = new <uint>[130,130,100];
 		
-		public static const LINES_WIN_COORDS:Vector.<Array> = new <Array>[[[60,215,368,522,675], [60, 205, 350]],[[60,215,368,522,675], [60, 205, 350]],[[60,215,368,522,675], [60, 205, 350]]];
+		public static const LINES_WIN_COORDS:Vector.<Array> = new <Array>[[[60,215,368,522,675], [60, 205, 350]],[[60,215,368,522,675], [60, 205, 350]],[[60,215,368,522,675], [50, 150, 250, 360]]];
 												   
 		
 		//machine and icon settings
