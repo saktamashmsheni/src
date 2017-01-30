@@ -205,6 +205,26 @@ package game.footer
 			}
 		}
 		
+		
+		
+		
+		public function updateCreditManual(cred:int):void
+		{
+			resetButs();
+			CREDIT = cred;
+			dispatchEvent(new GameEvents(GameEvents.CREDIT_CHANGED));
+			
+			addChild(mcAr[GameSettings.CREDIT_AR.indexOf(CREDIT)]);
+			
+			for (var i:int = 0; i < mcAr.length; i++) 
+			{
+				mcAr[i].alpha = 1;
+				TweenLite.to(mcAr[i], 0, {y:0, x:0, ease:Expo.easeOut});
+			}
+			
+			opened = false;
+		}
+		
 		private function onCompleteAnim(num:int):void 
 		{
 			if (mcAr[num].name == "cred" + GameSettings.CREDIT_VAL.toString())

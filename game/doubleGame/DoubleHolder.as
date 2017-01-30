@@ -373,7 +373,7 @@ package game.doubleGame {
 					histCard.x = i * 37 - 116;
 					histCard.y = -20;
 					history_con.addChild(histCard);
-					histCard.scaleX = histCard.scaleY = .19;
+					//histCard.scaleX = histCard.scaleY = .19;
 					
 					
 				}
@@ -436,7 +436,7 @@ package game.doubleGame {
 				StaticGUI.safeRemoveChild(history_con.getChildAt(j));
 			}
 			
-			histCard = new Card(obj.Card);
+			histCard = new Card(obj.Card, true);
 			
 			histCard.alpha = 1;
 			histCard.makeFaceUp();
@@ -454,7 +454,7 @@ package game.doubleGame {
 				histCard.x = i * 37 - 116;
 				histCard.y = -20;
 				history_con.addChild(histCard);
-				histCard.scaleX = histCard.scaleY = .19;
+				//histCard.scaleX = histCard.scaleY = .19;
 				
 				
 			}
@@ -524,11 +524,11 @@ package game.doubleGame {
 		{
 			var i:int = 0;
 			for (i = 0; i < cardsAr.length; i++) {
-				histCard = new Card(cardsAr[i]);
+				histCard = new Card(cardsAr[i], true);
 				histCard.x = i * 37 - 116;
 				histCard.y = -20;
 				history_con.addChild(histCard);
-				histCard.scaleX = histCard.scaleY = .19;
+				//histCard.scaleX = histCard.scaleY = .19;
 				GameHolder.cont.histArray.push(histCard);
 				histCard.makeFaceUp();
 				

@@ -44,6 +44,7 @@
 				testClass = Root.soundLibrary.applicationDomain.getDefinition(str) as Class;
 				sound = new testClass() as Sound;
 				
+				
 				if (play)
 				{
 					st.volume = modifyFromControllerVol(1);
@@ -79,6 +80,7 @@
 		public function stopSound():void
 		{
 			if (!myChannel) return;
+			//myChannel.soundTransform  = new SoundTransform(0);
 			myChannel.stop();
 			//stopLoopSound();
 		}
@@ -167,26 +169,15 @@
 		}
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		public function loopdSound(str:String):void
+		public function loopdSound(str:String, loopSoundVolume:Number = 0.8):void
 		{
-			/*if (SoundEnabled == false)
+			this.loopSoundVolume = loopSoundVolume;
+			
+			if (SoundEnabled == false)
 			{
 				stopLoopSound();
 				return;
-			}*/
+			}
 			loopIsPlayng = true;
 			addBackgroundListener();
 			backgrSound = new Sound();
@@ -195,16 +186,14 @@
 			testClass = Root.soundLibrary.applicationDomain.getDefinition(str) as Class;
 			backgrSound = new testClass() as Sound;
 			
-			/*backgrSound = new Sound();
-			backgrSound.addEventListener(IOErrorEvent.IO_ERROR, onNoSound)
-			var reqString:String = "20 slice fruit/sounds/" + str + ".mp3";
-			backgrSound.load(new URLRequest(reqString))*/
+			//var MovieSoundUrl:URLRequest = new URLRequest(Root.TESTING == true ? "sounds/" + str + ".mp3" : "dictators/sounds/" + str + ".mp3");
+			//backgrSound.load(MovieSoundUrl);
 			
+			backgroundTransform.volume = modifyFromControllerVol(loopSoundVolume);
+			backgroundChannel.soundTransform = backgroundTransform;
 			
 			backgroundChannel = backgrSound.play(0, 1, backgroundTransform);
 			backgroundChannel.addEventListener(Event.SOUND_COMPLETE, SoundLoop);
-			
-			changeVolumeFromController();
 		}
 		
 		private function SoundLoop(evt:Event):void

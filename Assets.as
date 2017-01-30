@@ -34,6 +34,9 @@ package {
 		//cards
 		public static var cardsSheet:Class;
 		public static var cardsSheetXml:Class;
+		//cards
+		public static var historyCards:Class;
+		public static var historyCardsXml:Class;
 		//line
 		public static var lineButtons:Class;
 		public static var lineButtonsXml:Class;

@@ -14,7 +14,7 @@ package game.doubleGame
 			
 		}
 		
-		public static function getCardImage(color:Number, index:Number):Image
+		public static function getCardImage(color:Number, index:Number, histCard:Boolean = false):Image
 		{
 			var cardInt:int;
 			
@@ -29,8 +29,15 @@ package game.doubleGame
 			}
 			
 			var cardString:String = "CardWhole" + StaticGUI.intWithZeros(cardInt, 4);
+			if (histCard == false)
+			{
+				return new Image(Assets.getAtlas("cardsSheet", "cardsSheetXml").getTexture(cardString));
+			}
+			else
+			{
+				return new Image(Assets.getAtlas("historyCards", "historyCardsXml").getTexture(cardString));
+			}
 			
-			return new Image(Assets.getAtlas("cardsSheet", "cardsSheetXml").getTexture(cardString));
 			
 		}
 		

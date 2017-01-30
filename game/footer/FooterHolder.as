@@ -344,7 +344,7 @@ package game.footer {
 		public function onSpinClick(e:Event = null):void {
 			
 			Root.soundManager.stopSound();
-			Root.soundManager.stopLoopSound();
+			//Root.soundManager.stopLoopSound();
 			if (e != null)
 			{
 				Root.soundManager.PlaySound("options_click");
@@ -406,6 +406,9 @@ package game.footer {
 				}catch (err:Error){}
 				
 				
+				
+				
+				
 				sendSpinSecureCount++;
 				//Tracer._log("sendSpinSecureCount: " + sendSpinSecureCount + String(new Date()));
 				if (sendSpinSecureCount > 1) {
@@ -423,6 +426,8 @@ package game.footer {
 				//$betSlider._isEnabled(false);
 				MusicManager._cont._addOrRemoveMusicMuter(MusicManager.MUSIC_MUTE_ONDELAY);
 				
+				
+				//Root.soundManager.stopSound();
 				//Root.connectionManager.sendData({MT: SocketAnaliser.spinScatter, SID: "", IM: {Lines: GameSettings.ACT_LINES, Bet: GameSettings.BETS_AR[GameSettings.BET_INDEX] * GameSettings.CREDIT_VAL}, UID: Root.userRoomId}, true);
 				//Root.connectionManager.sendData({MT: SocketAnaliser.spinWild, SID: "", IM: {Lines: GameSettings.ACT_LINES, Bet: GameSettings.BETS_AR[GameSettings.BET_INDEX] * GameSettings.CREDIT_VAL}, UID: Root.userRoomId}, true);
 				Root.connectionManager.sendData({MT: SocketAnaliser.spin, SID: "", IM: {Lines: GameSettings.ACT_LINES, Bet: GameSettings.BETS_AR[GameSettings.BET_INDEX] * GameSettings.CREDIT_VAL}, UID: Root.userRoomId}, true);
@@ -519,7 +524,7 @@ package game.footer {
 					
 					if (spinEnabled == false)
 					return;
-				
+					
 					if (autoSpinAmount > 0) {
 						GameHolder.gameState = GameHolder.AUTOPLAY_STATE;
 						updateState(GameHolder.gameState);

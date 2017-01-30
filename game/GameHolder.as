@@ -12,6 +12,7 @@ package game
 	import flash.net.SharedObject;
 	import flash.text.TextFormatAlign;
 	import game.doubleGame.DoubleHolder;
+	import game.footer.CreditContainer;
 	import game.header.musicPlayer.MusicManager;
 	import game.machine.LineButtons;
 	import game.machine.Lines;
@@ -290,7 +291,17 @@ package game
 			
 			if (sObj.WildReels.length > 0)
 			{
-				TweenLite.delayedCall(2, machineHolder.modifyWildIcons, [sObj.WildReels, sObj, GameSettings.WILD_SPEC_TOP]);
+				
+				if (GameSettings.WILD_SPEC_TOP == 3)
+				{
+					TweenLite.delayedCall(2, machineHolder.modifyWildIcons, [sObj.WildReels, sObj, GameSettings.WILD_SPEC_TOP]);
+				}
+				else
+				{
+					machineHolder.modifyWildIcons(sObj.WildReels, sObj, GameSettings.WILD_SPEC_TOP);
+				}
+				
+				
 				endDelay += 1;
 				
 				if (GameSettings.WILD_SPEC_TOP == 3)
@@ -377,7 +388,7 @@ package game
 				{
 					var winStr:String = "winSnd";
 					winStr += String(sObj.WinnerLines[0][1] + 1);
-					TweenLite.delayedCall(wildSpinDel, Root.soundManager.schedule, [winStr, 1]);
+					TweenLite.delayedCall(wildSpinDel, Root.soundManager.PlaySound, [winStr]);
 				}
 				
 				if (gameState == AUTOPLAY_STATE)
@@ -401,6 +412,7 @@ package game
 			{
 				footerHolder.spinEnabled = false;
 				footerHolder.touchable = false;
+				lineButsHolder.touchable = false;
 				//activate old messages
 				endDelay += (wildSpinDel + sObj.WinnerLines.length);
 				TweenLite.delayedCall(wildSpinDel + sObj.WinnerLines.length, IniClass.cont.socketAnaliser.activateOldMessages);
@@ -543,6 +555,7 @@ package game
 			{
 				this.footerHolder.spinEnabled = true;
 				this.footerHolder.touchable = true;
+				if (GameSettings.LINES_FIXED == false) {lineButsHolder.touchable = true};
 			}
 			if (freeSpinsState && currentFreeSpinNum > 0 && (currentFreeSpinNum) != freeSpinsAmount)
 			{
@@ -1203,7 +1216,24 @@ package game
 			if (obj.HandInfo == null)
 				return;
 				
-				
+			
+			//update credit
+			if (obj.HandInfo.SpinResult.Bet > GameSettings.BETS_AR[GameSettings.BETS_AR.length - 1])
+			{
+				for (var i:int = 0; i < GameSettings.CREDIT_AR.length; i++) 
+				{
+					if (GameSettings.BETS_AR.indexOf(obj.HandInfo.SpinResult.Bet / GameSettings.CREDIT_AR[i]) != -1)
+					{
+						var betIndex:int = GameSettings.BETS_AR.indexOf(obj.HandInfo.SpinResult.Bet / GameSettings.CREDIT_AR[i]);
+						CreditContainer.cont.updateCreditManual(GameSettings.CREDIT_AR[i]);
+						
+						obj.HandInfo.SpinResult.Bet = GameSettings.BETS_AR[betIndex];
+						break;
+					}
+				}
+			}
+			
+			
 			footerHolder.updateBet(GameSettings.BETS_AR.indexOf(obj.HandInfo.SpinResult.Bet));
 			footerHolder.updateLines(obj.HandInfo.SpinResult.Line);
 			if (obj.HandInfo.SpinResult.Reels)

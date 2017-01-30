@@ -73,6 +73,7 @@ package game.machine
 		private var REEL_X_COUNT:int;
 		private var REEL_Y_COUNT:int;
 		private var staticReels:Array = [];
+		private var scatterIconCount:int;
 		public var canNowStopBol:Boolean = false;
 		public var iconsDictionary:Dictionary;
 		
@@ -271,6 +272,7 @@ package game.machine
 		//----------------------------------------start scrolling------------------------------
 		public function startSpin(obj:Object):void
 		{
+			scatterIconCount = 0;
 			machineServerSpinStarted = true;
 			currentSpinObj = obj;
 			if (GameHolder.cont.freeSpinsState == false)
@@ -525,9 +527,15 @@ package game.machine
 				TEST_LINE.map["i" + TEST_LINE.C].identifier = String(line) + String(REEL_Y_COUNT - num);
 				TEST_LINE.map["i" + TEST_LINE.C].ID = obj.Reels[line-1][REEL_Y_COUNT - num - 1];
 				
+				
+				
 				if (isScatterIcon(obj.Reels[line-1][REEL_Y_COUNT - num - 1]) && fastStop == false)
 				{
-					TweenLite.delayedCall(line*0.030, Root.soundManager.schedule, ["Star_0" + String(line),0.5]);
+					scatterIconCount++;
+					if (REEL_X_COUNT - line >= 3 - scatterIconCount)
+					{
+						TweenLite.delayedCall(line * 0.030, Root.soundManager.schedule, ["Star_0" + String(line), 0.5]);
+					}
 				}
 				
 				if (num != REEL_Y_COUNT)
@@ -967,7 +975,7 @@ package game.machine
 				}
 			}
 			
-			trace(obj.Reels);
+			//trace(obj.Reels);
 		}
 		
 		public function getWildSpinsDelCount(wildsAr:Array, obj:Object):Number 

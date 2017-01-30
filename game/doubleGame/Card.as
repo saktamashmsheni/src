@@ -3,7 +3,6 @@ package game.doubleGame {
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.utils.Align;
-	import starling.utils.Align;
 	
 	
 	public class Card extends Sprite {
@@ -15,6 +14,7 @@ package game.doubleGame {
 		public var _suitValue:Number;
 		private var _isFaceUp:Boolean;
 		private var cardIMG:Image;
+		private var historyCard:Boolean;
 		public var canDeal:Boolean = true;
 		public var startingX:Number;
 		public var startingY:Number;
@@ -26,8 +26,9 @@ package game.doubleGame {
 		public var cardObject:Object;
 		public static var stWidth:Number;
 		
-		public function Card(arr:Array = null) {
-			//this.alignPivot(Align.CENTER, Align.CENTER);
+		public function Card(arr:Array = null, historyCard:Boolean = false) {
+			this.historyCard = historyCard;
+			//this.alignPivot(HAlign.CENTER, VAlign.CENTER);
 			
 			this.scaleX = this.scaleY = 0.8;
 			
@@ -43,8 +44,8 @@ package game.doubleGame {
 		}
 		
 		public function setValue(arr:Array):void {
-			this._value = CardReader.returnName(arr[1], arr[0]);
-			this._numValue = arr[0];
+			this._value = CardReader.returnName(arr[1], 14);
+			this._numValue = 14;
 			this._suitValue = arr[1];
 		}
 		
@@ -62,7 +63,7 @@ package game.doubleGame {
 				cardIMG = null;
 			}
 			
-			cardIMG = CardSheetManager.getCardImage(-1, -1);
+			cardIMG = CardSheetManager.getCardImage(-1, -1, historyCard);
 			cardIMG.alignPivot(Align.CENTER, Align.CENTER);
 			addChild(cardIMG);
 			_isFaceUp = false
@@ -74,8 +75,7 @@ package game.doubleGame {
 				cardIMG = null;
 			}
 			
-			cardIMG = CardSheetManager.getCardImage(_suitValue, _numValue);
-			//cardIMG.textureSmoothing = 'trilinear';
+			cardIMG = CardSheetManager.getCardImage(_suitValue, _numValue, historyCard);
 			cardIMG.textureSmoothing = 'trilinear';
 			cardIMG.alignPivot(Align.CENTER, Align.CENTER);
 			addChild(cardIMG);

@@ -167,6 +167,9 @@ package {
 				Assets.lightFrameXml = $o.getDefinition("ItemsLib_lightFrameXml") as Class;
 				Assets.cardsSheet = $o.getDefinition("ItemsLib_cardsSheet") as Class;
 				Assets.cardsSheetXml = $o.getDefinition("ItemsLib_cardsSheetXml") as Class;
+				Assets.historyCards = $o.getDefinition("ItemsLib_historyCards") as Class;
+				Assets.historyCardsXml = $o.getDefinition("ItemsLib_historyCardsXml") as Class;
+				
 				//Assets.lineButtons = $o.getDefinition("ItemsLib_lineButtons") as Class;
 				//Assets.lineButtonsXml = $o.getDefinition("ItemsLib_lineButtonsXml") as Class;
 				Assets.lines = $o.getDefinition("ItemsLib_lines") as Class;
