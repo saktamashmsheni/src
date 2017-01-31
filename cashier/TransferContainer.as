@@ -103,7 +103,7 @@ package cashier
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, added);
 			initTransfer();
-			//initialise();
+			initialise();
 			
 			TweenMax.from(this, 0.6, { scaleX:0.5, scaleY:0.5, alpha:0, ease:Expo.easeOut } );
 		}

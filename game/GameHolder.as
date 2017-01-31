@@ -414,8 +414,8 @@ package game
 				footerHolder.touchable = false;
 				lineButsHolder.touchable = false;
 				//activate old messages
-				endDelay += (wildSpinDel + sObj.WinnerLines.length);
-				TweenLite.delayedCall(wildSpinDel + sObj.WinnerLines.length, IniClass.cont.socketAnaliser.activateOldMessages);
+				endDelay += (wildSpinDel + sObj.WinnerLines.length*0.4);
+				TweenLite.delayedCall(wildSpinDel + sObj.WinnerLines.length*0.4, IniClass.cont.socketAnaliser.activateOldMessages);
 			}
 			else
 			{

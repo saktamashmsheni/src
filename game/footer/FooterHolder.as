@@ -344,7 +344,7 @@ package game.footer {
 		public function onSpinClick(e:Event = null):void {
 			
 			Root.soundManager.stopSound();
-			//Root.soundManager.stopLoopSound();
+			Root.soundManager.stopLoopSound();
 			if (e != null)
 			{
 				Root.soundManager.PlaySound("options_click");
@@ -353,7 +353,8 @@ package game.footer {
 			if (spinEnabled == false && spinBtn.label == "STOP") {
 				GameHolder.cont.machineHolder.makeFastStop();
 				spinStopDisable();
-				GoogleAnalytics._sendActionEvent(GAnalyticsEvents.GAME_EVENTS,'spin stop','spin stop clicked');
+				GoogleAnalytics._sendActionEvent(GAnalyticsEvents.GAME_EVENTS, 'spin stop', 'spin stop clicked');
+				
 				return;
 			}
 			
@@ -482,6 +483,10 @@ package game.footer {
 				spinBtn.isEnabled = false;
 				spinBtn.useHandCursor = false
 				
+				if (GameHolder.gameState == GameHolder.AUTOPLAY_STATE)
+				{
+					spinBtn.label = "STOP";
+				}
 				
 				//$betSlider._isEnabled(spinBtn.isEnabled);
 			}
@@ -619,8 +624,9 @@ package game.footer {
 				
 				case GameHolder.AUTOPLAY_STATE: 
 					autoSpinBtn.label = "STOP";
-					spinBtn.isEnabled = false;
-					spinBtn.useHandCursor = false;
+					spinBtn.label = "STOP";
+					//spinBtn.isEnabled = false;
+					//spinBtn.useHandCursor = false;
 					
 					//$betSlider._isEnabled(false);
 					
@@ -918,6 +924,8 @@ package game.footer {
 				if (!_bonusGame && GameHolder.gameState == GameHolder.AUTOPLAY_STATE && GameHolder.cont.freeSpinsState == false) {
 					autoSpinBtn.isEnabled = true;
 					autoSpinBtn.useHandCursor = true;
+					spinBtn.isEnabled = true;
+					spinBtn.useHandCursor = true;
 					
 				}
 				

@@ -297,7 +297,10 @@ package game.machine {
 			//GameHolder.cont.machineHolder.animateIcons(obj, winAnimIndex, curLineIndAr);
 			
 			//Root.soundManager.PlaySound("icon" + String(obj.WinnerLines[winAnimIndex][1] + 1));
-			//Root.soundManager.PlaySound("iconSound");
+			if (GameHolder.WILD_FREE_SPIN == true)
+			{
+				Root.soundManager.PlaySound("RegularWinSnd");
+			}
 			
 			//masking
 			curLine = Lines.lineNumAr[obj.WinnerLines[winAnimIndex][0]];
@@ -320,7 +323,7 @@ package game.machine {
 			
 			lineWinStatus.setStatus(obj.WinnerLines[winAnimIndex]);
 			
-			TweenMax.delayedCall(winAnimIndex == obj.WinnerLines.length - 1 ? 2 : 1, animateLinesContDel, [obj]);
+			TweenMax.delayedCall(winAnimIndex == obj.WinnerLines.length - 1 ? 2 : GameHolder.WILD_FREE_SPIN == true ? 0.4 : 1, animateLinesContDel, [obj]);
 		}
 		
 		public function animateLinesContDel(obj:Object):void {
