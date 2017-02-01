@@ -18,6 +18,8 @@ package com.utils
 
         public static function secondsToTimecode(seconds:Number):String
         {
+			var days:int = Math.floor(seconds / 60 / 60 / 24);
+			seconds = seconds - days * 60 * 60 * 24;
             var minutes:Number          = Math.floor(seconds/60);
             var remainingSec:Number     = seconds % 60;
             var remainingMinutes:Number = minutes % 60;
@@ -25,7 +27,7 @@ package com.utils
             var floatSeconds:Number     = Math.floor((remainingSec - Math.floor(remainingSec))*100);
             remainingSec                = Math.floor(remainingSec);
 
-            return getTwoDigits(hours) + ":" + getTwoDigits(remainingMinutes) + ":" + getTwoDigits(remainingSec);
+            return String(StaticGUI.intWithZeros(days,2)) + "DAYS - " + getTwoDigits(hours) + ":" + getTwoDigits(remainingMinutes) + ":" + getTwoDigits(remainingSec);
         }
 
         private static function getTwoDigits(number:Number):String

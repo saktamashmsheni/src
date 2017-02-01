@@ -117,6 +117,7 @@ package {
 			assLoadMan.setLoadAssets(GameSettings.PATH + "FontsLibrary.swf", AssetsLoaderManager.FONTS_LIBRARY, AssetsLoaderManager.SWFType);
 			assLoadMan.setLoadAssets(GameSettings.PATH + "SoundLibrary.swf", AssetsLoaderManager.SOUND_LIBRARY, AssetsLoaderManager.SWFType);
 			assLoadMan.setLoadAssets(GameSettings.PATH + "IconsLibrary.swf", AssetsLoaderManager.ICONS_LIBRARY, AssetsLoaderManager.SWFType);
+			assLoadMan.setLoadAssets(GameSettings.PATH + "WinsPopLibrary.swf", AssetsLoaderManager.WINS_POP_LIBRARY, AssetsLoaderManager.SWFType);
 			assLoadMan.setLoadAssets(GameSettings.PATH + "xml/" + Root.lang + ".xml", AssetsLoaderManager.XML_MUI_PACK, AssetsLoaderManager.XMLType);
 			assLoadMan.startLoadAssets();
 		}
@@ -424,6 +425,8 @@ package {
 				
 				Assets.winsPop_bfont = $o.getDefinition("WinsPopLib_winspop_bitmapFont") as Class;   
 				Assets.winsPop_bfontXml = $o.getDefinition("WinsPopLib_winspop_bitmapFontXml") as Class;   
+				
+				Assets.BigWinsLoaded = true;
 			}
 			
 			//assLoadMan.updateLoad();
@@ -486,7 +489,12 @@ package {
 				GameHolder.cont.addCashier();
 			}
 			
+			
+			
 			socketAnaliser.activateOldMessages();
+			
+			TweenLite.delayedCall(0.01, Root.connectionManager.sendData,[{MT: SocketAnaliser._leaderBoard, SID: ""}]);
+			TweenLite.delayedCall(0.03, Root.connectionManager.sendData,[{MT: SocketAnaliser._leaderTimer, SID: ""}]);
 			
 		}
 		

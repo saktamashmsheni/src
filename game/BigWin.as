@@ -39,6 +39,8 @@ package game {
 		private function added(e:Event):void {
 			removeEventListener(Event.ADDED_TO_STAGE, added);
 			
+			
+			
 			initBigWin();
 			
 			var num:Number = this.numChildren;
@@ -60,6 +62,8 @@ package game {
 			bg.y = int(-bg.height / 2)+20;
 			addChild( bg);
 			bg.alpha = 0;
+			
+			
 			
 			TweenLite.delayedCall(8.2, hide);
 		}
@@ -126,11 +130,14 @@ package game {
 			bigWinImg = null;
 			
 			try {
+				GameHolder.cont.bigWinAnim = null;
 				StaticGUI.safeRemoveChild(this);
 			} catch (err:Error) {
 				if (this.parent) {
+					GameHolder.cont.bigWinAnim = null;
 					this.parent.removeChild(this);
 				} else {
+					GameHolder.cont.bigWinAnim = null;
 					StaticGUI.safeRemoveChild(this);
 				}
 			}

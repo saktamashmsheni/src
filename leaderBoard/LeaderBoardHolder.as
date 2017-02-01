@@ -122,7 +122,7 @@ package leaderBoard
 			placeToWin_txt = StaticGUI._creatBitmapFontTextRenderer(this, "", MIDDLE_POINT+2, 124, 100, 300, Assets.getFont("bpg_gel_dejavu_serif_22_yellow").name, TextFormatAlign.CENTER, false, -2, 17);
 			StaticGUI.setAlignPivot(placeToWin_txt, "TC");
 			
-			prize_amount_txt = StaticGUI._creatBitmapFontTextRenderer(this, "o 0 e", MIDDLE_POINT-3, 201, 100, 100, Assets.getFont("roboto_slab_bold_23").name, TextFormatAlign.CENTER, false, -4);
+			prize_amount_txt = StaticGUI._creatBitmapFontTextRenderer(this, "o 0 e", MIDDLE_POINT-3, 201, 100, 100, Assets.getFont("roboto_slab_bold_23").name, TextFormatAlign.CENTER, false, -4,25);
 			StaticGUI.setAlignPivot(prize_amount_txt, "TC");
 			
 			
@@ -177,7 +177,7 @@ package leaderBoard
 			
 			
 			
-			timer_txt = StaticGUI._creatBitmapFontTextRenderer(this, "00:00:00", 53, 41, 200, 100, Assets.getFont("roboto_slab_bold_timer_22").name, TextFormatAlign.LEFT, true, -4);
+			timer_txt = StaticGUI._creatBitmapFontTextRenderer(this, "", 34, 41, 200, 100, Assets.getFont("roboto_slab_bold_timer_22").name, TextFormatAlign.LEFT, true, -4, 19);
 			StaticGUI.setAlignPivot(timer_txt, "CC");
 			timer_con.addChild(timer_txt);
 			

@@ -168,6 +168,7 @@ package {
 		public static var bigWin:Class;
 		public static var starEffectSheet:Class;
 		public static var starEffectSheetXml:Class;
+		public static var BigWinsLoaded:Boolean = false;
 		
 		
 		//start info

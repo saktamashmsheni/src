@@ -468,6 +468,11 @@ package game.footer {
 				GameHolder.cont.removeDoubleHolder();
 				Root.connectionManager.sendData({MT: SocketAnaliser.collect, SID: "", IM: {"Color": -1}});
 				
+				if (GameHolder.cont.bigWinAnim != null)
+				{
+					GameHolder.cont.bigWinAnim.hide(true);
+				}
+				
 				GoogleAnalytics._sendActionEvent(GAnalyticsEvents.GAME_EVENTS,'collect win','collect clicked');
 				
 				

@@ -15,6 +15,7 @@
 	import flash.utils.Timer;
 	import jackpotCL.FourWayJackpot;
 	import game.GameHolder;
+	import leaderBoard.LeaderBoardHolder;
 	
 	/**
 	 * ...
@@ -203,14 +204,14 @@
 					Root.ALL_WILD_INDEX = socketObject.IM.Icon;
 					GameHolder.cont.machineHolder.updateWildIcons();
 					GameHolder.cont.removeWildSelector();
-				break;
+				break;*/
 				
 				case _leaderBoard:
 					return;
-					if (!LeaderboardHolder.FILLED)
+					if (!LeaderBoardHolder.FILLED)
 					{
-						LeaderboardHolder.FILLED = true;
-						LeaderboardHolder.cont.updateLeaderInfo(socketObject.IM)
+						LeaderBoardHolder.FILLED = true;
+						LeaderBoardHolder.cont.updateLeaderInfo(socketObject.IM)
 						//LeaderboardHolder.cont.updateLeaderInfo(Root.leaderAr[Root.leaderInd]);
 					}
 					else
@@ -218,15 +219,40 @@
 						GameHolder.cont.LEADER_BOARD_OBJECT = socketObject.IM;
 						//GameHolder.cont.LEADER_BOARD_OBJECT = Root.leaderAr[Root.leaderInd];
 					}
-					Root.leaderInd++;
+					//Root.leaderInd++;
 					
 					
 				break;
 				
-				case top50:
-					return;
-					LeaderboardHolder.cont.initTop50(socketObject.IM)
-				break;*/
+				case _leaderBoard:
+					
+					if (!LeaderBoardHolder.FILLED)
+					{
+						LeaderBoardHolder.FILLED = true;
+						LeaderBoardHolder.cont.updateLeaderInfo(socketObject.IM)
+						//LeaderboardHolder.cont.updateLeaderInfo(Root.leaderAr[Root.leaderInd]);
+					}
+					else
+					{
+						GameHolder.cont.LEADER_BOARD_OBJECT = socketObject.IM;
+						//GameHolder.cont.LEADER_BOARD_OBJECT = Root.leaderAr[Root.leaderInd];
+					}
+					
+				case _leaderTOPUsers:
+					
+					LeaderBoardHolder.cont.onTopUsersResponse(socketObject.IM);
+				break;
+				
+				case _leaderPrizes:
+				
+					LeaderBoardHolder.cont.onPrizesResponse(socketObject.IM);
+				break;
+					
+				case _leaderTimer:
+				
+					LeaderBoardHolder.cont.updateTimer(socketObject.IM);
+				break;
+				
 				
 				case spin: 
 					StopMessage = true;

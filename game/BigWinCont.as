@@ -55,23 +55,29 @@ package game {
 		private var winType:String;
 		private var quadBg:Quad;
 		
-		public static var COEF:int = 250;
+		
 		public static const BIG_WIN:String = 'bigWin';
 		public static const MEGA_WIN:String = 'megaWin';
 		public static const SUPER_WIN:String = 'superWin';
 		
+		public static var BING_WIN_COEF:int = 1;
+		public static var MEGA_WIN_COEF:int = 2;
+		public static var COEFS_ARR:Array = [BING_WIN_COEF, MEGA_WIN_COEF];
+		public static var WIN_NAMES:Array = [BIG_WIN, MEGA_WIN];
 		
-		public function BigWinCont(winamount:int, winType:String = BigWinCont.MEGA_WIN) {
+		
+		public function BigWinCont(winamount:int, winIndex:int = -1) {
+			
 			this.winamount = winamount;
-			this.winType = winType;
+			this.winType = WIN_NAMES[winIndex];
 			this.addEventListener(Event.ADDED_TO_STAGE, added);
 		}
 		
 		private function added(e:Event):void {
 			removeEventListener(Event.ADDED_TO_STAGE, added);
 			
-			quadBg = new Quad(1500, 1500, Color.BLACK);
-			quadBg.alpha = .6;
+			quadBg = new Quad(5, 5, Color.BLACK);
+			quadBg.alpha = 0;
 			quadBg.alignPivot(Align.CENTER, Align.CENTER);
 			addChild(quadBg);
 			
@@ -89,7 +95,7 @@ package game {
 			_start = 0;
 			_win = winamount;
 			TweenMax.to(this, 6.3, {delay: 0.5, _start: _win, onUpdate: updateTotal, ease: Linear.easeNone});
-			TweenLite.delayedCall(0.5, Root.soundManager.schedule, ["countsound"]);
+			TweenLite.delayedCall(0.5, Root.soundManager.PlaySound, ["countsound"]);
 			
 			
 			
@@ -99,7 +105,9 @@ package game {
 			addChild( bg);
 			bg.alpha = 0;
 			
-			TweenLite.delayedCall(8.2, hide);
+			this.touchable = false;
+			
+			TweenMax.delayedCall(8.2, hide);
 		}
 		
 		private function initBigWin():void {
@@ -237,13 +245,27 @@ package game {
 			this.val_txt.text = String((int(_start / GameSettings.CREDIT_VAL))) + " " + StaticGUI.getCurrecyShortcuts();
 		}
 		
-		public function hide():void {
+		public function hide(fastRemove:Boolean = false):void {
+			
+			TweenMax.killTweensOf(this);
+			TweenMax.killDelayedCallsTo(hide);
+			
+			GameHolder.cont.bigWinAnim = null;
+			
+			Root.soundManager.stopSound();
+			
+			if (fastRemove)
+			{
+				removeMe();
+				return;
+			}
+			
 			var num:Number = this.numChildren;
 			for (var i:int = 1; i < num; i++) {
 				TweenLite.to(this.getChildAt(i), 0.3, {delay: (i) * 0.01, scaleX: 0, scaleY: 0, alpha: 0, ease: Back.easeIn});
 			}
 			
-			TweenLite.delayedCall(1.5, removeMe);
+			TweenMax.delayedCall(1.5, removeMe);
 		}
 		
 		public function removeMe():void {
@@ -265,7 +287,7 @@ package game {
 				}
 			}
 			
-			starImg.dispose();
+			StaticGUI.safeRemoveChild(starImg);
 			starImg = null;
 			
 			headerImg.dispose();
@@ -280,7 +302,7 @@ package game {
 			val_txt.dispose();
 			val_txt = null;
 			
-			shineTexture.dispose();
+			//shineTexture.dispose();
 			shineTexture = null;
 			
 			if (shineEffImg1) shineEffImg1.dispose();
@@ -293,7 +315,7 @@ package game {
 			shineEffImg2 = null;
 			shineEffImg3 = null;
 			
-			atlas.dispose();
+			//atlas.dispose();
 			atlas = null;
 			
 			this.removeChildren();
@@ -303,13 +325,21 @@ package game {
 			quadBg = null;
 		}
 		
-		public static function shouldShow(start:Number, end:Number):Boolean {
-			if (start * COEF <= end / GameSettings.CREDIT_VAL) {
-				return true;
-			} else {
-				return false;
+		public static function shouldShow(start:Number, end:Number):int {
+			var curCoef:int = end / GameSettings.CREDIT_VAL / start;
+			
+			for (var i:int = COEFS_ARR.length-1; i >= 0; i--) 
+			{
+				if (curCoef >= COEFS_ARR[i])
+				{
+					return i;
+				}
 			}
+			
+			return -1;
 		}
+		
+		
 	
 	}
 

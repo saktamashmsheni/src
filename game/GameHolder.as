@@ -69,7 +69,7 @@ package game
 		public var fourWayJackpotHolder:FourWayJackpot;
 		public var currentFreeSpinNum:Number = 0;
 		private var bonusStatusMc:BonusGameStatus;
-		private var bigWinAnim:BigWin;
+		public var bigWinAnim:BigWinCont;
 		private var wasEndMsg:Boolean;
 		private var startInfo:JackpotStartInfo;
 		private var jackpotWinAnimation:JackpotWinAnimation;
@@ -375,13 +375,18 @@ package game
 					collectDel = 2.2;
 				}*/
 				
-				if (BigWin.shouldShow(footerHolder.totalBetAmount, sObj.TotalWin) == true)
+				var bigWinIndex:int = BigWinCont.shouldShow(footerHolder.totalBetAmount, sObj.TotalWin);
+				
+				if (bigWinIndex > -1)
 				{
-					bigWinAnim = new BigWin(sObj.TotalWin);
+					bigWinAnim = new BigWinCont(sObj.TotalWin, bigWinIndex);
 					bigWinAnim.x = GAME_OFFSET_X;
 					TweenLite.delayedCall(wildSpinDel, this.addChild, [bigWinAnim]);
 					
-					collectDel = 7
+					if (gameState == AUTOPLAY_STATE)
+					{
+						collectDel = 7
+					}
 				}
 				
 				if (sObj.WinnerLines.length > 0)
@@ -432,9 +437,17 @@ package game
 			}
 			
 			
-			if (BigWin.shouldShow(footerHolder.totalBetAmount, sObj.TotalWin) == true)
+			if (bigWinIndex > -1)
 			{
-				endDelay = 8.2 + wildSpinDel;
+				/*if (gameState == AUTOPLAY_STATE)
+				{
+					endDelay = 8.2 + wildSpinDel;
+				}
+				else*/
+				{
+					endDelay = 1 + wildSpinDel;
+				}
+				
 			}
 			
 			
@@ -935,8 +948,27 @@ package game
 			}
 		}
 		
-		public function winsPopLoader():void
+		
+		
+		
+		
+		
+		
+		/*public function loadAndAddBigWinsLoader():void
 		{
+			showLoader();
+			if (IniClass.cont.assLoadMan.isInLoadingExperoence(AssetsLoaderManager.WINS_POP_LIBRARY))
+			{
+				addBigWinAnim();
+				return;
+			}
+			bonusHolder = new BonusMcContainer(footerHolder.totalBetAmount, BonusStrikes);
+			if (Assets.BigWinsLoaded)
+			{
+				addBigWinAnim();
+			}
+			
+			
 			IniClass.cont.assLoadMan.clearLoadManager();
 			IniClass.cont.assLoadMan.addEventListener(AssetsLoaderEvents.ALL_ASSETS_LOADED, bigWinPopLoaded);
 			IniClass.cont.assLoadMan.setLoadAssets(GameSettings.PATH + "WinsPopLibrary.swf", AssetsLoaderManager.WINS_POP_LIBRARY, AssetsLoaderManager.SWFType);
@@ -947,9 +979,19 @@ package game
 		
 		private function bigWinPopLoaded(e:AssetsLoaderEvents):void {
 			IniClass.cont.assLoadMan.removeEventListener(AssetsLoaderEvents.ALL_ASSETS_LOADED, bigWinPopLoaded);
-			var winPop:BigWinCont = new BigWinCont(1528);
-			this.addChild(winPop);
+			
+			addBigWinAnim();
 		}
+		
+		private function addBigWinAnim():void 
+		{
+			this.addChild(bigWinAnim);
+		}*/
+		
+		
+		
+		
+		
 		
 		
 		private function allBonusAssetsLoaded(e:AssetsLoaderEvents):void
@@ -976,9 +1018,10 @@ package game
 			if (freeSpinsState == true && currentFreeSpinNum > 0 && currentFreeSpinNum != freeSpinsAmount)
 			{
 				footerHolder.updateWin(bonusWin, true);
-				if (BigWin.shouldShow(footerHolder.totalBetAmount, bonusWin) == true)
+				var bigWinIndex:int = BigWinCont.shouldShow(footerHolder.totalBetAmount, bonusWin);
+				if (bigWinIndex > -1)
 				{
-					bigWinAnim = new BigWin(bonusWin);
+					bigWinAnim = new BigWinCont(bonusWin, bigWinIndex);
 					this.addChild(bigWinAnim);
 				}
 			}
