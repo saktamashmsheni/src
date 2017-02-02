@@ -112,14 +112,30 @@ package {
 			else { GameSettings.PATH = this.parent.loaderInfo.parameters['AssetPath'] }*/
 			
 			
-			assLoadMan.setLoadAssets(GameSettings.PATH + "config.json", AssetsLoaderManager.CONFIGURATION, AssetsLoaderManager.JsonType);
-			assLoadMan.setLoadAssets(GameSettings.PATH + "ItemsLibrary.swf", AssetsLoaderManager.ITEMS_LIBRARY, AssetsLoaderManager.SWFType);
-			assLoadMan.setLoadAssets(GameSettings.PATH + "FontsLibrary.swf", AssetsLoaderManager.FONTS_LIBRARY, AssetsLoaderManager.SWFType);
-			assLoadMan.setLoadAssets(GameSettings.PATH + "SoundLibrary.swf", AssetsLoaderManager.SOUND_LIBRARY, AssetsLoaderManager.SWFType);
-			assLoadMan.setLoadAssets(GameSettings.PATH + "IconsLibrary.swf", AssetsLoaderManager.ICONS_LIBRARY, AssetsLoaderManager.SWFType);
-			assLoadMan.setLoadAssets(GameSettings.PATH + "WinsPopLibrary.swf", AssetsLoaderManager.WINS_POP_LIBRARY, AssetsLoaderManager.SWFType);
-			assLoadMan.setLoadAssets(GameSettings.PATH + "xml/" + Root.lang + ".xml", AssetsLoaderManager.XML_MUI_PACK, AssetsLoaderManager.XMLType);
+			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("config.json"), AssetsLoaderManager.CONFIGURATION, AssetsLoaderManager.JsonType);
+			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("ItemsLibrary.swf"), AssetsLoaderManager.ITEMS_LIBRARY, AssetsLoaderManager.SWFType);
+			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("FontsLibrary.swf"), AssetsLoaderManager.FONTS_LIBRARY, AssetsLoaderManager.SWFType);
+			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("SoundLibrary.swf"), AssetsLoaderManager.SOUND_LIBRARY, AssetsLoaderManager.SWFType);
+			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("IconsLibrary.swf"), AssetsLoaderManager.ICONS_LIBRARY, AssetsLoaderManager.SWFType);
+			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("WinsPopLibrary.swf", true), AssetsLoaderManager.WINS_POP_LIBRARY, AssetsLoaderManager.SWFType);
+			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("xml/" + Root.lang + ".xml"), AssetsLoaderManager.XML_MUI_PACK, AssetsLoaderManager.XMLType);
 			assLoadMan.startLoadAssets();
+			
+		}
+		
+		public static function GET_FILE_FULL_PATH(fileName:String, common:Boolean = false):String 
+		{
+			if (!common)
+			{
+				return GameSettings.PATH + fileName;
+			}
+			else
+			{
+				if (Root.TESTING)
+					return "COMMON/" + fileName;
+				else
+					return GameSettings.PATH + "/../COMMON/" + fileName;
+			}
 		}
 		
 		

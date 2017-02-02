@@ -1102,7 +1102,7 @@ package game
 			{
 				IniClass.cont.assLoadMan.clearLoadManager();
 				IniClass.cont.assLoadMan.addEventListener(AssetsLoaderEvents.ALL_ASSETS_LOADED, allAssetsLoaded);
-				IniClass.cont.assLoadMan.setLoadAssets(GameSettings.PATH + "PaytableLibrary.swf", AssetsLoaderManager.PAYTABLE_LIBRARY, AssetsLoaderManager.SWFType);
+				IniClass.cont.assLoadMan.setLoadAssets(IniClass.GET_FILE_FULL_PATH("PaytableLibrary.swf"), AssetsLoaderManager.PAYTABLE_LIBRARY, AssetsLoaderManager.SWFType);
 				IniClass.cont.assLoadMan.startLoadAssets();
 			}
 		}
@@ -1192,7 +1192,7 @@ package game
 			{
 				IniClass.cont.assLoadMan.clearLoadManager();
 				IniClass.cont.assLoadMan.addEventListener(AssetsLoaderEvents.ALL_ASSETS_LOADED, allJackpotAssetsLoaded);
-				IniClass.cont.assLoadMan.setLoadAssets(GameSettings.PATH + "JackpotWinLibrary.swf", AssetsLoaderManager.JACKPOT_LIBRARY, AssetsLoaderManager.SWFType);
+				IniClass.cont.assLoadMan.setLoadAssets(IniClass.GET_FILE_FULL_PATH("JackpotWinLibrary.swf", true), AssetsLoaderManager.JACKPOT_LIBRARY, AssetsLoaderManager.SWFType);
 				IniClass.cont.assLoadMan.startLoadAssets();
 			}
 		}
