@@ -9,6 +9,8 @@ package game {
 	import flash.text.TextFormatAlign;
 	import starling.core.Starling;
 	import starling.display.BlendMode;
+	import starling.display.DisplayObject;
+	import starling.display.DisplayObjectContainer;
 	import starling.display.Image;
 	import starling.display.MovieClip;
 	import starling.display.Quad;
@@ -60,8 +62,8 @@ package game {
 		public static const MEGA_WIN:String = 'megaWin';
 		public static const SUPER_WIN:String = 'superWin';
 		
-		public static var BING_WIN_COEF:int = 1;
-		public static var MEGA_WIN_COEF:int = 2;
+		public static var BING_WIN_COEF:int = 20;
+		public static var MEGA_WIN_COEF:int = 50;
 		public static var COEFS_ARR:Array = [BING_WIN_COEF, MEGA_WIN_COEF];
 		public static var WIN_NAMES:Array = [BIG_WIN, MEGA_WIN];
 		
@@ -87,8 +89,14 @@ package game {
 			
 			var num:Number = this.numChildren;
 			for (var i:int = 1; i < num; i++) {
-				TweenLite.from(this.getChildAt(i), 1.5, {delay: (i) * 0.02, scaleX: 0, scaleY: 0, alpha: 0, ease: Elastic.easeOut});
+				TweenMax.from(this.getChildAt(i), 1.6, {delay: (i) * 0.1, scaleX: 0, scaleY: 0, alpha: 0, ease: Elastic.easeOut});
 			}
+			
+			
+			TweenMax.delayedCall(1.4, animanim, [DisplayObject(headerImg)]);
+			TweenMax.delayedCall(1.3, animanim2, [DisplayObject(starImg)]);
+			TweenMax.delayedCall(1.5, animanim3, [DisplayObject(coinsImg)]);
+			TweenMax.delayedCall(1.5, animanim4, [DisplayObject(bigWinImg)]);
 			
 			//Root.soundManager.schedule("bws", 0.4);
 			Root.soundManager.schedule("congratulations", 0.4);
@@ -108,6 +116,43 @@ package game {
 			this.touchable = false;
 			
 			TweenMax.delayedCall(8.2, hide);
+		}
+		
+		
+		private function animanim(mov:DisplayObject):void
+		{
+			TweenMax.killTweensOf(mov);
+			mov.scaleX = mov.scaleY = 1;
+			mov.alpha = 1;
+			TweenMax.from(mov, 1, {delay:0, scaleX: 0.7, scaleY: 0.7, alpha: 0.8, ease: Elastic.easeOut, yoyo:true, repeat:6});
+			
+		}
+		
+		private function animanim2(mov:DisplayObject):void
+		{
+			TweenMax.killTweensOf(mov);
+			mov.scaleX = mov.scaleY = 1;
+			mov.alpha = 1;
+			TweenMax.to(mov, 1, {delay:0, x: 0, scaleX: 1.1, scaleY: 1.1, alpha: 1, yoyo:true, repeat:6});
+			
+		}
+		
+		private function animanim3(mov:DisplayObject):void
+		{
+			TweenMax.killTweensOf(mov);
+			mov.scaleX = mov.scaleY = 1;
+			mov.alpha = 1;
+			TweenMax.to(mov, 0.6, {delay:0, x: 0, scaleX: 1.1, scaleY: 1.1, alpha: 1, yoyo:true, repeat:10});
+			
+		}
+		
+		private function animanim4(mov:DisplayObject):void
+		{
+			TweenMax.killTweensOf(mov);
+			mov.scaleX = mov.scaleY = 1;
+			mov.alpha = 1;
+			TweenMax.to(mov, 0.6, {delay:0, scaleX: 1, scaleY: 1, alpha: 1, yoyo:true, repeat:10});
+			
 		}
 		
 		private function initBigWin():void {
@@ -168,18 +213,8 @@ package game {
 			}
 			addChild(coinsImg);
 			
-			/*var $tf:TextFormat = new TextFormat;
-			$tf.font = Assets.getFont("winsPop_bfont").name;   
-			$tf.size =  70;
-			$tf.color = 0xffffff;
-			$tf.bold = true;*/
-			
 			val_txt = StaticGUI._creatBitmapFontTextRenderer(this, '0', 0, 160, 800, 300, Assets.getFont("winsPop_bfont").name,TextFormatAlign.CENTER,false,-35);
-			//new TextField(500, 300, "0", $tf);
 			val_txt.alignPivot(Align.CENTER, Align.CENTER);
-			//val_txt.y = 30;
-			//val_txt.
-			//addChild(val_txt);
 			
 			starsAr = [];
 			
@@ -235,14 +270,15 @@ package game {
 			img.scale = .2;
 			img.x = xpos;
 			img.y = ypos;
-			TweenLite.to(img, 1, { delay: showdelay, scale: 1, rotation:deg2rad(0), alpha: 1 } );
-			TweenLite.delayedCall(showdelay, function():void{addChild(img)});
+			TweenMax.to(img, 3, { delay: showdelay, scale: 1, rotation:deg2rad(0), alpha: 1, ease:Elastic.easeOut } );
+			TweenMax.delayedCall(showdelay, function():void{addChild(img)});
 			
 			return img;
 		}
 		
 		public function updateTotal():void {
-			this.val_txt.text = String((int(_start / GameSettings.CREDIT_VAL))) + " " + StaticGUI.getCurrecyShortcuts();
+			//this.val_txt.text = String((int(_start / GameSettings.CREDIT_VAL))) + " " + StaticGUI.getCurrecyShortcuts();
+			this.val_txt.text = StaticGUI.scoreToValutaFixed(_start);
 		}
 		
 		public function hide(fastRemove:Boolean = false):void {

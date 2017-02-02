@@ -207,7 +207,6 @@
 				break;*/
 				
 				case _leaderBoard:
-					return;
 					if (!LeaderBoardHolder.FILLED)
 					{
 						LeaderBoardHolder.FILLED = true;
@@ -224,19 +223,6 @@
 					
 				break;
 				
-				case _leaderBoard:
-					
-					if (!LeaderBoardHolder.FILLED)
-					{
-						LeaderBoardHolder.FILLED = true;
-						LeaderBoardHolder.cont.updateLeaderInfo(socketObject.IM)
-						//LeaderboardHolder.cont.updateLeaderInfo(Root.leaderAr[Root.leaderInd]);
-					}
-					else
-					{
-						GameHolder.cont.LEADER_BOARD_OBJECT = socketObject.IM;
-						//GameHolder.cont.LEADER_BOARD_OBJECT = Root.leaderAr[Root.leaderInd];
-					}
 					
 				case _leaderTOPUsers:
 					

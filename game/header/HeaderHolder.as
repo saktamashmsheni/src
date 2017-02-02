@@ -1,4 +1,5 @@
 package game.header {
+	import com.greensock.TweenMax;
 	import com.utils.GAnalyticsEvents;
 	import com.utils.GoogleAnalytics;
 	import flash.events.MouseEvent;
@@ -206,6 +207,7 @@ package game.header {
 			var overTouch:Touch = e.getTouch(volumeController, TouchPhase.HOVER);
 			var downTouch:Touch = e.getTouch(volumeController, TouchPhase.BEGAN);
 			var movedTouch:Touch = e.getTouch(volumeController, TouchPhase.MOVED);
+			var end:Touch = e.getTouch(volumeController, TouchPhase.ENDED);
 			
 			
 			if (overTouch == null && downTouch == null && movedTouch == null)
@@ -214,11 +216,30 @@ package game.header {
 				volumeController.removeEventListener(TouchEvent.TOUCH, onVolumeControllerTouch);
 				soundBtn.addEventListener(TouchEvent.TOUCH, onSoundBtnTouch);
 			}
-			
+			if (end)
+			{
+				TweenMax.delayedCall(2, hideController);
+			}
+			if (overTouch != null || downTouch != null || movedTouch != null)
+			{
+				TweenMax.killDelayedCallsTo(hideController);
+			}
 			
 			overTouch = null;
 			downTouch = null;
 			movedTouch = null;
+		}
+		
+		
+		private function hideController():void 
+		{
+			if (volumeController.visible == false)
+			{
+				return;
+			}
+			volumeController.visible = false;
+			volumeController.removeEventListener(TouchEvent.TOUCH, onVolumeControllerTouch);
+			soundBtn.addEventListener(TouchEvent.TOUCH, onSoundBtnTouch);
 		}
 		
 		

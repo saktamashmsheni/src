@@ -199,7 +199,8 @@ package game
 			
 			//winsPopLoader();
 			
-			
+			//bigWinAnim = new BigWinCont(505050, 0);
+			//this.addChild(bigWinAnim);
 			
 		}
 		
