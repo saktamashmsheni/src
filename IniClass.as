@@ -79,7 +79,8 @@ package {
 				Root.userRoomSession = this.parent.loaderInfo.parameters['SessionId'];
 				
 				GameSettings.GAME_NAME = getGameName(Root.port);
-				GameSettings.PATH = "/" + this.parent.loaderInfo.parameters['AssetPath'] + GameSettings.GAME_NAME + "/";
+				GameSettings.ROOT_PATH = "/" + this.parent.loaderInfo.parameters['AssetPath'] + "/";
+				GameSettings.PATH = GameSettings.ROOT_PATH + GameSettings.GAME_NAME + "/";
 				
 				/*ExternalInterface.call("console.log", Root.ip);
 				ExternalInterface.call("console.log", Root.port);
@@ -112,13 +113,13 @@ package {
 			else { GameSettings.PATH = this.parent.loaderInfo.parameters['AssetPath'] }*/
 			
 			
-			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("config.json"), AssetsLoaderManager.CONFIGURATION, AssetsLoaderManager.JsonType);
-			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("ItemsLibrary.swf"), AssetsLoaderManager.ITEMS_LIBRARY, AssetsLoaderManager.SWFType);
-			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("FontsLibrary.swf"), AssetsLoaderManager.FONTS_LIBRARY, AssetsLoaderManager.SWFType);
-			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("SoundLibrary.swf"), AssetsLoaderManager.SOUND_LIBRARY, AssetsLoaderManager.SWFType);
-			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("IconsLibrary.swf"), AssetsLoaderManager.ICONS_LIBRARY, AssetsLoaderManager.SWFType);
-			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("WinsPopLibrary.swf", true), AssetsLoaderManager.WINS_POP_LIBRARY, AssetsLoaderManager.SWFType);
-			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("xml/" + Root.lang + ".xml"), AssetsLoaderManager.XML_MUI_PACK, AssetsLoaderManager.XMLType);
+			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("config.json"), AssetsLoaderManager.CONFIGURATION, AssetsLoaderManager.JsonType,[10,12]);
+			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("ItemsLibrary.swf"), AssetsLoaderManager.ITEMS_LIBRARY, AssetsLoaderManager.SWFType,[12,30]);
+			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("FontsLibrary.swf"), AssetsLoaderManager.FONTS_LIBRARY, AssetsLoaderManager.SWFType,[30,40]);
+			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("SoundLibrary.swf"), AssetsLoaderManager.SOUND_LIBRARY, AssetsLoaderManager.SWFType,[40,60]);
+			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("IconsLibrary.swf"), AssetsLoaderManager.ICONS_LIBRARY, AssetsLoaderManager.SWFType,[60,90]);
+			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("WinsPopLibrary.swf", true), AssetsLoaderManager.WINS_POP_LIBRARY, AssetsLoaderManager.SWFType,[90,98]);
+			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("xml/" + Root.lang + ".xml"), AssetsLoaderManager.XML_MUI_PACK, AssetsLoaderManager.XMLType,[98,100]);
 			assLoadMan.startLoadAssets();
 			
 		}
@@ -134,7 +135,7 @@ package {
 				if (Root.TESTING)
 					return "COMMON/" + fileName;
 				else
-					return GameSettings.PATH + "/../COMMON/" + fileName;
+					return GameSettings.ROOT_PATH + "COMMON/" + fileName;
 			}
 		}
 		
@@ -450,7 +451,7 @@ package {
 		
 		public function currAssetProgressInfo(e:AssetsLoaderEvents):void {
 			if (!swfLoaded)
-				Preloader._cont._loadingProgressCue(e.params.total, e.params.loaded, null, e.params.valTxt);
+				Preloader._cont._loadingProgressCue(e.params.total, e.params.loaded, null, e.params.valTxt, e.params.progPersent);
 		}
 		
 		public function hidePreloaderIfThereis():void {

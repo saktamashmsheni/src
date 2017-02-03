@@ -147,7 +147,8 @@ package leaderBoard
 		private function animateScore():void 
 		{
 			//score_txt.text = String(_startScore);
-			scoreVal_txt.text = GameSettings.GAME_XML.leaderBoard.qula + ": " + String(_startScore);
+			//scoreVal_txt.text = GameSettings.GAME_XML.leaderBoard.qula + ": " + String(_startScore);
+			scoreVal_txt.text = "P: " + String(_startScore);
 		}
 		
 		private function animatePisitionWithName():void 

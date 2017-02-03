@@ -11,6 +11,7 @@ package
 		public static var GAME_ID:int;
 		public static var GAME_NAME:String = "";
 		public static var PATH:String;
+		public static var ROOT_PATH:String;
 		
 		public static var GAMES_AND_PORTS:Array = [["frozen fruits", 8801], 
 												   ["40 slice fruit", 8802], 

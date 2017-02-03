@@ -112,25 +112,34 @@ package {
 			this.graphics.beginFill(0xcccccc);
 			this.graphics.drawRect(0, (this.stage.stageHeight - PROGRESS_BAR_HEIGHT) / 2, this.stage.stageWidth * event.bytesLoaded / event.bytesTotal, PROGRESS_BAR_HEIGHT);
 			this.graphics.endFill();*/
-			_loadingProgressCue(event.bytesTotal,event.bytesLoaded,null, 'Loading Graphics')
+			_loadingProgressCue(event.bytesTotal,event.bytesLoaded,null, 'Loading'), [0,10]
 				
 		}
 		
 		
-		public function _loadingProgressCue(_byteTotal:Number = -1, _byteLoaded:Number = -1, callBack:Function = null,text:String = ''):void{
+		
+		
+		public function _loadingProgressCue(_byteTotal:Number = -1, _byteLoaded:Number = -1, callBack:Function = null, text:String = '', progPercent:Array = null):void{
 			var bytesLoaded:Number = _byteLoaded;
 			var bytesTotal:Number = _byteTotal;
 			
-			var $intBytes:int = int(((bytesLoaded / bytesTotal)) * 550);
+			if (progPercent == null)
+			{
+				progPercent = [0, 100];
+			}
+			
+			var totalWidth:int = 560;
+			var curWidth:Number = progPercent[0] / 100 + (progPercent[1] / 100 - progPercent[0] / 100) * (bytesLoaded / bytesTotal);
+			
+			var $intBytes:int = curWidth * totalWidth;
 			
 			var s:String = "";
 			var percent:Number = 0;
 			if (bytesTotal>0){
-				percent = Math.floor((bytesLoaded/bytesTotal)*100); 
+				percent = Math.floor(progPercent[0] + (progPercent[1] - progPercent[0]) * (bytesLoaded / bytesTotal));
 				
 				s = String(percent)+' %';
 			}
-			//Tracer._log(s, text);
 			if (_byteTotal == -1 && _byteLoaded == -1){
 				$preloaderMc.loadingCont.percentBox.visible = false;
 			}else{
@@ -138,23 +147,22 @@ package {
 			}
 			
 			$preloaderMc.loadingCont.percentBox.percent_txt.text = s; 
-			$preloaderMc.loadingCont.info_txt.text = text; 
+			//$preloaderMc.loadingCont.info_txt.text = text; 
+			$preloaderMc.loadingCont.info_txt.text = 'Loading...'; 
 			
-			$preloaderMc.loadingCont.pregressMasker.width += ($intBytes - $preloaderMc.loadingCont.pregressMasker.width) / 5;
+			$preloaderMc.loadingCont.pregressMasker.width += ($intBytes - $preloaderMc.loadingCont.pregressMasker.width) / 1;
+			//$preloaderMc.loadingCont.pregressMasker.masker.width += ($intBytes - $preloaderMc.loadingCont.pregressMasker.masker.width) / 5;
 			
 			if (bytesLoaded==bytesTotal || bytesTotal==0){ //  &&  MainSettings.instance.gameLoader.loader.contentLoaderInfo.bytesLoaded == MainSettings.instance.gameLoader.loader.contentLoaderInfo.bytesTotal
-				$preloaderMc.loadingCont.pregressMasker.width = $intBytes;
-				//removeEventListener(Event.ENTER_FRAME, Update);
+				//$preloaderMc.loadingCont.pregressMasker.width = $intBytes;
+				//$preloaderMc.loadingCont.pregressMasker.masker.scaleX = 1;
 				
-//				Tweener.addTween(txt, { alpha:0,  time:.3, onComplete:nextStep} );
-				
-				//Tweener.addCaller(this, { onComplete:nextStep, delay: 0, time:0, count:1 } );
 				
 				if (callBack != null) callBack();
-				//nextStep()
 			}
-			$preloaderMc.loadingCont.percentBox.x = $preloaderMc.loadingCont.pregressMasker.width;
+			$preloaderMc.loadingCont.percentBox.x = int($preloaderMc.loadingCont.pregressMasker.x + $preloaderMc.loadingCont.pregressMasker.width);
 		}
+		
 		
 		
 		public function _removeThis():void{

@@ -377,6 +377,10 @@ package game
 				}*/
 				
 				var bigWinIndex:int = BigWinCont.shouldShow(footerHolder.totalBetAmount, sObj.TotalWin);
+				if (WILD_FREE_SPIN && sObj.FreeSpins > 0)
+				{
+					bigWinIndex = -1;
+				}
 				
 				if (bigWinIndex > -1)
 				{

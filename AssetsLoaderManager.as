@@ -52,9 +52,9 @@ package
 		private var swfLoader:Loader;
 		private var xmlLoader:URLLoader;
 		
-		public function setLoadAssets(path:String, valTxt:String, type:String):void
+		public function setLoadAssets(path:String, valTxt:String, type:String, progPersent:Array = null):void
 		{
-			var obj:Object = { "path":path, "valTxt": valTxt, "type":type }
+			var obj:Object = { "path":path, "valTxt": valTxt, "type":type, "progPersent":progPersent }
 			allLoadExperienceDic[obj.valTxt] = 0;
 			preAssetsAr.push(obj);
 			
