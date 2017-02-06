@@ -129,7 +129,7 @@
 		
 		public function stopLoopSound():void
 		{
-			trace("+++++++++++++++++++++++++++++++++++++jorjo");
+			//trace("+++++++++++++++++++++++++++++++++++++jorjo");
 			loopIsPlayng = false;
 			if (backgroundChannel == null)
 			{

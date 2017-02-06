@@ -287,6 +287,7 @@ package game
 			if (WILD_FREE_SPIN && sObj.FreeSpins > 0)
 			{
 				wildSpinDel = machineHolder.getWildSpinsDelCount(sObj.WildReels, sObj);
+				trace("wildSpinDel: " + wildSpinDel);
 			}
 			
 			
@@ -405,7 +406,13 @@ package game
 				{
 					collectDel += 1;
 				}
-				TweenLite.delayedCall(collectDel, preEndDelayedFunc, [sObj]);
+				
+				//collectDel += (wildSpinDel + sObj.WinnerLines.length*0.4);
+				
+				if (!(WILD_FREE_SPIN && sObj.FreeSpins > 0))
+				{
+					TweenLite.delayedCall(collectDel, preEndDelayedFunc, [sObj]);
+				}
 			}
 			
 			/*//scatter
@@ -425,7 +432,7 @@ package game
 				lineButsHolder.touchable = false;
 				//activate old messages
 				endDelay += (wildSpinDel + sObj.WinnerLines.length*0.4);
-				TweenLite.delayedCall(wildSpinDel + sObj.WinnerLines.length*0.4, IniClass.cont.socketAnaliser.activateOldMessages);
+				TweenLite.delayedCall(wildSpinDel + sObj.WinnerLines.length * 0.4, IniClass.cont.socketAnaliser.activateOldMessages);
 			}
 			else
 			{
@@ -513,6 +520,8 @@ package game
 				{
 					addMultipleWins(sObj.BulkDepth);
 				}
+				
+			trace("endDelay:" + endDelay);
 			
 			
 			TweenLite.delayedCall(endDelay, checkForEndmsg, [sObj]);
@@ -546,7 +555,7 @@ package game
 		{
 			//aq ise ar sheva es piroba tu ar shesrulda
 			if (obj.WinnerLines.length > 0 || obj.ScatterWin.length > 0) {
-				if (gameState != AUTOPLAY_STATE)
+				if (gameState != AUTOPLAY_STATE /*|| (WILD_FREE_SPIN == true && obj.FreeSpins > 0)*/)
 				{
 					gameState = DOUBLE_STATE;
 					footerHolder.updateState(gameState);
