@@ -4,13 +4,15 @@ package {
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.events.ProgressEvent;
+	import flash.events.TimerEvent;
 	import flash.system.Security;
+	import flash.utils.Timer;
 	import flash.utils.getDefinitionByName;
 	
 	//keep your imports to a minimum!
 	//avoid classes with embedded assets, like images or sounds.
 	
-	[SWF(frameRate = "60", width = "1200", height = "700", backgroundColor = "0x333333")]
+	[SWF(frameRate = "60", width = "1200", height = "700", backgroundColor = "0x000000")]
 	/**
 	 * An example of a startup class that displays a preloader for a Starling
 	 * app. Uses the <code>-frame</code> compiler argument to include the root
@@ -40,6 +42,8 @@ package {
 		private var $preloaderMc:MovieClip;
 		private var $bgAlpha:MovieClip = new MovieClip;
 		private var $bgLoader:PreloaderImgLoader;
+		private var timer:Timer;
+		private var dotStr:String = "";
 		
 		/**
 		 * Constructor.
@@ -58,16 +62,21 @@ package {
 			_cont = this;
 			
 			
-			$bgLoader = new PreloaderImgLoader(GameSettings.PATH + '888preImg/background.jpg');
+			$bgLoader = new PreloaderImgLoader(IniClass.GET_FILE_FULL_PATH("bg.jpg", true));
 			addChild($bgLoader);
 			
 			
-			$bgAlpha.graphics.beginFill(0x12100a, .9);
+			$bgAlpha.graphics.beginFill(0x000000, 1);
 			$bgAlpha.graphics.drawRect(0, 0, this.stage.stageWidth, this.stage.stageHeight);
 			$bgAlpha.graphics.endFill();
 			addChild($bgAlpha);
 			$preloaderMc = new preloader_mc();
 			addChild($preloaderMc);
+			
+			
+			timer = new Timer(300,0);
+			timer.addEventListener(TimerEvent.TIMER, onTimer);
+			timer.start();
 			
 			//we listen to ProgressEvent.PROGRESS to update the progress bar.
 			this.loaderInfo.addEventListener(ProgressEvent.PROGRESS, loaderInfo_progressHandler);
@@ -112,7 +121,7 @@ package {
 			this.graphics.beginFill(0xcccccc);
 			this.graphics.drawRect(0, (this.stage.stageHeight - PROGRESS_BAR_HEIGHT) / 2, this.stage.stageWidth * event.bytesLoaded / event.bytesTotal, PROGRESS_BAR_HEIGHT);
 			this.graphics.endFill();*/
-			_loadingProgressCue(event.bytesTotal,event.bytesLoaded,null, 'Loading'), [0,10]
+			_loadingProgressCue(event.bytesTotal,event.bytesLoaded,null, 'LOADING...'), [0,10]
 				
 		}
 		
@@ -128,7 +137,7 @@ package {
 				progPercent = [0, 100];
 			}
 			
-			var totalWidth:int = 560;
+			var totalWidth:int = 309;
 			var curWidth:Number = progPercent[0] / 100 + (progPercent[1] / 100 - progPercent[0] / 100) * (bytesLoaded / bytesTotal);
 			
 			var $intBytes:int = curWidth * totalWidth;
@@ -148,7 +157,7 @@ package {
 			
 			$preloaderMc.loadingCont.percentBox.percent_txt.text = s; 
 			//$preloaderMc.loadingCont.info_txt.text = text; 
-			$preloaderMc.loadingCont.info_txt.text = 'Loading...'; 
+			//$preloaderMc.loadingCont.info_txt.text = 'LOADING...'; 
 			
 			$preloaderMc.loadingCont.pregressMasker.width += ($intBytes - $preloaderMc.loadingCont.pregressMasker.width) / 1;
 			//$preloaderMc.loadingCont.pregressMasker.masker.width += ($intBytes - $preloaderMc.loadingCont.pregressMasker.masker.width) / 5;
@@ -164,9 +173,35 @@ package {
 		}
 		
 		
+		private function onTimer(e:TimerEvent):void
+		{
+			try 
+			{
+				if (dotStr.length == 3)
+				{
+					dotStr = "";
+				}
+				else
+				{
+					dotStr = dotStr + ".";
+				}
+				$preloaderMc.loadingCont.info_txt.text = "LOADING" + dotStr;
+				trace("aaaaa");
+			}
+			catch (err:Error)
+			{
+				trace("aaaaa2222");
+			}
+		}
+		
 		
 		public function _removeThis():void{
 			stage.removeEventListener(Event.RESIZE, resizeListener); 
+			
+			
+			timer.stop();
+			timer.removeEventListener(TimerEvent.TIMER, onTimer);
+			timer = null;
 			
 			this.removeChild($preloaderMc);
 			this.removeChild($bgAlpha);

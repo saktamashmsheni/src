@@ -201,6 +201,11 @@ package game.machine {
 					while (o--) {
 						if (obj.Reels[o] != null && obj.Reels[o][curLine[o] - 1] != null && Machine.isWildIcon(obj.Reels[o][curLine[o] - 1])) {
 							if (indexesAr.indexOf(o) == -1) {
+								if (GameSettings.CHECK_FOR_WIN_LINE_LEN)
+								{
+									if (indexesAr.length >= obj.WinnerLines[index][2])
+										continue;
+								}
 								indexesAr.push(o);
 							}
 						} else {
@@ -210,6 +215,11 @@ package game.machine {
 					for (var j:int = k + 1; j < 5; j++) {
 						if (obj.Reels[j] != null && obj.Reels[j][curLine[j] - 1] != null && Machine.isWildIcon(obj.Reels[j][curLine[j] - 1])) {
 							if (indexesAr.indexOf(j) == -1) {
+								if (GameSettings.CHECK_FOR_WIN_LINE_LEN)
+								{
+									if (indexesAr.length >= obj.WinnerLines[index][2])
+										continue;
+								}
 								indexesAr.push(j);
 							}
 						} else {
@@ -220,10 +230,8 @@ package game.machine {
 					//es shemowmebaa tu sxva simboloa momgebian simboloebs shoris
 					if (GameSettings.CHECK_FOR_WIN_LINE_LEN)
 					{
-						if (indexesAr.length == obj.WinnerLines[index][2])
-						{
+						if (indexesAr.length >= obj.WinnerLines[index][2])
 							continue;
-						}
 					}
 					
 					indexesAr.push(k);

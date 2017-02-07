@@ -561,9 +561,17 @@ package game.footer {
 					MusicManager._cont._addOrRemoveMusicMuter(MusicManager.MUSIC_MUTE);
 					GameHolder.cont.hideSlotItemsForStates();
 					//$betSlider._isEnabled(false);
-					Root.soundManager.PlaySound("options_click");
+					
 					autoSpinBtn.isEnabled = false
 					autoSpinBtn.useHandCursor = false;
+					
+					if (GameHolder.cont.bigWinAnim != null)
+					{
+						GameHolder.cont.bigWinAnim.hide(true);
+					}
+					
+					
+					Root.soundManager.PlaySound("options_click");
 					break;
 					
 				case GameHolder.AUTOPLAY_STATE:

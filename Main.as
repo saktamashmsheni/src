@@ -109,8 +109,8 @@
 			
 			bgImg.scaleX = bgImg.scaleY = gameHolder.scaleX = gameHolder.scaleY = (stageScaleX > stageScaleY) ? stageScaleY : stageScaleX;
 			
-			if (gameHolder.scaleX < 1) {
-				bgImg.scaleX = bgImg.scaleY = gameHolder.scaleX = gameHolder.scaleY = 1;
+			if (gameHolder.scaleX < 0.9) {
+				bgImg.scaleX = bgImg.scaleY = gameHolder.scaleX = gameHolder.scaleY = 0.9;
 			}
 			
 			

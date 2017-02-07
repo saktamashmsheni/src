@@ -21,7 +21,7 @@
 		
 		
 		
-		public static var TESTING:Boolean = true;
+		public static var TESTING:Boolean = false;
 		public static var Key:ByteArray = Hex.toArray(Hex.fromString(CONFIG::KEY));
 		public static var Key1:ByteArray = Hex.toArray(Hex.fromString(CONFIG::KEY));
 		
