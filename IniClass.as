@@ -118,8 +118,8 @@ package {
 			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("FontsLibrary.swf"), AssetsLoaderManager.FONTS_LIBRARY, AssetsLoaderManager.SWFType,[30,40]);
 			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("SoundLibrary.swf"), AssetsLoaderManager.SOUND_LIBRARY, AssetsLoaderManager.SWFType,[40,60]);
 			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("IconsLibrary.swf"), AssetsLoaderManager.ICONS_LIBRARY, AssetsLoaderManager.SWFType,[60,90]);
-			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("WinsPopLibrary.swf", true), AssetsLoaderManager.WINS_POP_LIBRARY, AssetsLoaderManager.SWFType,[90,98]);
-			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("xml/" + Root.lang + ".xml"), AssetsLoaderManager.XML_MUI_PACK, AssetsLoaderManager.XMLType,[98,100]);
+			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("WinsPopLibrary.swf", true), AssetsLoaderManager.WINS_POP_LIBRARY, AssetsLoaderManager.SWFType,[90,100]);
+			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("xml/" + Root.lang + ".xml"), AssetsLoaderManager.XML_MUI_PACK, AssetsLoaderManager.XMLType,[100,100]);
 			assLoadMan.startLoadAssets();
 			
 		}
