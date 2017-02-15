@@ -16,6 +16,7 @@ package {
 	import flash.utils.getQualifiedClassName;
 	import Main;
 	import game.GameHolder;
+	import jackpotCL.FourWayJackpot;
 	
 	import starling.core.Starling
 	import starling.events.ResizeEvent;
@@ -506,7 +507,7 @@ package {
 				GameHolder.cont.addCashier();
 			}
 			
-			
+			FourWayJackpot.cont.updateInfo(SocketAnaliser.AUTH_OBJECT.JackPotStats, SocketAnaliser.AUTH_OBJECT);
 			
 			socketAnaliser.activateOldMessages();
 			

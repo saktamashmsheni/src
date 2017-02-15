@@ -122,7 +122,7 @@ package leaderBoard
 			placeToWin_txt = StaticGUI._creatBitmapFontTextRenderer(this, "", MIDDLE_POINT+2, 124, 100, 300, Assets.getFont("bpg_gel_dejavu_serif_22_yellow").name, TextFormatAlign.CENTER, false, -2, 17);
 			StaticGUI.setAlignPivot(placeToWin_txt, "TC");
 			
-			prize_amount_txt = StaticGUI._creatBitmapFontTextRenderer(this, "o 0 e", MIDDLE_POINT-3, 201, 100, 100, Assets.getFont("roboto_slab_bold_23").name, TextFormatAlign.CENTER, false, -4,25);
+			prize_amount_txt = StaticGUI._creatBitmapFontTextRenderer(this, "o 0 " + StaticGUI.getCurrecyShortcuts(), MIDDLE_POINT-3, 201, 100, 100, Assets.getFont("roboto_slab_bold_23").name, TextFormatAlign.CENTER, false, -4,25);
 			StaticGUI.setAlignPivot(prize_amount_txt, "TC");
 			
 			
@@ -354,7 +354,7 @@ package leaderBoard
 				}
 			}
 			
-			prize_amount_txt.text = "o" + String((obj.PrizeSum / 100).toFixed(2)) + "e";
+			prize_amount_txt.text = "o" + String((obj.PrizeSum / 100).toFixed(2))  + StaticGUI.getCurrecyShortcuts();
 			playerCountStatus_txt.text = String(obj.UsersCount) + " " + GameSettings.GAME_XML.leaderBoard.motamashe;
 			
 			var i:int;
@@ -518,7 +518,7 @@ package leaderBoard
 			
 			if (obj.PrizeSum)
 			{
-				prize_amount_txt.text = "o" + String((obj.PrizeSum / 100).toFixed(2)) + "e";
+				prize_amount_txt.text = "o" + String((obj.PrizeSum / 100).toFixed(2)) + StaticGUI.getCurrecyShortcuts();
 			}
 			
 			

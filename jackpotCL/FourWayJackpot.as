@@ -89,13 +89,13 @@ package jackpotCL {
 			butHolder = new Sprite;
 			addChild(butHolder);
 			
-			brinjao_mc = setWinBanners('', -380, -82, null, 0x000000, -4);
+			brinjao_mc = setWinBanners('', -380, -90, null, 0xffffff, -4);
 			brinjao_mc.name = 'banner_1';
-			vercxli_mc = setWinBanners('', -230, brinjao_mc.y, null, 0x000000, -4);
+			vercxli_mc = setWinBanners('', -210, brinjao_mc.y, null, 0xffffff, -4);
 			vercxli_mc.name = 'banner_2';
-			oqro_mc = setWinBanners('', 200, brinjao_mc.y, null, 0x000000, -4);
+			oqro_mc = setWinBanners('', 175, brinjao_mc.y, null, 0xffffff, -4);
 			oqro_mc.name = 'banner_3';
-			platina_mc = setWinBanners('', 350, brinjao_mc.y, null, 0x000000, -4);
+			platina_mc = setWinBanners('', 340, brinjao_mc.y, null, 0xffffff, -4);
 			platina_mc.name = 'banner_4';
 			
 			$bannersArray = [brinjao_mc, vercxli_mc, oqro_mc, platina_mc];
@@ -126,31 +126,31 @@ package jackpotCL {
 			//infoBg.pivotY = int(infoBg.height / 2);
 			info_mc.addChild(infoBg);
 			
-			tt = StaticGUI._creatTextFieldTextRenderer(info_mc, 'მაქსიმალური მოგება:', -100, 40, 200, 20, '_bpgGELDejaVuSerifCaps', 11, 0xd7c294, $textShadow, TextFormatAlign.CENTER);
+			tt = StaticGUI._creatTextFieldTextRenderer(info_mc, 'მაქსიმალური მოგება:', -100, 30, 200, 20, '_AvenirNextBold', 16, 0xd7c294, $textShadow, TextFormatAlign.CENTER);
 			tt.name = 'maxWin_txt';
 			
 			//tt.border = true;
 			
-			tt = StaticGUI._creatTextFieldTextRenderer(info_mc, '0-0-0', -100, 55, 200, 20, '_bpgGELDejaVuSerifCaps', 13, 0xd7c294, $textShadow, TextFormatAlign.CENTER);
+			tt = StaticGUI._creatTextFieldTextRenderer(info_mc, '0-0-0', -100, 50, 200, 20, '_AvenirNextBold', 13, 0xd7c294, $textShadow, TextFormatAlign.CENTER);
 			tt.name = 'maxWinDate_txt';
 			
-			tt2 = StaticGUI._creatBitmapFontTextRenderer(info_mc, 'e2512.25', -100, 70, 200, 20, Assets.getFont("bpgGELDejaVuSerifCaps_bitmapFont").name, TextFormatAlign.CENTER);
+			tt2 = StaticGUI._creatBitmapFontTextRenderer(info_mc, 'e2512.25', -100, 70, 200, 20, Assets.getFont("roboto_slab_bold_23").name, TextFormatAlign.CENTER);
 			tt2.name = "maxWinVal_txt";
 			
-			tt = StaticGUI._creatTextFieldTextRenderer(info_mc, 'მოგებული მოთამაშეების<br/>რაოდენობა:', -100, 125, 200, 100, '_bpgGELDejaVuSerifCaps', 11, 0xd7c294, $textShadow, TextFormatAlign.CENTER, true);
+			tt = StaticGUI._creatTextFieldTextRenderer(info_mc, 'მოგებული მოთამაშეების<br/>რაოდენობა:', -100, 125, 200, 100, '_AvenirNextBold', 16, 0xd7c294, $textShadow, TextFormatAlign.CENTER, true);
 			tt.name = "totalWinners_txt";
 			
 		
-			tt = StaticGUI._creatTextFieldTextRenderer(info_mc, '0', -100, 160, 200, 50, '_bpgGELDejaVuSerifCaps', 18, 0xf1d92b, $textShadow, TextFormatAlign.CENTER);
+			tt = StaticGUI._creatTextFieldTextRenderer(info_mc, '0', -100, 150, 200, 50, '_AvenirNextBold', 20, 0xf1d92b, $textShadow, TextFormatAlign.CENTER);
 			tt.name = "totalWinnersVal_txt";
 			
-			tt = StaticGUI._creatTextFieldTextRenderer(info_mc, 'ბოლო მოგებული:', -100, 195, 200, 20, '_bpgGELDejaVuSerifCaps', 11, 0xd7c294, $textShadow, TextFormatAlign.CENTER);
+			tt = StaticGUI._creatTextFieldTextRenderer(info_mc, 'ბოლო მოგებული:', -100, 195, 200, 20, '_AvenirNextBold', 16, 0xd7c294, $textShadow, TextFormatAlign.CENTER);
 			tt.name = "lastWin_txt";
 			
-			tt = StaticGUI._creatTextFieldTextRenderer(info_mc, '0-0-0', -100, 210, 200, 20, '_bpgGELDejaVuSerifCaps', 13, 0xd7c294, $textShadow, TextFormatAlign.CENTER);
+			tt = StaticGUI._creatTextFieldTextRenderer(info_mc, '0-0-0', -100, 215, 200, 20, '_AvenirNextBold', 13, 0xd7c294, $textShadow, TextFormatAlign.CENTER);
 			tt.name = "lastWinDate_txt";
 			
-			tt2 = StaticGUI._creatBitmapFontTextRenderer(info_mc, 'e256.25', -100, 225, 200, 20, Assets.getFont("bpgGELDejaVuSerifCaps_bitmapFont").name, TextFormatAlign.CENTER);
+			tt2 = StaticGUI._creatBitmapFontTextRenderer(info_mc, 'e256.25', -100, 240, 200, 20, Assets.getFont("roboto_slab_bold_23").name, TextFormatAlign.CENTER);
 			tt2.name = "lastWinVal_txt";
 			
 			$textShadow.blurX = 2;
@@ -163,7 +163,7 @@ package jackpotCL {
 			$textShadow.strength = 2;
 			
 			win_mc = new Sprite();
-			win_mc.y = this.y - 15;
+			win_mc.y = this.y - 67;
 			win_mc.x = -300;
 			win_mc.touchable = false;
 			
@@ -173,7 +173,7 @@ package jackpotCL {
 			win_mc.pivotY = 0;
 			//win_mc.x = brinjao_mc.x+60;
 			//win_mc.alignPivot(Align.CENTER, Align.TOP);
-			tt = StaticGUI._creatTextFieldTextRenderer(win_mc, 'გათამაშდა', 0, 23, win_mc.width, 20, '_bpgGELDejaVuSerifCaps', 13, 0x17130b, $textShadow, TextFormatAlign.CENTER);
+			tt = StaticGUI._creatTextFieldTextRenderer(win_mc, 'WON', 0, 23, win_mc.width, 20, '_AvenirNextBold', 13, 0x17130b, $textShadow, TextFormatAlign.CENTER);
 			
 			tt.name = "val_txt";
 				   
@@ -197,7 +197,7 @@ package jackpotCL {
 			$btn.useHandCursor = true;
 			$btn.labelFactory = function():ITextRenderer {
 				var textRenderer:TextFieldTextRenderer = new TextFieldTextRenderer();
-				textRenderer.textFormat = new TextFormat("_AvenirNextBold", 14, 0xffffff);
+				textRenderer.textFormat = new TextFormat("_AvenirNextBold", 18, 0x000000);
 				textRenderer.embedFonts = true;
 				
 				return textRenderer;
@@ -255,20 +255,20 @@ package jackpotCL {
 			
 			if (String(retunCurAr(ind + 1)[8]) != "0001-01-01") {
 				TextFieldTextRenderer(info_mc.getChildByName("maxWinDate_txt")).text = retunCurAr(ind + 1)[8];
-				BitmapFontTextRenderer(info_mc.getChildByName("maxWinVal_txt")).text = (retunCurAr(ind + 1)[3] / 100).toFixed(2) + " e";
+				BitmapFontTextRenderer(info_mc.getChildByName("maxWinVal_txt")).text = (retunCurAr(ind + 1)[3] / 100).toFixed(2) + " " + StaticGUI.getCurrecyShortcuts();
 			} else {
 				TextFieldTextRenderer(info_mc.getChildByName("maxWinDate_txt")).text = "0-0-0";
-				BitmapFontTextRenderer(info_mc.getChildByName("maxWinVal_txt")).text = "0.00e";
+				BitmapFontTextRenderer(info_mc.getChildByName("maxWinVal_txt")).text = "0.00" + " " + StaticGUI.getCurrecyShortcuts();
 			}
 			
 			TextFieldTextRenderer(info_mc.getChildByName("totalWinnersVal_txt")).text = retunCurAr(ind + 1)[5];
 			
 			if (String(retunCurAr(ind + 1)[7]) != "0001-01-01") {
 				TextFieldTextRenderer(info_mc.getChildByName("lastWinDate_txt")).text = retunCurAr(ind + 1)[7];
-				BitmapFontTextRenderer(info_mc.getChildByName("lastWinVal_txt")).text = (retunCurAr(ind + 1)[4] / 100).toFixed(2) + " e";
+				BitmapFontTextRenderer(info_mc.getChildByName("lastWinVal_txt")).text = (retunCurAr(ind + 1)[4] / 100).toFixed(2) + " " + StaticGUI.getCurrecyShortcuts();
 			} else {
 				TextFieldTextRenderer(info_mc.getChildByName("lastWinDate_txt")).text = "0-0-0";
-				BitmapFontTextRenderer(info_mc.getChildByName("lastWinVal_txt")).text = "0.00e";
+				BitmapFontTextRenderer(info_mc.getChildByName("lastWinVal_txt")).text = "0.00" + " " + StaticGUI.getCurrecyShortcuts();
 			}
 		}
 		
@@ -282,7 +282,7 @@ package jackpotCL {
 				   win_mc.visible = true;
 				  //win_mc.x = returnMovieClip(obj.Win.JpID).x;
 				   TweenMax.from(win_mc, 0.8, {alpha: 1, scaleX: 0, scaleY: 0, ease: Elastic.easeOut});
-				   TweenMax.to(win_mc, .8, {x: returnMovieClip(obj.Win.JpID).x+20, ease: Elastic.easeOut});
+				   TweenMax.to(win_mc, .8, {x: returnMovieClip(obj.Win.JpID).x+80, ease: Elastic.easeOut});
 			} else {
 				preApdAn(arr);
 			}

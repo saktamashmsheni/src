@@ -6,6 +6,7 @@ package jackpotCL
 	import com.greensock.easing.Bounce;
 	import com.greensock.easing.Expo;
 	import com.greensock.easing.Linear;
+	import com.utils.StaticGUI;
 	import game.GameHolder;
 	import starling.core.Starling;
 	import starling.display.Image;
@@ -120,12 +121,12 @@ package jackpotCL
 			
 			
 			var $tf:TextFormat = new TextFormat;
-			$tf.font = Assets.getFont("BpgGel").name;
+			$tf.font = Assets.getFont("roboto_slab_bold_23").name;
 			$tf.size =  40;
 			$tf.color = 0xE60909;
 			$tf.bold = true;
 			
-			winval_txt = new TextField(400, 50, "0.00 e" , $tf);
+			winval_txt = new TextField(400, 50, "0.00 " + StaticGUI.getCurrecyShortcuts() , $tf);
 			winval_txt.alignPivot(Align.CENTER, Align.CENTER);
 			winval_txt.y = 35;
 			addChild(winval_txt);
@@ -180,7 +181,7 @@ package jackpotCL
 		
 		public function updateTotal():void 
 		{
-			winval_txt.text = String((int(_start)/100).toFixed(2)) + " e";
+			winval_txt.text = String((int(_start)/100).toFixed(2)) + " " + StaticGUI.getCurrecyShortcuts();
 		}
 		
 		public function disposeAll():void 
