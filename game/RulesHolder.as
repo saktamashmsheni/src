@@ -102,6 +102,18 @@ package game
 			{
 				return paytableAr;
 			}
+			
+			
+			if (GameSettings.GAME_NAME == 'africa' && paytableAr.length > 22)
+			{
+				var removeAr:Array = [5, 6, 7, 8, 11, 12, 15, 16, 21, 22];
+				for (var m:int = 0; m < removeAr.length; m++) 
+				{
+					paytableAr.splice(removeAr[m] - (1+m), 1);
+				}
+			}
+			
+			
 			var cnt:int;
 			var removeIndexesAR:Array = [];
 			for (var i:int = 0; i < paytableAr.length-1; i++) 
@@ -336,7 +348,7 @@ package game
 						scoreString += (String(numAr[k])) + '<font color="#ffffff"> • ' + String(Number(scoresArr[j][scoresArr[j].length-k-1]) * betAmount) + "</font><br/>";
 					}
 					
-					numsTxt = returnTFRenderer(scoreString, 200, 100, scoresPositionsArr[j][0], scoresPositionsArr[j][1], "_myriadProBold", 19, TextFormatAlign.LEFT, 0xfba90c, $textStroke);
+					numsTxt = returnTFRenderer(scoreString, 200, 100, scoresPositionsArr[j][0], scoresPositionsArr[j][1], "_myriadProBold", GameSettings.GAME_NAME == 'africa' ? 14 : 19, TextFormatAlign.LEFT, 0xfba90c, $textStroke);
 					gadaxdaAr.push(numsTxt);
 					pagesCont.addChild(numsTxt);
 				}
@@ -449,6 +461,15 @@ package game
 			container = null;
 			
 			
+			for (var i:int = 0; i < gadaxdaAr.length; i++) 
+			{
+				StaticGUI.safeRemoveChild(gadaxdaAr[i], true);
+				gadaxdaAr[i] = null;
+			}
+			
+			gadaxdaAr = [];
+			
+			
 			StaticGUI.safeRemoveChild(gameAmountTXT, true);
 			gameAmountTXT = null;
 			StaticGUI.safeRemoveChild(toWinTXT, true);
@@ -461,13 +482,7 @@ package game
 			wildChoose_btn = null;
 			
 			
-			for (var i:int = 0; i < gadaxdaAr.length; i++) 
-			{
-				StaticGUI.safeRemoveChild(gadaxdaAr[i], true);
-				gadaxdaAr[i] = null;
-			}
 			
-			gadaxdaAr = [];
 			
 		}
 		

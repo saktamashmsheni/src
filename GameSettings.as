@@ -18,7 +18,8 @@ package
 												   ["20 slice fruit", 8803], 
 												   ["dragon fruit", 8804],
 												   ["star fruit", 8805],
-												   ["mammoth", 5005]
+												   ["mammoth", 5005],
+												   ["africa", 8807]
 												   ];
 		
 		public static var MULTIPLE_WINS:Boolean;
@@ -26,6 +27,7 @@ package
 		
 		public static var CHECK_FOR_WIN_LINE_LEN:Boolean = true;
 		
+		public static var FREE_SPINS_ENABLED:Boolean = false;
 		
 		
 		public static var WINNER_LINE_START_AND_DELAY:Number;

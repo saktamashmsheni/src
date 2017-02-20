@@ -235,7 +235,8 @@ package leaderBoard
 			enterAnim_con.addChild(enterAnimBg);
 			StaticGUI.setAlignPivot(enterAnimBg, "CC");
 			
-			enterAnim_mc = new MovieClip(Assets.getAtlas("leaderboardEnterAnimSheet", "leaderboardEnterAnimSheetXml").getTextures(""),18);
+			//enterAnim_mc = new MovieClip(Assets.getAtlas("leaderboardEnterAnimSheet", "leaderboardEnterAnimSheetXml").getTextures(""),18);
+			enterAnim_mc = new MovieClip(Assets.getAtlas("leaderboardSheet", "leaderboardSheetXml").getTextures("1 2.10.35 PM_0"),18);
 			enterAnim_con.addChild(enterAnim_mc);
 			enterAnim_mc.y = 5;
 			StaticGUI.setAlignPivot(enterAnim_mc, "CC");
@@ -346,11 +347,11 @@ package leaderBoard
 			else
 			{
 				top3_btn.label = "WINNERS";
-				top3_btn.labelOffsetY = 8;
+				top3_btn.labelOffsetY = 1;
 				
 				if (this.filter == null)
 				{
-					this.filter = BlackWhiteFilter;
+					//this.filter = BlackWhiteFilter;
 				}
 			}
 			
@@ -464,7 +465,7 @@ package leaderBoard
 			}
 			catch (err:Error)
 			{
-				
+				trace("ERROR: " + err.message);
 			}
 		}
 		
@@ -513,7 +514,15 @@ package leaderBoard
 				cc.addEventListener(LeaderBoardEvents.TIMER_EVENT, timeChangeEvent);
 			}
 			
-			cc.upldateTimer(obj.Time, obj.TotalTime, obj.ToStart);
+			//cc.upldateTimer(obj.Time, obj.TotalTime, obj.ToStart);
+			if (obj.End == false)
+			{
+				cc.upldateTimer(obj.Time, obj.TotalTime, obj.ToStart);
+			}
+			else
+			{
+				timer_txt.text = Timecodes.secondsToTimecode(0);
+			}
 			
 			
 			if (obj.PrizeSum)

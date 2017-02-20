@@ -155,7 +155,6 @@ package game.machine
 			if (((Machine.isWildIcon(ID) && GameSettings.WILD_ANIM_ENABLED) || (!Machine.isWildIcon(ID)&& GameSettings.ICON_ANIM_ENABLED))  && iconAnimationMc == null)
 			{
 				iconAnimationMc = new MovieClip(Assets.getAtlas("icon" + ID + "Img", "icon" + ID + "Xml").getTextures(""), 30);
-				//iconAnimationMc = new MovieClip(Assets.getAtlas("icon" + 1 + "Img", "icon" + 1 + "Xml").getTextures(""), 30);
 				iconMc.visible = !GameSettings.HIDE_ICON;
 				iconAnimationMc.x -= 20;
 				iconAnimationMc.y -= 22;
@@ -177,6 +176,8 @@ package game.machine
 				alignCenter(iconAnimationMc);
 				TweenLite.delayedCall(GameSettings.ICON_ANIM_DELAY, Starling.juggler.add, [iconAnimationMc]);
 				TweenLite.delayedCall(GameSettings.ICON_ANIM_DELAY, iconAnimationMc.play);
+				//Starling.juggler.add(iconAnimationMc)
+				//iconAnimationMc.play();
 			}
 			
 			if (!Machine.isWildIcon(ID) && GameSettings.HOVER_ANIM_ENABLED && hoverAnimation == null)

@@ -120,7 +120,7 @@ package {
 			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("SoundLibrary.swf"), AssetsLoaderManager.SOUND_LIBRARY, AssetsLoaderManager.SWFType,[40,60]);
 			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("IconsLibrary.swf"), AssetsLoaderManager.ICONS_LIBRARY, AssetsLoaderManager.SWFType,[60,90]);
 			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("WinsPopLibrary.swf", true), AssetsLoaderManager.WINS_POP_LIBRARY, AssetsLoaderManager.SWFType,[90,100]);
-			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("xml/" + Root.lang + ".xml"), AssetsLoaderManager.XML_MUI_PACK, AssetsLoaderManager.XMLType,[100,100]);
+			assLoadMan.setLoadAssets(GET_FILE_FULL_PATH("xml/" + Root.lang + ".xml", true), AssetsLoaderManager.XML_MUI_PACK, AssetsLoaderManager.XMLType,[100,100]);
 			assLoadMan.startLoadAssets();
 			
 		}
@@ -235,8 +235,11 @@ package {
 				Assets.loaderSheet = $o.getDefinition("ItemsLib_loaderSheet") as Class;
 				Assets.loaderSheetXml = $o.getDefinition("ItemsLib_loaderSheetXml") as Class;
 				
-				//Assets.freeSpinsStatusSheet = $o.getDefinition("ItemsLib_freeSpinsStatusSheet") as Class;
-				//Assets.freeSpinsStatusSheetXml = $o.getDefinition("ItemsLib_freeSpinsStatusSheetXml") as Class;
+				if (GameSettings.FREE_SPINS_ENABLED)
+				{
+					Assets.freeSpinsSheet = $o.getDefinition("ItemsLib_freeSpinsSheet") as Class;
+					Assets.freeSpinsSheetXml = $o.getDefinition("ItemsLib_freeSpinsSheetXml") as Class;
+				}
 				
 				
 				//leader board
@@ -269,7 +272,7 @@ package {
 				for (i = 0; i < GameSettings.TOTAL_ICONS; i++) 
 				{
 					Assets["icon"+ i + "Img"] = $o.getDefinition("IconsLib_icon"+i+"Img") as Class;
-					Assets["icon"+ i + "Xml"] = $o.getDefinition("IconsLib_icon"+i+"Xml") as Class;
+					Assets["icon" + i + "Xml"] = $o.getDefinition("IconsLib_icon" + i + "Xml") as Class;
 				}
 				
 				
@@ -533,6 +536,9 @@ package {
 				
 			if (obj.game.SIDE_ANIM != null)
 				GameSettings.SIDE_ANIM = obj.game.SIDE_ANIM;
+				
+			if (obj.game.FREE_SPINS_ENABLED != null)
+				GameSettings.FREE_SPINS_ENABLED = obj.game.FREE_SPINS_ENABLED;
 			
 			GameSettings.TOTAL_ICONS = obj.game.TOTAL_ICONS;
 			GameSettings.ICONS_OFF_Y = obj.game.ICONS_OFF_Y;
@@ -566,8 +572,13 @@ package {
 			GameSettings.PAYTABLE_SHEKVECA = obj.payTable.PAYTABLE_SHEKVECA;
 			
 			
+			if (GameSettings.PREFERENCES.machine.CUSTOM_ICON_FRAME_SIZE != null)
+			{
+				GameSettings.ICONSFRAME_SIZE[GameSettings.SYS_NUM] = GameSettings.PREFERENCES.machine.CUSTOM_ICON_FRAME_SIZE;
+			}
 			
 			
+			trace(GameSettings.ICONSFRAME_SIZE[GameSettings.SYS_NUM]);
 		}
 		
 		

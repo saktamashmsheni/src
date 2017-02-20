@@ -519,7 +519,7 @@
 			return "";
 		}
 		
-		[Inline]
+		//[Inline]
 		public static function getCurrecyShortcuts():String
 		{
 			for (var i:int = 0; i < GameSettings.Currency_Values.length; i++) 

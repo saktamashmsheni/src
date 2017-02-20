@@ -125,8 +125,12 @@ package {
 		public static var loaderSheetXml:Class;
 		
 		
-		public static var freeSpinsStatusSheet:Class;
-		public static var freeSpinsStatusSheetXml:Class;
+		/*public static var freeSpinsStatusSheet:Class;
+		public static var freeSpinsStatusSheetXml:Class;*/
+		
+		//leaderBoard
+		public static var freeSpinsSheet:Class;
+		public static var freeSpinsSheetXml:Class;
 		
 		
 		
@@ -206,6 +210,12 @@ package {
 		public static var icon8Xml:Class;
 		public static var icon9Img:Class;
 		public static var icon9Xml:Class;
+		public static var icon10Img:Class;
+		public static var icon10Xml:Class;
+		public static var icon11Img:Class;
+		public static var icon11Xml:Class;
+		public static var icon12Img:Class;
+		public static var icon12Xml:Class;
 		
 		public static var staticAnim:Class;
 		public static var staticAnimXml:Class;
@@ -298,7 +308,7 @@ package {
 				var imgClass:Class = Assets[fontName];
 				var xmlClass:Class = Assets[fontName + "Xml"];
 				//var imgClass:Class = getDefinitionByName('Assets_' + fontName) as Class;
-				//var xmlClass:Class = getDefinitionByName('Assets_' + fontName + "Xml") as Class;
+				//var xmlClass:Class = getDefinitionByName('Assets_' + fo`ntName + "Xml") as Class;
 				
 				var fontTexture:Texture = Texture.fromBitmap(new imgClass());
 				var fontXML:XML = XML(new xmlClass());

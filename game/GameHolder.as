@@ -176,7 +176,7 @@ package game
 			
 			//winsPopLoader();
 			
-		    //TweenLite.delayedCall(1, showFreeSpinStatus, ["blalballba"]);
+		    //TweenLite.delayedCall(1, showFreeSpinStatus, [1,0]);
 			
 		}
 		
@@ -256,6 +256,17 @@ package game
 				if (freeSpinsState != true)
 				{
 					freeSpinsState = true;
+					if (WILD_FREE_SPIN == false)
+					{
+						showFreeSpinStatus(0, 0, GameHolder.gameState);
+					}
+				}
+				else
+				{
+					if (WILD_FREE_SPIN == false)
+					{
+						showFreeSpinStatus(1, 0, GameHolder.gameState);
+					}
 				}
 				
 				freeSpinsAmount += sObj.FreeSpins;
@@ -267,10 +278,7 @@ package game
 					GameHolder.gameState = GameHolder.DOUBLE_STATE;
 				}
 				
-				if (WILD_FREE_SPIN == false)
-				{
-					showFreeSpinStatus("თქცენ მოიპოვეთ " + sObj.FreeSpins + " FREE SPIN", true, 0, GameHolder.gameState);
-				}
+				
 				
 				
 				//this.machineHolder.showScatterBg();
@@ -280,6 +288,7 @@ package game
 				footerHolder.spinEnabled = true;
 				
 				GameHolder.gameState = GameHolder.FREE_SPINS_STATE;
+				
 			}
 			
 			
@@ -359,7 +368,10 @@ package game
 				{
 					this.machineHolder.setBonusLikeIconsAnimations(sObj, sObj.ScatterWin[i][1]);
 					this.linesHolder.shown = true;
-					this.linesHolder.frameHolder.setBonusLikeIcons(sObj, sObj.ScatterWin[i][1]);
+					if (GameSettings.GAME_NAME != "africa")
+					{
+						this.linesHolder.frameHolder.setBonusLikeIcons(sObj, sObj.ScatterWin[i][1]);
+					}
 				}
 				
 				if (sObj.WinnerLines.length <= 0)
@@ -604,7 +616,7 @@ package game
 			}
 			
 			
-			if (WILD_FREE_SPIN == true && (currentFreeSpinNum) != freeSpinsAmount && gameState != AUTOPLAY_STATE)
+			else if (WILD_FREE_SPIN == true && (currentFreeSpinNum) != freeSpinsAmount && gameState != AUTOPLAY_STATE)
 			{
 				//TweenLite.delayedCall(2, freeSpinsStartFunc, [null]);
 				
@@ -636,9 +648,9 @@ package game
 		}
 		
 		//show error
-		public function showFreeSpinStatus(customText:String = "", start:Boolean = true, win:Number = 0, gameState:int = -1):void
+		public function showFreeSpinStatus(statusState:int, win:int = 0, gameState:int = -1):void
 		{
-			try
+			/*try
 			{
 				freeSpinStatus.removeEventListener(GameEvents.FREE_SPINS_START, freeSpinsStartFunc);
 				freeSpinStatus.removeEventListener(GameEvents.FREE_SPINS_END, freeSpinsEndFunc);
@@ -647,11 +659,12 @@ package game
 			catch (err:Error)
 			{
 				
-			}
+			}*/
 			
-			freeSpinStatus = new FreeSpinStatus(this, customText, start, win, gameState);
+			freeSpinStatus = new FreeSpinStatus(statusState, win, gameState);
 			freeSpinStatus.addEventListener(GameEvents.FREE_SPINS_START, freeSpinsStartFunc);
 			freeSpinStatus.addEventListener(GameEvents.FREE_SPINS_END, freeSpinsEndFunc);
+			
 			
 			addChild(freeSpinStatus);
 		}
@@ -697,9 +710,10 @@ package game
 					footerHolder.updateState(gameState);
 					if (WILD_FREE_SPIN != true)
 					{
-						var str:String = FooterHolder.InLari == false ? obj.Win / GameSettings.CREDIT_VAL + " ქულა" : String((Number(obj.Win) / 100).toFixed(2)) + " GEL";
-						freeSpinStatus = new FreeSpinStatus(this, "თქვენ ამოგეწურათ FREE SPIN. თქვენ მოიგეთ " + str, false, gameState);
-						addChild(freeSpinStatus);
+						showFreeSpinStatus(2, obj.Win, gameState);
+						//var str:String = FooterHolder.InLari == false ? obj.Win / GameSettings.CREDIT_VAL + " ქულა" : String((Number(obj.Win) / 100).toFixed(2)) + " GEL";
+						//freeSpinStatus = new FreeSpinStatus(this, "თქვენ ამოგეწურათ FREE SPIN. თქვენ მოიგეთ " + str, false, gameState);
+						//addChild(freeSpinStatus);
 					}
 				}
 				else
@@ -708,8 +722,9 @@ package game
 					footerHolder.updateState(gameState);
 					if (WILD_FREE_SPIN != true)
 					{
-						freeSpinStatus = new FreeSpinStatus(this, "თქვენ ამოგეწურათ FREE SPIN", false, gameState);
-						addChild(freeSpinStatus);
+						showFreeSpinStatus(2, obj.Win, gameState);
+						//freeSpinStatus = new FreeSpinStatus(this, "თქვენ ამოგეწურათ FREE SPIN", false, gameState);
+						//addChild(freeSpinStatus);
 					}
 					
 				}
@@ -725,6 +740,19 @@ package game
 					//this.machineHolder.hideScatterBg();
 			}
 		}
+		
+		public function removeFreeSpins():void
+		{
+			if (freeSpinStatus == null)
+				return;
+				
+			freeSpinStatus.removeEventListener(GameEvents.FREE_SPINS_START, freeSpinsStartFunc);
+			freeSpinStatus.removeEventListener(GameEvents.FREE_SPINS_END, freeSpinsEndFunc);
+			freeSpinStatus.disposeFrStatus();
+			StaticGUI.safeRemoveChild(freeSpinStatus, true);
+		}
+		
+		
 		
 		public function updateFromDoubleGame(win:Number, doubleEnd:Boolean = false):void
 		{

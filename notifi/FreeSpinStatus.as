@@ -8,7 +8,6 @@ package notifi {
 	import starling.display.Image;
 	import starling.display.Quad;
 	import starling.display.Sprite;
-	import starling.display.Sprite3D;
 	import starling.events.Event;
 	import starling.text.TextField;
 	import starling.text.TextFormat;
@@ -16,7 +15,7 @@ package notifi {
 	import starling.utils.deg2rad;
 	import starling.utils.Align;
 	
-	public class FreeSpinStatus extends Sprite3D {
+	public class FreeSpinStatus extends Sprite {
 		
 		private var thisMC:FreeSpinStatus;
 		private var OKButt:MyButton;
@@ -24,17 +23,16 @@ package notifi {
 		private var start:Boolean;
 		private var win:Number;
 		private var gameState:int;
-		private var pp:Sprite;
 		private var error_txt:TextField;
-		private var customText:String;
+		private var statusState:int;
+		private var statusBg:Image;
+		private var quad:Quad;
 		
-		public function FreeSpinStatus(pp:GameHolder, customText:String = "", start:Boolean = true, win:Number = 0, gameState:int = -1) {
-			this.customText = customText;
+		public function FreeSpinStatus(statusState:int, win:Number = 0, gameState:int = -1) {
+			this.statusState = statusState;
 			this.alignPivot(Align.CENTER, Align.CENTER);
 			this.gameState = gameState;
 			this.win = win;
-			this.start = start;
-			this.pp = pp;
 			this.addEventListener(Event.ADDED_TO_STAGE, added);
 		}
 		
@@ -43,64 +41,64 @@ package notifi {
 			initFreeSpinStatus();
 			thisMC = this;
 			
-			var $tf:TextFormat = new TextFormat;
-			$tf.font = Assets.getFont("dejavuSans").name;
-			$tf.size = 18;
-			$tf.color = 0xFFFFFF;
 			
-			error_txt = new TextField(400, 92, "HERE WILL BE LOREM IPSUM SOON", $tf);
-			error_txt.alignPivot(Align.CENTER, Align.CENTER);
-			error_txt.y = 25;
-			addChild(error_txt);
+			TweenMax.from(this, 1, {scaleX: 0, scaleY:0, alpha: 0, ease: Back.easeInOut});
 			
-			OKButt = new MyButton(Assets.getAtlas("bonusStatusSheet", "bonusStatusSheetXml").getTextures("okBut"), "CC");
-			addChild(OKButt);
-			OKButt.y = 90;
 			
-			$tf.font = Assets.getFont("bebas").name;
-			
-			var ok_txt:TextField = new TextField(100, 28, "OK", $tf);
-			ok_txt.alignPivot(Align.CENTER, Align.CENTER);
-			OKButt.addChild(ok_txt);
-			OKButt.addEventListener(MouseEvent.CLICK, onOkClick);
-			
-			error_txt.text = customText;
-			
-			TweenMax.from(this, 1, {rotationX: deg2rad(-80), alpha: 0, ease: Back.easeInOut});
 		}
 		
 		private function initFreeSpinStatus():void {
-			var bgMc:Sprite = new Sprite();
-			addChild(bgMc);
-			var quad:Quad = new Quad(this.stage.stageWidth + 40, this.stage.stageHeight + 40, Color.BLACK);
-			quad.alignPivot(Align.CENTER, Align.CENTER);
-			bgMc.addChild(quad);
-			bgMc.alpha = 0.5;
 			
-			var statusBg:Image = new Image(Assets.getAtlas("bonusStatusSheet", "bonusStatusSheetXml").getTexture("freeSpinStatusBg.png"));
+			quad = new Quad(this.stage.stageWidth + 300, this.stage.stageHeight + 300, 0x000000);
+			quad.alpha = 0.5;
+			addChild(quad);
+			
+			StaticGUI.setAlignPivot(quad);
+			
+			statusBg = new Image(Assets.getAtlas("freeSpinsSheet", "freeSpinsSheetXml").getTexture(statusState + ".png"));
 			statusBg.alignPivot(Align.CENTER, Align.CENTER);
 			addChild(statusBg);
+			
+			switch (statusState) 
+			{
+				case 0:
+					OKButt = new MyButton(Assets.getAtlas("freeSpinsSheet", "freeSpinsSheetXml").getTextures("start"), "CC");
+				break;
+				case 1:
+					OKButt = new MyButton(Assets.getAtlas("freeSpinsSheet", "freeSpinsSheetXml").getTextures("continue"), "CC");
+				break;
+				case 2:
+					OKButt = new MyButton(Assets.getAtlas("freeSpinsSheet", "freeSpinsSheetXml").getTextures("continue"), "CC");
+				break;
+				
+			}
+			
+			OKButt.x = 10;
+			OKButt.y = 118;
+			addChild(OKButt);
+			
+			OKButt.addEventListener(MouseEvent.CLICK, onOkClick);
+			
 		}
 		
 		private function onOkClick(e:MouseEvent):void {
-			if (start == true) {
+			if (statusState == 0 || statusState == 1) {
 				dispatchEvent(new GameEvents(GameEvents.FREE_SPINS_START, {lastState: gameState}));
 			} else {
 				dispatchEvent(new GameEvents(GameEvents.FREE_SPINS_END, {lastState: gameState}));
 			}
-			removeError();
+			GameHolder.cont.removeFreeSpins();
 		}
 		
-		public function removeError():void {
-			try {
-				_parent.removeChild(this);
-			} catch (err:Error) {
-				try {
-					this.parent.removeChild(this);
-				} catch (err:Error) {
-					StaticGUI.safeRemoveChild(this);
-				}
-			}
+		public function disposeFrStatus():void 
+		{
+			StaticGUI.safeRemoveChild(statusBg, true);
+			statusBg = null;
+			
+			StaticGUI.safeRemoveChild(quad, true);
+			quad = null;
+			
+			TweenMax.killTweensOf(this);
 		}
 	
 	}

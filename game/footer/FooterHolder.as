@@ -438,6 +438,7 @@ package game.footer {
 				GameHolder.cont.linesHolder.checkWildTransofmedArr();
 				
 				
+				//if (GameSettings.FREE_SPINS_ENABLED){GameHolder.cont.removeFreeSpins()};
 				
 				
 				/*if (GameHolder.cont.freeSpinsState == false)

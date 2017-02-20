@@ -150,6 +150,11 @@ package game.machine
 			bg.x = -133;
 			bg.y = -43;
 			addChild(bg);
+			if (GameSettings.PREFERENCES.machine.machineBg != null)
+			{
+				bg.x += GameSettings.PREFERENCES.machine.machineBg.OFFSET_X;
+				bg.y += GameSettings.PREFERENCES.machine.machineBg.OFFSET_Y;
+			}
 			bg = null;
 			
 			iMask = new Quad(775, 441);
