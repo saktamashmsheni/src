@@ -74,13 +74,13 @@ package game.header {
 			var $tf:TextFormat = new TextFormat;
 			$tf.font = Assets.getFont("bebas").name;
 			$tf.size =  30;
-			$tf.color = 0xFFFFFF;
+			$tf.color = 0xfae336;
 			$tf.bold = true;
 			
 			var freeSpins_txt:TextField = new TextField(300, 40, "0/5", $tf);
 			freeSpins_txt.name = "freeSpins_txt";
 			freeSpins_txt.alignPivot(Align.CENTER, Align.CENTER);
-			freeSpins_txt.y = 68;
+			freeSpins_txt.y = 40;
 			addChild(freeSpins_txt);
 			freeSpins_txt.visible = false;
 			

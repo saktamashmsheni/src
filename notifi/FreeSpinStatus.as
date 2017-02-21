@@ -4,6 +4,8 @@ package notifi {
 	import com.utils.MouseEvent;
 	import com.utils.MyButton;
 	import com.utils.StaticGUI;
+	import feathers.controls.text.BitmapFontTextRenderer;
+	import flash.text.TextFormatAlign;
 	import game.GameHolder;
 	import starling.display.Image;
 	import starling.display.Quad;
@@ -27,8 +29,11 @@ package notifi {
 		private var statusState:int;
 		private var statusBg:Image;
 		private var quad:Quad;
+		private var frCount:int;
+		private var win_txt:BitmapFontTextRenderer;
 		
-		public function FreeSpinStatus(statusState:int, win:Number = 0, gameState:int = -1) {
+		public function FreeSpinStatus(statusState:int, frCount:int = 0, win:Number = 0, gameState:int = -1) {
+			this.frCount = frCount;
 			this.statusState = statusState;
 			this.alignPivot(Align.CENTER, Align.CENTER);
 			this.gameState = gameState;
@@ -69,6 +74,8 @@ package notifi {
 				break;
 				case 2:
 					OKButt = new MyButton(Assets.getAtlas("freeSpinsSheet", "freeSpinsSheetXml").getTextures("continue"), "CC");
+					win_txt = StaticGUI._creatBitmapFontTextRenderer(this, StaticGUI.modifiedBalanceString(win,1), 10, 90, 500, 200, Assets.getFont("free_spin_win").name, TextFormatAlign.CENTER, false, -8);
+					StaticGUI.setAlignPivot(win_txt);
 				break;
 				
 			}

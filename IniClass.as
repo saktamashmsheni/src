@@ -391,6 +391,12 @@ package {
 				Assets.transfer_Font = $o.getDefinition("FontsLib_transfer_Font") as Class;
 				Assets.transfer_FontXml = $o.getDefinition("FontsLib_transfer_FontXml") as Class;
 				
+				if (GameSettings.FREE_SPINS_ENABLED)
+				{
+					Assets.free_spin_win = $o.getDefinition("FontsLib_free_spin_win") as Class;
+					Assets.free_spin_winXml = $o.getDefinition("FontsLib_free_spin_winXml") as Class;
+				}
+				
 				
 				
 			} else if (e.params.valTxt == AssetsLoaderManager.SOUND_LIBRARY) {

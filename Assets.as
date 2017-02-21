@@ -279,6 +279,11 @@ package {
 		static public var winsPop_bfont:Class;
 		static public var winsPop_bfontXml:Class;
 		
+		//free spin fonts
+		//free spins
+		public static var free_spin_win:Class;
+		public static var free_spin_winXml:Class;
+		
 		
 		
 		public static var mainSlot:Class;

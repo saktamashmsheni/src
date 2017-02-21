@@ -176,7 +176,7 @@ package game
 			
 			//winsPopLoader();
 			
-		    //TweenLite.delayedCall(1, showFreeSpinStatus, [1,0]);
+		    //TweenLite.delayedCall(2, showFreeSpinStatus, [2,0,2345645456]);
 			
 		}
 		
@@ -258,14 +258,14 @@ package game
 					freeSpinsState = true;
 					if (WILD_FREE_SPIN == false)
 					{
-						showFreeSpinStatus(0, 0, GameHolder.gameState);
+						showFreeSpinStatus(0, sObj.FreeSpins, 0, GameHolder.gameState);
 					}
 				}
 				else
 				{
 					if (WILD_FREE_SPIN == false)
 					{
-						showFreeSpinStatus(1, 0, GameHolder.gameState);
+						showFreeSpinStatus(1, sObj.FreeSpins, 0, GameHolder.gameState);
 					}
 				}
 				
@@ -610,9 +610,9 @@ package game
 			//Tracer._log("################### " + freeSpinsAmount);
 			
 			
-			if (gameState == AUTOPLAY_STATE)
+			if (gameState == AUTOPLAY_STATE && !(!WILD_FREE_SPIN && obj.FreeSpins > 0))
 			{
-				TweenLite.delayedCall(obj.WinnerLines.length > 0 ? 1 : 0.2, this.footerHolder.autoSpinFunction);
+				TweenLite.delayedCall((obj.WinnerLines.length > 0 || obj.ScatterWin.length > 0) > 0 ? 1 : 0.2, this.footerHolder.autoSpinFunction);
 			}
 			
 			
@@ -648,7 +648,7 @@ package game
 		}
 		
 		//show error
-		public function showFreeSpinStatus(statusState:int, win:int = 0, gameState:int = -1):void
+		public function showFreeSpinStatus(statusState:int, frCount:int = 0, win:int = 0, gameState:int = -1):void
 		{
 			/*try
 			{
@@ -661,7 +661,7 @@ package game
 				
 			}*/
 			
-			freeSpinStatus = new FreeSpinStatus(statusState, win, gameState);
+			freeSpinStatus = new FreeSpinStatus(statusState, frCount, win, gameState);
 			freeSpinStatus.addEventListener(GameEvents.FREE_SPINS_START, freeSpinsStartFunc);
 			freeSpinStatus.addEventListener(GameEvents.FREE_SPINS_END, freeSpinsEndFunc);
 			
@@ -671,9 +671,10 @@ package game
 		
 		private function freeSpinsStartFunc(e:GameEvents):void
 		{
+			footerHolder.spinEnabled = true;
 			GameHolder.gameState = GameHolder.NORMAL_STATE;
 			footerHolder.updateState(GameHolder.gameState);
-			footerHolder.spinBtn.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+			footerHolder.onSpinClick();
 		}
 		
 		private function freeSpinsEndFunc(e:GameEvents):void
@@ -710,7 +711,7 @@ package game
 					footerHolder.updateState(gameState);
 					if (WILD_FREE_SPIN != true)
 					{
-						showFreeSpinStatus(2, obj.Win, gameState);
+						showFreeSpinStatus(2, 0, obj.Win, gameState);
 						//var str:String = FooterHolder.InLari == false ? obj.Win / GameSettings.CREDIT_VAL + " ქულა" : String((Number(obj.Win) / 100).toFixed(2)) + " GEL";
 						//freeSpinStatus = new FreeSpinStatus(this, "თქვენ ამოგეწურათ FREE SPIN. თქვენ მოიგეთ " + str, false, gameState);
 						//addChild(freeSpinStatus);
@@ -722,7 +723,7 @@ package game
 					footerHolder.updateState(gameState);
 					if (WILD_FREE_SPIN != true)
 					{
-						showFreeSpinStatus(2, obj.Win, gameState);
+						showFreeSpinStatus(2, 0, obj.Win, gameState);
 						//freeSpinStatus = new FreeSpinStatus(this, "თქვენ ამოგეწურათ FREE SPIN", false, gameState);
 						//addChild(freeSpinStatus);
 					}
@@ -866,25 +867,14 @@ package game
 			if (value == true)
 			{
 				
-				headerHolder.logoMc.currentFrame = 2;
+				headerHolder.logoMc.currentFrame = 1;
 				TweenLite.from(headerHolder.logoMc, 0.4, {alpha: 0, scaleY: 0, ease: Expo.easeOut});
 				TextField(headerHolder.getChildByName("freeSpins_txt")).visible = true;
 				TextField(headerHolder.getChildByName("freeSpins_txt")).text = currentFreeSpinNum + " / " + freeSpinsAmount;
 			}
 			else
 			{
-				switch (Root.lang)
-				{
-				case "ge": 
-					headerHolder.logoMc.currentFrame = 0;
-					break;
-				case "en": 
-					headerHolder.logoMc.currentFrame = 1;
-					break;
-				case "ru": 
-					headerHolder.logoMc.currentFrame = 2;
-					break;
-				}
+				headerHolder.logoMc.currentFrame = 0;
 				
 				TextField(headerHolder.getChildByName("freeSpins_txt")).visible = false;
 			}
