@@ -1,4 +1,5 @@
 package notifi {
+	import com.greensock.TweenLite;
 	import com.greensock.easing.Back;
 	import com.greensock.TweenMax;
 	import com.utils.MouseEvent;
@@ -68,14 +69,17 @@ package notifi {
 			{
 				case 0:
 					OKButt = new MyButton(Assets.getAtlas("freeSpinsSheet", "freeSpinsSheetXml").getTextures("start"), "CC");
+					TweenLite.delayedCall(0.2, Root.soundManager.PlaySound, ["freeSpinWelcome"]);
 				break;
 				case 1:
 					OKButt = new MyButton(Assets.getAtlas("freeSpinsSheet", "freeSpinsSheetXml").getTextures("continue"), "CC");
+					TweenLite.delayedCall(0.2, Root.soundManager.PlaySound, ["freeSpinWelcome"]);
 				break;
 				case 2:
 					OKButt = new MyButton(Assets.getAtlas("freeSpinsSheet", "freeSpinsSheetXml").getTextures("continue"), "CC");
 					win_txt = StaticGUI._creatBitmapFontTextRenderer(this, StaticGUI.modifiedBalanceString(win,1), 10, 90, 500, 200, Assets.getFont("free_spin_win").name, TextFormatAlign.CENTER, false, -8);
 					StaticGUI.setAlignPivot(win_txt);
+					TweenLite.delayedCall(0.2, Root.soundManager.PlaySound, ["freeSpinResults"]);
 				break;
 				
 			}
@@ -89,6 +93,7 @@ package notifi {
 		}
 		
 		private function onOkClick(e:MouseEvent):void {
+			Root.soundManager.stopSound();
 			if (statusState == 0 || statusState == 1) {
 				dispatchEvent(new GameEvents(GameEvents.FREE_SPINS_START, {lastState: gameState}));
 			} else {

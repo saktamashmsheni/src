@@ -220,7 +220,7 @@ package game
 			//free spins
 			if (sObj.FreeSpins > 0)
 			{
-				
+				MusicManager._cont._removeSound();
 				///wild
 				if (sObj.WildReels.length > 0)
 				{
@@ -403,7 +403,7 @@ package game
 					
 					if (gameState == AUTOPLAY_STATE)
 					{
-						collectDel = 7
+						collectDel = 9
 					}
 				}
 				
@@ -451,6 +451,16 @@ package game
 			{
 				//activate old messages
 				TweenLite.delayedCall(wildSpinDel, IniClass.cont.socketAnaliser.activateOldMessages);
+			}
+			
+			
+			
+			if (_freeSpinsState == true)
+			{
+				if (!MusicManager._cont.isScatterSound)
+				{
+					MusicManager._cont.scatterSound();
+				}
 			}
 			
 			
@@ -513,7 +523,7 @@ package game
 				
 				if (gameState == AUTOPLAY_STATE && sObj.WinnerLines.length > 0)
 				{
-					endDelay += 3;
+					endDelay += 2;
 				}
 			   
 				
@@ -700,6 +710,8 @@ package game
 		
 		public function freeSpinCompleteMessage(obj:Object):void
 		{
+			MusicManager._cont._removeSound();
+			MusicManager._cont.isScatterSound = false;
 			if (freeSpinsState == true)
 			{
 				footerHolder.autoSpinAmount = 0;
@@ -1339,8 +1351,6 @@ package game
 				this.doubleHolder.modifyCardsOnReconnect(obj.HandInfo.DoubleState.Cards);
 			}
 			
-			
-			
 			if (obj.HandInfo.FreeSpinState)
 			{
 				
@@ -1377,6 +1387,14 @@ package game
 					machineHolder.modifyWildIcons(obj.HandInfo.SpinResult.WildReels, obj.HandInfo.SpinResult, GameSettings.WILD_SPEC_TOP)
 				}
 				
+			}
+			
+			if (_freeSpinsState == true)
+			{
+				if (!MusicManager._cont.isScatterSound)
+				{
+					MusicManager._cont.scatterSound();
+				}
 			}
 			
 		}

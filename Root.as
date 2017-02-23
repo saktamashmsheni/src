@@ -18,7 +18,7 @@
 		//public static var port:Number = 8804; //dragon fruit
 		//public static var port:Number = 8805; //star fruit
 		//public static var port:Number = 5005; //mammoth
-		public static var port:Number = 8807; //africa
+		public static var port:Number = 8803; //africa
 		
 		
 		

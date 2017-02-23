@@ -89,13 +89,13 @@ package jackpotCL {
 			butHolder = new Sprite;
 			addChild(butHolder);
 			
-			brinjao_mc = setWinBanners('', -380, -90, null, 0xffffff, -4);
+			brinjao_mc = setWinBanners('', -390, -90, null, 0xffffff, -4);
 			brinjao_mc.name = 'banner_1';
-			vercxli_mc = setWinBanners('', -210, brinjao_mc.y, null, 0xffffff, -4);
+			vercxli_mc = setWinBanners('', -218, brinjao_mc.y, null, 0xffffff, -4);
 			vercxli_mc.name = 'banner_2';
-			oqro_mc = setWinBanners('', 175, brinjao_mc.y, null, 0xffffff, -4);
+			oqro_mc = setWinBanners('', 165, brinjao_mc.y, null, 0xffffff, -4);
 			oqro_mc.name = 'banner_3';
-			platina_mc = setWinBanners('', 340, brinjao_mc.y, null, 0xffffff, -4);
+			platina_mc = setWinBanners('', 335, brinjao_mc.y, null, 0xffffff, -4);
 			platina_mc.name = 'banner_4';
 			
 			$bannersArray = [brinjao_mc, vercxli_mc, oqro_mc, platina_mc];

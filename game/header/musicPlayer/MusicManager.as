@@ -24,8 +24,8 @@ package game.header.musicPlayer {
 		private static var $musicCurrentState:uint;
 		
 		private const MUSIC_OUT_DELAY:uint = 7;
-		private const MUSIC_MAX_VALUME:Number = 0;
-		//private const MUSIC_MAX_VALUME:Number = 0.7;
+		//private const MUSIC_MAX_VALUME:Number = 0;
+		private const MUSIC_MAX_VALUME:Number = 0.6;
 		private const MUSIC_MIN_VALUME:Number = 0;
 		
 		
@@ -33,6 +33,8 @@ package game.header.musicPlayer {
 		public static var MUSIC_MUTE:uint = 1;
 		public static var MUSIC_MUTE_ONDELAY:uint = 2;
 		public static var MUSIC_DONT_MUTE:uint = 3;
+		
+		public var isScatterSound:Boolean = false;
 		
 		
 		public function MusicManager() {
@@ -42,6 +44,22 @@ package game.header.musicPlayer {
 			$snd.load(new URLRequest(GameSettings.PATH + "soundtracks/NupogodiSoundtrack-Popcorn.mp3"));
 			//$snd.addEventListener(flash.events.Event.COMPLETE, musicComplete);
 			musicComplete(null);
+		}
+		
+		
+		public function scatterSound():void 
+		{
+			$sndPlaying = false;
+			$channel.stop();
+			$channel = null
+			$transform = null
+			$snd = null
+			$snd = new Sound();
+			$snd.load(new URLRequest(GameSettings.PATH + "soundtracks/reels_free_spin_looping.mp3"));
+			//$snd.addEventListener(flash.events.Event.COMPLETE, musicComplete);
+			musicComplete(null);
+			
+			isScatterSound = true;
 		}
 		
 		private function musicComplete(evt:flash.events.Event):void {
@@ -122,7 +140,7 @@ package game.header.musicPlayer {
 		}
 		
 		public function _onStageMouseClickHandler(e:MouseEvent):void {
-			if (!$soundIsReady) return;
+			if (!$soundIsReady || isScatterSound == false) return;
 		
 			TweenLite.killDelayedCallsTo(_removeSound);
 			TweenLite.delayedCall(MUSIC_OUT_DELAY, _removeSound);

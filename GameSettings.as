@@ -15,11 +15,11 @@ package
 		
 		public static var GAMES_AND_PORTS:Array = [["frozen fruits", 8801], 
 												   ["40 slice fruit", 8802], 
-												   ["20 slice fruit", 8803], 
+												   ["20 slice fruit", 8807], 
 												   ["dragon fruit", 8804],
 												   ["star fruit", 8805],
 												   ["mammoth", 5005],
-												   ["africa", 8807]
+												   ["africa", 8803]
 												   ];
 		
 		public static var MULTIPLE_WINS:Boolean;
