@@ -114,7 +114,7 @@ package game.doubleGame {
 			
 			addChild(bg);
 			
-			gameAmountTXT = StaticGUI._creatBitmapFontTextRenderer(this, "GAMBLE AMOUNAAT", -175, -140, 300, 40, Assets.getFont("double_roboto_bold").name, TextFormatAlign.CENTER, false,-10);
+			gameAmountTXT = StaticGUI._creatBitmapFontTextRenderer(this, "GAMBLE AMOUNT", -175, -140, 300, 40, Assets.getFont("double_roboto_bold").name, TextFormatAlign.CENTER, false,-10);
 			gameAmountTXT.pivotX = int(gameAmountTXT.width / 2);
 			
 			

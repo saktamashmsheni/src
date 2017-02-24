@@ -52,6 +52,7 @@ package jackpotCL {
 		public var platVal:int = 0;
 		public var butHolder:Sprite
 		public static var colorsAr:Array = [0xaf6c2b, 0x868686, 0xf3be08, 0xededed];
+		public var textsArray:Array = [0xaf6c2b, 0x868686, 0xf3be08, 0xededed];
 		private var lastInfoAr:Array;
 		private var info_mc:Sprite;
 		private var win_mc:Sprite;
@@ -76,13 +77,12 @@ package jackpotCL {
 			var tt:TextFieldTextRenderer;
 			var tt2:BitmapFontTextRenderer;
 			
-			
 			var $textureAtlas:TextureAtlas = Assets.getAtlas("fourJackpotSheet", "fourJackpotSheetXml");
 			
 			var jackBg:Image = new Image($textureAtlas.getTexture("4jackbg.png"));
 			addChild(jackBg);
 			StaticGUI.setAlignPivot(jackBg);
-			jackBg.y = -70;
+			jackBg.y = -78;
 			jackBg.touchable = false;
 			
 			
@@ -97,6 +97,18 @@ package jackpotCL {
 			oqro_mc.name = 'banner_3';
 			platina_mc = setWinBanners('', 335, brinjao_mc.y, null, 0xffffff, -4);
 			platina_mc.name = 'banner_4';
+			
+			brinjao_txt = StaticGUI._creatBitmapFontTextRenderer(this, '0.00', -460, -92, 200, 40, Assets.getFont("jackpotFont").name, TextFormatAlign.CENTER,false,0);
+			vercxli_txt = StaticGUI._creatBitmapFontTextRenderer(this, '0.00', -291, -92, 200, 40, Assets.getFont("jackpotFont").name, TextFormatAlign.CENTER,false,0);
+			oqro_txt = StaticGUI._creatBitmapFontTextRenderer(this, '0.00', 96, -92, 200, 40, Assets.getFont("jackpotFont").name, TextFormatAlign.CENTER,false,0);
+			platina_txt = StaticGUI._creatBitmapFontTextRenderer(this, '0.00', 261, -92, 200, 40, Assets.getFont("jackpotFont").name, TextFormatAlign.CENTER, false, 0);
+			
+			brinjao_txt.touchable = false;
+			vercxli_txt.touchable = false;
+			oqro_txt.touchable = false;
+			platina_txt.touchable = false;
+			
+			textsArray = [brinjao_txt, vercxli_txt, oqro_txt, platina_txt];
 			
 			$bannersArray = [brinjao_mc, vercxli_mc, oqro_mc, platina_mc];
 			
@@ -182,9 +194,9 @@ package jackpotCL {
 		
 		private function setWinBanners(text:String, xPos:int, yPos:int, texture:Texture, shadowColor:uint, labelYOffset:int = 0):Button {
 			var $btn:Button = new Button();
-			//$btn.minTouchWidth = 500 
+			$btn.minTouchWidth = 200 
 			$btn.isQuickHitAreaEnabled = true;
-			//$btn.minTouchHeight = 50
+			$btn.minTouchHeight = 50
 			
 			$btn.x = xPos;
 			$btn.y = yPos;
@@ -193,7 +205,7 @@ package jackpotCL {
 				$btn.defaultSkin = new Image(texture);
 			}
 			$btn.addEventListener(TouchEvent.TOUCH, handleTouch);
-			$btn.label = text;
+			/*$btn.label = text;
 			$btn.useHandCursor = true;
 			$btn.labelFactory = function():ITextRenderer {
 				var textRenderer:TextFieldTextRenderer = new TextFieldTextRenderer();
@@ -203,7 +215,7 @@ package jackpotCL {
 				return textRenderer;
 			}
 			$btn.defaultLabelProperties.nativeFilters = [new DropShadowFilter(1, 90, shadowColor, .7, 1, 2)];
-			$btn.labelOffsetY = labelYOffset;
+			$btn.labelOffsetY = labelYOffset;*/
 			
 			$btn.validate();
 			$btn.alignPivot(Align.CENTER, Align.CENTER);
@@ -212,6 +224,10 @@ package jackpotCL {
 			return $btn;
 		}
 		private var over:Boolean;
+		private var brinjao_txt:BitmapFontTextRenderer;
+		private var vercxli_txt:BitmapFontTextRenderer;
+		private var oqro_txt:BitmapFontTextRenderer;
+		private var platina_txt:BitmapFontTextRenderer;
 		private function handleTouch(e:TouchEvent):void {
 			
 			//if (Root.TESTING) return;
@@ -255,7 +271,7 @@ package jackpotCL {
 			
 			if (String(retunCurAr(ind + 1)[8]) != "0001-01-01") {
 				TextFieldTextRenderer(info_mc.getChildByName("maxWinDate_txt")).text = retunCurAr(ind + 1)[8];
-				BitmapFontTextRenderer(info_mc.getChildByName("maxWinVal_txt")).text = (retunCurAr(ind + 1)[3] / 100).toFixed(2) + " " + StaticGUI.getCurrecyShortcuts();
+				BitmapFontTextRenderer(info_mc.getChildByName("maxWinVal_txt")).text = (retunCurAr(ind + 1)[3] / 100 /GameSettings.Currency_Rate).toFixed(2) + " " + StaticGUI.getCurrecyShortcuts();
 			} else {
 				TextFieldTextRenderer(info_mc.getChildByName("maxWinDate_txt")).text = "0-0-0";
 				BitmapFontTextRenderer(info_mc.getChildByName("maxWinVal_txt")).text = "0.00" + " " + StaticGUI.getCurrecyShortcuts();
@@ -265,7 +281,7 @@ package jackpotCL {
 			
 			if (String(retunCurAr(ind + 1)[7]) != "0001-01-01") {
 				TextFieldTextRenderer(info_mc.getChildByName("lastWinDate_txt")).text = retunCurAr(ind + 1)[7];
-				BitmapFontTextRenderer(info_mc.getChildByName("lastWinVal_txt")).text = (retunCurAr(ind + 1)[4] / 100).toFixed(2) + " " + StaticGUI.getCurrecyShortcuts();
+				BitmapFontTextRenderer(info_mc.getChildByName("lastWinVal_txt")).text = (retunCurAr(ind + 1)[4] / 100 /GameSettings.Currency_Rate).toFixed(2) + " " + StaticGUI.getCurrecyShortcuts();
 			} else {
 				TextFieldTextRenderer(info_mc.getChildByName("lastWinDate_txt")).text = "0-0-0";
 				BitmapFontTextRenderer(info_mc.getChildByName("lastWinVal_txt")).text = "0.00" + " " + StaticGUI.getCurrecyShortcuts();
@@ -332,24 +348,25 @@ package jackpotCL {
 		
 		public function animUpdate(num:int):void {
 			
-			var $b:Button = this.$bannersArray[num] as Button;
-			$b.label = String((returnVal(num) / 100).toFixed(2));
+			textsArray[num].text = StaticGUI.scoreToValutaFixed(returnVal(num), 1, true);
+			//var $b:Button = this.$bannersArray[num] as Button;
+			//$b.label = String((returnVal(num) / 100).toFixed(2));
 			//TextField(this.$bannersArray[num].label("val_txt")).text = String((returnVal(num) / 100).toFixed(2)) + " e";
 		}
 		
 		public function returnVal(num:int):int {
 			switch (num) {
 				case 0: 
-					return brinVal;
+					return brinVal/GameSettings.Currency_Rate;
 					break;
 				case 1: 
-					return vercVal;
+					return vercVal/GameSettings.Currency_Rate;
 					break;
 				case 2: 
-					return oqrVal;
+					return oqrVal/GameSettings.Currency_Rate;
 					break;
 				case 3: 
-					return platVal;
+					return platVal/GameSettings.Currency_Rate;
 					break;
 			}
 			

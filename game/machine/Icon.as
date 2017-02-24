@@ -35,7 +35,7 @@ package game.machine
 	{
 		private var iconMc:MovieClip;
 		private var vectTexture:Vector.<Texture>;
-		public var ID:int;
+		public var ID:int = -1;
 		public var transformedInWild:Boolean = false;
 		public var parentLine:int;
 		public var identifier:String;
@@ -62,20 +62,53 @@ package game.machine
 			if (this.visible == false)
 				this.visible = true;
 				
-			if (iconMc == null)
+			
+			//if (ID != id || (vectTexture == null || iconMc == null))
 			{
-				if (vectTexture == null)
+				/*if (iconMc != null)
 				{
-					//vectTexture = Assets.getAtlas("allIconsImg", "allIconsXml").getTextures("icons");
-					vectTexture = Machine.allIconsAtlas.getTextures("icons");
+					StaticGUI.safeRemoveChild(iconMc, true);
+					iconMc.base.dispose();
+					iconMc = null;
+				}*/
+				if (vectTexture != null)
+				{
+					vectTexture = null;
 				}
-				iconMc = new MovieClip(vectTexture);
 				
-				addChild(iconMc);
-				
-				
+					
+				//if (iconMc == null)
+				//{
+					//if (vectTexture == null)
+					//{
+						vectTexture = new Vector.<Texture>();
+						//vectTexture = Assets.getAtlas("allIconsImg", "allIconsXml").getTextures("icons");
+						//vectTexture = Machine.allIconsAtlas.getTextures("icons" + StaticGUI.intWithZeros(id * 2, 4));
+						
+						if (!isInScroll)
+						{
+							vectTexture.push(Machine.allIconsAtlas.getTexture("icons" + StaticGUI.intWithZeros(id * 2, 4)));
+						}else
+						{
+							vectTexture.push(Machine.allIconsAtlas.getTexture("icons" + StaticGUI.intWithZeros(id * 2 + 1, 4)));
+						}
+						
+						
+					//}
+					if (iconMc == null)
+					{
+						iconMc = new MovieClip(vectTexture);
+						iconMc.touchable = false;
+						addChild(iconMc);
+					}
+					else
+					{
+						swapFrames(iconMc, vectTexture);
+					}
+				//}
 				
 			}
+			
 			
 			if (Machine.isWildIcon(ID))
 			{
@@ -87,13 +120,15 @@ package game.machine
 			
 			
 			ID = id;
-			if (!isInScroll)
+			/*if (!isInScroll)
 			{
-				iconMc.currentFrame = (ID) * 2;
+				//iconMc.currentFrame = (ID) * 2;
+				iconMc.currentFrame = 0;
 			}else
 			{
-				iconMc.currentFrame = (ID) * 2 + 1;
-			}
+				//iconMc.currentFrame = (ID) * 2 + 1;
+				iconMc.currentFrame = 1;
+			}*/
 			
 			
 			alignCenter(iconMc);
@@ -360,7 +395,34 @@ package game.machine
 		
 		public function resetBlur():void
 		{
-			iconMc.currentFrame = (ID) * 2;
+			//iconMc.currentFrame = 0;
+			//iconMc.currentFrame = (ID) * 2;
+		}
+		
+		
+		
+		public function swapFrames(clip:MovieClip, textures:Vector.<Texture>):void {
+ 
+			// remove all frame but one, since a MovieClip is not allowed to have 0 frames
+			while(clip.numFrames > 1){
+				clip.removeFrameAt(0);
+			}
+ 
+			//add new frames
+			for (var i:int=0, l:int=textures.length; i<l; ++i)
+			{
+				clip.addFrame(textures[i]);
+			}
+ 
+			// remove that last previous frame
+			clip.removeFrameAt(0);
+ 
+			// set to frame 1
+			clip.currentFrame = 0;
+ 
+			//Reajust the clip size
+			clip.readjustSize();
+ 
 		}
 		
 		

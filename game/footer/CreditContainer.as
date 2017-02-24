@@ -212,6 +212,7 @@ package game.footer
 		{
 			resetButs();
 			CREDIT = cred;
+			GameSettings.CREDIT_VAL = cred;
 			dispatchEvent(new GameEvents(GameEvents.CREDIT_CHANGED));
 			
 			addChild(mcAr[GameSettings.CREDIT_AR.indexOf(CREDIT)]);

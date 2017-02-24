@@ -106,7 +106,7 @@ package game.machine {
 			clearAr.push(test_txt);
 			
 			for (i = 0; i < arr[2]; i++) {
-				imgIC = new Image(Assets.getAtlas("allIconsImg", "allIconsXml").getTexture("icons" + StaticGUI.intWithZeros((arr[1]) * 2, 4)));
+				imgIC = new Image(Machine.allIconsAtlas.getTexture("icons" + StaticGUI.intWithZeros((arr[1]) * 2, 4)));
 				//trace("icons" + StaticGUI.intWithZeros((arr[1]) * 2, 4));
 				imgIC.scaleX = imgIC.scaleY = 0.1;
 				imgIC.x = test_txt.x + (imgIC.width + 1) * i + 65;

@@ -275,6 +275,10 @@ package {
 		public static var transfer_Font:Class;
 		public static var transfer_FontXml:Class;
 		
+		//jackpotFont
+		public static var jackpotFont:Class;
+		public static var jackpotFontXml:Class;
+		
 		//win animation fonts
 		static public var winsPop_bfont:Class;
 		static public var winsPop_bfontXml:Class;

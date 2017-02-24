@@ -391,6 +391,10 @@ package {
 				Assets.transfer_Font = $o.getDefinition("FontsLib_transfer_Font") as Class;
 				Assets.transfer_FontXml = $o.getDefinition("FontsLib_transfer_FontXml") as Class;
 				
+				//jackpot
+				Assets.jackpotFont = $o.getDefinition("FontsLib_jackpotFont") as Class;
+				Assets.jackpotFontXml = $o.getDefinition("FontsLib_jackpotFontXml") as Class;
+				
 				if (GameSettings.FREE_SPINS_ENABLED)
 				{
 					Assets.free_spin_win = $o.getDefinition("FontsLib_free_spin_win") as Class;

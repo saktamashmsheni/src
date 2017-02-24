@@ -455,7 +455,7 @@ package game
 			
 			
 			
-			if (_freeSpinsState == true)
+			if (_freeSpinsState == true && WILD_FREE_SPIN == false)
 			{
 				if (!MusicManager._cont.isScatterSound)
 				{
@@ -1389,7 +1389,7 @@ package game
 				
 			}
 			
-			if (_freeSpinsState == true)
+			if (_freeSpinsState == true && WILD_FREE_SPIN == false)
 			{
 				if (!MusicManager._cont.isScatterSound)
 				{

@@ -16,13 +16,13 @@
 		//public static var port:Number = 8803; //20 slice fruit
 		//public static var port:Number = 8802; //40 slice fruit
 		//public static var port:Number = 8804; //dragon fruit
-		//public static var port:Number = 8805; //star fruit
+		public static var port:Number = 8805; //star fruit
 		//public static var port:Number = 5005; //mammoth
-		public static var port:Number = 8803; //africa
+		//public static var port:Number = 8803; //africa
 		
 		
 		
-		public static var TESTING:Boolean = true;
+		public static var TESTING:Boolean = false;
 		public static var Key:ByteArray = Hex.toArray(Hex.fromString(CONFIG::KEY));
 		public static var Key1:ByteArray = Hex.toArray(Hex.fromString(CONFIG::KEY));
 		
