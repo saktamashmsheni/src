@@ -350,7 +350,9 @@ package game.footer {
 				Root.soundManager.PlaySound("options_click");
 			}
 			
-			if (spinEnabled == false && spinBtn.label == "STOP") {
+			//trace("GameHolder.cont.machineHolder.isScrolling" + GameHolder.cont.machineHolder.isScrolling);
+			//if (spinEnabled == false && spinBtn.label == "STOP") {
+			if (spinEnabled == false && GameHolder.cont.machineHolder.isScrolling) {
 				GameHolder.cont.machineHolder.makeFastStop();
 				spinStopDisable();
 				GoogleAnalytics._sendActionEvent(GAnalyticsEvents.GAME_EVENTS, 'spin stop', 'spin stop clicked');
@@ -482,17 +484,18 @@ package game.footer {
 		}
 		
 		public function spinStopDisable():void {
-			if (spinEnabled == false && spinBtn.label == "STOP") {
+			//if (spinEnabled == false && spinBtn.label == "STOP") {
+			if (spinEnabled == false && GameHolder.cont.machineHolder.isScrolling) {
 				spinBtn.label = "SPIN";
 				//spinBtn.alpha = 0.5
 				//spinBtn.touchable = false;
 				spinBtn.isEnabled = false;
 				spinBtn.useHandCursor = false
 				
-				if (GameHolder.gameState == GameHolder.AUTOPLAY_STATE)
+				/*if (GameHolder.gameState == GameHolder.AUTOPLAY_STATE)
 				{
 					spinBtn.label = "STOP";
-				}
+				}*/
 				
 				//$betSlider._isEnabled(spinBtn.isEnabled);
 			}
@@ -624,7 +627,7 @@ package game.footer {
 			spinBtn.isEnabled = true;
 			spinBtn.useHandCursor = true;
 			
-			
+			GameHolder.cont.lineButsHolder._isEnabled(false);
 			
 			switch (gameState) {
 				case GameHolder.NORMAL_STATE: 
@@ -634,11 +637,13 @@ package game.footer {
 					//spinBtn.label = "SPIN";
 					//$betSlider._isEnabled((false));
 					
+					GameHolder.cont.lineButsHolder._isEnabled(true);
+					
 					break;
 				
 				case GameHolder.AUTOPLAY_STATE: 
 					autoSpinBtn.label = "STOP";
-					spinBtn.label = "STOP";
+					//spinBtn.label = "STOP";
 					//spinBtn.isEnabled = false;
 					//spinBtn.useHandCursor = false;
 					
@@ -944,6 +949,11 @@ package game.footer {
 				}
 				
 				if (!_bonusGame && GameHolder.gameState == GameHolder.NORMAL_STATE) {
+					spinBtn.isEnabled = true;
+					spinBtn.useHandCursor = true;
+				}
+				
+				if (!_bonusGame && GameHolder.gameState == GameHolder.AUTOPLAY_STATE) {
 					spinBtn.isEnabled = true;
 					spinBtn.useHandCursor = true;
 				}

@@ -63,14 +63,14 @@ package game
 		public var freeSpinsAmount:int = 0;
 		private var _freeSpinsState:Boolean = false;
 		public var doubleHolder:DoubleHolder;
-		private var lineButsHolder:LineButtons;
+		public var lineButsHolder:LineButtons;
 		public var linesHolder:Lines;
 		private var freeSpinStatus:FreeSpinStatus;
 		public var fourWayJackpotHolder:FourWayJackpot;
 		public var currentFreeSpinNum:Number = 0;
 		private var bonusStatusMc:BonusGameStatus;
 		public var bigWinAnim:BigWinCont;
-		private var wasEndMsg:Boolean;
+		public var wasEndMsg:Boolean;
 		private var startInfo:JackpotStartInfo;
 		private var jackpotWinAnimation:JackpotWinAnimation;
 		private var leaderBoardHolder:LeaderBoardHolder;
@@ -92,6 +92,7 @@ package game
 		private var multipleWins:MultipleWins;
 		private var endDelay:Number;
 		private var sideAnim_con:SideAnim;
+		public var SPIN_OBJ:Object;
 		public static var WILD_FREE_SPIN:Boolean;
 		public var leaderboardInfo_mc:LeaderboardInfo;
 		public var scatterWinMc:ScatterWinWindow;
@@ -210,7 +211,7 @@ package game
 		
 		private function whenSpinComplete(e:GameEvents):void
 		{
-			
+			SPIN_OBJ = e.params.socketObject;
 			var sObj:Object = e.params.socketObject;
 			var wildSpecNum:int = -1;
 			var wildSpinDel:Number = 0;
@@ -380,7 +381,7 @@ package game
 				}
 			}
 			
-			
+			var bigWinIndex:int = -1;
 			if (sObj.WinnerLines.length > 0 || sObj.ScatterWin.length > 0)
 			{
 				var collectDel:Number = 0.3;
@@ -389,7 +390,7 @@ package game
 					collectDel = 2.2;
 				}*/
 				
-				var bigWinIndex:int = BigWinCont.shouldShow(footerHolder.totalBetAmount, sObj.TotalWin);
+				bigWinIndex = BigWinCont.shouldShow(footerHolder.totalBetAmount, sObj.TotalWin);
 				if (WILD_FREE_SPIN && sObj.FreeSpins > 0)
 				{
 					bigWinIndex = -1;
@@ -549,6 +550,7 @@ package game
 			
 			TweenLite.delayedCall(endDelay, checkForEndmsg, [sObj]);
 			
+			
 			sObj = null;
 			
 		}
@@ -574,7 +576,7 @@ package game
 		
 		}
 		
-		private function preEndDelayedFunc(obj:Object):void
+		public function preEndDelayedFunc(obj:Object):void
 		{
 			//aq ise ar sheva es piroba tu ar shesrulda
 			if (obj.WinnerLines.length > 0 || obj.ScatterWin.length > 0) {
@@ -590,7 +592,7 @@ package game
 			}
 		}
 		
-		private function checkForEndmsg(obj:Object):void
+		public function checkForEndmsg(obj:Object):void
 		{
 			if (wasEndMsg == false)
 			{
@@ -652,6 +654,7 @@ package game
 				footerHolder.updateWin(footerHolder.winAmount);
 			}
 			
+			SPIN_OBJ = null;
 			wasEndMsg = false;
 			
 			GoogleAnalytics._sendActionEvent(GAnalyticsEvents.GAME_EVENTS, 'spin', 'spin clicked');

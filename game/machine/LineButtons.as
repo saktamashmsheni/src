@@ -155,6 +155,7 @@ package game.machine {
 		
 		
 		public function _isEnabled(boo:Boolean = true):void{
+			if (GameSettings.LINES_FIXED) return;
 			this.touchable = boo;
 		}
 		
@@ -166,7 +167,8 @@ package game.machine {
 		
 		
 		private function group_R_ChangeHandler(e:Event):void {
-			var $group:ToggleGroup = ToggleGroup( e.currentTarget );
+			if (GameHolder.gameState != GameHolder.NORMAL_STATE) return;
+			var $group:ToggleGroup = ToggleGroup(e.currentTarget);
 			//FooterHolder.cont._lineStepper._stepperValue = $group.selectedIndex;
 			
 			/*var $group:ToggleGroup = ToggleGroup( e.currentTarget );

@@ -40,10 +40,10 @@ package game.machine {
 			
 			radioOff = StaticGUI._creatBitmapFontTextRenderer(this, radioStr, 0, 0, 50, 80, Assets.getFont("line_off_btn_bfont").name, TextFormatAlign.CENTER, false, -3, -1);
 			if (GameSettings.LINES_FIXED){
-				radioOn = StaticGUI._creatBitmapFontTextRenderer(this, radioStr + '\nf', 0, -3, 50, 80, Assets.getFont("line_on_btn_bfont").name, TextFormatAlign.CENTER, false, -13, -1, -22);
+				radioOn = StaticGUI._creatBitmapFontTextRenderer(this, radioStr + '\nf', 0, 23, 50, 80, Assets.getFont("line_on_btn_bfont").name, TextFormatAlign.CENTER, false, -13, -1, -3);
 				
 			}else{
-				radioOn = StaticGUI._creatBitmapFontTextRenderer(this, radioStr + '', 0, 6, 50, 80, Assets.getFont("line_on_btn_bfont").name, TextFormatAlign.CENTER, false, -13, -1, -22);
+				radioOn = StaticGUI._creatBitmapFontTextRenderer(this, radioStr + '\nl', 0, 23, 50, 80, Assets.getFont("line_on_btn_bfont").name, TextFormatAlign.CENTER, false, -13, -1, -3);
 			}
 			
 			radioOn.visible = false;

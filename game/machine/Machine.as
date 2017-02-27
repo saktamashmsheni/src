@@ -245,6 +245,7 @@ package game.machine
 			
 			currentSpinObj = null;
 			isScrolling = true;
+			GameHolder.cont.lineButsHolder._isEnabled(false);
 			canNowStopBol = false;
 			var i:int;
 			lastIconsArray = [];
