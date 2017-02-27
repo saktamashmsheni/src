@@ -370,7 +370,7 @@ package game.doubleGame {
 					}
 					
 					histCard = GameHolder.cont.histArray[GameHolder.cont.histArray.length - (i + 1)]
-					histCard.x = i * 37 - 116;
+					histCard.x = i * 37.25 - 118;
 					histCard.y = -20;
 					history_con.addChild(histCard);
 					//histCard.scaleX = histCard.scaleY = .19;
@@ -451,7 +451,7 @@ package game.doubleGame {
 				}
 				
 				histCard = GameHolder.cont.histArray[GameHolder.cont.histArray.length - (i + 1)]
-				histCard.x = i * 37 - 116;
+				histCard.x = i * 37.25 - 118;
 				histCard.y = -20;
 				history_con.addChild(histCard);
 				//histCard.scaleX = histCard.scaleY = .19;
@@ -522,10 +522,11 @@ package game.doubleGame {
 		
 		public function modifyCardsOnReconnect(cardsAr:Array):void 
 		{
+			//cardsAr = [[2, 1], [2, 1], [2, 1], [2, 1], [2, 1], [2, 1], [2, 1], [2, 1], [2, 1]];
 			var i:int = 0;
 			for (i = 0; i < cardsAr.length; i++) {
 				histCard = new Card(cardsAr[i], true);
-				histCard.x = i * 37 - 116;
+				histCard.x = i * 37.25 - 118;
 				histCard.y = -20;
 				history_con.addChild(histCard);
 				//histCard.scaleX = histCard.scaleY = .19;

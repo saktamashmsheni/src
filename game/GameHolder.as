@@ -442,7 +442,7 @@ package game
 				footerHolder.spinEnabled = false;
 				footerHolder.touchable = false;
 				lineButsHolder.touchable = false;
-				this.footerHolder.alpha = 0.7;
+				this.footerHolder.alpha = 0.9;
 				//activate old messages
 				endDelay += (wildSpinDel + sObj.WinnerLines.length*0.4);
 				TweenLite.delayedCall(wildSpinDel + sObj.WinnerLines.length * 0.4, IniClass.cont.socketAnaliser.activateOldMessages);
@@ -474,11 +474,11 @@ package game
 			
 			if (bigWinIndex > -1)
 			{
-				/*if (gameState == AUTOPLAY_STATE)
+				if (_freeSpinsState == true && WILD_FREE_SPIN == false)
 				{
 					endDelay = 8.2 + wildSpinDel;
 				}
-				else*/
+				else
 				{
 					endDelay = 1 + wildSpinDel;
 				}
