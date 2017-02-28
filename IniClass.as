@@ -580,6 +580,10 @@ package {
 			GameSettings.PAYTABLE_TOTAL_PAGES = obj.payTable.PAYTABLE_TOTAL_PAGES;
 			GameSettings.POSITIONS_AR = obj.payTable.POSITIONS_AR;
 			GameSettings.PAYTABLE_SHEKVECA = obj.payTable.PAYTABLE_SHEKVECA;
+			if (obj.payTable.SCATTER_PAYTABLE_INDEX != null)
+			{
+				GameSettings.SCATTER_PAYTABLE_INDEX = obj.payTable.SCATTER_PAYTABLE_INDEX;
+			}
 			
 			
 			if (GameSettings.PREFERENCES.machine.CUSTOM_ICON_FRAME_SIZE != null)

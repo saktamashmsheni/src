@@ -41,6 +41,7 @@ package
 		public static var PAYTABLE_TOTAL_PAGES:int;
 		public static var POSITIONS_AR:Array;
 		public static var PAYTABLE_SHEKVECA:Boolean;
+		public static var SCATTER_PAYTABLE_INDEX:int = -1;
 		
 		public static var BALANCE:Number;
 		

@@ -345,7 +345,18 @@ package game
 						{
 							continue;
 						}
-						scoreString += (String(numAr[k])) + '<font color="#ffffff"> • ' + String(Number(scoresArr[j][scoresArr[j].length-k-1]) * betAmount) + "</font><br/>";
+						if (GameSettings.SCATTER_PAYTABLE_INDEX != -1 && j == GameSettings.SCATTER_PAYTABLE_INDEX)
+						{
+							scoreString += (String(numAr[k])) + '<font color="#ffffff"> • ' + String(Number(scoresArr[j][scoresArr[j].length - k - 1]) * betAmount * GameSettings.ACT_LINES / GameSettings.TOTAL_LINES) + "</font><br/>";
+							trace(Number(scoresArr[j][scoresArr[j].length - k - 1]));
+							trace(betAmount);
+							trace(GameSettings.ACT_LINES);
+							trace(GameSettings.TOTAL_LINES);
+						}
+						else
+						{
+							scoreString += (String(numAr[k])) + '<font color="#ffffff"> • ' + String(Number(scoresArr[j][scoresArr[j].length - k - 1]) * betAmount ) + "</font><br/>";
+						}
 					}
 					
 					numsTxt = returnTFRenderer(scoreString, 200, 100, scoresPositionsArr[j][0], scoresPositionsArr[j][1], "_myriadProBold", GameSettings.GAME_NAME == 'africa' ? 14 : 19, TextFormatAlign.LEFT, 0xfba90c, $textStroke);

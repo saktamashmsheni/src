@@ -42,7 +42,7 @@ package game.machine {
 			
 			if (indexInt == 4)
 			{
-				addChild(StaticGUI._creatBitmapFontTextRenderer(this, radioStr + '\nf', 0, 23, 50, 80, Assets.getFont("line_on_btn_bfont").name, TextFormatAlign.CENTER, false, -13, -1, 0))
+				addChild(StaticGUI._creatBitmapFontTextRenderer(this, radioStr + '\nf', 0, 12, 50, 80, Assets.getFont("line_on_btn_bfont").name, TextFormatAlign.CENTER, false, -13, -1, 2))
 			}
 			else
 			{
