@@ -71,7 +71,7 @@ package leaderBoard
 			scoreVal_txt = StaticGUI._creatBitmapFontTextRenderer(this, points.toString(), 0, position_txt.y + 23, 130, 30, Assets.getFont("roboto_slab_bold_prizes").name, TextFormatAlign.RIGHT, false, -3);
 			
 			prize_txt = StaticGUI._creatBitmapFontTextRenderer(this, GameSettings.GAME_XML.leaderBoard.prizi + ":", 6, position_txt.y + 40, 100, 30, Assets.getFont("bpg_gel_dejavu_serif_white").name, TextFormatAlign.LEFT, false, -3, 12, 0, 0xffaf00);
-			prizeVal_txt = StaticGUI._creatBitmapFontTextRenderer(this, String((prizeAmount/100).toFixed(2)) + "e", 0, position_txt.y + 38, 130, 30, Assets.getFont("roboto_slab_bold_prizes").name, TextFormatAlign.RIGHT, false, -3, -1, 0, 0x71ff1b);
+			prizeVal_txt = StaticGUI._creatBitmapFontTextRenderer(this, String((prizeAmount/100).toFixed(2)) + "" + StaticGUI.getCurrecyShortcuts(), 0, position_txt.y + 38, 130, 30, Assets.getFont("roboto_slab_bold_prizes").name, TextFormatAlign.RIGHT, false, -3, -1, 0, 0x71ff1b);
 			
 			
 		}

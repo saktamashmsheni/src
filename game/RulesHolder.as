@@ -137,7 +137,7 @@ package game
 					{
 						if (int(paytableAr[i][l]) == 0)
 						{
-							trace("asdasdasd");
+							//trace("asdasdasd");
 							cnt ++;
 						}
 					}
@@ -322,7 +322,7 @@ package game
 			
 			pageBgTexture = Assets.getTexture("paytableBg" + String(num));
 			pageBg = new Image(pageBgTexture);
-			pageBg.y += 7;
+			pageBg.y += GameSettings.PAYTABLE_OFF_Y;
 
 			pageBg.alignPivot(Align.CENTER, Align.CENTER);
 			pagesCont.addChild(pageBg);

@@ -369,7 +369,7 @@ package game
 				{
 					this.machineHolder.setBonusLikeIconsAnimations(sObj, sObj.ScatterWin[i][1]);
 					this.linesHolder.shown = true;
-					if (GameSettings.GAME_NAME != "africa")
+					if (GameSettings.GAME_NAME != "africa" && GameSettings.GAME_NAME != "5 diamonds")
 					{
 						this.linesHolder.frameHolder.setBonusLikeIcons(sObj, sObj.ScatterWin[i][1]);
 					}
@@ -1352,11 +1352,12 @@ package game
 				GameHolder.cont.hideSlotItemsForStates();
 				showDoubleHolder(obj.HandInfo.DoubleState.Win);
 				this.doubleHolder.modifyCardsOnReconnect(obj.HandInfo.DoubleState.Cards);
+				GameHolder.cont.lineButsHolder._isEnabled(false);
 			}
 			
 			if (obj.HandInfo.FreeSpinState)
 			{
-				
+				GameHolder.cont.lineButsHolder._isEnabled(false);
 				if (obj.HandInfo.FreeSpinState.FreeSpinState == 1)
 					WILD_FREE_SPIN = true;
 				else

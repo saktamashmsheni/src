@@ -46,7 +46,7 @@ package leaderBoard
 			
 			position_txt = StaticGUI._creatBitmapFontTextRenderer(this, "#" + String(position), 6, 8, 100, 30, Assets.getFont("roboto_slab_bold_prizes").name, TextFormatAlign.LEFT, false, -4);
 			
-			prize_txt = StaticGUI._creatBitmapFontTextRenderer(this, String((prizeAmount/100).toFixed(2)) + "e", 0, 8, 130, 30, Assets.getFont("roboto_slab_bold_prizes").name, TextFormatAlign.RIGHT, false, -4);
+			prize_txt = StaticGUI._creatBitmapFontTextRenderer(this, String((prizeAmount/100).toFixed(2)) + StaticGUI.getCurrecyShortcuts(), 0, 8, 130, 30, Assets.getFont("roboto_slab_bold_prizes").name, TextFormatAlign.RIGHT, false, -4);
 			
 		}
 		

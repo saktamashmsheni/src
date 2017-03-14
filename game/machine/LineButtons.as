@@ -47,7 +47,7 @@ package game.machine {
 			var yCount:int = 0;
 			var xCount:int = 0;
 			
-			$atlas = Assets.getAtlas("lines", "linesXml");
+			//$atlas = Assets.getAtlas("lines", "linesXml");
 			$lineNumsVect = new Vector.<LineNums>;
 			
 			$groupl = new ToggleGroup();

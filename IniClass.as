@@ -92,6 +92,10 @@ package {
 				
 				GameSettings.GAME_NAME = getGameName(Root.port);
 				GameSettings.PATH = GameSettings.GAME_NAME + "/";
+				if (Root.TEST_FOR_WEB)
+				{
+					Root.port = this.parent.loaderInfo.parameters['Port'];
+				}
 				
 				//var statsClass:Class = getDefinitionByName("net.hires.debug.Stats") as Class;
 				//this.addChild(new statsClass);
@@ -172,7 +176,7 @@ package {
 				
 				Assets.gameBg = $o.getDefinition("ItemsLib_gameBg") as Class;
 				Assets.slot_icons_bg = $o.getDefinition("ItemsLib_slot_icons_bg") as Class;
-				Assets.scatterWinBg = $o.getDefinition("ItemsLib_scatterWinBg") as Class;
+				//Assets.scatterWinBg = $o.getDefinition("ItemsLib_scatterWinBg") as Class;
 				Assets.machineBg = $o.getDefinition("ItemsLib_machineBg") as Class;
 				Assets.footerSheet = $o.getDefinition("ItemsLib_footerSheet") as Class;
 				Assets.footerSheetXml = $o.getDefinition("ItemsLib_footerSheetXml") as Class;
@@ -191,18 +195,18 @@ package {
 				
 				//Assets.lineButtons = $o.getDefinition("ItemsLib_lineButtons") as Class;
 				//Assets.lineButtonsXml = $o.getDefinition("ItemsLib_lineButtonsXml") as Class;
-				Assets.lines = $o.getDefinition("ItemsLib_lines") as Class;
-				Assets.linesXml = $o.getDefinition("ItemsLib_linesXml") as Class;
+				//Assets.lines = $o.getDefinition("ItemsLib_lines") as Class;
+				//Assets.linesXml = $o.getDefinition("ItemsLib_linesXml") as Class;
 				
 				Assets.fourJackpotSheet = $o.getDefinition("ItemsLib_fourJackpotSheet") as Class;
 				Assets.fourJackpotSheetXml = $o.getDefinition("ItemsLib_fourJackpotSheetXml") as Class;
-				Assets.bonusStatusSheet = $o.getDefinition("ItemsLib_bonusStatusSheet") as Class;
-				Assets.bonusStatusSheetXml = $o.getDefinition("ItemsLib_bonusStatusSheetXml") as Class;
-				Assets.iconFrames = $o.getDefinition("ItemsLib_iconFrames") as Class;
-				Assets.iconFramesXml = $o.getDefinition("ItemsLib_iconFramesXml") as Class;
+				//Assets.bonusStatusSheet = $o.getDefinition("ItemsLib_bonusStatusSheet") as Class;
+				//Assets.bonusStatusSheetXml = $o.getDefinition("ItemsLib_bonusStatusSheetXml") as Class;
+				//Assets.iconFrames = $o.getDefinition("ItemsLib_iconFrames") as Class;
+				//Assets.iconFramesXml = $o.getDefinition("ItemsLib_iconFramesXml") as Class;
 				
 				
-				Assets.bigWin = $o.getDefinition("ItemsLib_bigWin") as Class;
+				//Assets.bigWin = $o.getDefinition("ItemsLib_bigWin") as Class;
 				Assets.starEffectSheet = $o.getDefinition("ItemsLib_starEffectSheet") as Class;
 				Assets.starEffectSheetXml = $o.getDefinition("ItemsLib_starEffectSheetXml") as Class;
 				
@@ -583,6 +587,12 @@ package {
 			if (obj.payTable.SCATTER_PAYTABLE_INDEX != null)
 			{
 				GameSettings.SCATTER_PAYTABLE_INDEX = obj.payTable.SCATTER_PAYTABLE_INDEX;
+			}
+			
+			
+			if (obj.payTable.PAYTABLE_OFF_Y != null)
+			{
+				GameSettings.PAYTABLE_OFF_Y = obj.payTable.PAYTABLE_OFF_Y;
 			}
 			
 			

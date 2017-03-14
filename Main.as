@@ -113,6 +113,7 @@
 				bgImg.scaleX = bgImg.scaleY = gameHolder.scaleX = gameHolder.scaleY = 0.9;
 			}
 			
+			//gameHolder.scaleY = gameHolder.scaleX + 0.1;
 			
 			gameHolder.x = int(stage.stageWidth / 2) + GameSettings.PREFERENCES.game.OFF_X;
 			gameHolder.y = int(stage.stageHeight) / 2 + GameSettings.PREFERENCES.game.OFF_Y;

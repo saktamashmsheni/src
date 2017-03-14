@@ -374,6 +374,8 @@ package game.doubleGame {
 					histCard.y = -20;
 					history_con.addChild(histCard);
 					//histCard.scaleX = histCard.scaleY = .19;
+					histCard.scaleX = 1.01;
+					histCard.scaleY = 1.05;
 					
 					
 				}
@@ -455,6 +457,8 @@ package game.doubleGame {
 				histCard.y = -20;
 				history_con.addChild(histCard);
 				//histCard.scaleX = histCard.scaleY = .19;
+				histCard.scaleX = 1.01;
+				histCard.scaleY = 1.05;
 				
 				
 			}
@@ -530,6 +534,8 @@ package game.doubleGame {
 				histCard.y = -20;
 				history_con.addChild(histCard);
 				//histCard.scaleX = histCard.scaleY = .19;
+				histCard.scaleX = 1.01;
+				histCard.scaleY = 1.05;
 				GameHolder.cont.histArray.push(histCard);
 				histCard.makeFaceUp();
 				

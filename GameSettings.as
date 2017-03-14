@@ -19,7 +19,8 @@ package
 												   ["dragon fruit", 8804],
 												   ["star fruit", 8805],
 												   ["mammoth", 5005],
-												   ["africa", 8803]
+												   ["africa", 8803],
+												   ["5 diamonds", 8808]
 												   ];
 		
 		public static var MULTIPLE_WINS:Boolean;
@@ -38,6 +39,7 @@ package
 		
 		public static var SYS_NUM:int = 0;
 		public static var PAYTABLE_AR:Array = [];
+		public static var PAYTABLE_OFF_Y:int = 7;
 		public static var PAYTABLE_TOTAL_PAGES:int;
 		public static var POSITIONS_AR:Array;
 		public static var PAYTABLE_SHEKVECA:Boolean;
