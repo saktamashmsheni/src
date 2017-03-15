@@ -44,6 +44,7 @@ package
 		public static const JACKPOT_LIBRARY:String = 'jackpotLibrary';
 		public static const WINS_POP_LIBRARY:String = 'winsPopLibrary';
 		public static const CONFIGURATION:String  = 'configuration';
+		public static const ADJARA_FREE_SPINS:String  = 'adjaraFreeSpins';
 		
 		
 		private var loadersAr:Array;

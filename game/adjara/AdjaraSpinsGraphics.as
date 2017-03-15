@@ -79,9 +79,10 @@ package game.adjara
 				$textShadow.strength = 2;
 				
 				
+				
 				//spin_txt = StaticGUI._creatBitmapFontTextRenderer(this, 'თქვენ დაგერიცხათ', -this.width/2, 50, this.width, 30, Assets.getFont("adjspinText").name, TextFormatAlign.CENTER, false, -5, 20);
 				//spinCount_txt = StaticGUI._creatBitmapFontTextRenderer(this, '10', -this.width/2, 80, this.width, 30, Assets.getFont("adjspinText").name, TextFormatAlign.CENTER, false, -5, 30);
-				info_txt = returnTFRenderer(Root.gameXML.adjaraSpins.dagericxaT + '<br><font color="#ffd618" size="24">'+AdjaraSpins.totalSpins+'</font><br>' + Root.gameXML.adjaraSpins.datrialeba + '<br/><br/><font size="10">' + Root.gameXML.adjaraSpins.activate, this.width, this.height, -this.width/2, 42, "_bpgMrgvlovaniCaps", 13, TextFormatAlign.CENTER, 0xffffff, $textShadow);
+				info_txt = returnTFRenderer(GameSettings.GAME_XML.adjaraSpins.dagericxaT + '<br><font color="#ffd618" size="24">'+AdjaraSpins.totalSpins+'</font><br>' + GameSettings.GAME_XML.adjaraSpins.datrialeba + '<br/><br/><font size="10">' + GameSettings.GAME_XML.adjaraSpins.activate, this.width, this.height, -this.width/2, 42, "_bpgMrgvlovaniCaps", 13, TextFormatAlign.CENTER, 0xffffff, $textShadow);
 				addChild(info_txt);
 				
 				arrowImg = new Image(_Atlas.getTexture("arrow.png"));
@@ -199,7 +200,7 @@ package game.adjara
 				arrowImg = null;
 			}
 			
-			info_txt.text = Root.gameXML.adjaraSpins.elapsed;
+			info_txt.text = GameSettings.GAME_XML.adjaraSpins.elapsed;
 			
 			TweenLite.delayedCall(5, GameHolder.cont.removeAdjaraSpinsCont);
 			
@@ -220,7 +221,7 @@ package game.adjara
 		{
 			if (GameHolder.cont.freeSpinsState == true || GameHolder.gameState == GameHolder.DOUBLE_STATE || GameHolder.cont.bonusHolder != null || GameHolder.cont.machineHolder.isScrolling)
 			{
-				info_txt.text = Root.gameXML.adjaraSpins.err;
+				info_txt.text = GameSettings.GAME_XML.adjaraSpins.err;
 				TweenLite.delayedCall(5, removeErrorText);
 				return;
 			}
@@ -230,7 +231,7 @@ package game.adjara
 		private function removeErrorText():void 
 		{
 			if (info_txt == null) return;
-			info_txt.text = Root.gameXML.adjaraSpins.dagericxaT + '<br><font color="#ffd618" size="24">10</font><br>' + Root.gameXML.adjaraSpins.datrialeba + '<br/><br/><font size="10">' + Root.gameXML.adjaraSpins.activate
+			info_txt.text = GameSettings.GAME_XML.adjaraSpins.dagericxaT + '<br><font color="#ffd618" size="24">10</font><br>' + GameSettings.GAME_XML.adjaraSpins.datrialeba + '<br/><br/><font size="10">' + GameSettings.GAME_XML.adjaraSpins.activate
 		}
 		
 		

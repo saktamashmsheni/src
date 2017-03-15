@@ -12,6 +12,7 @@ package game.machine
 	import flash.utils.Dictionary;
 	import flash.utils.setTimeout;
 	import game.GameHolder;
+	import game.adjara.AdjaraSpins;
 	import game.machine.Icon;
 	import game.machine.IconsHolder;
 	import game.machine.IconsHolderLine;
@@ -278,6 +279,10 @@ package game.machine
 		//----------------------------------------start scrolling------------------------------
 		public function startSpin(obj:Object):void
 		{
+			if (AdjaraSpins.FreeSpinMode == true)
+			{
+				GameHolder.cont.machineHolder.startMachineSpin();
+			}
 			scatterIconCount = 0;
 			machineServerSpinStarted = true;
 			currentSpinObj = obj;

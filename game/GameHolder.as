@@ -11,6 +11,8 @@ package game
 	import feathers.layout.VerticalLayout;
 	import flash.net.SharedObject;
 	import flash.text.TextFormatAlign;
+	import game.adjara.AdjaraSpins;
+	import game.adjara.AdjaraSpinsGraphics;
 	import game.doubleGame.DoubleHolder;
 	import game.footer.CreditContainer;
 	import game.header.musicPlayer.MusicManager;
@@ -97,6 +99,8 @@ package game
 		public var leaderboardInfo_mc:LeaderboardInfo;
 		public var scatterWinMc:ScatterWinWindow;
 		public var LEADER_BOARD_OBJECT:Object;
+		
+		private var adjaraSpinsStatus:AdjaraSpinsGraphics;
 		
 		public function GameHolder()
 		{
@@ -648,6 +652,12 @@ package game
 				updateLogoWhileFreeSpins(-1, true);
 			}
 			
+			
+			if (AdjaraSpins.FreeSpinMode)
+			{
+				AdjaraSpins.updateCount();
+			}
+			
 			if (freeSpinsState == false)
 			{
 				footerHolder.winAmount = 0;
@@ -835,6 +845,8 @@ package game
 		
 		public function end(obj:Object):void
 		{
+			AdjaraSpins.updateCount(obj.AdjaraFreeSpins);
+			
 			if (gameState != AUTOPLAY_STATE)
 			{
 				footerHolder.balanceAmount = obj.Chips;
@@ -1180,6 +1192,7 @@ package game
 		
 		public function addCashier():void
 		{
+			return;
 			transferHolder = new TransferContainer();
 			addChild(transferHolder);
 			transferHolder.x = transferHolder.x + GAME_OFFSET_X;
@@ -1485,6 +1498,61 @@ package game
 		{
 			StaticGUI.safeRemoveChild(sideAnim_con);
 			sideAnim_con = null;
+		}
+		
+		
+		
+		
+		///-----adjara spins------
+		public function loadAndAddAdjaraSpinsStatus():void {
+			
+			if (IniClass.cont.assLoadMan.Busy)
+			{
+				setTimeout(loadAndAddAdjaraSpinsStatus, 200);
+				return;
+			}
+			
+			if (adjaraSpinsStatus != null) {
+				removeAdjaraSpinsStatus();
+				return;
+			}
+			
+			showLoader();
+			adjaraSpinsStatus = new AdjaraSpinsGraphics();
+			//showLoader();
+			if (Assets.adjaraSpinsLoaded) {
+				addAdjaraSpinsStatus();
+			} else {
+				IniClass.cont.assLoadMan.clearLoadManager();
+				IniClass.cont.assLoadMan.addEventListener(AssetsLoaderEvents.ALL_ASSETS_LOADED, adjaraSpinsAssetsLoaded);
+				IniClass.cont.assLoadMan.setLoadAssets(IniClass.GET_FILE_FULL_PATH("adjaraSpinsLibrary.swf", true),AssetsLoaderManager.ADJARA_FREE_SPINS, AssetsLoaderManager.SWFType);
+				IniClass.cont.assLoadMan.startLoadAssets();
+			}
+		}
+		
+		private function adjaraSpinsAssetsLoaded(e:AssetsLoaderEvents):void {
+			IniClass.cont.assLoadMan.removeEventListener(AssetsLoaderEvents.ALL_ASSETS_LOADED, adjaraSpinsAssetsLoaded);
+			addAdjaraSpinsStatus();
+		}
+		
+		public function addAdjaraSpinsStatus():void {
+			hideLoader();
+			addChild(adjaraSpinsStatus);
+			adjaraSpinsStatus.x = 510;
+			adjaraSpinsStatus.y = -160;
+			adjaraSpinsStatus.initAdjaraSpins();
+		}
+		
+		public function removeAdjaraSpinsStatus():void {
+			StaticGUI.safeRemoveChild(adjaraSpinsStatus, true);
+			adjaraSpinsStatus = null;
+		}
+		
+		public function removeAdjaraSpinsCont():void 
+		{
+			adjaraSpinsStatus.disposeAll();
+			StaticGUI.safeRemoveChild(adjaraSpinsStatus, true);
+			adjaraSpinsStatus = null;
 		}
 	
 	}

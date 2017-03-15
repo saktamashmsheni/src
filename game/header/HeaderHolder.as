@@ -89,21 +89,21 @@ package game.header {
 			
 			
 			home_btn = StaticGUI._initButton(this, 
-												-358, 
+												-347, 
 												46, 
 					$textureAtlas.getTexture("home_btn_1.png"), 
 					$textureAtlas.getTexture("home_btn_1.png"));
 			
 			
-			cashier_btn = StaticGUI._initButton(this, 
+			/*cashier_btn = StaticGUI._initButton(this, 
 												 home_btn.x + 41,
 												home_btn.y - 2, 
 					$textureAtlas.getTexture("cashier_btn_1.png"), 
-					$textureAtlas.getTexture("cashier_btn_2.png"));
+					$textureAtlas.getTexture("cashier_btn_2.png"));*/
 					
 			rules_btn = StaticGUI._initButton(this, 
-											  cashier_btn.x + 38, 
-											  cashier_btn.y + 2, 
+											  home_btn.x + 60, 
+											  home_btn.y + 0, 
 					$textureAtlas.getTexture("rules_btn_1.png"), 
 					$textureAtlas.getTexture("rules_btn_2.png"));
 					
@@ -168,7 +168,7 @@ package game.header {
 		   rules_btn.addEventListener(MouseEvent.CLICK, onRulesClick);*/
 		   
 		   
-		   cashier_btn.addEventListener(Event.TRIGGERED, onCashierClick);
+		   //cashier_btn.addEventListener(Event.TRIGGERED, onCashierClick);
 		   rules_btn.addEventListener(Event.TRIGGERED, onRulesClick);
 		   
 		   

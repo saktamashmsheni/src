@@ -191,7 +191,7 @@ package game.machine
 			{
 				iconAnimationMc = new MovieClip(Assets.getAtlas("icon" + ID + "Img", "icon" + ID + "Xml").getTextures(""), 30);
 				//iconAnimationMc = new MovieClip(Assets.getAtlas("icon" + 3 + "Img", "icon" + 3 + "Xml").getTextures(""), 30);
-				iconMc.visible = GameSettings.HIDE_ICON;
+				iconMc.visible = !GameSettings.HIDE_ICON;
 				iconAnimationMc.x -= 20;
 				iconAnimationMc.y -= 22;
 				

@@ -18,6 +18,7 @@ package game.footer {
 	import flash.geom.Point;
 	import flash.text.TextFormatAlign;
 	import game.GameHolder;
+	import game.adjara.AdjaraSpins;
 	import game.header.musicPlayer.MusicManager;
 	import game.machine.Lines;
 	import game.PlusMinusButs;
@@ -55,11 +56,11 @@ package game.footer {
 		private var maxBetBtn:MyButton;
 		
 		//private var lineButs:PlusMinusButs;
-		private var betButs:PlusMinusButs;
+		public var betButs:PlusMinusButs;
 		private var autoSpinBtn:Button;
 		private var autoSpinTXT:TextField;
 		private var spinTXT:TextField;
-		private var creditHolder:CreditContainer;
+		public var creditHolder:CreditContainer;
 		
 		private var $atlas:TextureAtlas;
 		
@@ -363,7 +364,7 @@ package game.footer {
 			
 			
 			
-			if (totalBetAmount > balanceAmount / GameSettings.CREDIT_VAL && GameHolder.gameState != GameHolder.DOUBLE_STATE) {
+			if (totalBetAmount > balanceAmount / GameSettings.CREDIT_VAL && GameHolder.gameState != GameHolder.DOUBLE_STATE && AdjaraSpins.FreeSpinMode == false) {
 				if (balanceAmount > 4 && GameHolder.cont.freeSpinsState == false) 
 				{
 					GameHolder.gameState = GameHolder.NORMAL_STATE
@@ -386,7 +387,7 @@ package game.footer {
 					return;
 				} else {
 					if (GameHolder.cont.freeSpinsState == false) {
-						GameHolder.cont.addCashier();
+						//GameHolder.cont.addCashier();
 						return;
 					}
 				}
@@ -435,7 +436,11 @@ package game.footer {
 				//Root.connectionManager.sendData({MT: SocketAnaliser.spinWild, SID: "", IM: {Lines: GameSettings.ACT_LINES, Bet: GameSettings.BETS_AR[GameSettings.BET_INDEX] * GameSettings.CREDIT_VAL}, UID: Root.userRoomId}, true);
 				Root.connectionManager.sendData({MT: SocketAnaliser.spin, SID: "", IM: {Lines: GameSettings.ACT_LINES, Bet: GameSettings.BETS_AR[GameSettings.BET_INDEX] * GameSettings.CREDIT_VAL}, UID: Root.userRoomId}, true);
 				dispatchEvent(new GameEvents(GameEvents.SPIN_STARTED));
-				GameHolder.cont.machineHolder.startMachineSpin();
+				
+				if (AdjaraSpins.FreeSpinMode == false)
+				{
+					GameHolder.cont.machineHolder.startMachineSpin();
+				}
 				
 				GameHolder.cont.linesHolder.checkWildTransofmedArr();
 				
@@ -504,7 +509,7 @@ package game.footer {
 		public function onAutoSpinClick(e:Event):void {
 			
 			
-			if (totalBetAmount > balanceAmount / GameSettings.CREDIT_VAL && GameHolder.gameState != GameHolder.DOUBLE_STATE) {
+			if (totalBetAmount > balanceAmount / GameSettings.CREDIT_VAL && GameHolder.gameState != GameHolder.DOUBLE_STATE && AdjaraSpins.FreeSpinMode == false) {
 				if (balanceAmount > 4 && GameHolder.cont.freeSpinsState == false) 
 				{
 					GameHolder.gameState = GameHolder.NORMAL_STATE
@@ -527,7 +532,7 @@ package game.footer {
 					return;
 				} else {
 					if (GameHolder.cont.freeSpinsState == false) {
-						GameHolder.cont.addCashier();
+						//GameHolder.cont.addCashier();
 						return;
 					}
 				}
@@ -865,6 +870,7 @@ package game.footer {
 			
 		}
 		
+		
 		//spin enabled
 		public function get spinEnabled():Boolean {
 			return _spinEnabled;
@@ -899,11 +905,14 @@ package game.footer {
 							//lineButs.alpha = 1;
 							//lineButs.mouseEnabled = true;
 							
-							creditHolder.alpha = 1;
-							creditHolder.touchable = true;
-							
-							betButs.alpha = 1;
-							betButs.mouseEnabled = true;
+							if (!AdjaraSpins.FreeSpinMode)
+							{
+								creditHolder.alpha = 1;
+								creditHolder.touchable = true;
+								
+								betButs.alpha = 1;
+								betButs.mouseEnabled = true;
+							}
 						}
 						
 						break;

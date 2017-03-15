@@ -16,6 +16,7 @@ package {
 	import flash.utils.getQualifiedClassName;
 	import Main;
 	import game.GameHolder;
+	import game.adjara.AdjaraSpins;
 	import jackpotCL.FourWayJackpot;
 	
 	import starling.core.Starling
@@ -320,7 +321,7 @@ package {
 				//Font.registerFont($o.getDefinition("FontsLib__robotoBlack"));
 				//Font.registerFont($o.getDefinition("FontsLib__bpgGELDejaVuSerifCaps"));
 				//Font.registerFont($o.getDefinition("FontsLib__artBrush"));
-				//Font.registerFont($o.getDefinition("FontsLib__bpgMrgvlovaniCaps"));
+				Font.registerFont($o.getDefinition("FontsLib__bpgMrgvlovaniCaps"));
 				Font.registerFont($o.getDefinition("FontsLib__myriadProBold"));
 				Font.registerFont($o.getDefinition("FontsLib__FuturaLTCon")); // es unda waishalos 
 				Font.registerFont($o.getDefinition("FontsLib__AvenirNextBold"));
@@ -462,6 +463,18 @@ package {
 				Assets.winsPop_bfontXml = $o.getDefinition("WinsPopLib_winspop_bitmapFontXml") as Class;   
 				
 				Assets.BigWinsLoaded = true;
+				
+			}else if (e.params.valTxt == AssetsLoaderManager.ADJARA_FREE_SPINS) {
+				$o = e.params.content.applicationDomain;
+				
+				Assets.adjaraSpinsSheet = $o.getDefinition("adjaraSpinsLib_adjaraSpinsSheet") as Class;
+				Assets.adjaraSpinsSheetXml = $o.getDefinition("adjaraSpinsLib_adjaraSpinsSheetXml") as Class;
+				
+				//fonts
+				Assets.adjara_spin_count_font = $o.getDefinition("adjaraSpinsLib_adjara_spin_count_font") as Class;
+				Assets.adjara_spin_count_fontXml = $o.getDefinition("adjaraSpinsLib_adjara_spin_count_fontXml") as Class;
+				
+				Assets.adjaraSpinsLoaded = true;
 			}
 			
 			//assLoadMan.updateLoad();
@@ -521,7 +534,7 @@ package {
 			}
 			if (SocketAnaliser.AUTH_OBJECT.Chips == 0 && Root.TESTING == false)
 			{
-				GameHolder.cont.addCashier();
+				//GameHolder.cont.addCashier();
 			}
 			
 			FourWayJackpot.cont.updateInfo(SocketAnaliser.AUTH_OBJECT.JackPotStats, SocketAnaliser.AUTH_OBJECT);
@@ -529,7 +542,13 @@ package {
 			socketAnaliser.activateOldMessages();
 			
 			TweenLite.delayedCall(0.01, Root.connectionManager.sendData,[{MT: SocketAnaliser._leaderBoard, SID: ""}]);
-			TweenLite.delayedCall(0.03, Root.connectionManager.sendData,[{MT: SocketAnaliser._leaderTimer, SID: ""}]);
+			TweenLite.delayedCall(0.03, Root.connectionManager.sendData, [{MT: SocketAnaliser._leaderTimer, SID: ""}]);
+			
+			if ((SocketAnaliser.AUTH_OBJECT.AdjaraFreeSpins.FreeSpins > 0))
+			{
+				GameHolder.cont.loadAndAddAdjaraSpinsStatus();
+				AdjaraSpins.setSpins(SocketAnaliser.AUTH_OBJECT.AdjaraFreeSpins);
+			}
 			
 		}
 		

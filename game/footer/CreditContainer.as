@@ -207,6 +207,24 @@ package game.footer
 		
 		
 		
+		public function updateToFirst():void
+		{
+			resetButs();
+			GameSettings.CREDIT_VAL = CREDIT = 1;
+			dispatchEvent(new GameEvents(GameEvents.CREDIT_CHANGED));
+			
+			addChild(mcAr[0]);
+			
+			for (var i:int = 0; i < mcAr.length; i++) 
+			{
+				mcAr[i].alpha = 1;
+				TweenLite.to(mcAr[i], 0, {y:0, x:0, ease:Expo.easeOut, onComplete:onCompleteAnim, onCompleteParams:[i]});
+			}
+			
+			opened = false;
+			//dropBtn.visible = true;
+		}
+		
 		
 		public function updateCreditManual(cred:int):void
 		{

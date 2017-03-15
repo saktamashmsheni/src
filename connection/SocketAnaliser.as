@@ -13,6 +13,8 @@
 	import flash.geom.Point;
 	import flash.net.SharedObject;
 	import flash.utils.Timer;
+	import game.adjara.AdjaraSpins;
+	import game.adjara.AdjaraSpinsGraphics;
 	import jackpotCL.FourWayJackpot;
 	import game.GameHolder;
 	import leaderBoard.LeaderBoardHolder;
@@ -43,6 +45,7 @@
 		public static var _leaderTOPUsers:int = 16;
 		public static var _leaderPrizes:int = 19;
 		public static var gameBalance:int = 54;
+		public static var adjaraSpins:int = 45;
 		
 		public var StopMessage:Boolean = false;
 		private var messagesArr:Array = [];
@@ -194,6 +197,31 @@
 					
 					
 					break;
+					
+					
+				case adjaraSpins:
+					if (socketObject.IM.Elapsed && socketObject.IM.Elapsed == true)
+					{
+						if (AdjaraSpinsGraphics.cont)
+						{
+							AdjaraSpinsGraphics.cont.elapsed();
+						}
+						GameHolder.cont.footerHolder.spinEnabled = true;
+					}
+					else if (socketObject.IM.FreeSpinMode == false)
+					{
+						GameHolder.cont.loadAndAddAdjaraSpinsStatus();
+						AdjaraSpins.setSpins(socketObject.IM);
+					}
+					else if(socketObject.IM.FreeSpinMode == true)
+					{
+						GameHolder.cont.footerHolder.updateBet(GameSettings.BETS_AR.indexOf(uint((socketObject.IM.Bet))));
+						GameHolder.cont.footerHolder.updateLines(socketObject.IM.Line);
+						
+						AdjaraSpins.setSpins(socketObject.IM);
+						AdjaraSpinsGraphics.cont.initAdjaraSpins();
+					}
+				break;
 					
 				/*case wildSelect:
 					Root.ALL_WILD_INDEX = socketObject.IM.Icon;

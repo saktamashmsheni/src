@@ -33,8 +33,8 @@ package game.adjara
 			
 			if (FreeSpinMode == true)
 			{
-				GameHolder.cont.footerHolder._lineStepper._stepperValue = Root.linesArray.indexOf(obj.Line);
-				GameHolder.cont.footerHolder._betStepper._stepperValue = Root.betsArray.indexOf(uint((obj.Bet)));
+				GameHolder.cont.footerHolder.updateBet(GameSettings.BETS_AR.indexOf(Bet));
+				GameHolder.cont.footerHolder.updateLines(Line);
 			}
 		}
 		
@@ -84,18 +84,14 @@ package game.adjara
 			freeSpinMode = value;
 			if (value == true)
 			{
-				GameHolder.cont.footerHolder._lineStepper.touchable = false;
-				GameHolder.cont._lineButsHolder.touchable = false;
-				GameHolder.cont.footerHolder._betStepper.touchable = false;
-				GameHolder.cont.footerHolder.$creditSwitcher.touchable = false;
-				GameHolder.cont.footerHolder.$creditSwitcher.updateToFirst();
+				GameHolder.cont.footerHolder.betButs.touchable = false;
+				GameHolder.cont.footerHolder.creditHolder.touchable = false;
+				GameHolder.cont.footerHolder.creditHolder.updateToFirst();
 			}
 			else
 			{
-				GameHolder.cont.footerHolder._lineStepper.touchable = true;
-				GameHolder.cont._lineButsHolder.touchable = true;
-				GameHolder.cont.footerHolder._betStepper.touchable = true;
-				GameHolder.cont.footerHolder.$creditSwitcher.touchable = true;
+				GameHolder.cont.footerHolder.betButs.touchable = true;
+				GameHolder.cont.footerHolder.creditHolder.touchable = true;
 			}
 		}
 		

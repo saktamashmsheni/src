@@ -306,6 +306,13 @@ package {
 		public static var sideAnim3:Class;
 		public static var sideAnim3Xml:Class;
 		
+		//-----------adjara spins--------------
+		public static var adjaraSpinsLoaded:Boolean = false;
+		public static var adjaraSpinsSheet:Class;
+		public static var adjaraSpinsSheetXml:Class;
+		public static var adjara_spin_count_font:Class;
+		public static var adjara_spin_count_fontXml:Class;
+		
 		
 		
 		private static var gameTexturesDic:Dictionary = new Dictionary();
