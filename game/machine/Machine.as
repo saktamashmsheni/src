@@ -952,7 +952,7 @@ package game.machine
 		
 		
 		
-		public function modifyWildIcons(wildsAr:Array, obj:Object, wildSpecNum:int):void 
+		public function modifyWildIcons(wildsAr:Array, obj:Object, wildSpecNum:int, playIc:Boolean = false):void 
 		{
 			var ic:Icon;
 			
@@ -983,6 +983,11 @@ package game.machine
 					}
 					ic.modifiedWildsAnimation(wildSpecNum);
 					obj.Reels[wildsAr[i][0]][wildsAr[i][1]] = newWildInd;
+				}
+				
+				if (playIc)
+				{
+					ic.playIcon()
 				}
 			}
 			

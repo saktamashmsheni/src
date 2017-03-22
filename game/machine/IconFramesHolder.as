@@ -171,7 +171,7 @@ package game.machine {
 			
 			initIconFrameHolder(false);
 			
-			for (var i:int = 0; i < 15; i++) 
+			for (var i:int = 0; i < 20; i++) 
 			{
 				_setUpFrames(i);
 			}

@@ -20,7 +20,8 @@ package
 												   ["star fruit", 8805],
 												   ["mammoth", 5005],
 												   ["africa", 8803],
-												   ["5 diamonds", 8808]
+												   ["5 diamonds", 8808],
+												   ["sparta", 8809]
 												   ];
 		
 		public static var MULTIPLE_WINS:Boolean;
@@ -93,7 +94,7 @@ package
 		public static const REEL_TYPE:Array = [[3, 3], [5, 3], [5, 4]];
 		public static const MASHINE_OPTIONS:Array = [{xDist:154, yDist:145},
 													 {xDist:154, yDist:145},
-												     {xDist:155, yDist:108 } ]
+												     {xDist:155, yDist:106 } ]
 												   
 												   
 		public static const ICON_HOLDER_POS:Vector.<Array> = new <Array>[[-34,40],[-43,40],[-34,20]];
@@ -126,6 +127,7 @@ package
 		public static var ICON_ANIM_LOOP:Boolean = false;
 		public static var ICON_ANIM_DELAY:Number = 1;
 		public static var ICON_ANIM_FAST_REMOVE:Number;
+		public static var ICON_ANIM_FPS:int = 30;
 		
 		public static var HOVER_ANIM_ENABLED:Boolean = true;
 		public static var HOVER_ANIM_LOOP:Boolean = false;

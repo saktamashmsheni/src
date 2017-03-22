@@ -550,6 +550,8 @@ package {
 				AdjaraSpins.setSpins(SocketAnaliser.AUTH_OBJECT.AdjaraFreeSpins);
 			}
 			
+			Main.cont.onResize(null);
+			
 		}
 		
 		
@@ -603,22 +605,22 @@ package {
 			GameSettings.PAYTABLE_TOTAL_PAGES = obj.payTable.PAYTABLE_TOTAL_PAGES;
 			GameSettings.POSITIONS_AR = obj.payTable.POSITIONS_AR;
 			GameSettings.PAYTABLE_SHEKVECA = obj.payTable.PAYTABLE_SHEKVECA;
+			
 			if (obj.payTable.SCATTER_PAYTABLE_INDEX != null)
-			{
 				GameSettings.SCATTER_PAYTABLE_INDEX = obj.payTable.SCATTER_PAYTABLE_INDEX;
-			}
 			
 			
 			if (obj.payTable.PAYTABLE_OFF_Y != null)
-			{
 				GameSettings.PAYTABLE_OFF_Y = obj.payTable.PAYTABLE_OFF_Y;
-			}
+			
+			if (obj.iconAnimation.ICON_ANIM_FPS != null)
+				GameSettings.ICON_ANIM_FPS = obj.iconAnimation.ICON_ANIM_FPS;
 			
 			
 			if (GameSettings.PREFERENCES.machine.CUSTOM_ICON_FRAME_SIZE != null)
-			{
 				GameSettings.ICONSFRAME_SIZE[GameSettings.SYS_NUM] = GameSettings.PREFERENCES.machine.CUSTOM_ICON_FRAME_SIZE;
-			}
+			
+			
 			
 			
 			trace(GameSettings.ICONSFRAME_SIZE[GameSettings.SYS_NUM]);

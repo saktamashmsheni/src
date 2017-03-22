@@ -189,7 +189,7 @@ package game.machine
 			
 			if (((Machine.isWildIcon(ID) && GameSettings.WILD_ANIM_ENABLED) || (!Machine.isWildIcon(ID)&& GameSettings.ICON_ANIM_ENABLED))  && iconAnimationMc == null)
 			{
-				iconAnimationMc = new MovieClip(Assets.getAtlas("icon" + ID + "Img", "icon" + ID + "Xml").getTextures(""), 30);
+				iconAnimationMc = new MovieClip(Assets.getAtlas("icon" + ID + "Img", "icon" + ID + "Xml").getTextures(""), GameSettings.ICON_ANIM_FPS);
 				//iconAnimationMc = new MovieClip(Assets.getAtlas("icon" + 3 + "Img", "icon" + 3 + "Xml").getTextures(""), 30);
 				iconMc.visible = !GameSettings.HIDE_ICON;
 				iconAnimationMc.x -= 20;

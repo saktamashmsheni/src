@@ -84,7 +84,7 @@
 		
 		
 		
-		private function onResize(e:ResizeEvent):void {
+		public function onResize(e:ResizeEvent):void {
 			// set rectangle dimensions for viewPort:
 			var viewPortRectangle:Rectangle = new Rectangle();
 			viewPortRectangle.width = e != null ? e.width : Starling.current.stage.stageWidth;//e.width;

@@ -156,6 +156,12 @@ package game
 			headerHolder.y = -300;
 			addChild(headerHolder);
 			
+			if (GameSettings.PREFERENCES.header.cont != null)
+			{
+				headerHolder.x += GameSettings.PREFERENCES.header.cont.OF_X;
+				headerHolder.y += GameSettings.PREFERENCES.header.cont.OF_Y;
+			}
+			
 			footerHolder = new FooterHolder();
 			footerHolder.x = -373;
 			footerHolder.y = 215;
@@ -308,13 +314,17 @@ package game
 			if (sObj.WildReels.length > 0)
 			{
 				
-				if (GameSettings.WILD_SPEC_TOP == 3)
+				if (GameSettings.WILD_SPEC_TOP == 3 && GameSettings.SIDE_ANIM > 0)
 				{
 					TweenLite.delayedCall(2, machineHolder.modifyWildIcons, [sObj.WildReels, sObj, GameSettings.WILD_SPEC_TOP]);
 				}
 				else
 				{
-					machineHolder.modifyWildIcons(sObj.WildReels, sObj, GameSettings.WILD_SPEC_TOP);
+					machineHolder.modifyWildIcons(sObj.WildReels, sObj, GameSettings.WILD_SPEC_TOP, GameSettings.GAME_NAME == "sparta" ? true : false);
+					if (GameSettings.GAME_NAME == "sparta")
+					{
+						Root.soundManager.PlaySound("wildSnd");
+					}
 				}
 				
 				
