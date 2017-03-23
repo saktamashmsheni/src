@@ -98,21 +98,33 @@ package game
 		
 		private function shekvecaAr(paytableAr:Array):Array 
 		{
-			if (!GameSettings.PAYTABLE_SHEKVECA)
-			{
-				return paytableAr;
-			}
+			
+			var removeAr:Array;
+			var m:int;
 			
 			
 			if (GameSettings.GAME_NAME == 'africa' && paytableAr.length > 22)
 			{
-				var removeAr:Array = [5, 6, 7, 8, 11, 12, 15, 16, 21, 22];
-				for (var m:int = 0; m < removeAr.length; m++) 
+				removeAr = [5, 6, 7, 8, 11, 12, 15, 16, 21, 22];
+				for (m = 0; m < removeAr.length; m++) 
+				{
+					paytableAr.splice(removeAr[m] - (1+m), 1);
+				}
+			}
+			else if (GameSettings.GAME_NAME == 'sparta' && paytableAr.length > 8)
+			{
+				removeAr = [0,2];
+				for (m = 0; m < removeAr.length; m++) 
 				{
 					paytableAr.splice(removeAr[m] - (1+m), 1);
 				}
 			}
 			
+			
+			if (!GameSettings.PAYTABLE_SHEKVECA)
+			{
+				return paytableAr;
+			}
 			
 			var cnt:int;
 			var removeIndexesAR:Array = [];

@@ -156,7 +156,7 @@ package game
 			headerHolder.y = -300;
 			addChild(headerHolder);
 			
-			if (GameSettings.PREFERENCES.header.cont != null)
+			if (GameSettings.PREFERENCES.header != null && GameSettings.PREFERENCES.header.cont != null)
 			{
 				headerHolder.x += GameSettings.PREFERENCES.header.cont.OF_X;
 				headerHolder.y += GameSettings.PREFERENCES.header.cont.OF_Y;
