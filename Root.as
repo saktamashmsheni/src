@@ -24,7 +24,7 @@
 		
 		
 		
-		public static var TESTING:Boolean = false;
+		public static var TESTING:Boolean = true;
 		public static var TEST_FOR_WEB:Boolean = TESTING == false ? false : false;
 		public static var Key:ByteArray = Hex.toArray(Hex.fromString(CONFIG::KEY));
 		public static var Key1:ByteArray = Hex.toArray(Hex.fromString(CONFIG::KEY));
@@ -52,7 +52,7 @@
 		
 		///rooom
 		//public static var userRoomId:Number =  -Math.ceil(Math.random()*9999);
-		public static var userRoomId:Number = -3242;
+		public static var userRoomId:Number = -3243;
 		//public static var userRoomId:Number = -Math.round(Math.random()*100000);
 		public static var userRoomSession:String = "";
 		

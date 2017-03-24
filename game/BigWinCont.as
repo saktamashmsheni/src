@@ -7,6 +7,7 @@ package game {
 	import com.utils.StaticGUI;
 	import feathers.controls.text.BitmapFontTextRenderer;
 	import flash.text.TextFormatAlign;
+	import game.footer.FooterHolder;
 	import starling.core.Starling;
 	import starling.display.BlendMode;
 	import starling.display.DisplayObject;
@@ -278,7 +279,7 @@ package game {
 		
 		public function updateTotal():void {
 			//this.val_txt.text = String((int(_start / GameSettings.CREDIT_VAL))) + " " + StaticGUI.getCurrecyShortcuts();
-			this.val_txt.text = StaticGUI.scoreToValutaFixed(_start / GameSettings.CREDIT_VAL);
+			this.val_txt.text = StaticGUI.scoreToValutaFixed(_start / GameSettings.CREDIT_VAL,int(FooterHolder.InLari));
 		}
 		
 		public function hide(fastRemove:Boolean = false):void {

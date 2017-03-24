@@ -72,6 +72,7 @@ package game.footer {
 		private var WIN_TEXT:String = 'WIN: ';
 		private var changeLariBtn:MyButton;
 		private var $spnObj:Object;
+		private var testlineInd:int;
 		
 		public var spinBtn:Button;
 		public static var InLari:Boolean = false;
@@ -363,15 +364,16 @@ package game.footer {
 			
 			
 			
+			testlineInd = 0;
 			
 			if (totalBetAmount > balanceAmount / GameSettings.CREDIT_VAL && GameHolder.gameState != GameHolder.DOUBLE_STATE && AdjaraSpins.FreeSpinMode == false) {
-				if (balanceAmount > 4 && GameHolder.cont.freeSpinsState == false) 
+				if ((balanceAmount / GameSettings.CREDIT_VAL > GameSettings.BETS_AR[0] * (GameSettings.LINES_FIXED ? GameSettings.LINES_COUNT_CONFIG[GameSettings.LINES_COUNT_CONFIG.length-1] : GameSettings.LINES_COUNT_CONFIG[0])) && GameHolder.cont.freeSpinsState == false) 
 				{
 					GameHolder.gameState = GameHolder.NORMAL_STATE
 					updateState(GameHolder.gameState);
 					spinEnabled = true;
 					
-					while (GameSettings.TOTAL_LINES * GameSettings.BETS_AR[GameSettings.BET_INDEX] * GameSettings.CREDIT_VAL > balanceAmount) 
+					while (GameSettings.ACT_LINES * GameSettings.BETS_AR[GameSettings.BET_INDEX] * GameSettings.CREDIT_VAL > balanceAmount) 
 					{
 						if (GameSettings.BET_INDEX != 0) {
 							GameSettings.BET_INDEX = GameSettings.BET_INDEX - 1;
@@ -379,7 +381,15 @@ package game.footer {
 						}
 						else
 						{
-							break;
+							if (GameSettings.LINES_FIXED == false)
+							{
+								testlineInd = GameSettings.LINES_COUNT_CONFIG.indexOf(GameSettings.ACT_LINES);
+								if (testlineInd > 0)
+								{
+									testlineInd--;
+								}
+								GameHolder.cont.lineButsHolder._selectLine(testlineInd);
+							}
 						}
 						
 					}
@@ -509,14 +519,15 @@ package game.footer {
 		public function onAutoSpinClick(e:Event):void {
 			
 			
+			testlineInd = 0;
 			if (totalBetAmount > balanceAmount / GameSettings.CREDIT_VAL && GameHolder.gameState != GameHolder.DOUBLE_STATE && AdjaraSpins.FreeSpinMode == false) {
-				if (balanceAmount > 4 && GameHolder.cont.freeSpinsState == false) 
+				if ((balanceAmount / GameSettings.CREDIT_VAL > GameSettings.BETS_AR[0] * (GameSettings.LINES_FIXED ? GameSettings.LINES_COUNT_CONFIG[GameSettings.LINES_COUNT_CONFIG.length-1] : GameSettings.LINES_COUNT_CONFIG[0])) && GameHolder.cont.freeSpinsState == false) 
 				{
 					GameHolder.gameState = GameHolder.NORMAL_STATE
 					updateState(GameHolder.gameState);
 					spinEnabled = true;
 					
-					while (GameSettings.TOTAL_LINES * GameSettings.BETS_AR[GameSettings.BET_INDEX] * GameSettings.CREDIT_VAL > balanceAmount) 
+					while (GameSettings.ACT_LINES * GameSettings.BETS_AR[GameSettings.BET_INDEX] * GameSettings.CREDIT_VAL > balanceAmount) 
 					{
 						if (GameSettings.BET_INDEX != 0) {
 							GameSettings.BET_INDEX = GameSettings.BET_INDEX - 1;
@@ -524,7 +535,15 @@ package game.footer {
 						}
 						else
 						{
-							break;
+							if (GameSettings.LINES_FIXED == false)
+							{
+								testlineInd = GameSettings.LINES_COUNT_CONFIG.indexOf(GameSettings.ACT_LINES);
+								if (testlineInd > 0)
+								{
+									testlineInd--;
+								}
+								GameHolder.cont.lineButsHolder._selectLine(testlineInd);
+							}
 						}
 						
 					}
