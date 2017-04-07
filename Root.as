@@ -18,13 +18,13 @@
 		//public static var port:Number = 8804; //dragon fruit
 		//public static var port:Number = 8805; //star fruit
 		//public static var port:Number = 5005; //mammoth
-		public static var port:Number = 8803; //africa
+		//public static var port:Number = 8810; //africa
 		//public static var port:Number = 8808; //5 diamonds
-		//public static var port:Number = 8809; //sparta
+		public static var port:Number = 8809; //sparta
 		
 		
 		
-		public static var TESTING:Boolean = true;
+		public static var TESTING:Boolean = false;
 		public static var TEST_FOR_WEB:Boolean = TESTING == false ? false : false;
 		public static var Key:ByteArray = Hex.toArray(Hex.fromString(CONFIG::KEY));
 		public static var Key1:ByteArray = Hex.toArray(Hex.fromString(CONFIG::KEY));
@@ -35,7 +35,7 @@
 		public static var prizesAr:Array = [2000, 1600, 1200, 900, 600, 500, 400, 300, 200, 160, 100, 100, 100, 100, 100, 80, 80, 80, 80, 80, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 20, 20, 20, 20, 20, 20, 20, 20];
 		
 		public static var userIdentifire:int;
-		public static var lang:String = "en";
+		public static var lang:String = "ge";
 		
 		public static var name:String = "Jigsaw";
 		public static var avatar:String = "";
@@ -52,7 +52,7 @@
 		
 		///rooom
 		//public static var userRoomId:Number =  -Math.ceil(Math.random()*9999);
-		public static var userRoomId:Number = -3243;
+		public static var userRoomId:Number = TEST_FOR_WEB == false ? -3243 : -Math.round(Math.random()*100000);
 		//public static var userRoomId:Number = -Math.round(Math.random()*100000);
 		public static var userRoomSession:String = "";
 		

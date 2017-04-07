@@ -94,6 +94,8 @@ package {
 		public static var bpgGELDejaVuSerifCaps_bitmapFont:Class;
 		public static var bpgGELDejaVuSerifCaps_bitmapFontXml:Class;
 		
+		
+		
 		//---------paytable
 		//backgrounds
 		public static var payTableLoaded:Boolean = false;

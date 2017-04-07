@@ -91,12 +91,13 @@ package {
 				ExternalInterface.call("console.log", Root.userRoomSession);*/
 			}else{
 				
-				GameSettings.GAME_NAME = getGameName(Root.port);
-				GameSettings.PATH = GameSettings.GAME_NAME + "/";
 				if (Root.TEST_FOR_WEB)
 				{
 					Root.port = this.parent.loaderInfo.parameters['Port'];
 				}
+				GameSettings.GAME_NAME = getGameName(Root.port);
+				GameSettings.PATH = GameSettings.GAME_NAME + "/";
+				
 				
 				//var statsClass:Class = getDefinitionByName("net.hires.debug.Stats") as Class;
 				//this.addChild(new statsClass);

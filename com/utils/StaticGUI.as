@@ -550,7 +550,7 @@
 			}
 			else
 			{
-				str =  String(amount);
+				str =  String(int(amount));
 			}
 			
 			

@@ -38,17 +38,25 @@ package game.header.musicPlayer {
 		
 		
 		public function MusicManager() {
-			super();
-			
-			_cont = this;
-			$snd.load(new URLRequest(GameSettings.PATH + "soundtracks/NupogodiSoundtrack-Popcorn.mp3"));
-			//$snd.addEventListener(flash.events.Event.COMPLETE, musicComplete);
-			musicComplete(null);
+			try 
+			{
+				super();
+				
+				_cont = this;
+				$snd.load(new URLRequest(GameSettings.PATH + "soundtracks/NupogodiSoundtrack-Popcorn.mp3"));
+				//$snd.addEventListener(flash.events.Event.COMPLETE, musicComplete);
+				musicComplete(null);
+			}catch (err:Error)
+			{
+				
+			}
 		}
 		
 		
 		public function scatterSound():void 
 		{
+			try 
+			{
 			$sndPlaying = false;
 			$channel.stop();
 			$channel = null
@@ -60,6 +68,10 @@ package game.header.musicPlayer {
 			musicComplete(null);
 			
 			isScatterSound = true;
+			}catch (err:Error)
+			{
+				
+			}
 		}
 		
 		private function musicComplete(evt:flash.events.Event):void {
@@ -136,7 +148,14 @@ package game.header.musicPlayer {
 		}
 		
 		private function soundValumeOnUpdate():void {
-			$channel.soundTransform = $transform;
+			try 
+			{
+				$channel.soundTransform = $transform;
+			}
+			catch (err:Error)
+			{
+				
+			}
 		}
 		
 		public function _onStageMouseClickHandler(e:MouseEvent):void {

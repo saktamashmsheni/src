@@ -140,7 +140,7 @@ package game.footer {
 			changeLariBtn.x = balanceTXT.x;
 			changeLariBtn.y = balanceTXT.y;
 			balanceSp.addChild(changeLariBtn);
-			var quad:Quad = new Quad(balanceTXT.width + 20, balanceTXT.height+20, Color.RED);
+			var quad:Quad = new Quad(balanceTXT.width , balanceTXT.height+20, Color.RED);
 			
 			quad.alpha = 0;
 			changeLariBtn.addChild(quad);

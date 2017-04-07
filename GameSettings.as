@@ -15,11 +15,11 @@ package
 		
 		public static var GAMES_AND_PORTS:Array = [["frozen fruits", 8801], 
 												   ["40 slice fruit", 8802], 
-												   ["20 slice fruit", 8807], 
+												   ["20 slice fruit", 8803], 
 												   ["dragon fruit", 8804],
 												   ["star fruit", 8805],
 												   ["mammoth", 5005],
-												   ["africa", 8803],
+												   ["africa", 8810],
 												   ["5 diamonds", 8808],
 												   ["sparta", 8809]
 												   ];

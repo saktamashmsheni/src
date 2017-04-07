@@ -88,11 +88,11 @@ package game.header {
 			
 			
 			
-			home_btn = StaticGUI._initButton(this, 
+			/*home_btn = StaticGUI._initButton(this, 
 												-347, 
 												46, 
 					$textureAtlas.getTexture("home_btn_1.png"), 
-					$textureAtlas.getTexture("home_btn_1.png"));
+					$textureAtlas.getTexture("home_btn_1.png"));*/
 			
 			
 			/*cashier_btn = StaticGUI._initButton(this, 
@@ -102,8 +102,8 @@ package game.header {
 					$textureAtlas.getTexture("cashier_btn_2.png"));*/
 					
 			rules_btn = StaticGUI._initButton(this, 
-											  home_btn.x + 60, 
-											  home_btn.y + 0, 
+											 -348, 
+											  44, 
 					$textureAtlas.getTexture("rules_btn_1.png"), 
 					$textureAtlas.getTexture("rules_btn_2.png"));
 					
@@ -189,13 +189,17 @@ package game.header {
 			var endTouch:Touch = e.getTouch(this, TouchPhase.ENDED);
 			var overTouch:Touch = e.getTouch(this, TouchPhase.HOVER);
 			var downTouch:Touch = e.getTouch(this, TouchPhase.BEGAN);
+			var end:Touch = e.getTouch(volumeController, TouchPhase.ENDED);
 			
 			 if (overTouch != null) 
 			{
 				soundBtn.removeEventListener(TouchEvent.TOUCH, onSoundBtnTouch);
 				volumeController.visible = true;
 				volumeController.addEventListener(TouchEvent.TOUCH, onVolumeControllerTouch);
+				
+				TweenMax.delayedCall(2, hideController);
 			} 
+
 			
 			endTouch = null;
 			overTouch = null;
@@ -216,14 +220,20 @@ package game.header {
 				volumeController.removeEventListener(TouchEvent.TOUCH, onVolumeControllerTouch);
 				soundBtn.addEventListener(TouchEvent.TOUCH, onSoundBtnTouch);
 			}
-			if (end)
+			
+			//if (end)
 			{
 				TweenMax.delayedCall(2, hideController);
 			}
+			
 			if (overTouch != null || downTouch != null || movedTouch != null)
 			{
 				TweenMax.killDelayedCallsTo(hideController);
 			}
+			
+			
+			
+			
 			
 			overTouch = null;
 			downTouch = null;
@@ -252,6 +262,7 @@ package game.header {
 			{
 				SoundManager.SoundEnabled = false;
 					Root.soundManager.stopSound();
+					Root.soundManager.muteLoopSound();
 					StaticGUI._updateButtonSkin(soundBtn, 
 					                    'soundOffBtn', 
 							$textureAtlas.getTexture("sound_mute_btn_1.png"), 

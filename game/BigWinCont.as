@@ -279,7 +279,8 @@ package game {
 		
 		public function updateTotal():void {
 			//this.val_txt.text = String((int(_start / GameSettings.CREDIT_VAL))) + " " + StaticGUI.getCurrecyShortcuts();
-			this.val_txt.text = StaticGUI.scoreToValutaFixed(_start / GameSettings.CREDIT_VAL,int(FooterHolder.InLari));
+			//this.val_txt.text = StaticGUI.scoreToValutaFixed(_start / GameSettings.CREDIT_VAL,int(FooterHolder.InLari));
+			this.val_txt.text = StaticGUI.modifiedBalanceString(_start, int(FooterHolder.InLari));
 		}
 		
 		public function hide(fastRemove:Boolean = false):void {
