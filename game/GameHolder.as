@@ -179,11 +179,13 @@ package game
 				this.getChildAt(i).x += GAME_OFFSET_X;
 			}
 			
-			
-			leaderBoardHolder = new LeaderBoardHolder();
-			leaderBoardHolder.x = -660;
-			leaderBoardHolder.y = -300;
-			addChild(leaderBoardHolder);
+			if (GameSettings.TOURNAMENT_VISIBILITY)
+			{
+				leaderBoardHolder = new LeaderBoardHolder();
+				leaderBoardHolder.x = -660;
+				leaderBoardHolder.y = -300;
+				addChild(leaderBoardHolder);
+			}
 			
 			//winsPopLoader();
 			
@@ -206,7 +208,8 @@ package game
 			linesHolder.shown = true;//false
 			lineButsHolder.initButtons();
 			
-			leaderBoardHolder.initLeaderBoard();
+			if (GameSettings.TOURNAMENT_VISIBILITY)
+				leaderBoardHolder.initLeaderBoard();
 			
 			//winsPopLoader();
 			

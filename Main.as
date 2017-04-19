@@ -115,7 +115,7 @@
 			
 			//gameHolder.scaleY = gameHolder.scaleX + 0.1;
 			
-			gameHolder.x = int(stage.stageWidth / 2) + GameSettings.PREFERENCES.game.OFF_X;
+			gameHolder.x = (GameSettings.TOURNAMENT_VISIBILITY == true) ? int(stage.stageWidth / 2) + GameSettings.PREFERENCES.game.OFF_X : int(stage.stageWidth / 2);
 			gameHolder.y = int(stage.stageHeight) / 2 + GameSettings.PREFERENCES.game.OFF_Y;
 			
 			bgImg.x = this.stage.stageWidth / 2;

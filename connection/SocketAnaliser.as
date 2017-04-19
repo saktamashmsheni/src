@@ -230,6 +230,9 @@
 				break;*/
 				
 				case _leaderBoard:
+					if (!GameSettings.TOURNAMENT_VISIBILITY)
+						return;
+						
 					if (!LeaderBoardHolder.FILLED)
 					{
 						LeaderBoardHolder.FILLED = true;
@@ -248,17 +251,20 @@
 				
 					
 				case _leaderTOPUsers:
-					
+					if (!GameSettings.TOURNAMENT_VISIBILITY)
+						return;
 					LeaderBoardHolder.cont.onTopUsersResponse(socketObject.IM);
 				break;
 				
 				case _leaderPrizes:
-				
+					if (!GameSettings.TOURNAMENT_VISIBILITY)
+						return;
 					LeaderBoardHolder.cont.onPrizesResponse(socketObject.IM);
 				break;
 					
 				case _leaderTimer:
-				
+					if (!GameSettings.TOURNAMENT_VISIBILITY)
+						return;
 					LeaderBoardHolder.cont.updateTimer(socketObject.IM);
 				break;
 				

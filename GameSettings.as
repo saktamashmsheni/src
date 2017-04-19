@@ -35,6 +35,8 @@ package
 		public static var WINNER_LINE_START_AND_DELAY:Number;
 		public static var ANIMATE_LINE_DELAY:Number;
 		
+		public static var TOURNAMENT_VISIBILITY:Boolean = false;
+		
 		
 		public static var PREFERENCES:Object;
 		

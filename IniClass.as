@@ -542,8 +542,12 @@ package {
 			
 			socketAnaliser.activateOldMessages();
 			
-			TweenLite.delayedCall(0.01, Root.connectionManager.sendData,[{MT: SocketAnaliser._leaderBoard, SID: ""}]);
-			TweenLite.delayedCall(0.03, Root.connectionManager.sendData, [{MT: SocketAnaliser._leaderTimer, SID: ""}]);
+			
+			if (GameSettings.TOURNAMENT_VISIBILITY)
+			{
+				TweenLite.delayedCall(0.01, Root.connectionManager.sendData,[{MT: SocketAnaliser._leaderBoard, SID: ""}]);
+				TweenLite.delayedCall(0.03, Root.connectionManager.sendData, [{MT: SocketAnaliser._leaderTimer, SID: ""}]);
+			}
 			
 			if ((SocketAnaliser.AUTH_OBJECT.AdjaraFreeSpins.FreeSpins > 0))
 			{
