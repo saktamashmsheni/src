@@ -3,6 +3,7 @@ package {
 	import bonus.BonusIntroHolder;
 	import com.greensock.TweenLite;
 	import com.greensock.easing.Expo;
+	import com.utils.GoogleAnalytics;
 	import com.utils.StaticGUI;
 	import connection.SocketAnaliser;
 	import flash.display.MovieClip;
@@ -84,6 +85,8 @@ package {
 				GameSettings.ROOT_PATH = "/" + this.parent.loaderInfo.parameters['AssetPath'] + "/";
 				GameSettings.PATH = GameSettings.ROOT_PATH + GameSettings.GAME_NAME + "/";
 				
+				
+				
 				/*ExternalInterface.call("console.log", Root.ip);
 				ExternalInterface.call("console.log", Root.port);
 				ExternalInterface.call("console.log", Root.userRoomId);
@@ -107,6 +110,9 @@ package {
 					Root.userRoomId = this.parent.loaderInfo.parameters['UserId'];
 				}*/
 			}
+			
+			
+			GoogleAnalytics.GOOGLE_ANALYTICS_ID = IniClass.getAnalyticsCode(Root.port);
 			
 			
 			
@@ -161,6 +167,23 @@ package {
 			return "";
 		}
 		
+		
+		public static function getAnalyticsCode(port:Number):String 
+		{
+			for (var i:int = 0; i < GameSettings.GAMES_AND_PORTS.length; i++) 
+			{
+				if (GameSettings.GAMES_AND_PORTS[i][1] == port)
+				{
+					return GameSettings.GAMES_AND_PORTS[i][2];
+				}
+			}
+			
+			throw new Error("COULDNT FIND GAME NAME");
+			return "";
+		}
+		
+		
+		
 		public function currAssetLoaded(e:AssetsLoaderEvents):void {
 			var i:int;
 			
@@ -212,8 +235,8 @@ package {
 				Assets.starEffectSheet = $o.getDefinition("ItemsLib_starEffectSheet") as Class;
 				Assets.starEffectSheetXml = $o.getDefinition("ItemsLib_starEffectSheetXml") as Class;
 				
-				Assets.transferSheet = $o.getDefinition("ItemsLib_transferSheet") as Class;
-				Assets.transferSheetXml = $o.getDefinition("ItemsLib_transferSheetXml") as Class;
+				//Assets.transferSheet = $o.getDefinition("ItemsLib_transferSheet") as Class;
+				//Assets.transferSheetXml = $o.getDefinition("ItemsLib_transferSheetXml") as Class;
 				
 				Assets.startJacpotInfoSheet = $o.getDefinition("ItemsLib_startJacpotInfoSheet") as Class;
 				Assets.startJacpotInfoSheetXml = $o.getDefinition("ItemsLib_startJacpotInfoSheetXml") as Class;
@@ -248,9 +271,12 @@ package {
 				}
 				
 				
-				//leader board
-				Assets.leaderboardSheet = $o.getDefinition("ItemsLib_leaderboardSheet") as Class;
-				Assets.leaderboardSheetXml = $o.getDefinition("ItemsLib_leaderboardSheetXml") as Class;
+				if (GameSettings.TOURNAMENT_VISIBILITY)
+				{
+					//leader board
+					Assets.leaderboardSheet = $o.getDefinition("ItemsLib_leaderboardSheet") as Class;
+					Assets.leaderboardSheetXml = $o.getDefinition("ItemsLib_leaderboardSheetXml") as Class;
+				}
 				/*Assets.leader_me_bg = $o.getDefinition("ItemsLib_leader_me_bg") as Class;
 				Assets.leader_me_bgXml = $o.getDefinition("ItemsLib_leader_me_bgXml") as Class;*/
 				
@@ -430,15 +456,6 @@ package {
 			else if (e.params.valTxt == AssetsLoaderManager.BONUS_LIBRARY) {
 				$o = e.params.content.applicationDomain;
 				
-				Assets.bonusBg = 				$o.getDefinition("BonusLib_bonusBg") as Class;
-				Assets.daxli = 					$o.getDefinition("BonusLib_daxli") as Class;
-				Assets.bonusAssetsImg = 		$o.getDefinition("BonusLib_bonusAssetsImg") as Class;
-				Assets.bonusAssetsXml = 		$o.getDefinition("BonusLib_bonusAssetsXml") as Class;
-				Assets.sazamtroSheet = 			$o.getDefinition("BonusLib_sazamtroSheet") as Class;
-				Assets.sazamtroSheetXml = 		$o.getDefinition("BonusLib_sazamtroSheetXml") as Class;
-				Assets.begemotianimation = 		$o.getDefinition("BonusLib_begemotianimation") as Class;
-				Assets.begemotianimationXml = 	$o.getDefinition("BonusLib_begemotianimationXml") as Class;
-				
 				Assets.BonusLoaded = true;
 			}
 			
@@ -538,7 +555,14 @@ package {
 				//GameHolder.cont.addCashier();
 			}
 			
-			FourWayJackpot.cont.updateInfo(SocketAnaliser.AUTH_OBJECT.JackPotStats, SocketAnaliser.AUTH_OBJECT);
+			try 
+			{
+				FourWayJackpot.cont.updateInfo(SocketAnaliser.AUTH_OBJECT.JackPotStats, SocketAnaliser.AUTH_OBJECT);
+			}catch (err:Error)
+			{
+				
+			}
+			
 			
 			socketAnaliser.activateOldMessages();
 			

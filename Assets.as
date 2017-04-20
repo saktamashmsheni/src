@@ -51,8 +51,8 @@ package {
 		public static var fourJackpotSheetXml:Class;
 		
 		//bonus statuses
-		public static var bonusStatusSheet:Class;
-		public static var bonusStatusSheetXml:Class;
+		//public static var bonusStatusSheet:Class;
+		//public static var bonusStatusSheetXml:Class;
 		
 		//----fonts
 		//avit next bold
@@ -140,21 +140,16 @@ package {
 		
 		
 		//scatter win Bg
-		public static var scatterWinBg:Class;
+		//public static var scatterWinBg:Class;
 		
 		
 		//-----bonus------
-		public static var bonusBg:Class;
-		public static var daxli:Class;
-		public static var bonusAssetsImg:Class;
-		public static var bonusAssetsXml:Class;
-		public static var sazamtroSheet:Class;
-		public static var sazamtroSheetXml:Class;
+		
 		public static var BonusLoaded:Boolean = false;
 		
 		//begemoti animation
-		public static var begemotianimation:Class;
-		public static var begemotianimationXml:Class;
+		//public static var begemotianimation:Class;
+		//public static var begemotianimationXml:Class;
 		
 		
 		public static var leaderboardSheet:Class;
@@ -182,14 +177,14 @@ package {
 		public static var startJacpotInfoSheetXml:Class;
 		
 		//transfer btn
-		public static var transferSheet:Class;
-		public static var transferSheetXml:Class;
+		//public static var transferSheet:Class;
+		//public static var transferSheetXml:Class;
 		
 		//icons
 		public static var allIconsImg:Class;
 		public static var allIconsXml:Class;
-		public static var allWildSheet:Class;
-		public static var allWildSheetXml:Class;
+		//public static var allWildSheet:Class;
+		//public static var allWildSheetXml:Class;
 		public static var iconsAnimationImg:Class;
 		public static var iconsAnimationXml:Class;
 		public static var icon0Img:Class;

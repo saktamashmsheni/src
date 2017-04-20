@@ -1,10 +1,16 @@
 package {
+	import com.greensock.TweenLite;
 	import flash.display.MovieClip;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
+	import flash.events.AsyncErrorEvent;
 	import flash.events.Event;
+	import flash.events.NetStatusEvent;
 	import flash.events.ProgressEvent;
 	import flash.events.TimerEvent;
+	import flash.media.Video;
+	import flash.net.NetConnection;
+	import flash.net.NetStream;
 	import flash.system.Security;
 	import flash.utils.Timer;
 	import flash.utils.getDefinitionByName;
@@ -44,6 +50,9 @@ package {
 		private var $bgLoader:PreloaderImgLoader;
 		private var timer:Timer;
 		private var dotStr:String = "";
+		private var nc:NetConnection;
+		private var ns:NetStream;
+		private var vid:Video;
 		
 		/**
 		 * Constructor.
@@ -73,6 +82,27 @@ package {
 			$preloaderMc = new preloader_mc();
 			addChild($preloaderMc);
 			
+			nc = new NetConnection(); 
+			nc.connect(null); 
+			ns = new NetStream(nc); 
+			ns.addEventListener(AsyncErrorEvent.ASYNC_ERROR, asyncErrorHandler); 
+			ns.addEventListener(NetStatusEvent.NET_STATUS, statusChanged);
+			if (Root.TESTING)
+			{
+				ns.play("COMMON/loader.flv"); 
+			}
+			else
+			{
+				ns.play("/" + this.parent.loaderInfo.parameters['AssetPath'] + "/" + "COMMON/" + "loader.flv"); 
+			}
+			vid = new Video(); 
+			vid.attachNetStream(ns); 
+			vid.width = 654;
+			vid.height = 202;
+			addChild(vid);
+			vid.x = int(this.stage.stageWidth - vid.width) / 2 + 25;
+			vid.y = int(this.stage.stageHeight - vid.height) / 2 - 50;
+			
 			
 			timer = new Timer(300,0);
 			timer.addEventListener(TimerEvent.TIMER, onTimer);
@@ -87,6 +117,26 @@ package {
 			
 			resizeListener(null);
 
+		}
+		
+		private function statusChanged(e:NetStatusEvent):void 
+		{
+			if (e.info.code == 'NetStream.Play.Stop') 
+			{
+				if (Root.TESTING)
+				{
+					ns.play("COMMON/loader.flv"); 
+				}
+				else
+				{
+					ns.play("/" + this.parent.loaderInfo.parameters['AssetPath'] + "/" + "COMMON/" + "loader.flv"); 
+				}
+			}
+		}
+		
+		private function asyncErrorHandler(e:AsyncErrorEvent):void 
+		{
+			
 		}
 		
 		private function resizeListener(e:Event):void {
@@ -198,6 +248,13 @@ package {
 		public function _removeThis():void{
 			stage.removeEventListener(Event.RESIZE, resizeListener); 
 			
+			ns.close();
+			ns.removeEventListener(AsyncErrorEvent.ASYNC_ERROR, asyncErrorHandler); 
+			ns.removeEventListener(NetStatusEvent.NET_STATUS, statusChanged);
+			this.removeChild(vid);
+			vid = null;
+			ns = null;
+			nc = null;
 			
 			timer.stop();
 			timer.removeEventListener(TimerEvent.TIMER, onTimer);

@@ -10,12 +10,12 @@ package com.utils {
 	
 	public class GoogleAnalytics extends EventDispatcher {
 		
-		protected static const GOOGLE_ANALYTICS_ID:String = 'UA-77948274-1';
-		private static const APP_INSTALLER_ID:String = 'Adjarabet.com';
-		private static const APP_VERSION:String = '1.0.2';
-		private static const APP_ID:String = 'com.saktamashmsheni.euroball';
+		public static var GOOGLE_ANALYTICS_ID:String = 'UA-77948274-1';
+		private static const APP_INSTALLER_ID:String = 'Betsense.ge';
+		private static const APP_VERSION:String = '1.0';
+		private static const APP_ID:String = 'ge.betsense.sliseSlots';
 		
-		private static const APP_NAME:String = 'EURO BALL';
+		private static const APP_NAME:String = 'SLICE SLOTS';
 		
 		private static var $tracker:AppTracker; 
 		

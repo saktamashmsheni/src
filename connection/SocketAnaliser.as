@@ -309,7 +309,14 @@
 				   break;*/
 				
 				case fourWayJackpot: 
-					FourWayJackpot.cont.updateInfo(socketObject.IM.Stats, socketObject.IM);
+					try 
+					{
+						FourWayJackpot.cont.updateInfo(socketObject.IM.Stats, socketObject.IM);
+					}catch (err:Error)
+					{
+						
+					}
+					
 					break;
 				
 				case jackpot: 

@@ -112,16 +112,10 @@ package game
 			removeEventListener(Event.ADDED_TO_STAGE, added);
 			cont = this;
 			initialise();
-		
-			//TweenLite.delayedCall(0.5, aaa);
-		
 		}
 		
-		private function aaa():void
-		{
-			hideSlotItemsForStates();
-			showDoubleHolder(120);
-		}
+		
+
 		///asdasdasdasdas
 		private function initialise():void
 		{
@@ -202,7 +196,7 @@ package game
 			footerHolder.updateBalance(obj.Chips);
 			footerHolder.updateLines(GameSettings.ACT_LINES);
 			footerHolder.updateBet(GameSettings.BET_INDEX);
-			machineHolder.updateIndexes(obj);
+			//machineHolder.updateIndexes(obj);
 			machineHolder.initMachine();
 			linesHolder.initLines();
 			linesHolder.shown = true;//false
@@ -258,6 +252,8 @@ package game
 					
 					machineHolder.setWildStaticReels(sObj.WildReels);
 					WILD_FREE_SPIN = true;
+					
+					GoogleAnalytics._sendScreenView('WILD Free Spin screen');
 				}
 				else
 				{
@@ -274,6 +270,8 @@ package game
 					{
 						showFreeSpinStatus(0, sObj.FreeSpins, 0, GameHolder.gameState);
 					}
+					
+					GoogleAnalytics._sendScreenView('Free Spin screen');
 				}
 				else
 				{
@@ -302,6 +300,9 @@ package game
 				footerHolder.spinEnabled = true;
 				
 				GameHolder.gameState = GameHolder.FREE_SPINS_STATE;
+				
+				
+				
 				
 			}
 			
@@ -719,6 +720,8 @@ package game
 			freeSpinsState = false;
 			WILD_FREE_SPIN = false;
 			freeSpinsAmount = 0;
+			
+			GoogleAnalytics._sendScreenView('Slot main screen');
 			
 			if (footerHolder.freeSpinsWinAmount > 0)
 			{
